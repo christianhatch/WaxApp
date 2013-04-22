@@ -1,0 +1,4 @@
+Documentation set was installed to Xcode!
+
+Path: /Users/chatch/Library/Developer/Shared/Documentation/DocSets/org.cocoapods.uialertview-blocks.UIAlertView-Blocks-0.0.1.docset
+Time: 2013-04-22 21:18:50 +0000

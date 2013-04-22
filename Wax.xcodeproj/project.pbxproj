@@ -17,12 +17,12 @@
 		45F71631171F163D009097F3 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45F71630171F163D009097F3 /* Default@2x.png */; };
 		45F71633171F163D009097F3 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45F71632171F163D009097F3 /* Default-568h@2x.png */; };
 		45F71636171F163D009097F3 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45F71634171F163D009097F3 /* MainStoryboard.storyboard */; };
-		45F71639171F163D009097F3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F71638171F163D009097F3 /* ViewController.m */; };
 		45F71641171F163D009097F3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F71640171F163D009097F3 /* SenTestingKit.framework */; };
 		45F71642171F163D009097F3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F7161C171F163C009097F3 /* UIKit.framework */; };
 		45F71643171F163D009097F3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F7161E171F163C009097F3 /* Foundation.framework */; };
 		45F7164B171F163D009097F3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45F71649171F163D009097F3 /* InfoPlist.strings */; };
 		45F7164E171F163D009097F3 /* WaxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F7164D171F163D009097F3 /* WaxTests.m */; };
+		ED7FED56E137433B946BCAEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C9784DDF7E84C01BC8F8951 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C9784DDF7E84C01BC8F8951 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		45F71619171F163C009097F3 /* Wax.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wax.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45F7161C171F163C009097F3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		45F7161E171F163C009097F3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -50,14 +51,13 @@
 		45F71630171F163D009097F3 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		45F71632171F163D009097F3 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		45F71635171F163D009097F3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		45F71637171F163D009097F3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		45F71638171F163D009097F3 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		45F7163F171F163D009097F3 /* WaxTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaxTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		45F71640171F163D009097F3 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		45F71648171F163D009097F3 /* WaxTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WaxTests-Info.plist"; sourceTree = "<group>"; };
 		45F7164A171F163D009097F3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		45F7164C171F163D009097F3 /* WaxTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaxTests.h; sourceTree = "<group>"; };
 		45F7164D171F163D009097F3 /* WaxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaxTests.m; sourceTree = "<group>"; };
+		51B50416C7D54C66A44B546E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +68,7 @@
 				45F7161D171F163C009097F3 /* UIKit.framework in Frameworks */,
 				45F7161F171F163C009097F3 /* Foundation.framework in Frameworks */,
 				45F71621171F163C009097F3 /* CoreGraphics.framework in Frameworks */,
+				ED7FED56E137433B946BCAEE /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,13 +85,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		451F559B1725D53400AF1078 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Vendor;
+			path = Wax;
+			sourceTree = "<group>";
+		};
 		45F71610171F163C009097F3 = {
 			isa = PBXGroup;
 			children = (
 				45F71622171F163C009097F3 /* Wax */,
+				451F559B1725D53400AF1078 /* Vendor */,
 				45F71646171F163D009097F3 /* WaxTests */,
 				45F7161B171F163C009097F3 /* Frameworks */,
 				45F7161A171F163C009097F3 /* Products */,
+				51B50416C7D54C66A44B546E /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -110,6 +121,7 @@
 				45F7161E171F163C009097F3 /* Foundation.framework */,
 				45F71620171F163C009097F3 /* CoreGraphics.framework */,
 				45F71640171F163D009097F3 /* SenTestingKit.framework */,
+				1C9784DDF7E84C01BC8F8951 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -119,8 +131,6 @@
 			children = (
 				45F7162B171F163D009097F3 /* AppDelegate.h */,
 				45F7162C171F163D009097F3 /* AppDelegate.m */,
-				45F71637171F163D009097F3 /* ViewController.h */,
-				45F71638171F163D009097F3 /* ViewController.m */,
 				45F71634171F163D009097F3 /* MainStoryboard.storyboard */,
 				45F71623171F163C009097F3 /* Supporting Files */,
 			);
@@ -167,9 +177,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 45F71651171F163D009097F3 /* Build configuration list for PBXNativeTarget "Wax" */;
 			buildPhases = (
+				64D183C33A7648619F4E741F /* Check Pods Manifest.lock */,
 				45F71615171F163C009097F3 /* Sources */,
 				45F71616171F163C009097F3 /* Frameworks */,
 				45F71617171F163C009097F3 /* Resources */,
+				05875659751440EC8790F2FE /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -250,6 +262,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		05875659751440EC8790F2FE /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
 		45F7163D171F163D009097F3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -263,6 +289,20 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		64D183C33A7648619F4E741F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sanbox is not in sync with the Podfile.lock. Run 'pod install'.\nEOM\n    exit 1\nfi\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -272,7 +312,6 @@
 			files = (
 				45F71629171F163D009097F3 /* main.m in Sources */,
 				45F7162D171F163D009097F3 /* AppDelegate.m in Sources */,
-				45F71639171F163D009097F3 /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,6 +424,7 @@
 		};
 		45F71652171F163D009097F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -392,13 +432,14 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = "Wax/Wax-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3A710599-AA5D-4622-9D6F-2154291EA124";
+				PROVISIONING_PROFILE = "EBBFA9BD-F87B-4F6A-913A-46F6D573BE83";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		45F71653171F163D009097F3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Acacia Interactive, Inc.";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -406,7 +447,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
 				INFOPLIST_FILE = "Wax/Wax-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6E0F1DE1-2D02-43BB-84D8-96B1B8E3FC9E";
+				PROVISIONING_PROFILE = "7FD6AC0C-9801-4DA4-979A-FE2218B0267E";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -475,6 +516,7 @@
 		};
 		45F71662171F18D7009097F3 /* TestFlight */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Acacia Interactive, Inc.";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -482,7 +524,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
 				INFOPLIST_FILE = "Wax/Wax-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6E0F1DE1-2D02-43BB-84D8-96B1B8E3FC9E";
+				PROVISIONING_PROFILE = "7FD6AC0C-9801-4DA4-979A-FE2218B0267E";
 				WRAPPER_EXTENSION = app;
 			};
 			name = TestFlight;

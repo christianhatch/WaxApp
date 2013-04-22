@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Orbiter 0.0.1 Reference</title>
+		<link rel="stylesheet" type="text/css" href="css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.0.5 (build 789)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="index.html">Orbiter 0.0.1 </a></h1>
+				<a id="developerHome" href="index.html">Mattt Thompson</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">Orbiter 0.0.1 Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar"></ul>
+		</header>
+		<article>
+			<div id="overview_contents" role="main">
+				<div class="main-navigation navigation-top">
+					<a href="hierarchy.html">Next</a>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">Orbiter 0.0.1 Reference</h1>
+					</div>		
+				</div>
+				<div id="container">
+					
+					<div class="section section-overview index-overview">
+						
+						
+						<h1><a href="Classes/Orbiter.html">Orbiter</a></h1>
+
+<p><strong>Push Notification Registration for iOS</strong></p>
+
+<p>For most iOS client / server applications, push notifications are negotiated through an intermediary service provider, such as <a href="http://urbanairship.com">Urban Airship</a>. The service provider exposes APIs to register a device token, as well as APIs to send push notifications to devices meeting some specified criteria.</p>
+
+<p><a href="Classes/Orbiter.html">Orbiter</a> is a small library that provides simple interfaces to register (and unregister) for Push Notifications with <a href="http://urbanairship.com">Urban Airship</a>, <a href="https://parse.com">Parse</a>, and domains running <a href="https://github.com/mattt/rack-push-notification">Rack::PushNotification</a>.</p>
+
+<blockquote><p><a href="Classes/Orbiter.html">Orbiter</a> is named for the <a href="[http://en.wikipedia.org/wiki/Space](http://en.wikipedia.org/wiki/Space">orbital space craft of the Space Shuttle program</a>_Shuttle_orbiter), which houses the flight crew and electronics used to communicate with mission control.</p>
+
+<p>This project is part of a series of open source libraries covering the mission-critical aspects of an iOS app&rsquo;s infrastructure. Be sure to check out its sister projects: <a href="https://github.com/mattt/GroundControl">GroundControl</a>, <a href="https://github.com/mattt/SkyLab">SkyLab</a>, <a href="https://github.com/mattt/CargoBay">CargoBay</a>, and <a href="https://github.com/mattt/houston">houston</a>.</p></blockquote>
+
+<h2>Example Usage</h2>
+
+<h3>Urban Airship Registration</h3>
+
+<p>```objective-c
+&ndash; (void)application:(UIApplication <em>)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData </em>)deviceToken
+{</p>
+
+<pre><code>[[UrbanAirshipOrbiter urbanAirshipManagerWithApplicationKey:@"..." applicationSecret:@"..."] registerDeviceToken:deviceToken withAlias:nil success:^(id responseObject) {
+    NSLog(@"Registration Success: %@", responseObject);
+} failure:^(NSError *error) {
+    NSLog(@"Registration Error: %@", error);
+}];
+</code></pre>
+
+<p>}
+```</p>
+
+<h3>Rack::PushNotification</h3>
+
+<p>```objective-c
+&ndash; (void)application:(UIApplication <em>)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData </em>)deviceToken
+{</p>
+
+<pre><code>NSURL *serverURL = [NSURL URLWithString:@"http://raging-notification-3556.herokuapp.com/"]http://raging-notification-3556.herokuapp.com/"]
+Orbiter *orbiter = [[Orbiter alloc] initWithBaseURL:serverURL credential:nil];
+[orbiter registerDeviceToken:deviceToken withAlias:nil success:^(id responseObject) {
+    NSLog(@"Registration Success: %@", responseObject);
+} failure:^(NSError *error) {
+    NSLog(@"Registration Error: %@", error);
+}];
+</code></pre>
+
+<p>}
+```</p>
+
+<h2>Contact</h2>
+
+<p>Mattt Thompson</p>
+
+<ul>
+<li><a href="http://github.com/mattt">http://github.com/mattt</a></li>
+<li><a href="http://twitter.com/mattt">http://twitter.com/mattt</a></li>
+<li>m@mattt.me</li>
+</ul>
+
+
+<h2>License</h2>
+
+<p><a href="Classes/Orbiter.html">Orbiter</a> is available under the MIT license. See the LICENSE file for more info.</p>
+						
+						
+					</div>
+					
+                        
+                    
+					
+					
+					<div class="index-column">
+						<h2 class="index-title">Class References</h2>
+						<ul>
+							
+							<li><a href="Classes/Orbiter.html">Orbiter</a></li>
+							
+							<li><a href="Classes/ParseOrbiter.html">ParseOrbiter</a></li>
+							
+							<li><a href="Classes/UrbanAirshipOrbiter.html">UrbanAirshipOrbiter</a></li>
+							
+						</ul>
+					</div>
+					
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<a href="hierarchy.html">Next</a>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2013 Mattt Thompson. All rights reserved. (Last updated: 2013-04-22)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
+						
+	
+					</div>
+				</div>
+			</div>
+		</article>		
+	</body>
+</html>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/Orbiter.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/Orbiter</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>Orbiter.h</DeclaredIn>
+			
+			<NodeRef refid="1"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/Orbiter/initWithBaseURL:credential:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>Orbiter.h</DeclaredIn>			
+			
+			<Declaration>- (id)initWithBaseURL:(NSURL *)baseURL credential:(NSURLCredential *)credential</Declaration>
+			
+			
+			<Anchor>//api/name/initWithBaseURL:credential:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/Orbiter/requestForRegistrationOfDeviceToken:withPayload:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>Orbiter.h</DeclaredIn>			
+			
+			<Declaration>- (NSURLRequest *)requestForRegistrationOfDeviceToken:(id)deviceToken withPayload:(NSDictionary *)payload</Declaration>
+			
+			
+			<Anchor>//api/name/requestForRegistrationOfDeviceToken:withPayload:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/Orbiter/requestForUnregistrationOfDeviceToken:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>Orbiter.h</DeclaredIn>			
+			
+			<Declaration>- (NSURLRequest *)requestForUnregistrationOfDeviceToken:(id)deviceToken</Declaration>
+			
+			
+			<Anchor>//api/name/requestForUnregistrationOfDeviceToken:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/Orbiter/registerDeviceToken:withAlias:success:failure:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>Orbiter.h</DeclaredIn>			
+			
+			<Declaration>- (void)registerDeviceToken:(id)deviceToken withAlias:(NSString *)alias success:(void ( ^ ) ( id responseObject ))success failure:(void ( ^ ) ( NSError *error ))failure</Declaration>
+			
+			
+			<Anchor>//api/name/registerDeviceToken:withAlias:success:failure:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/Orbiter/registerDeviceToken:withPayload:success:failure:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>Orbiter.h</DeclaredIn>			
+			
+			<Declaration>- (void)registerDeviceToken:(id)deviceToken withPayload:(NSDictionary *)payload success:(void ( ^ ) ( id responseObject ))success failure:(void ( ^ ) ( NSError *error ))failure</Declaration>
+			
+			
+			<Anchor>//api/name/registerDeviceToken:withPayload:success:failure:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/Orbiter/unregisterDeviceToken:success:failure:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>Orbiter.h</DeclaredIn>			
+			
+			<Declaration>- (void)unregisterDeviceToken:(id)deviceToken success:(void ( ^ ) ( ))success failure:(void ( ^ ) ( NSError *error ))failure</Declaration>
+			
+			
+			<Anchor>//api/name/unregisterDeviceToken:success:failure:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

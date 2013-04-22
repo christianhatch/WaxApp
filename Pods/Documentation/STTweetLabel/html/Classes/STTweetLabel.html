@@ -1,0 +1,933 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>STTweetLabel Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.0.5 (build 789)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">STTweetLabel 2.2.2 </a></h1>
+				<a id="developerHome" href="../index.html">Sebastien THIEBAUD</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">STTweetLabel Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/callbackBlock">&nbsp;&nbsp;&nbsp;&nbsp;callbackBlock</option>
+	
+	<option value="//api/name/colorHashtag">&nbsp;&nbsp;&nbsp;&nbsp;colorHashtag</option>
+	
+	<option value="//api/name/colorLink">&nbsp;&nbsp;&nbsp;&nbsp;colorLink</option>
+	
+	<option value="//api/name/delegate">&nbsp;&nbsp;&nbsp;&nbsp;delegate</option>
+	
+	<option value="//api/name/fontHashtag">&nbsp;&nbsp;&nbsp;&nbsp;fontHashtag</option>
+	
+	<option value="//api/name/fontLink">&nbsp;&nbsp;&nbsp;&nbsp;fontLink</option>
+	
+	<option value="//api/name/horizontalAlignment">&nbsp;&nbsp;&nbsp;&nbsp;horizontalAlignment</option>
+	
+	<option value="//api/name/lineSpace">&nbsp;&nbsp;&nbsp;&nbsp;lineSpace</option>
+	
+	<option value="//api/name/shadowColor">&nbsp;&nbsp;&nbsp;&nbsp;shadowColor</option>
+	
+	<option value="//api/name/shadowOffset">&nbsp;&nbsp;&nbsp;&nbsp;shadowOffset</option>
+	
+	<option value="//api/name/verticalAlignment">&nbsp;&nbsp;&nbsp;&nbsp;verticalAlignment</option>
+	
+	<option value="//api/name/wordSpace">&nbsp;&nbsp;&nbsp;&nbsp;wordSpace</option>
+	
+	
+	
+	
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Customizing the Text">Customizing the Text</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Configuring the Spaces and Alignments">Configuring the Spaces and Alignments</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Managing the Delegate and Callback Block">Managing the Delegate and Callback Block</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/callbackBlock">callbackBlock</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/colorHashtag">colorHashtag</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/colorLink">colorLink</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/delegate">delegate</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/fontHashtag">fontHashtag</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/fontLink">fontLink</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/horizontalAlignment">horizontalAlignment</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/lineSpace">lineSpace</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/shadowColor">shadowColor</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/shadowOffset">shadowOffset</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/verticalAlignment">verticalAlignment</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/wordSpace">wordSpace</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="STTweetLabel Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">STTweetLabel Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">UILabel</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">STTweetLabel.h</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>A custom UILabel view controller for iOS with certain words tappable like Twitter (#Hashtag, @People and <a href="http://www.link.com/page">http://www.link.com/page)</a>)</p>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						<a title="Customizing the Text" name="task_Customizing the Text"></a>
+						<h3 class="subsubtitle task-title">Customizing the Text</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/fontLink">&nbsp;&nbsp;fontLink</a></code>
+		<span class="tooltip"><p>The font of the different links.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/fontHashtag">&nbsp;&nbsp;fontHashtag</a></code>
+		<span class="tooltip"><p>The font of the different hashtags and mentions.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/colorLink">&nbsp;&nbsp;colorLink</a></code>
+		<span class="tooltip"><p>The color of the different links.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/colorHashtag">&nbsp;&nbsp;colorHashtag</a></code>
+		<span class="tooltip"><p>The color of the different hashtags and mentions.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/shadowColor">&nbsp;&nbsp;shadowColor</a></code>
+		<span class="tooltip"><p>The color of the shadow text.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/shadowOffset">&nbsp;&nbsp;shadowOffset</a></code>
+		<span class="tooltip"><p>The size of the shadow text.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Configuring the Spaces and Alignments" name="task_Configuring the Spaces and Alignments"></a>
+						<h3 class="subsubtitle task-title">Configuring the Spaces and Alignments</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/wordSpace">&nbsp;&nbsp;wordSpace</a></code>
+		<span class="tooltip"><p>The space between each word.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/lineSpace">&nbsp;&nbsp;lineSpace</a></code>
+		<span class="tooltip"><p>The space between each line.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/horizontalAlignment">&nbsp;&nbsp;horizontalAlignment</a></code>
+		<span class="tooltip"><p>The horizontal alignment of the text.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/verticalAlignment">&nbsp;&nbsp;verticalAlignment</a></code>
+		<span class="tooltip"><p>The vertical alignment of the text.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Managing the Delegate and Callback Block" name="task_Managing the Delegate and Callback Block"></a>
+						<h3 class="subsubtitle task-title">Managing the Delegate and Callback Block</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/delegate">&nbsp;&nbsp;delegate</a></code>
+		<span class="tooltip"><p>The object that acts as the delegate of the receiving tweet label view. (Deprecated in 2.0. Use <a href="#//api/name/callbackBlock">callbackBlock</a> instead.)</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/callbackBlock">&nbsp;&nbsp;callbackBlock</a></code>
+		<span class="tooltip"><p>The block called when an user interaction is caught</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/callbackBlock" title="callbackBlock"></a>
+	<h3 class="subsubtitle method-title">callbackBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The block called when an user interaction is caught</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) STLinkCallbackBlock callbackBlock</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block called when an user interaction is caught</p>
+
+<p>You can declare a STLinkCallbackBlock with <code>void(^STLinkCallbackBlock)(STLinkActionType actionType, NSString *link);</code>:</p>
+
+<pre><code> STLinkCallbackBlock callbackBlock = ^(STLinkActionType actionType, NSString *link) {
+    // Do something...
+ };
+</code></pre>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">STTweetLabel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/colorHashtag" title="colorHashtag"></a>
+	<h3 class="subsubtitle method-title">colorHashtag</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The color of the different hashtags and mentions.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) UIColor *colorHashtag</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The color of the different hashtags and mentions.</p>
+
+<p>The default value for this property is <code>RGB(129,171,193)</code>.</p><div class="warning"><p><strong>Warning:</strong> You must specify a value for this parameter before <code>setText:</code></p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">STTweetLabel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/colorLink" title="colorLink"></a>
+	<h3 class="subsubtitle method-title">colorLink</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The color of the different links.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) UIColor *colorLink</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The color of the different links.</p>
+
+<p>The default value for this property is <code>RGB(170,170,170)</code>.</p><div class="warning"><p><strong>Warning:</strong> You must specify a value for this parameter before <code>setText:</code></p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">STTweetLabel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/delegate" title="delegate"></a>
+	<h3 class="subsubtitle method-title">delegate</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The object that acts as the delegate of the receiving tweet label view. (Deprecated in 2.0. Use <a href="#//api/name/callbackBlock">callbackBlock</a> instead.)</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) id&lt;STLinkProtocol&gt; delegate</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The object that acts as the delegate of the receiving tweet label view. (Deprecated in 2.0. Use <a href="#//api/name/callbackBlock">callbackBlock</a> instead.)</p>
+
+<p>The delegate must adopt the <a href="../Protocols/STLinkProtocol.html">STLinkProtocol</a> protocol.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">STTweetLabel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/fontHashtag" title="fontHashtag"></a>
+	<h3 class="subsubtitle method-title">fontHashtag</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The font of the different hashtags and mentions.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) UIFont *fontHashtag</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The font of the different hashtags and mentions.</p>
+
+<p>The default value for this property is the font of the text.</p><div class="warning"><p><strong>Warning:</strong> You must specify a value for this parameter before <code>setText:</code></p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">STTweetLabel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/fontLink" title="fontLink"></a>
+	<h3 class="subsubtitle method-title">fontLink</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The font of the different links.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) UIFont *fontLink</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The font of the different links.</p>
+
+<p>The default value for this property is the font of the text.</p><div class="warning"><p><strong>Warning:</strong> You must specify a value for this parameter before <code>setText:</code></p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">STTweetLabel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/horizontalAlignment" title="horizontalAlignment"></a>
+	<h3 class="subsubtitle method-title">horizontalAlignment</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The horizontal alignment of the text.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) STHorizontalAlignment horizontalAlignment</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The horizontal alignment of the text.</p>
+
+<p>The default value for this property is <code>STHorizontalAlignmentLeft</code>.</p><div class="warning"><p><strong>Warning:</strong> You must specify a value for this parameter before <code>setText:</code></p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">STTweetLabel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/lineSpace" title="lineSpace"></a>
+	<h3 class="subsubtitle method-title">lineSpace</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The space between each line.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) float lineSpace</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The space between each line.</p>
+
+<p>The default value for this property is <code>0</code>.</p><div class="warning"><p><strong>Warning:</strong> You must specify a value for this parameter before <code>setText:</code></p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">STTweetLabel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/shadowColor" title="shadowColor"></a>
+	<h3 class="subsubtitle method-title">shadowColor</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The color of the shadow text.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) UIColor *shadowColor</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The color of the shadow text.</p>
+
+<p>The default value for this property is <code>RGB(0,0,0)</code>.</p><div class="warning"><p><strong>Warning:</strong> You must specify a value for this parameter before <code>setText:</code></p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">STTweetLabel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/shadowOffset" title="shadowOffset"></a>
+	<h3 class="subsubtitle method-title">shadowOffset</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The size of the shadow text.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) CGSize shadowOffset</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The size of the shadow text.</p>
+
+<p>The default value for this property is <code>CGSizeZero</code>.</p><div class="warning"><p><strong>Warning:</strong> You must specify a value for this parameter before <code>setText:</code></p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">STTweetLabel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/verticalAlignment" title="verticalAlignment"></a>
+	<h3 class="subsubtitle method-title">verticalAlignment</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The vertical alignment of the text.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) STVerticalAlignment verticalAlignment</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The vertical alignment of the text.</p>
+
+<p>The default value for this property is <code>STVerticalAlignmentTop</code>.</p><div class="warning"><p><strong>Warning:</strong> You must specify a value for this parameter before <code>setText:</code></p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">STTweetLabel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/wordSpace" title="wordSpace"></a>
+	<h3 class="subsubtitle method-title">wordSpace</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The space between each word.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) float wordSpace</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The space between each word.</p>
+
+<p>The default value for this property is <code>0</code>.</p><div class="warning"><p><strong>Warning:</strong> You must specify a value for this parameter before <code>setText:</code></p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">STTweetLabel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2013 Sebastien THIEBAUD. All rights reserved. (Last updated: 2013-04-22)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>

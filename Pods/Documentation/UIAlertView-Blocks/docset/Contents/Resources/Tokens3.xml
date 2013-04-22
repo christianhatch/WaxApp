@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Categories/UIAlertView+Blocks.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cat/UIAlertView(Blocks)</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>UIAlertView+Blocks.h</DeclaredIn>
+			
+			<NodeRef refid="3"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/UIAlertView(Blocks)/initWithTitle:message:cancelButtonItem:otherButtonItems:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>UIAlertView+Blocks.h</DeclaredIn>			
+			
+			<Declaration>- (id)initWithTitle:(NSString *)inTitle message:(NSString *)inMessage cancelButtonItem:(RIButtonItem *)inCancelButtonItem otherButtonItems:(RIButtonItem *)inOtherButtonItems, ...</Declaration>
+			
+			
+			<Anchor>//api/name/initWithTitle:message:cancelButtonItem:otherButtonItems:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/UIAlertView(Blocks)/addButtonItem:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>UIAlertView+Blocks.h</DeclaredIn>			
+			
+			<Declaration>- (NSInteger)addButtonItem:(RIButtonItem *)item</Declaration>
+			
+			
+			<Anchor>//api/name/addButtonItem:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

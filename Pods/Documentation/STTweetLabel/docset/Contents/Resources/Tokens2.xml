@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Protocols/STLinkProtocol.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intf/STLinkProtocol</TokenIdentifier>
+			<Abstract type="html">The STLinkProtocol protocol is adopted by an object that receives the user interactions for a STTweetLabel.</Abstract>
+			<DeclaredIn>STTweetLabel.h</DeclaredIn>
+			
+			<NodeRef refid="2"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/STLinkProtocol/twitterAccountClicked:</TokenIdentifier>
+			<Abstract type="html">Tells the delegate that the specified @Mention is now selected.</Abstract>
+			<DeclaredIn>STTweetLabel.h</DeclaredIn>			
+			
+			<Declaration>- (void)twitterAccountClicked:(NSString *)link</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>link</Name>
+					<Abstract type="html">The mention</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/twitterAccountClicked:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/STLinkProtocol/twitterHashtagClicked:</TokenIdentifier>
+			<Abstract type="html">Tells the delegate that the specified #Hashtag is now selected.</Abstract>
+			<DeclaredIn>STTweetLabel.h</DeclaredIn>			
+			
+			<Declaration>- (void)twitterHashtagClicked:(NSString *)link</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>link</Name>
+					<Abstract type="html">The hashtag</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/twitterHashtagClicked:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/STLinkProtocol/websiteClicked:</TokenIdentifier>
+			<Abstract type="html">Tells the delegate that the specified link is now selected.</Abstract>
+			<DeclaredIn>STTweetLabel.h</DeclaredIn>			
+			
+			<Declaration>- (void)websiteClicked:(NSString *)link</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>link</Name>
+					<Abstract type="html">The web link</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/websiteClicked:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

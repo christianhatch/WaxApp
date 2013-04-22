@@ -1,0 +1,8 @@
+ALWAYS_SEARCH_USER_PATHS = YES
+HEADER_SEARCH_PATHS = ${PODS_HEADERS_SEARCH_PATHS}
+LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/FlurrySDK/Flurry" "$(PODS_ROOT)/TestFlightSDK"
+OTHER_LDFLAGS = -ObjC -lFlurry -lTestFlight -lz -framework MobileCoreServices -framework QuartzCore -framework Security -framework SystemConfiguration -framework UIKit
+PODS_BUILD_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/AFNetworking" "${PODS_ROOT}/BuildHeaders/FlurrySDK" "${PODS_ROOT}/BuildHeaders/InterAppCommunication" "${PODS_ROOT}/BuildHeaders/Lockbox" "${PODS_ROOT}/BuildHeaders/MLUIColorAdditions" "${PODS_ROOT}/BuildHeaders/Orbiter" "${PODS_ROOT}/BuildHeaders/STTweetLabel" "${PODS_ROOT}/BuildHeaders/SVProgressHUD" "${PODS_ROOT}/BuildHeaders/SVPullToRefresh" "${PODS_ROOT}/BuildHeaders/TSMessages" "${PODS_ROOT}/BuildHeaders/TestFlightSDK" "${PODS_ROOT}/BuildHeaders/UIAlertView-Blocks"
+PODS_HEADERS_SEARCH_PATHS = ${PODS_PUBLIC_HEADERS_SEARCH_PATHS}
+PODS_PUBLIC_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/FlurrySDK" "${PODS_ROOT}/Headers/InterAppCommunication" "${PODS_ROOT}/Headers/Lockbox" "${PODS_ROOT}/Headers/MLUIColorAdditions" "${PODS_ROOT}/Headers/Orbiter" "${PODS_ROOT}/Headers/STTweetLabel" "${PODS_ROOT}/Headers/SVProgressHUD" "${PODS_ROOT}/Headers/SVPullToRefresh" "${PODS_ROOT}/Headers/TSMessages" "${PODS_ROOT}/Headers/TestFlightSDK" "${PODS_ROOT}/Headers/UIAlertView-Blocks"
+PODS_ROOT = ${SRCROOT}/Pods

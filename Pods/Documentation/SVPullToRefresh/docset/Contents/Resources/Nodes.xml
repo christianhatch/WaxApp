@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DocSetNodes version="1.0">
+    <TOC>
+        <Node type="folder">
+            <Name>SVPullToRefresh 0.4.1</Name>
+            <Path>index.html</Path>
+			<Subnodes>
+                
+				
+				<Node type="folder">
+					<Name>Classes</Name>
+					<Path>index.html</Path>
+					<Subnodes>
+						<NodeRef refid="1"/>
+						<NodeRef refid="2"/>
+						
+					</Subnodes>
+				</Node>
+				
+				
+				<Node type="folder">
+					<Name>Categories</Name>
+					<Path>index.html</Path>
+					<Subnodes>
+						<NodeRef refid="3"/>
+						<NodeRef refid="4"/>
+						
+					</Subnodes>
+				</Node>
+				
+				
+			</Subnodes>
+        </Node>
+    </TOC>
+	<Library>
+		
+		<Node id="1">
+			<Name>SVInfiniteScrollingView</Name>
+			<Path>Classes/SVInfiniteScrollingView.html</Path>
+		</Node>
+		<Node id="2">
+			<Name>SVPullToRefreshView</Name>
+			<Path>Classes/SVPullToRefreshView.html</Path>
+		</Node>
+		
+		<Node id="3">
+			<Name>UIScrollView(SVInfiniteScrolling)</Name>
+			<Path>Categories/UIScrollView+SVInfiniteScrolling.html</Path>
+		</Node>
+		<Node id="4">
+			<Name>UIScrollView(SVPullToRefresh)</Name>
+			<Path>Categories/UIScrollView+SVPullToRefresh.html</Path>
+		</Node>
+		
+		
+	</Library>
+</DocSetNodes>

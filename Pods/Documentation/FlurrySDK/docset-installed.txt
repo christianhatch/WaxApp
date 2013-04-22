@@ -1,0 +1,4 @@
+Documentation set was installed to Xcode!
+
+Path: /Users/chatch/Library/Developer/Shared/Documentation/DocSets/org.cocoapods.flurrysdk.FlurrySDK-4.1.0.docset
+Time: 2013-04-22 21:18:20 +0000

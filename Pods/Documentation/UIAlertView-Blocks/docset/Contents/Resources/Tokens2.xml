@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Categories/UIActionSheet+Blocks.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cat/UIActionSheet(Blocks)</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>UIActionSheet+Blocks.h</DeclaredIn>
+			
+			<NodeRef refid="2"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/UIActionSheet(Blocks)/initWithTitle:cancelButtonItem:destructiveButtonItem:otherButtonItems:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>UIActionSheet+Blocks.h</DeclaredIn>			
+			
+			<Declaration>- (id)initWithTitle:(NSString *)inTitle cancelButtonItem:(RIButtonItem *)inCancelButtonItem destructiveButtonItem:(RIButtonItem *)inDestructiveItem otherButtonItems:(RIButtonItem *)inOtherButtonItems, ...</Declaration>
+			
+			
+			<Anchor>//api/name/initWithTitle:cancelButtonItem:destructiveButtonItem:otherButtonItems:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/UIActionSheet(Blocks)/addButtonItem:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>UIActionSheet+Blocks.h</DeclaredIn>			
+			
+			<Declaration>- (NSInteger)addButtonItem:(RIButtonItem *)item</Declaration>
+			
+			
+			<Anchor>//api/name/addButtonItem:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/UIActionSheet(Blocks)/setDismissalAction:</TokenIdentifier>
+			<Abstract type="html">This block is called when the action sheet is dismssed for any reason.</Abstract>
+			<DeclaredIn>UIActionSheet+Blocks.h</DeclaredIn>			
+			
+			<Declaration>@property (copy, nonatomic) void ( ^ ) ( ) dismissalAction</Declaration>
+			
+			
+			<Anchor>//api/name/dismissalAction</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfp/UIActionSheet(Blocks)/dismissalAction</TokenIdentifier>
+			<Abstract type="html">This block is called when the action sheet is dismssed for any reason.</Abstract>
+			<DeclaredIn>UIActionSheet+Blocks.h</DeclaredIn>			
+			
+			<Declaration>@property (copy, nonatomic) void ( ^ ) ( ) dismissalAction</Declaration>
+			
+			
+			<Anchor>//api/name/dismissalAction</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

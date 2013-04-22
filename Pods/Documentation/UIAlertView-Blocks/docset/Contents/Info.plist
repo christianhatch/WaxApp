@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleIdentifier</key>
+	<string>org.cocoapods.uialertview-blocks.UIAlertView-Blocks-0.0.1</string>
+	<key>CFBundleName</key>
+	<string>UIAlertView-Blocks 0.0.1 Documentation</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	
+	
+	<key>DocSetDescription</key>
+	<string>Category for UIAlertView and UIActionSheet which allows you to use blocks rather than implementing a delegate.</string>
+	
+	<key>DocSetFeedName</key>
+	<string>UIAlertView-Blocks 0.0.1 Documentation</string>
+	
+	<key>DocSetMinimumXcodeVersion</key>
+	<string>3.0</string>
+	
+	<key>DashDocSetFamily</key>
+	<string>appledoc</string>
+	<key>DocSetPublisherIdentifier</key>
+	<string>org.cocoapods.uialertview-blocks.documentation</string>
+	<key>DocSetPublisherName</key>
+	<string>Jiva Devoe</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Jiva Devoe</string>
+</dict>
+</plist>
