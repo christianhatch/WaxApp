@@ -7,11 +7,38 @@
 //
 
 #import "AppDelegate.h"
+#import "TestFlight.h"
+#import "Flurry.h"
+
+@protocol UIDeviceHack <NSObject>
+-(NSString *)uniqueIdentifier;
+@end
 
 @implementation AppDelegate
 
+-(void)bootupThirdPartySDKs{
+#ifdef DEBUG
+//    [Appirater setAppId:@"551174140"];
+//    [Appirater setDaysUntilPrompt:3];
+//    [Appirater setUsesUntilPrompt:10];
+//    [Appirater setTimeBeforeReminding:3];
+//    [Appirater setDelegate:self];
+//    [Appirater appLaunched:YES];
+#endif
+    
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+#ifndef DEBUG
+#ifdef TESTFLIGHT
+    [TestFlight setDeviceIdentifier:[(id<UIDeviceHack>)[UIDevice currentDevice] uniqueIdentifier]];
+#endif
+    [TestFlight takeOff:kTestFlightAPIKey];
+    [Flurry startSession:kFlurryAPIKey];
+    [Crashlytics startWithAPIKey:kCrashlyticsAPIKey delegate:self];
+#endif
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-    // Override point for customization after application launch.
+    [self bootupThirdPartySDKs];
     return YES;
 }
 							

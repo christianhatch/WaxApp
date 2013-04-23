@@ -1,7 +1,7 @@
 PODS:
   - AFNetworking (1.2.1)
-  - FlurrySDK (4.1.0)
   - InterAppCommunication (1.0)
+  - KGNoise@tonyzonghui (1.2.0)
   - Lockbox (1.2.0)
   - MLUIColorAdditions (1.0.0)
   - Orbiter (0.0.1):
@@ -9,36 +9,30 @@ PODS:
   - STTweetLabel (2.2.2)
   - SVProgressHUD (0.9)
   - SVPullToRefresh (0.4.1)
-  - TestFlightSDK (1.3.0.beta2)
   - TSMessages (0.9.1):
     - MLUIColorAdditions
-  - UIAlertView-Blocks (0.0.1)
 
 DEPENDENCIES:
   - AFNetworking
-  - FlurrySDK
   - InterAppCommunication
+  - KGNoise@tonyzonghui
   - Lockbox
   - Orbiter
   - STTweetLabel
   - SVProgressHUD
   - SVPullToRefresh
-  - TestFlightSDK
   - TSMessages
-  - UIAlertView-Blocks
 
 SPEC CHECKSUMS:
   AFNetworking: 616da0028916ce296f5c3cef74e5552eb4e10e13
-  FlurrySDK: 52245ae8c6fa31825dc74a6afb94b861da2435fa
   InterAppCommunication: 8b5c768edf16414947f4fae4d15a86cc38ddbf8c
+  KGNoise@tonyzonghui: 632e5363cde4cbaba10876d50a68a2123a0f30e8
   Lockbox: e237a944f2040d4f27e8077726b7bbe0489febdb
   MLUIColorAdditions: c128da8c87b724cdc6c9a1b4cfe8832ca62b8d2a
   Orbiter: b083e5567d9b90e1da1ccda4b3c410df26d5da8d
   STTweetLabel: 9d93c324a4ecf5b9e6d73b5ff2b4813e4a8adc91
   SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
   SVPullToRefresh: 61a0e4bd12bd6f8e3465909810b0fbeb1a28d5f2
-  TestFlightSDK: 185b9bfd710bfb85ce5f57bcb89651330081090f
   TSMessages: 916e168ec96b90fbe2756bc4e28c555a2abc83fc
-  UIAlertView-Blocks: 7689ad7dd941417e7a7da81507482bc6f4f15bcd
 
 COCOAPODS: 0.18.1

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/KGNoiseView.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/KGNoiseView</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>KGNoise.h</DeclaredIn>
+			
+			<NodeRef refid="4"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/KGNoiseView/setBackgroundColor:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>KGNoise.h</DeclaredIn>			
+			
+			<Declaration>@property (strong, nonatomic) NSColor *backgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/backgroundColor</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/KGNoiseView/backgroundColor</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>KGNoise.h</DeclaredIn>			
+			
+			<Declaration>@property (strong, nonatomic) NSColor *backgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/backgroundColor</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/KGNoiseView/setNoiseOpacity:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>KGNoise.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic) CGFloat noiseOpacity</Declaration>
+			
+			
+			<Anchor>//api/name/noiseOpacity</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/KGNoiseView/noiseOpacity</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>KGNoise.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic) CGFloat noiseOpacity</Declaration>
+			
+			
+			<Anchor>//api/name/noiseOpacity</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/KGNoiseView/setNoiseBlendMode:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>KGNoise.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic) CGBlendMode noiseBlendMode</Declaration>
+			
+			
+			<Anchor>//api/name/noiseBlendMode</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/KGNoiseView/noiseBlendMode</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>KGNoise.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic) CGBlendMode noiseBlendMode</Declaration>
+			
+			
+			<Anchor>//api/name/noiseBlendMode</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

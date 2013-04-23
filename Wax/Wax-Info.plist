@@ -20,10 +20,31 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb181035102046368</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>FacebookAppID</key>
+	<string>181035102046368</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSContactsUsageDescription</key>
+	<string>Don't worry, we don't store your contacts - we only search for your friends who are already on Wax.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Don't worry, you can choose whether to add your location to each video you take.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>So you can upload videos you've already taken.</string>
+	<key>UIFileSharingEnabled</key>
+	<false/>
 	<key>UIMainStoryboardFile</key>
 	<string>MainStoryboard</string>
 	<key>UIPrerenderedIcon</key>

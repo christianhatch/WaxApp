@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/KGNoiseRadialGradientView.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/KGNoiseRadialGradientView</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>KGNoise.h</DeclaredIn>
+			
+			<NodeRef refid="3"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/KGNoiseRadialGradientView/setAlternateBackgroundColor:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>KGNoise.h</DeclaredIn>			
+			
+			<Declaration>@property (strong, nonatomic) UIColor *alternateBackgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/alternateBackgroundColor</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/KGNoiseRadialGradientView/alternateBackgroundColor</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>KGNoise.h</DeclaredIn>			
+			
+			<Declaration>@property (strong, nonatomic) UIColor *alternateBackgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/alternateBackgroundColor</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

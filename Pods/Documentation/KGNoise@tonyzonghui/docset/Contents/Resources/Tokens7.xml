@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Categories/UIColor+KGNoise.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cat/UIColor(KGNoise)</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>KGNoise.h</DeclaredIn>
+			
+			<NodeRef refid="7"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/UIColor(KGNoise)/colorWithNoiseWithOpacity:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>KGNoise.h</DeclaredIn>			
+			
+			<Declaration>- (UIColor *)colorWithNoiseWithOpacity:(CGFloat)opacity</Declaration>
+			
+			
+			<Anchor>//api/name/colorWithNoiseWithOpacity:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/UIColor(KGNoise)/colorWithNoiseWithOpacity:andBlendMode:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>KGNoise.h</DeclaredIn>			
+			
+			<Declaration>- (UIColor *)colorWithNoiseWithOpacity:(CGFloat)opacity andBlendMode:(CGBlendMode)blendMode</Declaration>
+			
+			
+			<Anchor>//api/name/colorWithNoiseWithOpacity:andBlendMode:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

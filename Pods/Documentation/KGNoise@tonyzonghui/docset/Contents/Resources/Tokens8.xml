@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Categories/UIImage+KGNoise.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cat/UIImage(KGNoise)</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>KGNoise.h</DeclaredIn>
+			
+			<NodeRef refid="8"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/UIImage(KGNoise)/imageWithNoiseOpacity:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>KGNoise.h</DeclaredIn>			
+			
+			<Declaration>- (UIImage *)imageWithNoiseOpacity:(CGFloat)opacity</Declaration>
+			
+			
+			<Anchor>//api/name/imageWithNoiseOpacity:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/UIImage(KGNoise)/imageWithNoiseOpacity:andBlendMode:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>KGNoise.h</DeclaredIn>			
+			
+			<Declaration>- (UIImage *)imageWithNoiseOpacity:(CGFloat)opacity andBlendMode:(CGBlendMode)blendMode</Declaration>
+			
+			
+			<Anchor>//api/name/imageWithNoiseOpacity:andBlendMode:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

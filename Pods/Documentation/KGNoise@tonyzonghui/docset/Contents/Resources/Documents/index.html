@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>KGNoise@tonyzonghui 1.2.0 Reference</title>
+		<link rel="stylesheet" type="text/css" href="css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.0.5 (build 789)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="index.html">KGNoise@tonyzonghui 1.2.0 </a></h1>
+				<a id="developerHome" href="index.html">Zhang Zonghui</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">KGNoise@tonyzonghui 1.2.0 Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar"></ul>
+		</header>
+		<article>
+			<div id="overview_contents" role="main">
+				<div class="main-navigation navigation-top">
+					<a href="hierarchy.html">Next</a>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">KGNoise@tonyzonghui 1.2.0 Reference</h1>
+					</div>		
+				</div>
+				<div id="container">
+					
+					<div class="section section-overview index-overview">
+						
+						
+						<p><img src="[https://raw.github.com/kgn/KGNoise/master/screenshot.jpg" alt="" />](https://raw.github.com/kgn/KGNoise/master/screenshot.jpg))</p>
+
+<p>I&rsquo;ve been developing this noise drawing code for quite some time. It all started with drawing noise in the title bar of <a href="https://github.com/indragiek/INAppStoreWindow">INAppStoreWindow</a>. The original implementation of the noise drawing for the titlebar used <code>CIFilter</code>, but this took up an unusual amount of memory and also didn&rsquo;t look so great. So I began my quest for the best noise drawing solution, this project contains the third version which I feel is finally ready for prime time on the Mac and iOS!</p>
+
+<p><a href="Classes/KGNoise.html">KGNoise</a> generates random black and white pixels into a static 128x128 image that is then tiled to fill the space. The random pixels are seeded with a value that has been chosen to look the most random, this also means that the noise will look consistent between app launches.</p>
+
+<p><a href="Classes/KGNoise.html">KGNoise</a> is <strong>retina</strong> compatible on both iOS and the Mac. An identical interface is provided for both platforms through the use of compile time <code>#if</code> checks.</p>
+
+<h1>Usage</h1>
+
+<p>Add <code></code>KGNoise<code>.h</code> and <code></code>KGNoise<code>.m</code> to your project, then import <code></code>KGNoise<code>.h</code>:</p>
+
+<p>```obj-c</p>
+
+<h1>import &ldquo;<a href="Classes/KGNoise.html">KGNoise</a>.h&rdquo;</h1>
+
+<p>```</p>
+
+<p><a href="Classes/KGNoise.html">KGNoise</a> is distributed under the MIT license, see the license file for more information.</p>
+
+<h1><a href="Classes/KGNoise.html">KGNoise</a></h1>
+
+<p><a href="Classes/KGNoise.html"><code>KGNoise</code></a> provides two generic noise drawing functions that you can use in your drawing code.</p>
+
+<p><code>obj-c
++ (void)drawNoiseWithOpacity:(CGFloat)opacity;
++ (void)drawNoiseWithOpacity:(CGFloat)opacity andBlendMode:(CGBlendMode)blendMode;
+</code></p>
+
+<h1>UIColor/<a href="Categories/NSColor+KGNoise.html">NSColor(KGNoise)</a></h1>
+
+<p><code>
+- (NSColor/UIColor *)colorWithNoiseWithOpacity:(CGFloat)opacity;
+- (NSColor/UIColor *)colorWithNoiseWithOpacity:(CGFloat)opacity andBlendMode:(CGBlendMode)blendMode;
+</code></p>
+
+<h1>UIImage/<a href="Categories/NSImage+KGNoise.html">NSImage(KGNoise)</a></h1>
+
+<p><code>
+- (UIImage/NSImage *)imageWithNoiseOpacity:(CGFloat)opacity;
+- (UIImage/NSImage *)imageWithNoiseOpacity:(CGFloat)opacity andBlendMode:(CGBlendMode)blendMode;
+</code></p>
+
+<h1><a href="Classes/KGNoiseView.html">KGNoiseView</a></h1>
+
+<p>There is also a subclass of <code>NSView</code> or <code>UIView</code>, depending on your platform, that you can use out of the box to draw noise on a solid color. The noise opacity, blending mode, and background color are all customizable.</p>
+
+<p><code>obj-c
+@property (strong, nonatomic) NSColor/UIColor *backgroundColor;
+@property (nonatomic) CGFloat noiseOpacity;
+@property (nonatomic) CGBlendMode noiseBlendMode;
+</code></p>
+
+<p>Please note that the standard <code>backgroundColor</code> is used for <code>UIView</code>, but <code>backgroundColor</code> does not exist on <code>NSView</code> so it has been added to provide the exact same interface for both platforms.</p>
+
+<h1><a href="Classes/KGNoiseLinearGradientView.html">KGNoiseLinearGradientView</a> &amp; <a href="Classes/KGNoiseRadialGradientView.html">KGNoiseRadialGradientView</a></h1>
+
+<p><code>KGNoiseLinearGradientView</code> and <code>KGNoiseRadialGradientView</code> inherit from <code>KGNoiseView</code> and draw a linear or radial gradient respectively. They provide a property to set the alternate background color to be used in the gradient.</p>
+
+<p><code>obj-c
+@property (strong, nonatomic) NSColor/UIColor *alternateBackgroundColor;
+</code></p>
+
+<p>In addition, <a href="Classes/KGNoiseLinearGradientView.html">KGNoiseLinearGradientView</a> provides a property to set gradient direction to 0, 90, 180, or 270 degrees.</p>
+
+<p><code>obj-c
+@property (nonatomic) KGLinearGradientDirection gradientDirection;
+</code></p>
+
+<h1>KGNoiseExample</h1>
+
+<p>This project contains an example project that demonstrates how <a href="Classes/KGNoiseView.html"><code>KGNoiseView</code></a> could be used in a Mac or iOS app.</p>
+						
+						
+					</div>
+					
+                        
+                    
+					
+					
+					<div class="index-column">
+						<h2 class="index-title">Class References</h2>
+						<ul>
+							
+							<li><a href="Classes/KGNoise.html">KGNoise</a></li>
+							
+							<li><a href="Classes/KGNoiseLinearGradientView.html">KGNoiseLinearGradientView</a></li>
+							
+							<li><a href="Classes/KGNoiseRadialGradientView.html">KGNoiseRadialGradientView</a></li>
+							
+							<li><a href="Classes/KGNoiseView.html">KGNoiseView</a></li>
+							
+						</ul>
+					</div>
+					
+					
+						
+					<div class="index-column">
+						
+						
+						<h2 class="index-title">Category References</h2>
+						<ul>
+							
+							<li><a href="Categories/NSColor+KGNoise.html">NSColor(KGNoise)</a></li>
+							
+							<li><a href="Categories/NSImage+KGNoise.html">NSImage(KGNoise)</a></li>
+							
+							<li><a href="Categories/UIColor+KGNoise.html">UIColor(KGNoise)</a></li>
+							
+							<li><a href="Categories/UIImage+KGNoise.html">UIImage(KGNoise)</a></li>
+							
+						</ul>
+						
+					</div>
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<a href="hierarchy.html">Next</a>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2013 Zhang Zonghui. All rights reserved. (Last updated: 2013-04-22)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
+						
+	
+					</div>
+				</div>
+			</div>
+		</article>		
+	</body>
+</html>
