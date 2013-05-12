@@ -6,28 +6,32 @@
 //  Copyright (c) 2013 Acacia Interactive. All rights reserved.
 //
 
-#import "AIKFacebookConnect.h"
+#import "AIKFacebookManager.h"
 #import <FacebookSDK/FacebookSDK.h>
 
+NSString *const AIKFacebookNotificationFriendsAvailable = @"aikFacebookFriendsAvailableDidChangeNotification";
+NSString *const AIKFacebookNotificationMatchedFriendsAvailable = @"aikFacebookFriendsMatchedDidChangeNotification";
+NSString *const AIKFacebookNotificationDidLogIn = @"aikFacebookDidLogInNotification";
+NSString *const AIKFacebookNotificationDidLogOut = @"aikFacebookDidLogOutNotification";
 
-NSString *const kAIKNotificationFacebookFriendsAvailable = @"aikContactsAvailableDidChangeNotification";
-NSString *const kAIKNotificationFacebookFriendsMatchedAvailable = @"aikContactsMatchedDidChangeNotification";
 
-
-@interface AIKFacebookConnect ()
+@interface AIKFacebookManager ()
 @property (nonatomic, strong) FBSession *facebookSession;
 @property (nonatomic, strong) NSMutableArray *unsortedFriends;
 @property (nonatomic) dispatch_queue_t fbprocessingQ; 
 @end
 
-@implementation AIKFacebookConnect
-@synthesize facebookSession = _facebookSession, fbFriendsOnKiwi = _fbFriendsOnKiwi, fbFriends = _fbFriends, unsortedFriends = _unsortedFriends, fbprocessingQ = _fbprocessingQ, searchResults = _searchResults; 
+@implementation AIKFacebookManager
+@synthesize facebookSession = _facebookSession, fbprocessingQ = _fbprocessingQ;
+//fbFriendsOnKiwi = _fbFriendsOnKiwi, fbFriends = _fbFriends, unsortedFriends = _unsortedFriends, fbprocessingQ = _fbprocessingQ, searchResults = _searchResults;
 
-+ (AIKFacebookConnect *)sharedFB{
-    static AIKFacebookConnect *sharedID = nil;
+
+//alloc & init
++ (AIKFacebookManager *)sharedManager{
+    static AIKFacebookManager *sharedID = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedID = [[AIKFacebookConnect alloc] init];
+        sharedID = [[AIKFacebookManager alloc] init];
     });
     return sharedID;
 }
@@ -39,6 +43,8 @@ NSString *const kAIKNotificationFacebookFriendsMatchedAvailable = @"aikContactsM
     }
     return self;
 }
+
+//public api
 -(BOOL)handleOpenURL:(NSURL *)url{
     return [self.facebookSession handleOpenURL:url];
 }
@@ -47,15 +53,29 @@ NSString *const kAIKNotificationFacebookFriendsMatchedAvailable = @"aikContactsM
         [self.facebookSession handleDidBecomeActive];
     }); 
 }
--(NSString *)accessToken{
-    return self.facebookSession.accessTokenData.accessToken;
-}
 -(BOOL)sessionIsActive{
     return self.facebookSession.isOpen;
 }
+-(NSString *)accessToken{
+    return self.facebookSession.accessTokenData.accessToken;
+}
+
 -(BOOL)canPublish{
     return ([self.facebookSession.permissions indexOfObject:@"publish_actions"] != NSNotFound && [self sessionIsActive]);
 }
+-(void)requestPublishPermissions{
+    if (![self canPublish]) {
+        [self.facebookSession requestNewPublishPermissions:@[@"publish_actions"] defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error) {
+            if (!error) {
+                [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationFacebookAccountDidChange object:self userInfo:@{@"publish": @"true"}];
+            }else{
+                [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationFacebookAccountDidChange object:self userInfo:@{@"publish": @"false"}];
+                [[AIKErrorUtilities sharedUtilities] logErrorWithMessage:@"Error requesting Facebook publish permissions" error:error andShowAlertWithButtonHandler:nil];
+            }
+        }];
+    }
+}
+
 -(void)loginWithFacebook{
     dispatch_async(dispatch_get_main_queue(), ^{
         if (!self.facebookSession.isOpen) {
@@ -77,13 +97,15 @@ NSString *const kAIKNotificationFacebookFriendsMatchedAvailable = @"aikContactsM
         [[WaxAPIClient sharedClient] postPath:kUpdateFacebookURL parameters:@{@"facebookid": [[WaxUser currentUser] facebookAccountId], @"facebook" : @"0"} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
             [[WaxUser currentUser] saveFacebookAccountId:@"false"];
-            [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:KWFacebookAccountChangedNotification object:self userInfo:@{@"loggedin": @"false"}];
+            [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AIKFacebookNotificationDidLogOut object:self];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [[AIKErrorUtilities sharedUtilities] logErrorWithMessage:@"Error logging out of Facebook. Please try again!" error:error andShowAlertWithButtonHandler:nil];
         }];
     });
 }
+
+//internal methods
 -(void)initializeSession{
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.facebookSession openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
@@ -91,7 +113,7 @@ NSString *const kAIKNotificationFacebookFriendsMatchedAvailable = @"aikContactsM
             [self sessionStateChanged:session state:status error:error];
             
         }];
-    }); 
+    });
 }
 -(void)sessionStateChanged:(FBSession *)session state:(FBSessionState)state error:(NSError *)error{
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -137,7 +159,7 @@ NSString *const kAIKNotificationFacebookFriendsMatchedAvailable = @"aikContactsM
                 
                 [[WaxAPIClient sharedClient] postPath:kFBLoginURL parameters:@{@"email":[[WaxUser currentUser] email], @"firstname":[[WaxUser currentUser] firstname], @"lastname":[[WaxUser currentUser] lastname], @"facebookid":[[WaxUser currentUser] facebookAccountId]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     
-                    id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+                    id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
                    
                     NSDictionary *response = [[validated objectForKeyNotNull:kKeyForJSON] objectAtIndexNotNull:0];
                     
@@ -147,9 +169,9 @@ NSString *const kAIKNotificationFacebookFriendsMatchedAvailable = @"aikContactsM
                         [SVProgressHUD dismiss];
                         [[WaxUser currentUser] logInWithResponse:response];
                         [[WaxUser currentUser] fetchFacebookProfilePictureAndShowUser:NO];
-                        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:KWFacebookAccountChangedNotification object:self userInfo:@{@"loggedin": @"true"}];
+                        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AIKFacebookNotificationDidLogIn object:self];
                     }else if ([[response objectForKeyNotNull:@"complete"] isEqualToString:@"false"]) {
-                        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:KWFacebookAccountChangedNotification object:self userInfo:@{@"loggedin": @"false"}];
+                        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AIKFacebookNotificationDidLogOut object:self];
                     }
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     [[AIKErrorUtilities sharedUtilities] logErrorWithMessage:@"Error getting your information from Facebook. Please try again!" error:error andShowAlertWithButtonHandler:^{
@@ -172,12 +194,12 @@ NSString *const kAIKNotificationFacebookFriendsMatchedAvailable = @"aikContactsM
                 
                 [[WaxAPIClient sharedClient] postPath:kUpdateFacebookURL parameters:@{@"facebookid": [[WaxUser currentUser] facebookAccountId], @"facebook" : @"1"} success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
-                    id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+                    id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
                     NSDictionary *response = [[validated objectForKeyNotNull:kKeyForJSON] objectAtIndexNotNull:0];
                    
                     if ([[response objectForKeyNotNull:@"complete"] isEqualToString:@"true"]) {
                         [SVProgressHUD dismiss];
-                        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:KWFacebookAccountChangedNotification object:self userInfo:@{@"loggedin": @"true"}];
+                        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AIKFacebookNotificationDidLogIn object:self];
                     }
 
                  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -189,19 +211,7 @@ NSString *const kAIKNotificationFacebookFriendsMatchedAvailable = @"aikContactsM
         }];
     }); 
 }
--(void)requestPublishPermissions{
-    if (![self canPublish]) {
-        [self.facebookSession requestNewPublishPermissions:@[@"publish_actions"] defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error) {
-            if (!error) {
-                [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationFacebookAccountDidChange object:self userInfo:@{@"publish": @"true"}];
-            }else{
-                [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationFacebookAccountDidChange object:self userInfo:@{@"publish": @"false"}];
-                [[AIKErrorUtilities sharedUtilities] logErrorWithMessage:@"Error requesting Facebook publish permissions" error:error andShowAlertWithButtonHandler:nil];
-            }
-        }];
-    }
-}
-
+/*
 -(void)postStatus:(NSString *)status{
     if ([self canPublish]) {
         [FBRequestConnection startForPostStatusUpdate:status completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
@@ -235,15 +245,15 @@ NSString *const kAIKNotificationFacebookFriendsMatchedAvailable = @"aikContactsM
                 }
             }];
         }else{
-            [FBRequestConnection startWithGraphPath:@"me/friends" parameters:@{<#key#>: <#object, ...#>} HTTPMethod:@"GET" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                
-                if (error) {
-                    [[AIKErrorUtilities sharedUtilities] logErrorWithMessage:@"Error requesting FB Friends" error:error];
-                }else{
-                    [self parseAndSetFBFriends:result];
-                }
-
-            }];
+//            [FBRequestConnection startWithGraphPath:@"me/friends" parameters:@{<#key#>: <#object, ...#>} HTTPMethod:@"GET" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+//                
+//                if (error) {
+//                    [[AIKErrorUtilities sharedUtilities] logErrorWithMessage:@"Error requesting FB Friends" error:error];
+//                }else{
+//                    [self parseAndSetFBFriends:result];
+//                }
+//
+//            }];
             FBRequest *request = [[FBRequest alloc] initWithSession:self.facebookSession graphPath:nil];
             FBRequestConnection *connection = [[FBRequestConnection alloc] init];
             [connection addRequest:request completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
@@ -325,6 +335,7 @@ NSString *const kAIKNotificationFacebookFriendsMatchedAvailable = @"aikContactsM
         DLog(@"search results %@", self.searchResults);
     }
 }
+*/
 
 #pragma mark - Setters and Getters
 -(FBSession *)facebookSession{
@@ -335,12 +346,12 @@ NSString *const kAIKNotificationFacebookFriendsMatchedAvailable = @"aikContactsM
     }
     return _facebookSession;
 }
--(NSMutableDictionary *)fbFriends{
-    if (!_fbFriends) {
-        _fbFriends = [NSMutableDictionary dictionary]; 
-    }
-    return _fbFriends; 
-}
+//-(NSMutableDictionary *)fbFriends{
+//    if (!_fbFriends) {
+//        _fbFriends = [NSMutableDictionary dictionary]; 
+//    }
+//    return _fbFriends; 
+//}
 -(dispatch_queue_t)fbprocessingQ{
     if (!_fbprocessingQ) {
         _fbprocessingQ = dispatch_queue_create("com.acacia.fb.jsonprocessingqueue", NULL); 

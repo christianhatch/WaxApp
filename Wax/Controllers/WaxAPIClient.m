@@ -7,36 +7,19 @@
 //
 
 #import "WaxAPIClient.h"
-//#import "KiwiModel.h"
-//#import "FeedObject.h"
-//#import "PersonObject.h"
-//#import "NotificationObject.h"
-//#import "AFNetworking.h"
-//#import "Constants.h"
-//#import "CommentObject.h"
-//#import "TestFlight.h"
-//#import "DiscoverObject.h"
-//#import <Accounts/Accounts.h>
-//#import <Twitter/Twitter.h>
-//#import "CHKit.h"
-//#import "UploadManager.h"
-//#import "PDKeychainBindings.h"
-//#import "CHAutoCompleter.h"
-//#import "SVProgressHUD.h"
-//#import "WaxUser.h"
-//#import "UIButton+AFNetworking.h"
-//#import "UIImage+KWKit.h"
-//#import "KWFacebookConnect.h"
+
+
+typedef void (^JSONProcessingBlock)(NSMutableArray *processedResponse);
+
 
 @interface WaxAPIClient ()
-
 @property (nonatomic) dispatch_queue_t jsonProcessingQueue;
-
 @end
 
 @implementation WaxAPIClient
-@synthesize jsonProcessingQueue;
+@synthesize jsonProcessingQueue; 
 
+//alloc & init 
 + (WaxAPIClient *)sharedClient{
     static WaxAPIClient *_sharedClient = nil;
     static dispatch_once_t oncePredicate;
@@ -45,7 +28,6 @@
     }); 
     return _sharedClient;
 }
-
 - (id)initWithBaseURL:(NSURL *)url {
     self = [super initWithBaseURL:url];
     if (!self) {
@@ -64,25 +46,154 @@
 
 //    DLog(@"Post Path: \n Path: %@, Params %@", path, parameters);
     
-    NSDictionary *requestParams = nil;
+    NSDictionary *finalParameters = nil;
     if (parameters) {
         NSMutableDictionary *authentication = [NSMutableDictionary dictionaryWithDictionary:@{@"token":[[WaxUser currentUser] token], @"userid":[[WaxUser currentUser] userid]}];
         [authentication addEntriesFromDictionary:parameters];
-        requestParams = [NSDictionary dictionaryWithDictionary:authentication];
+        finalParameters = [NSDictionary dictionaryWithDictionary:authentication];
     }else{
-        requestParams = @{@"token":[[WaxUser currentUser] token], @"userid":[[WaxUser currentUser] userid]};
+        finalParameters = @{@"token":[[WaxUser currentUser] token], @"userid":[[WaxUser currentUser] userid]};
     }
         
-    NSURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:requestParams];
+    NSURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:finalParameters];
 	AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
     [self enqueueHTTPRequestOperation:operation];
 }
+
+//internal processing methods
+
+-(void)arrayOfPersonsFromResponseObject:(id)responseObject completionBlock:(JSONProcessingBlock)completion{
+    
+    dispatch_async(self.jsonProcessingQueue, ^{
+        id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
+        
+//        DLog(@"Person ResponseObject %@", responseObject);
+        
+        NSArray *rawPersonDictionaries = [validated objectForKeyNotNull:kKeyForJSON];
+        
+        
+        NSMutableArray *persons = [NSMutableArray arrayWithCapacity:rawPersonDictionaries.count];
+       
+        for(NSDictionary *dictionary in persons) {
+            PersonObject *person = [[PersonObject alloc] initWithDictionary:dictionary];
+            [persons addObject:person];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completion) {
+                completion(persons);
+            }
+        });
+        
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 -(void)searchUsersWithUsername:(NSString *)username sender:(id)sender{
     [self postPath:kPeopleSearchURL parameters:@{@"personid":username} success:^(AFHTTPRequestOperation *operation, id responseObject) {
        
         dispatch_async(self.jsonProcessingQueue, ^{
-            id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+            id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             
         //        DLog(@"userame search response %@", responseObject);
             
@@ -108,7 +219,7 @@
     [self postPath:kSearchTagsURL parameters:@{@"search":tag} success:^(AFHTTPRequestOperation *operation, id responseObject){
      
         dispatch_async(self.jsonProcessingQueue, ^{
-            id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+            id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             
 //        DLog(@"tag search response %@", responseObject);
             
@@ -131,7 +242,7 @@
     [self postPath:kFriendsFeedURL parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
        
         dispatch_async(self.jsonProcessingQueue, ^{
-            id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+            id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             
             //       DLog(@"%@", responseObject);
             
@@ -143,11 +254,11 @@
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (refresh) {
-                    [[KiwiModel sharedModel] setFriendsFeed:[NSMutableArray array]];
+                    [[WaxDataManager sharedManager] setFriendsFeed:[NSMutableArray array]];
                 }
-                NSMutableArray *old = [[KiwiModel sharedModel] friendsFeed];
+                NSMutableArray *old = [[WaxDataManager sharedManager] friendsFeed];
                 [old addObjectsFromArray:feedArray];
-                [[KiwiModel sharedModel] setFriendsFeed:old];
+                [[WaxDataManager sharedManager] setFriendsFeed:old];
             }); 
         });
         
@@ -155,7 +266,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kConnectionErrorNotify object:kFriendsFeedURL]; 
         [[AIKErrorUtilities sharedUtilities] logErrorWithMessage:[NSString stringWithFormat:@"Connection error for path: %@", kFriendsFeedURL] error:error];
         [SVProgressHUD showErrorWithStatus:@"There was a connection issue loading your Friends Feed :("];
-        [[KiwiModel sharedModel] setFriendsFeed:[NSMutableArray array]]; 
+        [[WaxDataManager sharedManager] setFriendsFeed:[NSMutableArray array]]; 
     }];
 }
 -(void)loadTrendsFeedWithLastTimeStamp:(NSNumber *)lastTimeStamp{
@@ -164,7 +275,7 @@
     [self postPath:kTrendsFeedURL parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
       
         dispatch_async(self.jsonProcessingQueue, ^{
-            id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+            id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             
             //       DLog(@"%@", responseObject);
             
@@ -176,11 +287,11 @@
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (refresh) {
-                    [[KiwiModel sharedModel] setTrendsFeed:[NSMutableArray array]];
+                    [[WaxDataManager sharedManager] setTrendsFeed:[NSMutableArray array]];
                 }
-                NSMutableArray *old = [[KiwiModel sharedModel] trendsFeed];
+                NSMutableArray *old = [[WaxDataManager sharedManager] trendsFeed];
                 [old addObjectsFromArray:feedArray];
-                [[KiwiModel sharedModel] setTrendsFeed:old];
+                [[WaxDataManager sharedManager] setTrendsFeed:old];
             }); 
         });
         
@@ -188,7 +299,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kConnectionErrorNotify object:kTrendsFeedURL];
         [[AIKErrorUtilities sharedUtilities] logErrorWithMessage:[NSString stringWithFormat:@"Connection error for path: %@", kTrendsFeedURL] error:error];
         [SVProgressHUD showErrorWithStatus:@"There was a connection issue loading your Trends Feed :("];
-        [[KiwiModel sharedModel] setTrendsFeed:[NSMutableArray array]];
+        [[WaxDataManager sharedManager] setTrendsFeed:[NSMutableArray array]];
     }];
 }
 -(void)loadMyFeedWithLastTimeStamp:(NSNumber *)lastTimeStamp{
@@ -197,7 +308,7 @@
     [self postPath:kPeopleFeedURL parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
        
         dispatch_async(self.jsonProcessingQueue, ^{
-            id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+            id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             
             //       DLog(@"%@", responseObject);
             
@@ -209,18 +320,18 @@
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (refresh) {
-                    [[KiwiModel sharedModel] setMyFeed:[NSMutableArray array]];
+                    [[WaxDataManager sharedManager] setMyFeed:[NSMutableArray array]];
                 }
-                NSMutableArray *old = [[KiwiModel sharedModel] myFeed];
+                NSMutableArray *old = [[WaxDataManager sharedManager] myFeed];
                 [old addObjectsFromArray:feedArray];
-                [[KiwiModel sharedModel] setMyFeed:old];
+                [[WaxDataManager sharedManager] setMyFeed:old];
             }); 
         });
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[AIKErrorUtilities sharedUtilities] logErrorWithMessage:[NSString stringWithFormat:@"Connection error for path: %@", kPeopleFeedURL] error:error];
         [SVProgressHUD showErrorWithStatus:@"There was a connection issue loading your Kiwis :("];
-        [[KiwiModel sharedModel] setMyFeed:[NSMutableArray array]];
+        [[WaxDataManager sharedManager] setMyFeed:[NSMutableArray array]];
     }];
 }
 -(void)loadNotificationsWithLastTimeStamp:(NSNumber *)lastTimeStamp{
@@ -230,7 +341,7 @@
     [self postPath:kNotificationsURL parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
       
         dispatch_async(self.jsonProcessingQueue, ^{
-            id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+            id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             
             NSArray *rawJSON = [validated objectForKeyNotNull:kKeyForJSON];
             NSMutableArray *notes = [NSMutableArray arrayWithCapacity:rawJSON.count];
@@ -241,18 +352,18 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (refresh) {
-                    [[KiwiModel sharedModel] setNotifications:[NSMutableArray array]];
+                    [[WaxDataManager sharedManager] setNotifications:[NSMutableArray array]];
                 }
                 
-                NSMutableArray *old = [[KiwiModel sharedModel] notifications];
+                NSMutableArray *old = [[WaxDataManager sharedManager] notifications];
                 [old addObjectsFromArray:notes];
-                [[KiwiModel sharedModel] setNotifications:old];
+                [[WaxDataManager sharedManager] setNotifications:old];
             }); 
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[AIKErrorUtilities sharedUtilities] logErrorWithMessage:[NSString stringWithFormat:@"Connection error for path: %@", kNotificationsURL] error:error];
         [SVProgressHUD showErrorWithStatus:@"There was a connection issue loading your notifications :("];
-        [[KiwiModel sharedModel] setNotifications:[NSMutableArray array]];
+        [[WaxDataManager sharedManager] setNotifications:[NSMutableArray array]];
     }];
 }
 //-(void)matchContacts:(NSArray *)contacts sender:(id<WaxAPIClientDelegate>)sender{
@@ -262,13 +373,13 @@
     DLog(@"notecount is deprecated. we now load it from the notifications array");
     
     [self postPath:kNoteCountURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+        id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
         
 //        DLog(@"notecount response %@", validated);
         
         NSNumber *noteCount = [[[validated objectForKeyNotNull:kKeyForJSON] firstObject] objectForKeyNotNull:@"notecount"];
         
-        [[KiwiModel sharedModel] setNotificationCount:noteCount];
+        [[WaxDataManager sharedManager] setNotificationCount:noteCount];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[AIKErrorUtilities sharedUtilities] logErrorWithMessage:[NSString stringWithFormat:@"Connection error for path: %@", kNoteCountURL] error:error];
@@ -314,7 +425,7 @@
 
 -(void)markNotificationsAsRead{
     [self postPath:kMarkNotesReadURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[KiwiModel sharedModel] validateResponseObject:responseObject];
+        [[WaxDataManager sharedManager] validateResponseObject:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[AIKErrorUtilities sharedUtilities] logErrorWithMessage:[NSString stringWithFormat:@"Connection error for path: %@", kMarkNotesReadURL] error:error];
     }];
@@ -324,7 +435,7 @@
     
     [self postPath:path parameters:feedParam success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(self.jsonProcessingQueue, ^{
-            id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+            id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             
             //       DLog(@"%@", responseObject);
             
@@ -349,7 +460,7 @@
     
     [self postPath:path parameters:feedParam success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(self.jsonProcessingQueue, ^{
-            id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+            id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             
 //       DLog(@"%@", responseObject);
             
@@ -388,7 +499,7 @@
     [self loadPeopleListWithPath:path params:peopleListParam sender:sender]; 
 //    [self postPath:path parameters:peopleListParam success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        dispatch_async(self.jsonProcessingQueue, ^{
-//            id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+//            id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
 //            
 //            //        DLog(@"response object %@", responseObject);
 //            
@@ -420,7 +531,7 @@
     
     [self postPath:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(self.jsonProcessingQueue, ^{
-            id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+            id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             
             //        DLog(@"response object %@", responseObject);
             
@@ -455,7 +566,7 @@
     
     [self postPath:path parameters:peopleListParam success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(self.jsonProcessingQueue, ^{
-            id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+            id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             
             //        DLog(@"response object %@", responseObject);
             
@@ -479,7 +590,7 @@
     NSDictionary *videoCommentsParam = [NSDictionary dictionaryWithObjectsAndKeys:vidId, @"videoid", lastCommentTimeStamp, @"lastitem", nil];
     [self postPath:kVideoCommentsURL parameters:videoCommentsParam success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(self.jsonProcessingQueue, ^{
-            id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+            id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             
             //        DLog(@"%@", responseObject);
             
@@ -501,7 +612,7 @@
     NSDictionary *vInfoParam = [NSDictionary dictionaryWithObjectsAndKeys:vidId, @"videoid", nil];
     [self postPath:kVideoInfoURL parameters:vInfoParam success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(self.jsonProcessingQueue, ^{
-            id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+            id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             //        DLog(@"%@", responseObject);
             
             NSArray *videoResponse = [validated objectForKeyNotNull: kKeyForJSON];
@@ -522,7 +633,7 @@
     
     [self postPath:kSendCommentURL parameters:commentParam success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(self.jsonProcessingQueue, ^{
-            id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+            id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             NSArray *commentSuccess = [validated objectForKeyNotNull:kKeyForJSON];
             CommentObject *comment = [[CommentObject alloc] initWithDictionary:[commentSuccess objectAtIndexNotNull:0]];
             NSDictionary *userInfo = [NSDictionary dictionaryWithObject:comment forKey:kSendCommentURL];
@@ -538,7 +649,7 @@
     NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:commentId, @"commentid", vidId, @"videoid", nil];
 //    DLog(@"paramaters %@", itemParam);
     [self postPath:kDeleteCommentURL parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[KiwiModel sharedModel] validateResponseObject:responseObject];
+        [[WaxDataManager sharedManager] validateResponseObject:responseObject];
         
         //        NSArray *requestSuccess = [responseObject objectForKeyNotNull: objectForKey];
         //        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:requestSuccess forKey:path];
@@ -556,7 +667,7 @@
     NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:vidId, @"videoid", personId, @"personid", nil];
 //    DLog(@"paramaters %@", itemParam);
     [self postPath:kFlagVideoURL parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[KiwiModel sharedModel] validateResponseObject:responseObject];
+        [[WaxDataManager sharedManager] validateResponseObject:responseObject];
         
         //        NSArray *requestSuccess = [responseObject objectForKeyNotNull: objectForKey];
         //        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:requestSuccess forKey:path];
@@ -574,7 +685,7 @@
     NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:personId, @"personid", vidId, @"videoid", nil];
 //    DLog(@"paramaters %@", itemParam);
     [self postPath:kLikeVideoURL parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[KiwiModel sharedModel] validateResponseObject:responseObject];
+        [[WaxDataManager sharedManager] validateResponseObject:responseObject];
         
         //        NSArray *requestSuccess = [responseObject objectForKeyNotNull: objectForKey];
         //        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:requestSuccess forKey:path];
@@ -591,7 +702,7 @@
 -(void)deleteVideoWithFeedItem:(FeedObject *)feedItem{
     NSDictionary *itemParam = [NSDictionary dictionaryWithObjectsAndKeys:feedItem.vidId, @"videoid", nil];
     [self postPath:kDeleteVideoURL parameters:itemParam success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[KiwiModel sharedModel] validateResponseObject:responseObject];
+        [[WaxDataManager sharedManager] validateResponseObject:responseObject];
         [[UploadManager sharedManager] deleteKiwiWithFeedItem:feedItem];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[AIKErrorUtilities sharedUtilities] logErrorWithMessage:[NSString stringWithFormat:@"Connection error for path: %@", kDeleteVideoURL] error:error];
@@ -609,7 +720,7 @@
         params = [NSDictionary dictionaryWithObjectsAndKeys:feedItem.vidId, @"videoid", nil];
     }
     [self postPath:kDeleteVideoURL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[KiwiModel sharedModel] validateResponseObject:responseObject];
+        [[WaxDataManager sharedManager] validateResponseObject:responseObject];
         [[UploadManager sharedManager] deleteKiwiWithFeedItem:feedItem];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[AIKErrorUtilities sharedUtilities] logErrorWithMessage:[NSString stringWithFormat:@"Connection error for path: %@", kDeleteVideoURL] error:error];
@@ -623,7 +734,7 @@
     NSDictionary *profileInfoParam = [NSDictionary dictionaryWithObjectsAndKeys:personid, @"personid", nil];
     [self postPath:kProfileInfoURL parameters:profileInfoParam success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(self.jsonProcessingQueue, ^{
-            id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+            id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             NSArray *response = [validated objectForKeyNotNull:kKeyForJSON];
             PersonObject *person = [[PersonObject alloc] initWithDictionary:[response firstObject]];
             NSDictionary *userInfo = [NSDictionary dictionaryWithObject:person forKey:kProfileInfoURL];
@@ -638,7 +749,7 @@
 -(void)videoWasViewedWithVidId:(NSString *)vidId personid:(NSString *)personid{
     NSDictionary *viewedDict = [[NSDictionary alloc] initWithObjectsAndKeys:vidId, @"videoid", personid, @"personid", nil];
     [self postPath:kVideoViewedURL parameters:viewedDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[KiwiModel sharedModel] validateResponseObject:responseObject];
+        [[WaxDataManager sharedManager] validateResponseObject:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[AIKErrorUtilities sharedUtilities] logErrorWithMessage:[NSString stringWithFormat:@"Connection error for path: %@", kVideoViewedURL] error:error];
     }];
@@ -646,7 +757,7 @@
 -(void)getSettings{
     [self postPath:kGetSettingsURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(self.jsonProcessingQueue, ^{
-            id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+            id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             NSArray *settings = [[validated objectForKeyNotNull:kKeyForJSON] firstObject];
             if (!settings) {
                 NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"error" forKey:kConnectionErrorNotify];
@@ -666,7 +777,7 @@
     NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:tagCount, @"lastitem", nil];
     [self postPath:kDiscoverURL parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(self.jsonProcessingQueue, ^{
-            id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+            id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             NSMutableArray *discoverJSON = [NSMutableArray arrayWithArray:[validated objectForKeyNotNull:kKeyForJSON]];
             discoverJSON.count & 1 ? [discoverJSON removeLastObject] : nil;
             NSMutableArray *discoverArray = [NSMutableArray arrayWithCapacity:discoverJSON.count/2];
@@ -688,7 +799,7 @@
     NSDictionary *tagSearchParam = [NSDictionary dictionaryWithObjectsAndKeys:tag, @"search", nil];
     [self postPath:kSearchTagsURL parameters:tagSearchParam success:^(AFHTTPRequestOperation *operation, id responseObject){
         dispatch_async(self.jsonProcessingQueue, ^{
-            id validated = [[KiwiModel sharedModel] validateResponseObject:responseObject];
+            id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             //        DLog(@"tag search response %@", responseObject);
             
             NSMutableArray *response = [NSMutableArray arrayWithArray:[validated objectForKeyNotNull:kKeyForJSON]];

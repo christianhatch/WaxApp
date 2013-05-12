@@ -8,27 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *const kAIKNotificationContactsAvailable;
-extern NSString *const kAIKNotificationContactsMatchedAvailable;
+extern NSString *const AIKContactsNotificationAllContactsAvailable;
+extern NSString *const AIKContactsNotificationMatchedContactsAvailable;
 
 @interface AIKContactsManager : NSObject
 
 +(AIKContactsManager *)sharedManager;
 
-+(BOOL)isAuthorized;
+-(void)requestPermissions;
+-(BOOL)checkPermissions;
 
-+(BOOL)checkAuthorization;
-
--(void)searchContactsWithString:(NSString *)searchTerm;
-
--(void)prefetchKiwiFriends;
--(void)parseAndSortContacts; 
-
-@property (nonatomic, strong) NSMutableArray *allContacts;
-@property (nonatomic, strong) NSMutableDictionary *sortedContacts;
-@property (nonatomic, strong) NSMutableArray *searchResults;
-@property (nonatomic, strong) NSMutableArray *matchedContacts;
-
-@property (nonatomic, assign) BOOL noMatchedContacts;
 
 @end

@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		451EBD2D1726CF29000D600E /* WaxDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 451EBD2C1726CF29000D600E /* WaxDefines.m */; };
+		454BBDBC17403831005F48ED /* PersonObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDBB17403831005F48ED /* PersonObject.m */; };
+		454BBDBD17403831005F48ED /* PersonObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDBB17403831005F48ED /* PersonObject.m */; };
+		454BBDC117403888005F48ED /* WaxDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC017403888005F48ED /* WaxDataManager.m */; };
+		454BBDC217403888005F48ED /* WaxDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC017403888005F48ED /* WaxDataManager.m */; };
 		459C28251725EC82009C5487 /* UIButton+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C281E1725EC82009C5487 /* UIButton+WaxKit.m */; };
 		459C28261725EC82009C5487 /* UIButton+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C281E1725EC82009C5487 /* UIButton+WaxKit.m */; };
 		459C28271725EC82009C5487 /* UIFont+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C28201725EC82009C5487 /* UIFont+WaxKit.m */; };
@@ -31,7 +35,7 @@
 		45EA31FD1725FB8000980320 /* UIView+AcaciaKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31D11725FB8000980320 /* UIView+AcaciaKit.m */; };
 		45EA31FE1725FB8000980320 /* UIViewController+AcaciaKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31D31725FB8000980320 /* UIViewController+AcaciaKit.m */; };
 		45EA32001725FB8000980320 /* AIKErrorUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31D81725FB8000980320 /* AIKErrorUtilities.m */; };
-		45EA32011725FB8000980320 /* AIKFacebookConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31DA1725FB8000980320 /* AIKFacebookConnect.m */; };
+		45EA32011725FB8000980320 /* AIKFacebookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31DA1725FB8000980320 /* AIKFacebookManager.m */; };
 		45EA32021725FB8000980320 /* AIKLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31DC1725FB8000980320 /* AIKLocationManager.m */; };
 		45EA32031725FB8000980320 /* AIKTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31DE1725FB8000980320 /* AIKTabBarController.m */; };
 		45EA32041725FB8000980320 /* AIKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31E01725FB8000980320 /* AIKWebViewController.m */; };
@@ -89,6 +93,10 @@
 /* Begin PBXFileReference section */
 		1C9784DDF7E84C01BC8F8951 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		451EBD2C1726CF29000D600E /* WaxDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaxDefines.m; path = WaxKit/WaxDefines.m; sourceTree = "<group>"; };
+		454BBDBA17403831005F48ED /* PersonObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonObject.h; sourceTree = "<group>"; };
+		454BBDBB17403831005F48ED /* PersonObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonObject.m; sourceTree = "<group>"; };
+		454BBDBF17403888005F48ED /* WaxDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxDataManager.h; sourceTree = "<group>"; };
+		454BBDC017403888005F48ED /* WaxDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxDataManager.m; sourceTree = "<group>"; };
 		459C281D1725EC82009C5487 /* UIButton+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+WaxKit.h"; sourceTree = "<group>"; };
 		459C281E1725EC82009C5487 /* UIButton+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WaxKit.m"; sourceTree = "<group>"; };
 		459C281F1725EC82009C5487 /* UIFont+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+WaxKit.h"; sourceTree = "<group>"; };
@@ -132,8 +140,8 @@
 		45EA31D31725FB8000980320 /* UIViewController+AcaciaKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+AcaciaKit.m"; sourceTree = "<group>"; };
 		45EA31D71725FB8000980320 /* AIKErrorUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIKErrorUtilities.h; sourceTree = "<group>"; };
 		45EA31D81725FB8000980320 /* AIKErrorUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIKErrorUtilities.m; sourceTree = "<group>"; };
-		45EA31D91725FB8000980320 /* AIKFacebookConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIKFacebookConnect.h; sourceTree = "<group>"; };
-		45EA31DA1725FB8000980320 /* AIKFacebookConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIKFacebookConnect.m; sourceTree = "<group>"; };
+		45EA31D91725FB8000980320 /* AIKFacebookManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIKFacebookManager.h; sourceTree = "<group>"; };
+		45EA31DA1725FB8000980320 /* AIKFacebookManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIKFacebookManager.m; sourceTree = "<group>"; };
 		45EA31DB1725FB8000980320 /* AIKLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIKLocationManager.h; sourceTree = "<group>"; };
 		45EA31DC1725FB8000980320 /* AIKLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIKLocationManager.m; sourceTree = "<group>"; };
 		45EA31DD1725FB8000980320 /* AIKTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIKTabBarController.h; sourceTree = "<group>"; };
@@ -332,8 +340,8 @@
 			children = (
 				45EA321917260D6A00980320 /* AIKContactsManager.h */,
 				45EA321A17260D6B00980320 /* AIKContactsManager.m */,
-				45EA31D91725FB8000980320 /* AIKFacebookConnect.h */,
-				45EA31DA1725FB8000980320 /* AIKFacebookConnect.m */,
+				45EA31D91725FB8000980320 /* AIKFacebookManager.h */,
+				45EA31DA1725FB8000980320 /* AIKFacebookManager.m */,
 				45EA31D71725FB8000980320 /* AIKErrorUtilities.h */,
 				45EA31D81725FB8000980320 /* AIKErrorUtilities.m */,
 				45EA31DB1725FB8000980320 /* AIKLocationManager.h */,
@@ -391,6 +399,8 @@
 			children = (
 				45EA32121726063C00980320 /* WaxAPIClient.h */,
 				45EA32131726063C00980320 /* WaxAPIClient.m */,
+				454BBDBF17403888005F48ED /* WaxDataManager.h */,
+				454BBDC017403888005F48ED /* WaxDataManager.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -400,6 +410,8 @@
 			children = (
 				45EA32161726093600980320 /* WaxUser.h */,
 				45EA32171726093600980320 /* WaxUser.m */,
+				454BBDBA17403831005F48ED /* PersonObject.h */,
+				454BBDBB17403831005F48ED /* PersonObject.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -676,7 +688,7 @@
 				45EA31FD1725FB8000980320 /* UIView+AcaciaKit.m in Sources */,
 				45EA31FE1725FB8000980320 /* UIViewController+AcaciaKit.m in Sources */,
 				45EA32001725FB8000980320 /* AIKErrorUtilities.m in Sources */,
-				45EA32011725FB8000980320 /* AIKFacebookConnect.m in Sources */,
+				45EA32011725FB8000980320 /* AIKFacebookManager.m in Sources */,
 				45EA32021725FB8000980320 /* AIKLocationManager.m in Sources */,
 				45EA32031725FB8000980320 /* AIKTabBarController.m in Sources */,
 				45EA32041725FB8000980320 /* AIKWebViewController.m in Sources */,
@@ -689,6 +701,8 @@
 				45EA32181726093600980320 /* WaxUser.m in Sources */,
 				45EA321B17260D6C00980320 /* AIKContactsManager.m in Sources */,
 				451EBD2D1726CF29000D600E /* WaxDefines.m in Sources */,
+				454BBDBC17403831005F48ED /* PersonObject.m in Sources */,
+				454BBDC117403888005F48ED /* WaxDataManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -700,6 +714,8 @@
 				459C28261725EC82009C5487 /* UIButton+WaxKit.m in Sources */,
 				459C28281725EC82009C5487 /* UIFont+WaxKit.m in Sources */,
 				459C282A1725EC82009C5487 /* UIImage+WaxKit.m in Sources */,
+				454BBDBD17403831005F48ED /* PersonObject.m in Sources */,
+				454BBDC217403888005F48ED /* WaxDataManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

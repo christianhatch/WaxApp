@@ -18,3 +18,8 @@
 //Controllers
 #import "WaxAPIClient.h"
 #import "WaxUser.h"
+#import "WaxDataManager.h" 
+
+
+//Models
+#import "PersonObject.h"

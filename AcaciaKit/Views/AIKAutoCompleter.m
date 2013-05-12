@@ -146,8 +146,8 @@
     @try {
         switch (self.sourceType) {
             case CHAutoCompleteSourceTypeUsers:{
-//                PersonObject *person = [self.usersArray objectAtIndexNotNull:indexPath.row];
-//                [self.textView setText:[self.textView.text stringByReplacingOccurrencesOfString:self.searchTerm withString:[NSString stringWithFormat:@"@%@", person.username]]];
+                PersonObject *person = [self.usersArray objectAtIndexNotNull:indexPath.row];
+                [self.textView setText:[self.textView.text stringByReplacingOccurrencesOfString:self.searchTerm withString:[NSString stringWithFormat:@"@%@", person.username]]];
             }break;
             case CHAutoCompleteSourceTypeHashTags:{
                 [self.textView setText:[self.textView.text stringByReplacingOccurrencesOfString:self.searchTerm withString:[[self.hashtagsArray objectAtIndexNotNull:indexPath.row] objectForKeyNotNull:@"tag"]]];
@@ -155,7 +155,7 @@
         }
     }
     @catch (NSException *exception) {
-//        [[AIKErrorUtilities sharedUtilities] logExceptionWithMessage:@"CHAutoCompleter selected row and CAUGHT EXCEPTION" exception:exception]; 
+        [[AIKErrorUtilities sharedUtilities] logExceptionWithMessage:@"CHAutoCompleter selected row and CAUGHT EXCEPTION" exception:exception]; 
     }
     [self hideOptionsView];
 }

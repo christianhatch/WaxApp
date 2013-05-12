@@ -11,8 +11,8 @@
 
 #define KWContactsFinishedParsingNotification   @"contactsFinishedParsing"
 
-NSString *const kAIKNotificationContactsAvailable = @"aikContactsAvailableDidChangeNotification";
-NSString *const kAIKNotificationContactsMatchedAvailable = @"aikContactsMatchedDidChangeNotification";
+NSString *const AIKContactsNotificationAllContactsAvailable = @"aikContactsAvailableDidChangeNotification";
+NSString *const AIKContactsNotificationMatchedContactsAvailable = @"aikContactsMatchedDidChangeNotification";
 
 
 @interface AIKContactsManager ()
@@ -21,7 +21,7 @@ NSString *const kAIKNotificationContactsMatchedAvailable = @"aikContactsMatchedD
 @end
 
 @implementation AIKContactsManager
-@synthesize allContacts = _allContacts, searchResults = _searchResults, addressBookQueue = _addressBookQueue, sortedContacts = _sortedContacts, matchedContacts = _matchedContacts, allContactsWithoutPictures = _allContactsWithoutPictures, noMatchedContacts = _noMatchedContacts; 
+//@synthesize allContacts = _allContacts, searchResults = _searchResults, addressBookQueue = _addressBookQueue, sortedContacts = _sortedContacts, matchedContacts = _matchedContacts, allContactsWithoutPictures = _allContactsWithoutPictures, noMatchedContacts = _noMatchedContacts; 
 
 
 + (AIKContactsManager *)sharedManager{
@@ -38,40 +38,31 @@ NSString *const kAIKNotificationContactsMatchedAvailable = @"aikContactsMatchedD
     }
     return _addressBookQueue; 
 }
-+(BOOL)isAuthorized{
-    __block BOOL authorized = NO;
-//        dispatch_sync(dispatch_get_main_queue(), ^{
-        ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(NULL, NULL);
-        switch (ABAddressBookGetAuthorizationStatus()) {
-            case kABAuthorizationStatusAuthorized:{
-                authorized = YES; 
-            }break;
-            case kABAuthorizationStatusNotDetermined:{
-                ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error) {
-                    if (granted){
-                        authorized = YES;
-                    }else{
-                        authorized = NO;
-                    }
-                });
-            }break;
-            case kABAuthorizationStatusDenied:{
-                authorized = NO;
-                UIAlertView *errr = [[UIAlertView alloc] initWithTitle:@"Wax isn't authorized to access your contacts :(" message:@"Authorize Wax by going to Settings > Privacy > Contacts > and turn on Wax" cancelButtonItem:[RIButtonItem randomDismissalButton] otherButtonItems:nil, nil];
-                [errr show];
-            }break;
-            case kABAuthorizationStatusRestricted:{
-                authorized = NO;
-                UIAlertView *errr = [[UIAlertView alloc] initWithTitle:@"Wax isn't authorized to access your contacts :(" message:@"Parental Controls are restricting Wax from accessing your contacts. Please contact your IT manager to remove these restrictions" cancelButtonItem:[RIButtonItem randomDismissalButton] otherButtonItems:nil, nil];
-                [errr show];
-            }break;
-        }
-//        });
-    return authorized;
+-(void)requestPermissions{
+    ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(NULL, NULL);
+    switch (ABAddressBookGetAuthorizationStatus()) {
+        case kABAuthorizationStatusAuthorized:{
+            
+        }break;
+        case kABAuthorizationStatusNotDetermined:{
+            ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error) {
+                //perhaps log the error? 
+            });
+        }break;
+        case kABAuthorizationStatusDenied:{
+            UIAlertView *errr = [[UIAlertView alloc] initWithTitle:@"Wax isn't authorized to access your contacts :(" message:@"Authorize Wax by going to Settings > Privacy > Contacts > and turn on Wax" cancelButtonItem:[RIButtonItem randomDismissalButton] otherButtonItems:nil, nil];
+            [errr show];
+        }break;
+        case kABAuthorizationStatusRestricted:{
+            UIAlertView *errr = [[UIAlertView alloc] initWithTitle:@"Wax isn't authorized to access your contacts :(" message:@"Parental Controls are restricting Wax from accessing your contacts. Please contact your IT manager to remove these restrictions" cancelButtonItem:[RIButtonItem randomDismissalButton] otherButtonItems:nil, nil];
+            [errr show];
+        }break;
+    }
 }
-+(BOOL)checkAuthorization{
+-(BOOL)checkPermissions{
     return ABAddressBookGetAuthorizationStatus();
 }
+/*
 -(void)parseAndSortContacts{
     [self parseContacts];
 }
@@ -173,7 +164,7 @@ NSString *const kAIKNotificationContactsMatchedAvailable = @"aikContactsMatchedD
         }
         [sorted setObject:nonLetters forKey:@"#"];
         self.sortedContacts = sorted;
-        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:KWContactsAvailableNotification object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AIKContactsNotificationAllContactsAvailable object:self];
     });
 }
 -(void)searchContactsWithString:(NSString *)searchTerm{
@@ -211,12 +202,8 @@ NSString *const kAIKNotificationContactsMatchedAvailable = @"aikContactsMatchedD
     }else{
         [[NSNotificationCenter defaultCenter] removeObserver:self name:KWContactsFinishedParsingNotification object:self
          ];
-        if (IOS_6_OR_GREATER) {
-            if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized) {
+        if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized) {
 //                [[WaxAPIClient sharedClient] matchContacts:self.allContactsWithoutPictures sender:self];
-            }
-        }else{
-//            [[WaxAPIClient sharedClient] matchContacts:self.allContactsWithoutPictures sender:self];
         }
     }
 }
@@ -227,19 +214,19 @@ NSString *const kAIKNotificationContactsMatchedAvailable = @"aikContactsMatchedD
         self.noMatchedContacts = YES; 
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:KWContactsKiwiFriendsAvailableNotification object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AIKContactsNotificationMatchedContactsAvailable object:self];
 }
 -(void)connectionError:(NSError *)error forPath:(NSString *)path{
     self.matchedContacts = nil; 
     [SVProgressHUD showErrorWithStatus:@"Error loading friends from contacts :( Please try again!"];
-    [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:KWContactsKiwiFriendsAvailableNotification object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AIKContactsNotificationMatchedContactsAvailable object:self];
 }
 -(void)setNoMatchedContacts:(BOOL)noMatchedContacts{
     _noMatchedContacts = noMatchedContacts;
 
     DLog(@"no matched contacts");
 }
-
+*/
 
 
 

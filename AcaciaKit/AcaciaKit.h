@@ -31,7 +31,7 @@
 #import "AIKLocationManager.h"
 #import "AIKWebViewController.h"
 #import "AIKContactsManager.h"
-#import "AIKFacebookConnect.h"
+#import "AIKFacebookManager.h"
 #import "AIKTabBarController.h"
 #import "AIKErrorUtilities.h"
 

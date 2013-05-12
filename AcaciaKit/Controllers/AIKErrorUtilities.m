@@ -9,6 +9,7 @@
 #import "AIKErrorUtilities.h"
 #import "TestFlight.h"
 #import "Flurry.h"
+#import <Crashlytics/Crashlytics.h>
 
 @implementation AIKErrorUtilities
 

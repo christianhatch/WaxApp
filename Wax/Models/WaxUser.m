@@ -13,7 +13,7 @@
 #import <Accounts/Accounts.h>
 #import <Twitter/Twitter.h>
 #import <FacebookSDK/FacebookSDK.h>
-#import "AIKFacebookConnect.h"
+#import "AIKFacebookManager.h"
 #import <Crashlytics/Crashlytics.h>
 #import "Flurry.h"
 
@@ -168,7 +168,7 @@
     }
 }
 -(void)fetchFacebookProfilePictureAndShowUser:(BOOL)showUser{
-    if ([[AIKFacebookConnect sharedFB] sessionIsActive] && [self isLoggedIn]) {
+    if ([[AIKFacebookManager sharedManager] sessionIsActive] && [self isLoggedIn]) {
         [FBRequestConnection startWithGraphPath:@"me?fields=picture.type(large)" completionHandler:^(FBRequestConnection *connection, id <FBGraphObject> result, NSError *error) {
             NSURL *url = [NSURL URLWithString:[[[result objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"]];
             AFImageRequestOperation *proPic = [AFImageRequestOperation imageRequestOperationWithRequest:[NSURLRequest requestWithURL:url] success:^(UIImage *image) {
@@ -177,14 +177,14 @@
             [proPic start];
         }];
     }else{
-        [[AIKFacebookConnect sharedFB] loginWithFacebook];
+        [[AIKFacebookManager sharedManager] loginWithFacebook];
     }
 }
 -(void)uploadNewProfilePicture:(UIImage *)profilePicture{
 //    [[WaxAPIClient sharedClient] uploadProfilePicture:profilePicture uploadType:KWProfilePictureRequestTypeChange];
 //    [[WaxAPIClient sharedClient] loadMyFeedWithLastTimeStamp:nil];
-//    [[KiwiModel sharedModel] setFriendsFeed:[NSMutableArray array]];
-//    [[KiwiModel sharedModel] setTrendsFeed:[NSMutableArray array]]; 
+//    [[WaxDataManager sharedManager] setFriendsFeed:[NSMutableArray array]];
+//    [[WaxDataManager sharedManager] setTrendsFeed:[NSMutableArray array]]; 
 }
 -(void)logOut:(BOOL)fromTokenError{
     [self saveToken:@"false"];
@@ -194,7 +194,7 @@
     [self saveFirstname:@"false"];
     [self saveLastname:@"false"];
     [self saveTwitterAccountId:@"false"];
-    [[AIKFacebookConnect sharedFB] logoutFacebook];
+    [[AIKFacebookManager sharedManager] logoutFacebook];
     
 //#ifndef RELEASE
 //    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:KWSuperUserModeEnableKey];
@@ -229,7 +229,6 @@
     [self saveFacebookAccountId:@"false"];
 //    [self saveNoFriends:NO];
     
-    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 -(BOOL)useridIsCurrentUser:(NSString *)userid{
     return [[self userid] isEqualToString:userid]; 
