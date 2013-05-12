@@ -62,15 +62,15 @@ typedef void (^JSONProcessingBlock)(NSMutableArray *processedResponse);
 
 //internal processing methods
 
--(void)arrayOfPersonsFromResponseObject:(id)responseObject completionBlock:(JSONProcessingBlock)completion{
+-(void)arrayOf:(Class)modelObjects fromResponseObject:(id)responseObject withCompletionBlock:(JSONProcessingBlock)completion{
     
     dispatch_async(self.jsonProcessingQueue, ^{
+                
         id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
         
-//        DLog(@"Person ResponseObject %@", responseObject);
+//        DLog(@"Model ResponseObject %@", responseObject);
         
         NSArray *rawPersonDictionaries = [validated objectForKeyNotNull:kKeyForJSON];
-        
         
         NSMutableArray *persons = [NSMutableArray arrayWithCapacity:rawPersonDictionaries.count];
        
@@ -87,7 +87,6 @@ typedef void (^JSONProcessingBlock)(NSMutableArray *processedResponse);
         
     });
 }
-
 
 
 

@@ -8,10 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		451EBD2D1726CF29000D600E /* WaxDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 451EBD2C1726CF29000D600E /* WaxDefines.m */; };
-		454BBDBC17403831005F48ED /* PersonObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDBB17403831005F48ED /* PersonObject.m */; };
-		454BBDBD17403831005F48ED /* PersonObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDBB17403831005F48ED /* PersonObject.m */; };
 		454BBDC117403888005F48ED /* WaxDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC017403888005F48ED /* WaxDataManager.m */; };
 		454BBDC217403888005F48ED /* WaxDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC017403888005F48ED /* WaxDataManager.m */; };
+		454BBDC5174049C4005F48ED /* ModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC4174049C4005F48ED /* ModelObject.m */; };
+		454BBDC6174049C4005F48ED /* ModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC4174049C4005F48ED /* ModelObject.m */; };
+		454BBDC917404A2E005F48ED /* WaxUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC817404A2D005F48ED /* WaxUser.m */; };
+		454BBDCA17404A2E005F48ED /* WaxUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC817404A2D005F48ED /* WaxUser.m */; };
+		454BBDCD17404A39005F48ED /* PersonObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDCC17404A39005F48ED /* PersonObject.m */; };
+		454BBDCE17404A39005F48ED /* PersonObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDCC17404A39005F48ED /* PersonObject.m */; };
 		459C28251725EC82009C5487 /* UIButton+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C281E1725EC82009C5487 /* UIButton+WaxKit.m */; };
 		459C28261725EC82009C5487 /* UIButton+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C281E1725EC82009C5487 /* UIButton+WaxKit.m */; };
 		459C28271725EC82009C5487 /* UIFont+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C28201725EC82009C5487 /* UIFont+WaxKit.m */; };
@@ -47,7 +51,6 @@
 		45EA320D1726025300980320 /* NSURL+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA320C1726025300980320 /* NSURL+WaxKit.m */; };
 		45EA3210172602A700980320 /* NSString+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA320F172602A700980320 /* NSString+WaxKit.m */; };
 		45EA32141726063C00980320 /* WaxAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA32131726063C00980320 /* WaxAPIClient.m */; };
-		45EA32181726093600980320 /* WaxUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA32171726093600980320 /* WaxUser.m */; };
 		45EA321B17260D6C00980320 /* AIKContactsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA321A17260D6B00980320 /* AIKContactsManager.m */; };
 		45EA321D17260D8100980320 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA321C17260D8000980320 /* AddressBook.framework */; };
 		45EA321F17260DA100980320 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA321E17260DA000980320 /* AVFoundation.framework */; };
@@ -93,10 +96,14 @@
 /* Begin PBXFileReference section */
 		1C9784DDF7E84C01BC8F8951 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		451EBD2C1726CF29000D600E /* WaxDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaxDefines.m; path = WaxKit/WaxDefines.m; sourceTree = "<group>"; };
-		454BBDBA17403831005F48ED /* PersonObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonObject.h; sourceTree = "<group>"; };
-		454BBDBB17403831005F48ED /* PersonObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonObject.m; sourceTree = "<group>"; };
 		454BBDBF17403888005F48ED /* WaxDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxDataManager.h; sourceTree = "<group>"; };
 		454BBDC017403888005F48ED /* WaxDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxDataManager.m; sourceTree = "<group>"; };
+		454BBDC3174049C4005F48ED /* ModelObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelObject.h; sourceTree = "<group>"; };
+		454BBDC4174049C4005F48ED /* ModelObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelObject.m; sourceTree = "<group>"; };
+		454BBDC717404A2D005F48ED /* WaxUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxUser.h; sourceTree = "<group>"; };
+		454BBDC817404A2D005F48ED /* WaxUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxUser.m; sourceTree = "<group>"; };
+		454BBDCB17404A39005F48ED /* PersonObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonObject.h; sourceTree = "<group>"; };
+		454BBDCC17404A39005F48ED /* PersonObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonObject.m; sourceTree = "<group>"; };
 		459C281D1725EC82009C5487 /* UIButton+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+WaxKit.h"; sourceTree = "<group>"; };
 		459C281E1725EC82009C5487 /* UIButton+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WaxKit.m"; sourceTree = "<group>"; };
 		459C281F1725EC82009C5487 /* UIFont+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+WaxKit.h"; sourceTree = "<group>"; };
@@ -164,8 +171,6 @@
 		45EA320F172602A700980320 /* NSString+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WaxKit.m"; sourceTree = "<group>"; };
 		45EA32121726063C00980320 /* WaxAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxAPIClient.h; sourceTree = "<group>"; };
 		45EA32131726063C00980320 /* WaxAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxAPIClient.m; sourceTree = "<group>"; };
-		45EA32161726093600980320 /* WaxUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxUser.h; sourceTree = "<group>"; };
-		45EA32171726093600980320 /* WaxUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxUser.m; sourceTree = "<group>"; };
 		45EA321917260D6A00980320 /* AIKContactsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIKContactsManager.h; sourceTree = "<group>"; };
 		45EA321A17260D6B00980320 /* AIKContactsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIKContactsManager.m; sourceTree = "<group>"; };
 		45EA321C17260D8000980320 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -397,6 +402,8 @@
 		45EA32111726063C00980320 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				454BBDC717404A2D005F48ED /* WaxUser.h */,
+				454BBDC817404A2D005F48ED /* WaxUser.m */,
 				45EA32121726063C00980320 /* WaxAPIClient.h */,
 				45EA32131726063C00980320 /* WaxAPIClient.m */,
 				454BBDBF17403888005F48ED /* WaxDataManager.h */,
@@ -408,10 +415,10 @@
 		45EA32151726093600980320 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				45EA32161726093600980320 /* WaxUser.h */,
-				45EA32171726093600980320 /* WaxUser.m */,
-				454BBDBA17403831005F48ED /* PersonObject.h */,
-				454BBDBB17403831005F48ED /* PersonObject.m */,
+				454BBDC3174049C4005F48ED /* ModelObject.h */,
+				454BBDC4174049C4005F48ED /* ModelObject.m */,
+				454BBDCB17404A39005F48ED /* PersonObject.h */,
+				454BBDCC17404A39005F48ED /* PersonObject.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -698,11 +705,12 @@
 				45EA320D1726025300980320 /* NSURL+WaxKit.m in Sources */,
 				45EA3210172602A700980320 /* NSString+WaxKit.m in Sources */,
 				45EA32141726063C00980320 /* WaxAPIClient.m in Sources */,
-				45EA32181726093600980320 /* WaxUser.m in Sources */,
 				45EA321B17260D6C00980320 /* AIKContactsManager.m in Sources */,
 				451EBD2D1726CF29000D600E /* WaxDefines.m in Sources */,
-				454BBDBC17403831005F48ED /* PersonObject.m in Sources */,
 				454BBDC117403888005F48ED /* WaxDataManager.m in Sources */,
+				454BBDC5174049C4005F48ED /* ModelObject.m in Sources */,
+				454BBDC917404A2E005F48ED /* WaxUser.m in Sources */,
+				454BBDCD17404A39005F48ED /* PersonObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -714,8 +722,10 @@
 				459C28261725EC82009C5487 /* UIButton+WaxKit.m in Sources */,
 				459C28281725EC82009C5487 /* UIFont+WaxKit.m in Sources */,
 				459C282A1725EC82009C5487 /* UIImage+WaxKit.m in Sources */,
-				454BBDBD17403831005F48ED /* PersonObject.m in Sources */,
 				454BBDC217403888005F48ED /* WaxDataManager.m in Sources */,
+				454BBDC6174049C4005F48ED /* ModelObject.m in Sources */,
+				454BBDCA17404A2E005F48ED /* WaxUser.m in Sources */,
+				454BBDCE17404A39005F48ED /* PersonObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

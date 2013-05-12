@@ -8,6 +8,7 @@
 
 #import "PersonObject.h"
 
+
 #define kusernameKey            @"username"
 #define kuseridKey              @"userid"
 #define kisFollowingKey         @"isfollowing"
@@ -32,23 +33,23 @@
 @synthesize firstname = _firstname;
 @synthesize lastname = _lastname;
 
--(id)initWithDictionary:(NSDictionary *)personDictionary{
+-(id)initWithDictionary:(NSDictionary *)dictionary{
     self = [super init];
     if (self) {
         @try {
-            self.username = [personDictionary objectForKeyNotNull:@"username"];
-            self.firstname = [personDictionary objectForKeyNotNull:@"firstname"];
-            self.lastname = [personDictionary objectForKeyNotNull:@"lastname"];
+            self.username = [dictionary objectForKeyNotNull:@"username"];
+            self.firstname = [dictionary objectForKeyNotNull:@"firstname"];
+            self.lastname = [dictionary objectForKeyNotNull:@"lastname"];
             
-            self.followersCount = [personDictionary objectForKeyNotNull:@"followerscount"];
-            self.followingCount = [personDictionary objectForKeyNotNull:@"followingcount"];
-            self.likeCount = [personDictionary objectForKeyNotNull:@"likecount"];
+            self.followersCount = [dictionary objectForKeyNotNull:@"followerscount"];
+            self.followingCount = [dictionary objectForKeyNotNull:@"followingcount"];
+            self.likeCount = [dictionary objectForKeyNotNull:@"likecount"];
             
-            self.userid = [personDictionary objectForKeyNotNull:@"userid"];
-            self.isFollowing = [[personDictionary objectForKeyNotNull:@"isfollowing"] boolValue];
+            self.userid = [dictionary objectForKeyNotNull:@"userid"];
+            self.isFollowing = [[dictionary objectForKeyNotNull:@"isfollowing"] boolValue];
             
-            self.serverTimeStamp = [personDictionary objectForKeyNotNull:@"timestamp"];
-            self.count = [personDictionary objectForKeyNotNull:@"count"] ;
+            self.serverTimeStamp = [dictionary objectForKeyNotNull:@"timestamp"];
+            self.count = [dictionary objectForKeyNotNull:@"count"] ;
         }
         @catch (NSException *exception) {
             [[AIKErrorUtilities sharedUtilities] logExceptionWithMessage:@"Tried to init person object with a nil persondictionary!" exception:exception];
@@ -104,5 +105,6 @@
     [acoder encodeObject:_firstname forKey:kfirstnameKey];
     [acoder encodeObject:_lastname forKey:klastnameKey];
 }
+
 
 @end

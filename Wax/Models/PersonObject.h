@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Christian Hatch. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "ModelObject.h"
 #import <FacebookSDK/FacebookSDK.h>
 
-@interface PersonObject : NSObject <NSCoding>
+@interface PersonObject : ModelObject
 
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *firstname;
@@ -24,11 +24,6 @@
 
 @property (nonatomic, assign) BOOL isFollowing;
 
--(id)initWithDictionary:(NSDictionary *)personDictionary;
 -(id)initWithFBGraphUser:(id <FBGraphUser>)graphuser;
-
--(id)initWithCoder:(NSCoder *)aDecoder;
--(void)encodeWithCoder:(NSCoder *)aCoder;
-
 
 @end
