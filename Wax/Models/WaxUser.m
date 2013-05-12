@@ -259,7 +259,7 @@
                         actbtn.action = ^{
                             [self saveTwitterAccountId:account.identifier];
                         };
-                        UIActionSheet *chooser = [[UIActionSheet alloc] initWithTitle:@"Which Twitter account would you like to use with Kiwi?" cancelButtonItem:[RIButtonItem cancelButton] destructiveButtonItem:delete otherButtonItems:actbtn, nil];
+                        UIActionSheet *chooser = [[UIActionSheet alloc] initWithTitle:@"Which Twitter account would you like to use with Wax?" cancelButtonItem:[RIButtonItem cancelButton] destructiveButtonItem:delete otherButtonItems:actbtn, nil];
                         [chooser showInView:mainWindowView];
                     }break;
                     default:{                        
@@ -270,9 +270,9 @@
                             delete.action = ^{
                                 [self saveTwitterAccountId:@"false"];
                             };
-                            chooser = [[UIActionSheet alloc] initWithTitle:@"Which Twitter account would you like to use with Kiwi?" cancelButtonItem:nil destructiveButtonItem:delete otherButtonItems:nil, nil];
+                            chooser = [[UIActionSheet alloc] initWithTitle:@"Which Twitter account would you like to use with Wax?" cancelButtonItem:nil destructiveButtonItem:delete otherButtonItems:nil, nil];
                         }else{
-                            chooser = [[UIActionSheet alloc] initWithTitle:@"Which Twitter account would you like to use with Kiwi?" cancelButtonItem:nil destructiveButtonItem:nil otherButtonItems:nil, nil];
+                            chooser = [[UIActionSheet alloc] initWithTitle:@"Which Twitter account would you like to use with Wax?" cancelButtonItem:nil destructiveButtonItem:nil otherButtonItems:nil, nil];
                         }
                         for (ACAccount *account in twitterAccounts) {
                             RIButtonItem *button = [RIButtonItem item];
@@ -294,7 +294,7 @@
 	 ];
 }
 -(void)showNoTwitterAccessAlert{
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Access to Twitter", @"No Access to Twitter") message:NSLocalizedString(@"To share to Twitter, Kiwi requires access to your Twitter Accounts. Please grant access through the Settings App and going to Twitter", @"To sign in with Twitter the App requires access to your Twitter Accounts. Please grant access through the Settings App and going to Twitter") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"Dismiss") otherButtonTitles:nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Access to Twitter", @"No Access to Twitter") message:NSLocalizedString(@"To share to Twitter, Wax requires access to your Twitter Accounts. Please grant access through the Settings App and going to Twitter", @"To sign in with Twitter the App requires access to your Twitter Accounts. Please grant access through the Settings App and going to Twitter") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"Dismiss") otherButtonTitles:nil];
     [alertView show];
 }
 
@@ -303,10 +303,9 @@
 //#define KWChristianSuperUserID      @"c0601e7ceda37593447c7525dea3070c"
 //#define KWStuSuperUserID            @"9e194145c13551e4160e8377fcb47a51"
 //#define KWJaymeSuperUserID          @"624bf3ceca5c86f33fe06fc31e80bce8"
-//#define KWChristineSuperUserID      @"3cf4343a5fd58ff1d106e567bd32a433"
 //
 //-(BOOL)isSuperUser{
-//    if (([[self userid] isEqualToString:KWJaymeSuperUserID] || [[self userid] isEqualToString:KWStuSuperUserID] || [[self userid] isEqualToString:KWChristianSuperUserID] || [[self userid] isEqualToString:KWChristineSuperUserID]) && [[NSUserDefaults standardUserDefaults] boolForKey:KWSuperUserModeEnableKey]) {
+//    if (([[self userid] isEqualToString:KWJaymeSuperUserID] || [[self userid] isEqualToString:KWStuSuperUserID] || [[self userid] isEqualToString:KWChristianSuperUserID]) && [[NSUserDefaults standardUserDefaults] boolForKey:KWSuperUserModeEnableKey]) {
 //        return YES;
 //    }else{
 //        return NO; 
