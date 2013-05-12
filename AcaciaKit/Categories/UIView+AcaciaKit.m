@@ -14,7 +14,7 @@
 
 -(void)fadeIn{
     if (self.hidden || self.alpha < 1) {
-        [UIView animateWithDuration:KWAnimationDuration delay:0 options:(UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionTransitionCrossDissolve) animations:^{
+        [UIView animateWithDuration:AIKDefaultAnimationDuration delay:0 options:(UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionTransitionCrossDissolve) animations:^{
             self.alpha = 1;
         } completion:^(BOOL finished) {
             self.hidden = NO;
@@ -23,7 +23,7 @@
 }
 -(void)fadeOut{
     if (!self.hidden || self.alpha > 0) {
-        [UIView animateWithDuration:KWAnimationDuration delay:0 options:(UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionTransitionCrossDissolve) animations:^{
+        [UIView animateWithDuration:AIKDefaultAnimationDuration delay:0 options:(UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionTransitionCrossDissolve) animations:^{
             self.alpha = 0;
         } completion:^(BOOL finished) {
             self.hidden = YES;
@@ -31,7 +31,7 @@
     }
 }
 -(void)fadeOutandRemoveFromSuperview{
-    [UIView animateWithDuration:KWAnimationDuration delay:0 options:(UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionTransitionCrossDissolve) animations:^{
+    [UIView animateWithDuration:AIKDefaultAnimationDuration delay:0 options:(UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionTransitionCrossDissolve) animations:^{
         self.alpha = 0;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];

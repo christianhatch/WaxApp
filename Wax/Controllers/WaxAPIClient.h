@@ -10,11 +10,11 @@
 #import "AFHTTPClient.h"
 
 enum{
-    KWProfilePictureRequestTypeFacebook = 1, //currently does the same thing as 'initial signup', but reserved for future use
-    KWProfilePictureRequestTypeInitialSignup, //do NOT show any progress/success/failure callbacks
-    KWProfilePictureRequestTypeChange, //show progress/success/failure callbacks to the user
+    AIKProfilePictureRequestTypeFacebook = 1, //currently does the same thing as 'initial signup', but reserved for future use
+    AIKProfilePictureRequestTypeInitialSignup, //do NOT show any progress/success/failure callbacks
+    AIKProfilePictureRequestTypeChange, //show progress/success/failure callbacks to the user
 };
-typedef NSInteger KWProfilePictureRequestType;
+typedef NSInteger AIKProfilePictureRequestType;
 
 
 @interface WaxAPIClient : AFHTTPClient //<AmazonServiceRequestDelegate>

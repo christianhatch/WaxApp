@@ -10,8 +10,8 @@
 #import <CoreLocation/CoreLocation.h>
 
 
-//extern NSString * const AIKLocationManagerUserLocationDidChangeNotification;
-//extern NSString * const AIKLocationManagerNotificationLocationUserInfoKey;
+extern NSString * const AIKLocationManagerUserLocationDidChangeNotification;
+extern NSString * const AIKLocationManagerNotificationLocationUserInfoKey;
 
 typedef void(^AIKLocationManagerLocationUpdateBlock)(CLLocationManager *manager, CLLocation *newLocation, CLLocation *oldLocation);
 typedef void (^AIKLocationManagerLocationUpdateFailBlock)(CLLocationManager *manager, NSError *error);
@@ -31,9 +31,6 @@ typedef void (^AIKLocationManagerLocationUpdateFailBlock)(CLLocationManager *man
 + (BOOL)locationPermittedOrAsk;
 
 + (BOOL)locationServicesEnabled;
-+ (BOOL)regionMonitoringAvailable;
-+ (BOOL)regionMonitoringEnabled;
-+ (BOOL)significantLocationChangeMonitoringAvailable;
 
 - (void)startUpdatingLocation;
 - (void)startUpdatingLocationWithBlock:(AIKLocationManagerLocationUpdateBlock)block errorBlock:(AIKLocationManagerLocationUpdateFailBlock)errorBlock; 

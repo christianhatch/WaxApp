@@ -50,20 +50,20 @@
 }
 -(void)logMessageToAllServices:(NSString *)message{
     [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@", message]];
-//    CLSLog(@"%@", message);
+    CLSLog(@"Logged Message: %@", message);
     [Flurry logEvent:message];
     DLog(@"Log message to all services \"%@\"", message);
 }
 -(void)logErrorWithMessage:(NSString *)message error:(NSError *)error{
     [TestFlight passCheckpoint:[NSString stringWithFormat:@"Logged error. My message: %@ Error description: %@", message, error.localizedDescription]];
     [Flurry logError:message message:error.localizedDescription error:error];
-//    CLSLog(@"Logged error. My message: %@ Error description: %@", message, error.localizedDescription);
+    CLSLog(@"Logged error. My message: %@ Error description: %@", message, error.localizedDescription);
     DLog(@"Error. My message: \"%@\", Error description %@",message, error.localizedDescription);
 }
 -(void)logExceptionWithMessage:(NSString *)message exception:(NSException *)exception{
     [TestFlight passCheckpoint:[NSString stringWithFormat:@"Logged exception. My message: %@ Exception description: %@", message, exception.reason]];
     [Flurry logError:message message:exception.reason exception:exception];
-//    CLSLog(@"Logged exception. My message: %@ Exception description: %@", message, exception.reason);
+    CLSLog(@"Logged exception. My message: %@ Exception description: %@", message, exception.reason);
     DLog(@"Exception. My message: \"%@\", Exception description %@",message, exception.reason);
 }
 

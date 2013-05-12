@@ -476,9 +476,9 @@
              if ([[touchWords objectAtIndex:idx] hasPrefix:@"@"])
              {
                  //Twitter account clicked
-                 if ([_delegate respondsToSelector:@selector(twitterAccountClicked:)]) {
-                     [_delegate twitterAccountClicked:url];
-                 }
+//                 if ([_delegate respondsToSelector:@selector(twitterAccountClicked:)]) {
+//                     [_delegate twitterAccountClicked:url];
+//                 }
                  
                  if (_callbackBlock != NULL) {
                      
@@ -490,9 +490,9 @@
              else if ([[touchWords objectAtIndex:idx] hasPrefix:@"#"])
              {
                  //Twitter hashtag clicked
-                 if ([_delegate respondsToSelector:@selector(twitterHashtagClicked:)]) {
-                     [_delegate twitterHashtagClicked:url];
-                 }
+//                 if ([_delegate respondsToSelector:@selector(twitterHashtagClicked:)]) {
+//                     [_delegate twitterHashtagClicked:url];
+//                 }
                  
                  if (_callbackBlock != NULL) {
                      
@@ -504,9 +504,9 @@
              {
                  
                  //Twitter hashtag clicked
-                 if ([_delegate respondsToSelector:@selector(websiteClicked:)]) {
-                     [_delegate websiteClicked:url];
-                 }
+//                 if ([_delegate respondsToSelector:@selector(websiteClicked:)]) {
+//                     [_delegate websiteClicked:url];
+//                 }
                  
                  if (_callbackBlock != NULL) {
                      

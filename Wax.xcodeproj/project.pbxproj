@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		451EBD2D1726CF29000D600E /* WaxDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 451EBD2C1726CF29000D600E /* WaxDefines.m */; };
 		459C28251725EC82009C5487 /* UIButton+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C281E1725EC82009C5487 /* UIButton+WaxKit.m */; };
 		459C28261725EC82009C5487 /* UIButton+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C281E1725EC82009C5487 /* UIButton+WaxKit.m */; };
 		459C28271725EC82009C5487 /* UIFont+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C28201725EC82009C5487 /* UIFont+WaxKit.m */; };
@@ -87,6 +88,7 @@
 
 /* Begin PBXFileReference section */
 		1C9784DDF7E84C01BC8F8951 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		451EBD2C1726CF29000D600E /* WaxDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaxDefines.m; path = WaxKit/WaxDefines.m; sourceTree = "<group>"; };
 		459C281D1725EC82009C5487 /* UIButton+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+WaxKit.h"; sourceTree = "<group>"; };
 		459C281E1725EC82009C5487 /* UIButton+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WaxKit.m"; sourceTree = "<group>"; };
 		459C281F1725EC82009C5487 /* UIFont+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+WaxKit.h"; sourceTree = "<group>"; };
@@ -330,10 +332,10 @@
 			children = (
 				45EA321917260D6A00980320 /* AIKContactsManager.h */,
 				45EA321A17260D6B00980320 /* AIKContactsManager.m */,
-				45EA31D71725FB8000980320 /* AIKErrorUtilities.h */,
-				45EA31D81725FB8000980320 /* AIKErrorUtilities.m */,
 				45EA31D91725FB8000980320 /* AIKFacebookConnect.h */,
 				45EA31DA1725FB8000980320 /* AIKFacebookConnect.m */,
+				45EA31D71725FB8000980320 /* AIKErrorUtilities.h */,
+				45EA31D81725FB8000980320 /* AIKErrorUtilities.m */,
 				45EA31DB1725FB8000980320 /* AIKLocationManager.h */,
 				45EA31DC1725FB8000980320 /* AIKLocationManager.m */,
 				45EA31DD1725FB8000980320 /* AIKTabBarController.h */,
@@ -454,6 +456,7 @@
 			isa = PBXGroup;
 			children = (
 				459C28841725F1F3009C5487 /* WaxDefines.h */,
+				451EBD2C1726CF29000D600E /* WaxDefines.m */,
 				45F7162B171F163D009097F3 /* AppDelegate.h */,
 				45F7162C171F163D009097F3 /* AppDelegate.m */,
 				45F71634171F163D009097F3 /* MainStoryboard.storyboard */,
@@ -685,6 +688,7 @@
 				45EA32141726063C00980320 /* WaxAPIClient.m in Sources */,
 				45EA32181726093600980320 /* WaxUser.m in Sources */,
 				45EA321B17260D6C00980320 /* AIKContactsManager.m in Sources */,
+				451EBD2D1726CF29000D600E /* WaxDefines.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

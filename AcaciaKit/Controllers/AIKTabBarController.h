@@ -8,19 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-#define KWShowHideTabbarNotification    @"KWTabbarControllerHideTabbar"
-#define CHTabbarAnimationTypeKey        @"animationType"
+extern NSString *const AIKTabbarShowHideNotification;
+extern NSString *const AIKTabbarAnimationTypeKey;
 
 enum{
-    CHTabbarAnimationTypeSlideUpFromBottom = 1,
-    CHTabbarAnimationTypeSlideDown,
-    CHTabbarAnimationTypePushOntoView,
-    CHTabbarAnimationTypePushOffofView,
-    CHTabbarAnimationTypePopOntoView,
-    CHTabbarAnimationTypePopOffofView,
+    AIKTabbarAnimationTypeSlideUpFromBottom = 1,
+    AIKTabbarAnimationTypeSlideDown,
+    AIKTabbarAnimationTypePushOntoView,
+    AIKTabbarAnimationTypePushOffofView,
+    AIKTabbarAnimationTypePopOntoView,
+    AIKTabbarAnimationTypePopOffofView,
 //    CHTabbarAnimationTypeNone = 100, 
 };
-typedef NSInteger CHTabbarAnimationType;
+typedef NSInteger AIKTabbarAnimationType;
 
 
 @interface AIKTabBarController : UITabBarController <UITabBarControllerDelegate, UINavigationControllerDelegate>

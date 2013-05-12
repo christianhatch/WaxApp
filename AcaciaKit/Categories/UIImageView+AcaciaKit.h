@@ -10,10 +10,12 @@
 
 @interface UIImageView (AcaciaKit)
 
-- (void)setImageWithURL:(NSURL *)url andPlaceholderAnimation:(BOOL)placeholderAnimation;
++(void)clearAFImageCache;
 
+-(void)setImageWithURL:(NSURL *)url andPlaceholderAnimation:(BOOL)placeholderAnimation;
 
 -(void)setImage:(UIImage *)image animated:(BOOL)animated;
 -(void)setImage:(UIImage *)image animated:(BOOL)animated duration:(CGFloat)duration; 
+
 
 @end

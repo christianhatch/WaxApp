@@ -41,7 +41,7 @@
     static WaxAPIClient *_sharedClient = nil;
     static dispatch_once_t oncePredicate;
     dispatch_once(&oncePredicate, ^{ 
-        _sharedClient = [[WaxAPIClient alloc] initWithBaseURL:KWKiwiBaseURL];
+        _sharedClient = [[WaxAPIClient alloc] initWithBaseURL:[NSURL URLWithString:kWaxAPIBaseURL]];
     }); 
     return _sharedClient;
 }
@@ -58,24 +58,6 @@
     [self setDefaultHeader:@"Accept" value:@"application/json"];
     [self setParameterEncoding:AFJSONParameterEncoding];
     
-    /* [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        switch (status) {
-            case AFNetworkReachabilityStatusNotReachable:{
-//                UIAlertView *noNets = [[UIAlertView alloc] initWithTitle:@"No Internet Connection" message:@"Kiwi is having trouble connecting to the Kiwi cloud :( \n Please ensure that your device is connected to the internet." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//                [noNets show];
-            }break;
-            case AFNetworkReachabilityStatusReachableViaWWAN:{
-
-            }break;
-            case AFNetworkReachabilityStatusReachableViaWiFi:{
-
-            }break;
-            case AFNetworkReachabilityStatusUnknown:{
-                
-            }break;
-        }
-    }];
-     */
     return self;
 }
 -(void)postPath:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure{
@@ -84,11 +66,11 @@
     
     NSDictionary *requestParams = nil;
     if (parameters) {
-        //   NSMutableDictionary *authentication = [NSMutableDictionary dictionaryWithDictionary:@{@"token":[[WaxUser currentUser] token], @"userid":[[WaxUser currentUser] userid]}];
-        // [authentication addEntriesFromDictionary:parameters];
-        // requestParams = [NSDictionary dictionaryWithDictionary:authentication];
+        NSMutableDictionary *authentication = [NSMutableDictionary dictionaryWithDictionary:@{@"token":[[WaxUser currentUser] token], @"userid":[[WaxUser currentUser] userid]}];
+        [authentication addEntriesFromDictionary:parameters];
+        requestParams = [NSDictionary dictionaryWithDictionary:authentication];
     }else{
-        //  requestParams = @{@"token":[[WaxUser currentUser] token], @"userid":[[WaxUser currentUser] userid]};
+        requestParams = @{@"token":[[WaxUser currentUser] token], @"userid":[[WaxUser currentUser] userid]};
     }
         
     NSURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:requestParams];

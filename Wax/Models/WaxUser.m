@@ -10,11 +10,12 @@
 #import "Lockbox.h"
 #import "AIKErrorUtilities.h"
 #import "WaxAPIClient.h"
-#import "AcaciaKit.h"
 #import <Accounts/Accounts.h>
 #import <Twitter/Twitter.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import "AIKFacebookConnect.h"
+#import <Crashlytics/Crashlytics.h>
+#import "Flurry.h"
 
 @interface WaxUser ()
 @end
@@ -32,7 +33,7 @@
 }
 
 -(NSString *)userid {
-    NSString *userIdentification = [Lockbox stringForKey:KWUserIDKey];
+    NSString *userIdentification = [Lockbox stringForKey:kUserIDKey];
     if ([userIdentification isEmptyOrNull]){
         [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"GETTING Userid, isEmptyOrNull. Userid = %@", userIdentification]];
         [self logOut:YES];
@@ -44,17 +45,17 @@
         [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING Userid isEmptyOrNull. Userid = %@", userid]];
         [self logOut:YES];
     }else{
-        [Lockbox setString:userid forKey:KWUserIDKey];
+        [Lockbox setString:userid forKey:kUserIDKey];
     }
 }
 -(NSString *)token{
-    NSString *securityToken = [Lockbox stringForKey:KWUserTokenKey];
+    NSString *securityToken = [Lockbox stringForKey:kUserTokenKey];
     if ([securityToken isEmptyOrNull]) {
         [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"Token isEmptyOrNull. Token = %@", securityToken]];
         [self logOut:YES];
     }
     NSInteger time = [[NSDate date] timeIntervalSince1970]/300;
-    NSString *hashed = [[NSString stringWithFormat:@"%@%i%@", securityToken, time, KWUserTokenSalt] MD5];
+    NSString *hashed = [[NSString stringWithFormat:@"%@%i%@", securityToken, time, kWaxAPISalt] MD5];
     return hashed;
 }
 -(void)saveToken:(NSString *)token{
@@ -62,63 +63,55 @@
         [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING Token isEmptyOrNull. Token = %@", token]];
         [self logOut:YES];
     }else{
-        [Lockbox setString:token forKey:KWUserTokenKey];
+        [Lockbox setString:token forKey:kUserTokenKey];
     }
 }
 -(NSString *)username{
-    return [Lockbox stringForKey:KWUserNameKey];
+    return [Lockbox stringForKey:kUserNameKey];
 }
 -(void)saveUserame:(NSString *)username{
-    [Lockbox setString:username forKey:KWUserNameKey];
+    [Lockbox setString:username forKey:kUserNameKey];
 }
 -(NSString *)email{
-    return [Lockbox stringForKey:KWUserEmailKey];
+    return [Lockbox stringForKey:kUserEmailKey];
 }
 -(void)saveEmail:(NSString *)email{
-    [Lockbox setString:email forKey:KWUserEmailKey];
+    [Lockbox setString:email forKey:kUserEmailKey];
 }
 -(NSString *)firstname{
-    return [Lockbox stringForKey:KWUserFirstNameKey];
+    return [Lockbox stringForKey:kUserFirstNameKey];
 }
 -(void)saveFirstname:(NSString *)firstname{
-    [Lockbox setString:firstname forKey:KWUserFirstNameKey];
+    [Lockbox setString:firstname forKey:kUserFirstNameKey];
 }
 -(NSString *)lastname{
-    return [Lockbox stringForKey:KWUserLastNameKey];
+    return [Lockbox stringForKey:kUserLastNameKey];
 }
 -(void)saveLastname:(NSString *)lastname{
-    [Lockbox setString:lastname forKey:KWUserLastNameKey];
+    [Lockbox setString:lastname forKey:kUserLastNameKey];
 }
--(BOOL)isPrivate{
-    NSString *private = [Lockbox stringForKey:KWUserPrivacyKey];
-    return [NSString boolFromString:private]; 
-}
--(void)savePrivacyPrivate:(BOOL)privateProfile{
-    [Lockbox setString:[NSString stringFromBool:privateProfile] forKey:KWUserPrivacyKey];
-    [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:KWAccountPrivacyChangedNotification object:nil]; 
-}
--(BOOL)hasNoFriends{
-    return [[NSUserDefaults standardUserDefaults] boolForKey:KWUserNoFriendsKey];
-}
--(void)saveNoFriends:(BOOL)noFriends{
-    [[NSUserDefaults standardUserDefaults] setBool:!noFriends forKey:KWUserNoFriendsKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
+//-(BOOL)hasNoFriends{
+//    return [[NSUserDefaults standardUserDefaults] boolForKey:KWUserNoFriendsKey];
+//}
+//-(void)saveNoFriends:(BOOL)noFriends{
+//    [[NSUserDefaults standardUserDefaults] setBool:!noFriends forKey:KWUserNoFriendsKey];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//}
 -(void)saveTwitterAccountId:(NSString *)twitterAccountId{
     if ([twitterAccountId isEmptyOrNull]){
         [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING twitter account isEmptyOrNull. twitter accountID = %@", twitterAccountId]];
     }else{
-        [Lockbox setString:twitterAccountId forKey:KWTwitterAccountIDKey];
-        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:KWTwitterAccountChangedNotification object:self];
+        [Lockbox setString:twitterAccountId forKey:kUserTwitterAccountIDKey];
+        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationTwitterAccountDidChange object:self];
     }
 }
 -(NSString *)twitterAccountId{
-    NSString *twitterAccount = [Lockbox stringForKey:KWTwitterAccountIDKey];
+    NSString *twitterAccount = [Lockbox stringForKey:kUserTwitterAccountIDKey];
     return twitterAccount;
 }
 -(NSString *)twitterAccountName{
     NSString *name = @"none";
-    if ([Lockbox stringForKey:KWTwitterAccountIDKey]) {
+    if ([Lockbox stringForKey:kUserTwitterAccountIDKey]) {
         ACAccountStore *accountStore = [[ACAccountStore alloc] init];
         ACAccount *twitter = [accountStore accountWithIdentifier:[self twitterAccountId]];
         name = [NSString stringWithFormat:@"@%@",twitter.username];
@@ -132,11 +125,11 @@
     if ([facebookAccountId isEmptyOrNull]){
         [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING facebook account isEmptyOrNull. facebook accountID = %@", facebookAccountId]];
     }else{
-        [Lockbox setString:facebookAccountId forKey:KWFacebookAccountIDKey];
+        [Lockbox setString:facebookAccountId forKey:kUserFacebookAccountIDKey];
     }
 }
 -(NSString *)facebookAccountId{
-    NSString *facebookID = [Lockbox stringForKey:KWFacebookAccountIDKey];
+    NSString *facebookID = [Lockbox stringForKey:kUserFacebookAccountIDKey];
     return facebookID; 
 }
 -(BOOL)facebookAccountSaved{
@@ -151,17 +144,16 @@
     [self saveEmail:[info objectForKeyNotNull:@"email"]];
     [self saveFirstname:[info objectForKeyNotNull:@"firstname"]];
     [self saveLastname:[info objectForKeyNotNull:@"lastname"]];
-    [self savePrivacyPrivate:[[info objectForKeyNotNull:@"private"] boolValue]];
-    [self saveNoFriends:[[info objectForKeyNotNull:@"following"] boolValue]];
+//    [self saveNoFriends:[[info objectForKeyNotNull:@"following"] boolValue]];
     
-//    [Flurry setUserID:[[WaxUser currentUser] username]];
-//    [Crashlytics setUserIdentifier:[self userid]];
-//    [Crashlytics setUserName:[self username]];
-//    [Crashlytics setUserEmail:[self email]];
-//    [Crashlytics setObjectValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"version_preference"] forKey:@"Version"];
-//    [Crashlytics setObjectValue:[self userid] forKey:@"userid"];
-//    [Crashlytics setObjectValue:[self username] forKey:@"username"];
-//    [Crashlytics setObjectValue:[self email] forKey:@"email"];
+    [Flurry setUserID:[[WaxUser currentUser] username]];
+    [Crashlytics setUserIdentifier:[self userid]];
+    [Crashlytics setUserName:[self username]];
+    [Crashlytics setUserEmail:[self email]];
+    [Crashlytics setObjectValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"version_preference"] forKey:@"Version"];
+    [Crashlytics setObjectValue:[self userid] forKey:@"userid"];
+    [Crashlytics setObjectValue:[self username] forKey:@"username"];
+    [Crashlytics setObjectValue:[self email] forKey:@"email"];
 }
 -(void)logInWithResponse:(NSDictionary *)response{
     [self saveUserInformation:response];
@@ -202,17 +194,15 @@
     [self saveFirstname:@"false"];
     [self saveLastname:@"false"];
     [self saveTwitterAccountId:@"false"];
-    [self savePrivacyPrivate:NO];
     [[AIKFacebookConnect sharedFB] logoutFacebook];
     
-#ifndef RELEASE
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:KWSuperUserModeEnableKey];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:KWSuperUserModeEnableKey];
-#endif
+//#ifndef RELEASE
+//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:KWSuperUserModeEnableKey];
+//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:KWSuperUserModeEnableKey];
+//#endif
     
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:KWUserNoFriendsKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
-//    [UIImageView clearAFImageCache];
+    [UIImageView clearAFImageCache];
     [UIButton clearAFImageCache];
     
     [[UIApplication sharedApplication] unregisterForRemoteNotifications];
@@ -237,10 +227,8 @@
     [self saveLastname:@"false"];
     [self saveTwitterAccountId:@"false"];
     [self saveFacebookAccountId:@"false"];
-    [self savePrivacyPrivate:NO];
-    [self saveNoFriends:NO];
+//    [self saveNoFriends:NO];
     
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:KWUserNoFriendsKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 -(BOOL)useridIsCurrentUser:(NSString *)userid{
@@ -250,7 +238,7 @@
     ACAccountStore *accountStore = [[ACAccountStore alloc] init];
 	ACAccountType *twitterAccountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
     
-	[accountStore requestAccessToAccountsWithType:twitterAccountType withCompletionHandler:^(BOOL granted, NSError *error) {
+    [accountStore requestAccessToAccountsWithType:twitterAccountType options:nil completion:^(BOOL granted, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if(granted) {
                 NSArray *twitterAccounts = [accountStore accountsWithAccountType:twitterAccountType];
@@ -305,139 +293,27 @@
     }
 	 ];
 }
--(void)authorizeTwitterFromSwitch:(UISwitch *)toggle{
-    if (![[NSUserDefaults standardUserDefaults] objectForKey:KWTwitterAccountIDKey]) {
-        ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-        ACAccountType *twitterAccountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-        
-        __block UISwitch *toggler = toggle;
-        
-        [accountStore requestAccessToAccountsWithType:twitterAccountType withCompletionHandler:^(BOOL granted, NSError *error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if(granted) {
-                    NSArray *twitterAccounts = [accountStore accountsWithAccountType:twitterAccountType];
-                    switch(twitterAccounts.count) {
-                        case 0:{
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Twitter Accounts", @"No Twitter Accounts") message:NSLocalizedString(@"You haven't setup a Twitter account yet. Please add one by going through the Settings App > Twitter", @"You haven't setup a Twitter account yet. Please add one by going through the Settings App > Twitter") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"Dismiss") otherButtonTitles:nil];
-                            [alertView show];
-                            [toggler setOn:NO animated:YES];
-                        }break;
-                        case 1:{
-                            ACAccount *account = [twitterAccounts objectAtIndexNotNull:0];
-                            [toggler setOn:YES animated:YES];
-                            [self saveTwitterAccountId:account.identifier];
-                        }break;
-                        default:{
-                            RIButtonItem *cancel = [RIButtonItem item];
-                            cancel.label = @"Cancel";
-                            cancel.action = ^{
-                                [toggler setOn:NO animated:YES];
-                            };
-                            UIActionSheet *chooser = [[UIActionSheet alloc] initWithTitle:@"Which Twitter account would you like to use with Kiwi?" cancelButtonItem:nil destructiveButtonItem:nil otherButtonItems:nil, nil];
-                            for (ACAccount *account in twitterAccounts) {
-                                RIButtonItem *button = [RIButtonItem item];
-                                button.label = [NSString stringWithFormat:@"@%@", account.username];
-                                button.action = ^{
-                                    [self saveTwitterAccountId:account.identifier];
-                                    [toggler setOn:YES animated:YES];
-                                };
-                                [chooser addButtonItem:button];
-                            }
-                            [chooser setCancelButtonIndex:[chooser addButtonItem:cancel]];
-                            [chooser setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
-                            [chooser showInView:mainWindowView];
-                        }break;
-                    }
-                } else {
-                    [self showNoTwitterAccessAlert]; 
-                    [toggler setOn:NO animated:YES];
-                }
-            });
-        }
-         ];
-    }
-}
-/*
--(void)authorizeFacebookFromSwitch:(UISwitch *)toggle{
-    if (![[NSUserDefaults standardUserDefaults] objectForKey:KWFacebookAccountIDKey]) {
-        ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-        ACAccountType *fbType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
-        
-        __block UISwitch *toggler = toggle;
-        NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:@"274513942653163", ACFacebookAppIdKey, ACFacebookAudienceEveryone, ACFacebookAudienceKey, [NSArray arrayWithObjects:@"publish_stream", @"publish_actions", nil] , ACFacebookPermissionsKey, nil];
-        
-        [accountStore requestAccessToAccountsWithType:fbType options:options completion:^(BOOL granted, NSError *error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if(granted) {
-                    NSArray *facebookAccounts = [accountStore accountsWithAccountType:fbType];
-                    switch(facebookAccounts.count) {
-                        case 0:{
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Facebook Account", @"No Facebook Account") message:NSLocalizedString(@"You haven't setup a Facebook account yet. Please add one by going through the Settings App > Facebook", @"You haven't setup a Facebook account yet. Please add one by going through the Settings App > Facebook") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"Dismiss") otherButtonTitles:nil];
-                            [alertView show];
-                            [toggler setOn:NO animated:YES];
-                        }break;
-                        default:{
-                            ACAccount *account = [facebookAccounts objectAtIndexNotNull:0];
-                            [self saveFacebookAccountId:account.identifier];
-                            [toggler setOn:YES animated:YES];
-                        }break;
-                    }
-                } else {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Access to Facebook", @"No Access to Facebook") message:NSLocalizedString(@"To sign in with Facebook the App requires access to your Facebook Account. Please grant access through the Settings App and going to Facebook", @"To sign in with Facebook the App requires access to your Facebook Account. Please grant access through the Settings App and going to Facebook") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"Dismiss") otherButtonTitles:nil];
-                    [alertView show];
-                    [toggler setOn:NO animated:YES];
-                }
-            });
-        }];
-    }
-}
--(void)authorizeFacebook{
-    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-    ACAccountType *fbType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
-    
-    [accountStore requestAccessToAccountsWithType:fbType options:[NSDictionary dictionaryWithObjectsAndKeys:@"274513942653163",ACFacebookAppIdKey, ACFacebookAudienceEveryone, ACFacebookAudienceKey, [NSArray arrayWithObjects:@"publish_stream", @"publish_actions", nil] , ACFacebookPermissionsKey, nil] completion:^(BOOL granted, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if(granted) {
-                NSArray *facebookAccounts = [accountStore accountsWithAccountType:fbType];
-                switch(facebookAccounts.count) {
-                    case 0:{
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Facebook Account", @"No Facebook Account") message:NSLocalizedString(@"You haven't setup a Facebook account yet. Please add one by going through the Settings App > Facebook", @"You haven't setup a Facebook account yet. Please add one by going through the Settings App > Facebook") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"Dismiss") otherButtonTitles:nil];
-                        [alertView show];
-                    }break;
-                    default:{
-                        ACAccount *account = [facebookAccounts objectAtIndexNotNull:0];
-                        [self saveFacebookAccountId:account.identifier];
-                    }break;
-                }
-            } else {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Access to Facebook", @"No Access to Facebook") message:NSLocalizedString(@"To sign in with Facebook the App requires access to your Facebook Account. Please grant access through the Settings App and going to Facebook", @"To sign in with Facebook the App requires access to your Facebook Account. Please grant access through the Settings App and going to Facebook") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"Dismiss") otherButtonTitles:nil];
-                [alertView show];
-            }
-        });
-    }];
-}
-*/
 -(void)showNoTwitterAccessAlert{
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Access to Twitter", @"No Access to Twitter") message:NSLocalizedString(@"To share to Twitter, Kiwi requires access to your Twitter Accounts. Please grant access through the Settings App and going to Twitter", @"To sign in with Twitter the App requires access to your Twitter Accounts. Please grant access through the Settings App and going to Twitter") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"Dismiss") otherButtonTitles:nil];
     [alertView show];
 }
 
-#ifndef RELEASE
-
-#define KWChristianSuperUserID      @"c0601e7ceda37593447c7525dea3070c"
-#define KWStuSuperUserID            @"9e194145c13551e4160e8377fcb47a51"
-#define KWJaymeSuperUserID          @"624bf3ceca5c86f33fe06fc31e80bce8"
-#define KWChristineSuperUserID      @"3cf4343a5fd58ff1d106e567bd32a433"
-
--(BOOL)isSuperUser{
-    if (([[self userid] isEqualToString:KWJaymeSuperUserID] || [[self userid] isEqualToString:KWStuSuperUserID] || [[self userid] isEqualToString:KWChristianSuperUserID] || [[self userid] isEqualToString:KWChristineSuperUserID]) && [[NSUserDefaults standardUserDefaults] boolForKey:KWSuperUserModeEnableKey]) {
-        return YES;
-    }else{
-        return NO; 
-    }
-}
-
-#endif
+//#ifndef RELEASE
+//
+//#define KWChristianSuperUserID      @"c0601e7ceda37593447c7525dea3070c"
+//#define KWStuSuperUserID            @"9e194145c13551e4160e8377fcb47a51"
+//#define KWJaymeSuperUserID          @"624bf3ceca5c86f33fe06fc31e80bce8"
+//#define KWChristineSuperUserID      @"3cf4343a5fd58ff1d106e567bd32a433"
+//
+//-(BOOL)isSuperUser{
+//    if (([[self userid] isEqualToString:KWJaymeSuperUserID] || [[self userid] isEqualToString:KWStuSuperUserID] || [[self userid] isEqualToString:KWChristianSuperUserID] || [[self userid] isEqualToString:KWChristineSuperUserID]) && [[NSUserDefaults standardUserDefaults] boolForKey:KWSuperUserModeEnableKey]) {
+//        return YES;
+//    }else{
+//        return NO; 
+//    }
+//}
+//
+//#endif
 
 
 

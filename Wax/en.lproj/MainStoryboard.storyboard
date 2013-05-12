@@ -83,7 +83,7 @@
         <scene sceneID="Pz1-rr-wqM">
             <objects>
                 <tabBarController definesPresentationContext="YES" id="OTv-MU-zx9" sceneMemberID="viewController">
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="ENr-tD-mce">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -101,11 +101,11 @@
             </objects>
             <point key="canvasLocation" x="-675" y="382"/>
         </scene>
-        <!--Navigation Controller - Item 1-->
+        <!--Navigation Controller-->
         <scene sceneID="iGk-j4-wPO">
             <objects>
                 <navigationController id="TqL-gG-TWP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 1" id="usZ-D6-JZL"/>
+                    <tabBarItem key="tabBarItem" title="" id="usZ-D6-JZL"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ldu-ww-XFm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -120,11 +120,11 @@
             </objects>
             <point key="canvasLocation" x="617" y="-741"/>
         </scene>
-        <!--Navigation Controller - Item 2-->
+        <!--Navigation Controller-->
         <scene sceneID="GdS-Ul-kjg">
             <objects>
                 <navigationController id="ZKr-di-raM" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 2" id="Dj1-YB-Si4"/>
+                    <tabBarItem key="tabBarItem" title="" id="Dj1-YB-Si4"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FhS-gs-VtZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -139,11 +139,11 @@
             </objects>
             <point key="canvasLocation" x="617" y="-62"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller-->
         <scene sceneID="sPy-du-884">
             <objects>
                 <navigationController id="NZL-f8-zU8" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="ulk-eb-wuv"/>
+                    <tabBarItem key="tabBarItem" title="" id="ulk-eb-wuv"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dUf-9J-tr8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -158,11 +158,11 @@
             </objects>
             <point key="canvasLocation" x="617" y="642"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller-->
         <scene sceneID="qZd-cK-nWg">
             <objects>
                 <navigationController id="M45-q1-70n" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Mv2-fN-MOi"/>
+                    <tabBarItem key="tabBarItem" title="" id="Mv2-fN-MOi"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YIr-mh-gIs">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -177,11 +177,11 @@
             </objects>
             <point key="canvasLocation" x="617" y="1338"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller-->
         <scene sceneID="WGz-v5-doa">
             <objects>
                 <navigationController id="eiJ-Pw-kNB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="OSU-de-Km3"/>
+                    <tabBarItem key="tabBarItem" title="" id="OSU-de-Km3"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FyR-pi-baO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

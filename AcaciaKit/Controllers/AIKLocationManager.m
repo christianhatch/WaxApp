@@ -13,8 +13,8 @@
 #define kDefaultUserDistanceFilter      kCLLocationAccuracyBestForNavigation
 #define kDefaultUserDesiredAccuracy     kCLLocationAccuracyBest
 
-//NSString * const AIKLocationManagerUserLocationDidChangeNotification = @"AIKLocationManagerUserLocationDidChangeNotification";
-//NSString * const AIKLocationManagerNotificationLocationUserInfoKey = @"newLocation";
+NSString * const AIKLocationManagerUserLocationDidChangeNotification = @"AIKLocationManagerUserLocationDidChangeNotification";
+NSString * const AIKLocationManagerNotificationLocationUserInfoKey = @"newLocation";
 
 @interface AIKLocationManager () <CLLocationManagerDelegate>{
     BOOL _isUpdatingUserLocation;
@@ -73,7 +73,6 @@
     _userLocationManager.distanceFilter = kDefaultUserDistanceFilter;
     _userLocationManager.desiredAccuracy = kDefaultUserDesiredAccuracy;
     _userLocationManager.delegate = self;
-    _userLocationManager.purpose = @"Don't worry, you can choose whether to add your location to each Kiwi you make."; 
 }
 
 #pragma mark - Setters
@@ -126,7 +125,7 @@
             self.locationBlock(manager, newLocation, oldLocation);
         }
         
-//        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AIKLocationManagerUserLocationDidChangeNotification object:self userInfo:([NSDictionary dictionaryWithObject:newLocation forKey:AIKLocationManagerNotificationLocationUserInfoKey])];
+        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AIKLocationManagerUserLocationDidChangeNotification object:self userInfo:([NSDictionary dictionaryWithObject:newLocation forKey:AIKLocationManagerNotificationLocationUserInfoKey])];
 	}
 }
 
@@ -165,17 +164,6 @@
     return [CLLocationManager locationServicesEnabled];
 }
 
-+ (BOOL)regionMonitoringAvailable{
-    return [CLLocationManager regionMonitoringAvailable];
-}
-
-//+ (BOOL)regionMonitoringEnabled{
-//    return [CLLocationManager regionMonitoringEnabled];
-//}
-
-+ (BOOL)significantLocationChangeMonitoringAvailable{
-    return [CLLocationManager significantLocationChangeMonitoringAvailable];
-}
 + (BOOL)locationPermittedOrAsk{
     if ([CLLocationManager locationServicesEnabled]) {
         if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized) {

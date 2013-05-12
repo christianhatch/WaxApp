@@ -97,7 +97,8 @@
     }
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    [self showLoading:NO]; 
+    [self showLoading:NO];
+    
     // To avoid getting an error alert when you click on a link before a request has finished loading.
     if (error.code == NSURLErrorCancelled) {
         return;

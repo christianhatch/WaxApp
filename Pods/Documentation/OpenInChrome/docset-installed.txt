@@ -1,0 +1,4 @@
+Documentation set was installed to Xcode!
+
+Path: /Users/chatch/Library/Developer/Shared/Documentation/DocSets/org.cocoapods.openinchrome.OpenInChrome-0.0.1.docset
+Time: 2013-05-12 19:01:07 +0000

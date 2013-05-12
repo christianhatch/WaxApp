@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#define KWFacebookFBFriendsAvailableNotification         @"fbFriendsAvailable"
-#define KWFacebookKiwiFriendsAvailableNotification       @"fbFriendsOnKiwiAvailable"
+
+extern NSString *const kAIKNotificationFacebookFriendsAvailable;
+extern NSString *const kAIKNotificationFacebookFriendsMatchedAvailable;
 
 
 @interface AIKFacebookConnect : NSObject 

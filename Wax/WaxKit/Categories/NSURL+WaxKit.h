@@ -10,11 +10,11 @@
 
 @interface NSURL (WaxKit)
 
-//+(NSURL *)videoURLForSquaring; 
-//+(NSURL *)streamingURLFromUserid:(NSString *)userid videoLink:(NSString *)videoLink;
-//+(NSURL *)profilePictureURLFromUserid:(NSString *)userid; 
-//+(NSURL *)videoThumbnailURLFromUserid:(NSString *)userid videoLink:(NSString *)videoLink; 
-//+(NSURL *)shareURLFromShareId:(NSString *)shareId; 
++(NSURL *)videoURLForSquaring; 
++(NSURL *)streamingURLFromUserid:(NSString *)userid videoLink:(NSString *)videoLink;
++(NSURL *)profilePictureURLFromUserid:(NSString *)userid; 
++(NSURL *)videoThumbnailURLFromUserid:(NSString *)userid videoLink:(NSString *)videoLink; 
++(NSURL *)shareURLFromShareId:(NSString *)shareId; 
 
     
 @end

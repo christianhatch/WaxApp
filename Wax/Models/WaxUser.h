@@ -21,8 +21,7 @@
 -(NSString *)twitterAccountId;
 -(NSString *)facebookAccountId;
 -(NSString *)twitterAccountName;
--(BOOL)isPrivate;
--(BOOL)hasNoFriends;
+//-(BOOL)hasNoFriends;
 
 -(BOOL)twitterAccountSaved;
 -(BOOL)facebookAccountSaved;
@@ -35,8 +34,7 @@
 -(void)saveLastname:(NSString *)lastname;
 -(void)saveTwitterAccountId:(NSString *)twitterAccountId;
 -(void)saveFacebookAccountId:(NSString *)facebookAccountId;
--(void)savePrivacyPrivate:(BOOL)privateProfile;
--(void)saveNoFriends:(BOOL)noFriends;
+//-(void)saveNoFriends:(BOOL)noFriends;
 
 -(void)logInWithResponse:(NSDictionary *)response;
 -(void)signedUpWithResponse:(NSDictionary *)response andProfilePic:(UIImage *)profilePicture;
@@ -46,15 +44,14 @@
 
 -(BOOL)useridIsCurrentUser:(NSString *)userid;
 
--(void)authorizeTwitterFromSwitch:(UISwitch *)toggle;
 -(void)chooseNewTwitterAccount;
 
 -(void)resetForInitialLaunch; 
 
 -(BOOL)isLoggedIn;
 
-#ifndef RELEASE
--(BOOL)isSuperUser;
-#endif
+//#ifndef RELEASE
+//-(BOOL)isSuperUser;
+//#endif
 
 @end

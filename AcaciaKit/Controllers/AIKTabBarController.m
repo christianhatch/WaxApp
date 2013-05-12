@@ -12,9 +12,12 @@
 #define VIEW_HEIGHT_FULLSCREEN ([[UIApplication sharedApplication] keyWindow].frame.size.height - 20)
 #define VIEW_HEIGHT_WITH_TABBAR (([[UIApplication sharedApplication] keyWindow].frame.size.height - 20) - self.tabBar.frame.size.height)
 
+
+NSString *const AIKTabbarShowHideNotification = @"AIKTabbarControllerToggleTabbar";
+NSString *const AIKTabbarAnimationTypeKey = @"AIKTabbarControllerAnimationType"; 
+
+
 @interface AIKTabBarController ()
-
-
 @end
 
 @implementation AIKTabBarController
@@ -28,7 +31,7 @@
     self.tabBar.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.tabBar.bounds].CGPath;
     self.delegate = self;
     [self setupTabBarIcons];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showHideTabbarWithAnimationType:) name:KWShowHideTabbarNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showHideTabbarWithAnimationType:) name:AIKTabbarShowHideNotification object:nil];
 }
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
     if ([viewController.title isEqualToString:@"CaptureNil"]){
@@ -55,17 +58,7 @@
     //  VideoCaptureViewController *vcc = [[VideoCaptureViewController alloc] init];
     // [self presentViewController:vcc animated:YES completion:nil];
 }
--(void)setupTabBarIcons{
-    /* 
-     old images 
-     
-    [[self.tabBar.items objectAtIndex:0] setFinishedSelectedImage:[UIImage imageNamed:@"homeTab_on.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"homeTab.png"]];
-    [[self.tabBar.items objectAtIndex:1] setFinishedSelectedImage:[UIImage imageNamed:@"peopleTab_on.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"peopleTab.png"]];
-    [[self.tabBar.items objectAtIndex:2] setFinishedSelectedImage:[UIImage imageNamed:@"meTab_on.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"meTab.png"]];
-    [[self.tabBar.items objectAtIndex:3] setFinishedSelectedImage:[UIImage imageNamed:@"captureTab.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"captureTab.png"]];
-    [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageNamed:@"tabbar_selectedNEW.png"]];
-    */
-        
+-(void)setupTabBarIcons{        
     [[self.tabBar.items objectAtIndex:0] setFinishedSelectedImage:[UIImage imageNamed:@"homeOn.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"home.png"]];
     [[self.tabBar.items objectAtIndex:1] setFinishedSelectedImage:[UIImage imageNamed:@"discoverOn.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"discover.png"]];
     [[self.tabBar.items objectAtIndex:2] setFinishedSelectedImage:[UIImage imageNamed:@"profileOn.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"profile.png"]];
@@ -77,17 +70,17 @@
     }
 }
 -(void)showHideTabbarWithAnimationType:(NSNotification *)note{
-    NSNumber *typeNumber = [note.userInfo objectForKeyNotNull:CHTabbarAnimationTypeKey];
-    CHTabbarAnimationType type = typeNumber.intValue;
+    NSNumber *typeNumber = [note.userInfo objectForKeyNotNull:AIKTabbarAnimationTypeKey];
+    AIKTabbarAnimationType type = typeNumber.intValue;
     
     switch (type) {
 //        case CHTabbarAnimationTypeNone:{
 //            
 //        }break;
-        case CHTabbarAnimationTypeSlideDown:{
+        case AIKTabbarAnimationTypeSlideDown:{
             [self slideTabbarDown];
         }break;
-        case CHTabbarAnimationTypeSlideUpFromBottom:{
+        case AIKTabbarAnimationTypeSlideUpFromBottom:{
             [self slideTabbarUp]; 
         }break;
 //        case CHTabbarAnimationTypePushOffofView:{
@@ -114,7 +107,7 @@
     CGRect viewFrame = [[self.view.subviews objectAtIndexNotNull:0] frame];
     viewFrame.size.height = VIEW_HEIGHT_FULLSCREEN;
 
-    [UIView animateWithDuration:KWAnimationDuration delay:0 options:(UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionTransitionCrossDissolve) animations:^{
+    [UIView animateWithDuration:AIKDefaultAnimationDuration delay:0 options:(UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionTransitionCrossDissolve) animations:^{
         [[self.view.subviews objectAtIndex:0] setFrame:viewFrame];
         self.tabBar.frame = tabFrame;
     } completion:^(BOOL finished) {
@@ -128,7 +121,7 @@
     CGRect viewFrame = [[self.view.subviews objectAtIndexNotNull:0] frame];
     viewFrame.size.height = VIEW_HEIGHT_WITH_TABBAR;
 
-    [UIView animateWithDuration:KWAnimationDuration delay:0 options:(UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionTransitionCrossDissolve) animations:^{
+    [UIView animateWithDuration:AIKDefaultAnimationDuration delay:0 options:(UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionTransitionCrossDissolve) animations:^{
         [[self.view.subviews objectAtIndex:0] setFrame:viewFrame];
         self.tabBar.frame = tabFrame;
     } completion:^(BOOL finished) {

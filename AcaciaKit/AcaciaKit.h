@@ -6,6 +6,11 @@
 //  Copyright (c) 2013 Christian Hatch. All rights reserved.
 //
 
+#pragma mark - Defines
+
+#define AIKDefaultAnimationDuration 0.35f
+
+
 //Categories
 #import "NSString+AcaciaKit.h"
 #import "NSArray+AcaciaKit.h"

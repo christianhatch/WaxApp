@@ -8,9 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-#define KWContactsAvailableNotification              @"contactsAvailable"
-#define KWContactsKiwiFriendsAvailableNotification   @"kiwiFriendsAvailable"
-
+extern NSString *const kAIKNotificationContactsAvailable;
+extern NSString *const kAIKNotificationContactsMatchedAvailable;
 
 @interface AIKContactsManager : NSObject
 

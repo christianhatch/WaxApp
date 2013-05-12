@@ -4,6 +4,7 @@ PODS:
   - KGNoise@tonyzonghui (1.2.0)
   - Lockbox (1.2.0)
   - MLUIColorAdditions (1.0.0)
+  - OpenInChrome (0.0.1)
   - Orbiter (0.0.1):
     - AFNetworking (>= 0.9)
   - STTweetLabel (2.2.2)
@@ -17,6 +18,7 @@ DEPENDENCIES:
   - InterAppCommunication
   - KGNoise@tonyzonghui
   - Lockbox
+  - OpenInChrome
   - Orbiter
   - STTweetLabel
   - SVProgressHUD
@@ -29,6 +31,7 @@ SPEC CHECKSUMS:
   KGNoise@tonyzonghui: 632e5363cde4cbaba10876d50a68a2123a0f30e8
   Lockbox: e237a944f2040d4f27e8077726b7bbe0489febdb
   MLUIColorAdditions: c128da8c87b724cdc6c9a1b4cfe8832ca62b8d2a
+  OpenInChrome: 4990ae561b1c8e38caa6fc6c346f4565f6c37bfb
   Orbiter: b083e5567d9b90e1da1ccda4b3c410df26d5da8d
   STTweetLabel: 9d93c324a4ecf5b9e6d73b5ff2b4813e4a8adc91
   SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8

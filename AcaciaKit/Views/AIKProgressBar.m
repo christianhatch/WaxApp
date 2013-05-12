@@ -119,7 +119,7 @@
         }
     }
     if (animated) {
-        [UIView animateWithDuration:KWAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [UIView animateWithDuration:AIKDefaultAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             CGRect prog = self.progressBar.frame;
             prog.size.width = self.frame.size.width * self.currentProgress;
             self.progressBar.frame = prog;

@@ -11,6 +11,10 @@
 
 #define KWContactsFinishedParsingNotification   @"contactsFinishedParsing"
 
+NSString *const kAIKNotificationContactsAvailable = @"aikContactsAvailableDidChangeNotification";
+NSString *const kAIKNotificationContactsMatchedAvailable = @"aikContactsMatchedDidChangeNotification";
+
+
 @interface AIKContactsManager ()
 @property (nonatomic) dispatch_queue_t addressBookQueue;
 @property (nonatomic, strong) NSMutableArray *allContactsWithoutPictures; 
@@ -18,6 +22,7 @@
 
 @implementation AIKContactsManager
 @synthesize allContacts = _allContacts, searchResults = _searchResults, addressBookQueue = _addressBookQueue, sortedContacts = _sortedContacts, matchedContacts = _matchedContacts, allContactsWithoutPictures = _allContactsWithoutPictures, noMatchedContacts = _noMatchedContacts; 
+
 
 + (AIKContactsManager *)sharedManager{
     static AIKContactsManager *sharedID = nil;
@@ -34,39 +39,35 @@
     return _addressBookQueue; 
 }
 +(BOOL)isAuthorized{
-    if (IOS_6_OR_GREATER) {
-        __block BOOL authorized = NO;
+    __block BOOL authorized = NO;
 //        dispatch_sync(dispatch_get_main_queue(), ^{
-            ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(NULL, NULL);
-            switch (ABAddressBookGetAuthorizationStatus()) {
-                case kABAuthorizationStatusAuthorized:{
-                    authorized = YES; 
-                }break;
-                case kABAuthorizationStatusNotDetermined:{
-                    ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error) {
-                        if (granted){
-                            authorized = YES;
-                        }else{
-                            authorized = NO;
-                        }
-                    });
-                }break;
-                case kABAuthorizationStatusDenied:{
-                    authorized = NO;
-                    UIAlertView *errr = [[UIAlertView alloc] initWithTitle:@"Kiwi isn't authorized to access your contacts :(" message:@"Authorize Kiwi by going to Settings > Privacy > Contacts > and turn on Kiwi" cancelButtonItem:[RIButtonItem randomDismissalButton] otherButtonItems:nil, nil];
-                    [errr show];
-                }break;
-                case kABAuthorizationStatusRestricted:{
-                    authorized = NO;
-                    UIAlertView *errr = [[UIAlertView alloc] initWithTitle:@"Kiwi isn't authorized to access your contacts :(" message:@"Parental Controls are restricting Kiwi from accessing your contacts. Please contact your IT manager to remove these restrictions" cancelButtonItem:[RIButtonItem randomDismissalButton] otherButtonItems:nil, nil];
-                    [errr show];
-                }break;
-            }
+        ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(NULL, NULL);
+        switch (ABAddressBookGetAuthorizationStatus()) {
+            case kABAuthorizationStatusAuthorized:{
+                authorized = YES; 
+            }break;
+            case kABAuthorizationStatusNotDetermined:{
+                ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error) {
+                    if (granted){
+                        authorized = YES;
+                    }else{
+                        authorized = NO;
+                    }
+                });
+            }break;
+            case kABAuthorizationStatusDenied:{
+                authorized = NO;
+                UIAlertView *errr = [[UIAlertView alloc] initWithTitle:@"Wax isn't authorized to access your contacts :(" message:@"Authorize Wax by going to Settings > Privacy > Contacts > and turn on Wax" cancelButtonItem:[RIButtonItem randomDismissalButton] otherButtonItems:nil, nil];
+                [errr show];
+            }break;
+            case kABAuthorizationStatusRestricted:{
+                authorized = NO;
+                UIAlertView *errr = [[UIAlertView alloc] initWithTitle:@"Wax isn't authorized to access your contacts :(" message:@"Parental Controls are restricting Wax from accessing your contacts. Please contact your IT manager to remove these restrictions" cancelButtonItem:[RIButtonItem randomDismissalButton] otherButtonItems:nil, nil];
+                [errr show];
+            }break;
+        }
 //        });
-        return authorized;
-    }else{
-        return YES; 
-    }
+    return authorized;
 }
 +(BOOL)checkAuthorization{
     return ABAddressBookGetAuthorizationStatus();

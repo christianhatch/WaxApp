@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/OpenInChromeController.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/OpenInChromeController</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>OpenInChromeController.h</DeclaredIn>
+			
+			<NodeRef refid="1"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/OpenInChromeController/sharedInstance</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>OpenInChromeController.h</DeclaredIn>			
+			
+			<Declaration>+ (OpenInChromeController *)sharedInstance</Declaration>
+			
+			
+			<Anchor>//api/name/sharedInstance</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/OpenInChromeController/isChromeInstalled</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>OpenInChromeController.h</DeclaredIn>			
+			
+			<Declaration>- (BOOL)isChromeInstalled</Declaration>
+			
+			
+			<Anchor>//api/name/isChromeInstalled</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/OpenInChromeController/openInChrome:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>OpenInChromeController.h</DeclaredIn>			
+			
+			<Declaration>- (BOOL)openInChrome:(NSURL *)url</Declaration>
+			
+			
+			<Anchor>//api/name/openInChrome:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/OpenInChromeController/openInChrome:withCallbackURL:createNewTab:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>OpenInChromeController.h</DeclaredIn>			
+			
+			<Declaration>- (BOOL)openInChrome:(NSURL *)url withCallbackURL:(NSURL *)callbackURL createNewTab:(BOOL)createNewTab</Declaration>
+			
+			
+			<Anchor>//api/name/openInChrome:withCallbackURL:createNewTab:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>
