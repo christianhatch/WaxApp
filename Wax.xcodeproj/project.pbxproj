@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		451EBD2D1726CF29000D600E /* WaxDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 451EBD2C1726CF29000D600E /* WaxDefines.m */; };
+		452FADB017404D450091F8D4 /* VideoObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FADAF17404D450091F8D4 /* VideoObject.m */; };
 		454BBDC117403888005F48ED /* WaxDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC017403888005F48ED /* WaxDataManager.m */; };
 		454BBDC217403888005F48ED /* WaxDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC017403888005F48ED /* WaxDataManager.m */; };
 		454BBDC5174049C4005F48ED /* ModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC4174049C4005F48ED /* ModelObject.m */; };
@@ -96,6 +97,8 @@
 /* Begin PBXFileReference section */
 		1C9784DDF7E84C01BC8F8951 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		451EBD2C1726CF29000D600E /* WaxDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaxDefines.m; path = WaxKit/WaxDefines.m; sourceTree = "<group>"; };
+		452FADAE17404D450091F8D4 /* VideoObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoObject.h; sourceTree = "<group>"; };
+		452FADAF17404D450091F8D4 /* VideoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoObject.m; sourceTree = "<group>"; };
 		454BBDBF17403888005F48ED /* WaxDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxDataManager.h; sourceTree = "<group>"; };
 		454BBDC017403888005F48ED /* WaxDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxDataManager.m; sourceTree = "<group>"; };
 		454BBDC3174049C4005F48ED /* ModelObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelObject.h; sourceTree = "<group>"; };
@@ -419,6 +422,8 @@
 				454BBDC4174049C4005F48ED /* ModelObject.m */,
 				454BBDCB17404A39005F48ED /* PersonObject.h */,
 				454BBDCC17404A39005F48ED /* PersonObject.m */,
+				452FADAE17404D450091F8D4 /* VideoObject.h */,
+				452FADAF17404D450091F8D4 /* VideoObject.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -427,8 +432,8 @@
 			isa = PBXGroup;
 			children = (
 				45F71622171F163C009097F3 /* Wax */,
-				45EA31B11725FB8000980320 /* AcaciaKit */,
 				459C281B1725EC82009C5487 /* WaxKit */,
+				45EA31B11725FB8000980320 /* AcaciaKit */,
 				45F71646171F163D009097F3 /* WaxTests */,
 				45F7161B171F163C009097F3 /* Frameworks */,
 				45F7161A171F163C009097F3 /* Products */,
@@ -711,6 +716,7 @@
 				454BBDC5174049C4005F48ED /* ModelObject.m in Sources */,
 				454BBDC917404A2E005F48ED /* WaxUser.m in Sources */,
 				454BBDCD17404A39005F48ED /* PersonObject.m in Sources */,
+				452FADB017404D450091F8D4 /* VideoObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

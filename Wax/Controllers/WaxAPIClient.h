@@ -9,17 +9,31 @@
 #import <Foundation/Foundation.h>
 #import "AFHTTPClient.h"
 
-enum{
-    AIKProfilePictureRequestTypeFacebook = 1, //currently does the same thing as 'initial signup', but reserved for future use
-    AIKProfilePictureRequestTypeInitialSignup, //do NOT show any progress/success/failure callbacks
-    AIKProfilePictureRequestTypeChange, //show progress/success/failure callbacks to the user
-};
-typedef NSInteger AIKProfilePictureRequestType;
+//enum{
+//    AIKProfilePictureRequestTypeFacebook = 1, //currently does the same thing as 'initial signup', but reserved for future use
+//    AIKProfilePictureRequestTypeInitialSignup, //do NOT show any progress/success/failure callbacks
+//    AIKProfilePictureRequestTypeChange, //show progress/success/failure callbacks to the user
+//};
+//typedef NSInteger AIKProfilePictureRequestType;
 
 
 @interface WaxAPIClient : AFHTTPClient //<AmazonServiceRequestDelegate>
 
 + (WaxAPIClient *)sharedClient;
+
+-(void)fetchFeedFromPath:(NSString *)path
+                personId:(NSString *)personId
+           lastTimeStamp:(NSNumber *)lastTimeStamp
+              completion:(void (^)(NSMutableArray *feed, NSError *error))completion;
+
+-(void)fetchPeopleFromPath:(NSString *)path
+                  personId:(NSString *)personId
+             lastTimeStamp:(NSNumber *)lastTimeStamp
+                completion:(void (^)(NSMutableArray *persons, NSError *error))completion;
+
+
+
+
 /*
 -(void)loadTrendsFeedWithLastTimeStamp:(NSNumber *)lastTimeStamp;
 -(void)loadFriendsFeedWithLastTimeStamp:(NSNumber *)lastTimeStamp;

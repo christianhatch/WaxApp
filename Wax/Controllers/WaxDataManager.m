@@ -25,8 +25,6 @@
     if (responseObject) {
         if ([[[[responseObject objectForKeyNotNull:kKeyForJSON] objectAtIndexNotNull:0] objectForKeyNotNull:kKeyForJSON] isEqualToString:@"false"]) {
 #ifdef DEBUG
-            //            UIAlertView *loggedOut = [[UIAlertView alloc] initWithTitle:@"A token error should've logged you out" message:@"But we won't" cancelButtonItem:[RIButtonItem randomDismissalButton] otherButtonItems:nil, nil];
-            //            [loggedOut show];
             DLog(@"LOGGED OUT DUE TO INVALID TOKEN");
 #else
             [[KiwiUser currentUser] logOut:YES];

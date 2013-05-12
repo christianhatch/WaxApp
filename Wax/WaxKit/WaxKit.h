@@ -23,3 +23,4 @@
 
 //Models
 #import "PersonObject.h"
+#import "VideoObject.h"

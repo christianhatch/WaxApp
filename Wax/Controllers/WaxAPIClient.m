@@ -9,7 +9,7 @@
 #import "WaxAPIClient.h"
 
 
-typedef void (^JSONProcessingBlock)(NSMutableArray *processedResponse);
+//typedef void (^JSONProcessingBlock)(NSMutableArray *processedResponse);
 
 
 @interface WaxAPIClient ()
@@ -60,23 +60,22 @@ typedef void (^JSONProcessingBlock)(NSMutableArray *processedResponse);
     [self enqueueHTTPRequestOperation:operation];
 }
 
-//internal processing methods
-
--(void)arrayOf:(Class)modelObjects fromResponseObject:(id)responseObject withCompletionBlock:(JSONProcessingBlock)completion{
+//json processing
+-(void)processArrayOf:(Class)modelObjectClass fromResponseObject:(id)responseObject withCompletionBlock:(void (^)(NSMutableArray *processedResponse))completion{
     
     dispatch_async(self.jsonProcessingQueue, ^{
                 
         id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
         
-//        DLog(@"Model ResponseObject %@", responseObject);
+        DLog(@"Processing for %@ class. Responseobject: %@", modelObjectClass, responseObject);
         
         NSArray *rawPersonDictionaries = [validated objectForKeyNotNull:kKeyForJSON];
         
         NSMutableArray *persons = [NSMutableArray arrayWithCapacity:rawPersonDictionaries.count];
        
         for(NSDictionary *dictionary in persons) {
-            PersonObject *person = [[PersonObject alloc] initWithDictionary:dictionary];
-            [persons addObject:person];
+            id modelObject = [[modelObjectClass alloc] initWithDictionary:dictionary];
+            [persons addObject:modelObject];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -87,7 +86,39 @@ typedef void (^JSONProcessingBlock)(NSMutableArray *processedResponse);
         
     });
 }
+-(void)fetchFeedFromPath:(NSString *)path personId:(NSString *)personId lastTimeStamp:(NSNumber *)lastTimeStamp completion:(void (^)(NSMutableArray *, NSError *))completion{
 
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:personId, @"personid", lastTimeStamp, @"lastitem", nil];
+    
+    [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self processArrayOf:[VideoObject class] fromResponseObject:responseObject withCompletionBlock:^(NSMutableArray *processedResponse) {
+            if (completion) {
+                completion(processedResponse, nil); 
+            }
+        }];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (completion) {
+            completion(nil, error); 
+        }
+    }];
+}
+
+-(void)fetchPeopleFromPath:(NSString *)path personId:(NSString *)personId lastTimeStamp:(NSNumber *)lastTimeStamp completion:(void (^)(NSMutableArray *, NSError *))completion{
+    
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:personId, @"personid", lastTimeStamp, @"lastitem", nil];
+    
+    [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self processArrayOf:[PersonObject class] fromResponseObject:responseObject withCompletionBlock:^(NSMutableArray *processedResponse) {
+            if (completion) {
+                completion(processedResponse, nil);
+            }
+        }];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (completion) {
+            completion(nil, error);
+        }
+    }];
+}
 
 
 
