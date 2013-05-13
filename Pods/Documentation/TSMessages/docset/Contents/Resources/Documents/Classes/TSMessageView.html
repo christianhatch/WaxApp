@@ -12,7 +12,7 @@
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
-				<h1><a id="libraryTitle" href="../index.html">TSMessages 0.9.1 </a></h1>
+				<h1><a id="libraryTitle" href="../index.html">TSMessages 0.9.2 </a></h1>
 				<a id="developerHome" href="../index.html">Felix Krause</a>
 			</div>
 			
@@ -42,6 +42,8 @@
 	
 	<option value="//api/name/duration">&nbsp;&nbsp;&nbsp;&nbsp;duration</option>
 	
+	<option value="//api/name/messagePosition">&nbsp;&nbsp;&nbsp;&nbsp;messagePosition</option>
+	
 	<option value="//api/name/title">&nbsp;&nbsp;&nbsp;&nbsp;title</option>
 	
 	<option value="//api/name/viewController">&nbsp;&nbsp;&nbsp;&nbsp;viewController</option>
@@ -55,7 +57,7 @@
 	
 	<option value="//api/name/fadeMeOut">&nbsp;&nbsp;&nbsp;&nbsp;- fadeMeOut</option>
 	
-	<option value="//api/name/initWithTitle:withContent:withType:withDuration:inViewController:withCallback:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithTitle:withContent:withType:withDuration:inViewController:withCallback:</option>
+	<option value="//api/name/initWithTitle:withContent:withType:withDuration:inViewController:withCallback:withButtonTitle:withButtonCallback:atPosition:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithTitle:withContent:withType:withDuration:inViewController:withCallback:withButtonTitle:withButtonCallback:atPosition:</option>
 	
 	
 	
@@ -83,6 +85,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/duration">duration</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/messagePosition">messagePosition</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/title">title</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/viewController">viewController</a></span></li>
@@ -97,7 +101,7 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/fadeMeOut">fadeMeOut</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithTitle:withContent:withType:withDuration:inViewController:withCallback:">initWithTitle:withContent:withType:withDuration:inViewController:withCallback:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithTitle:withContent:withType:withDuration:inViewController:withCallback:withButtonTitle:withButtonCallback:atPosition:">initWithTitle:withContent:withType:withDuration:inViewController:withCallback:withButtonTitle:withButtonCallback:atPosition:</a></span></li>
 	
 </ul></li>
 
@@ -174,7 +178,14 @@
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/initWithTitle:withContent:withType:withDuration:inViewController:withCallback:">&ndash;&nbsp;initWithTitle:withContent:withType:withDuration:inViewController:withCallback:</a></code>
+		<code><a href="#//api/name/messagePosition">&nbsp;&nbsp;messagePosition</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithTitle:withContent:withType:withDuration:inViewController:withCallback:withButtonTitle:withButtonCallback:atPosition:">&ndash;&nbsp;initWithTitle:withContent:withType:withDuration:inViewController:withCallback:withButtonTitle:withButtonCallback:atPosition:</a></code>
 		<span class="tooltip"><p>Inits the notification view. Do not call this from outisde this library.</p></span>
 	</span>
 	
@@ -279,6 +290,17 @@
 	</div>				
 	
 	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/messagePosition" title="messagePosition"></a>
+	<h3 class="subsubtitle method-title">messagePosition</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) TSMessageNotificationPosition messagePosition</code></div>
+
+    
 </div>
 						
 						<div class="section-method">
@@ -415,8 +437,8 @@
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/initWithTitle:withContent:withType:withDuration:inViewController:withCallback:" title="initWithTitle:withContent:withType:withDuration:inViewController:withCallback:"></a>
-	<h3 class="subsubtitle method-title">initWithTitle:withContent:withType:withDuration:inViewController:withCallback:</h3>
+	<a name="//api/name/initWithTitle:withContent:withType:withDuration:inViewController:withCallback:withButtonTitle:withButtonCallback:atPosition:" title="initWithTitle:withContent:withType:withDuration:inViewController:withCallback:withButtonTitle:withButtonCallback:atPosition:"></a>
+	<h3 class="subsubtitle method-title">initWithTitle:withContent:withType:withDuration:inViewController:withCallback:withButtonTitle:withButtonCallback:atPosition:</h3>
 	
 	
 	
@@ -426,7 +448,7 @@
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (id)initWithTitle:(NSString *)<em>title</em> withContent:(NSString *)<em>content</em> withType:(TSMessageNotificationType)<em>notificationType</em> withDuration:(CGFloat)<em>duration</em> inViewController:(UIViewController *)<em>viewController</em> withCallback:(void ( ^ ) ( ))<em>callback</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (id)initWithTitle:(NSString *)<em>title</em> withContent:(NSString *)<em>content</em> withType:(TSMessageNotificationType)<em>notificationType</em> withDuration:(CGFloat)<em>duration</em> inViewController:(UIViewController *)<em>viewController</em> withCallback:(void ( ^ ) ( ))<em>callback</em> withButtonTitle:(NSString *)<em>buttonTitle</em> withButtonCallback:(void ( ^ ) ( ))<em>buttonCallback</em> atPosition:(TSMessageNotificationPosition)<em>position</em></code></div>
 
     
 	
@@ -461,6 +483,21 @@
 		<dl class="argument-def parameter-def">
 			<dt><em>callback</em></dt>
 			<dd><p>The block that should be executed, when the user tapped on the message</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>buttonTitle</em></dt>
+			<dd><p>The <a href="#//api/name/title">title</a> for button (optional)</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>buttonCallback</em></dt>
+			<dd><p>The block that should be executed, when the user tapped on the button</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>position</em></dt>
+			<dd><p>The position of the message on the screen</p></dd>
 		</dl>
 		
 	</div>
@@ -503,7 +540,7 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Felix Krause. All rights reserved. (Last updated: 2013-04-22)</span><br />
+						<p><span class="copyright">&copy; 2013 Felix Krause. All rights reserved. (Last updated: 2013-05-13)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
 						

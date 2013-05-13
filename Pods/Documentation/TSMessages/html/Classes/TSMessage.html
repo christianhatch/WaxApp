@@ -12,7 +12,7 @@
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
-				<h1><a id="libraryTitle" href="../index.html">TSMessages 0.9.1 </a></h1>
+				<h1><a id="libraryTitle" href="../index.html">TSMessages 0.9.2 </a></h1>
 				<a id="developerHome" href="../index.html">Felix Krause</a>
 			</div>
 			
@@ -55,6 +55,10 @@
 	<option value="//api/name/showNotificationInViewController:withTitle:withMessage:withType:withDuration:">&nbsp;&nbsp;&nbsp;&nbsp;+ showNotificationInViewController:withTitle:withMessage:withType:withDuration:</option>
 	
 	<option value="//api/name/showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:">&nbsp;&nbsp;&nbsp;&nbsp;+ showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:</option>
+	
+	<option value="//api/name/showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:atPosition:">&nbsp;&nbsp;&nbsp;&nbsp;+ showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:atPosition:</option>
+	
+	<option value="//api/name/showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:withButtonTitle:withButtonCallback:atPosition:">&nbsp;&nbsp;&nbsp;&nbsp;+ showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:withButtonTitle:withButtonCallback:atPosition:</option>
 	
 	<option value="//api/name/showNotificationWithMessage:withType:">&nbsp;&nbsp;&nbsp;&nbsp;+ showNotificationWithMessage:withType:</option>
 	
@@ -101,6 +105,10 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/showNotificationInViewController:withTitle:withMessage:withType:withDuration:">showNotificationInViewController:withTitle:withMessage:withType:withDuration:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:">showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:atPosition:">showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:atPosition:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:withButtonTitle:withButtonCallback:atPosition:">showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:withButtonTitle:withButtonCallback:atPosition:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/showNotificationWithMessage:withType:">showNotificationWithMessage:withType:</a></span></li>
 	
@@ -191,6 +199,20 @@
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:">+&nbsp;showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:</a></code>
+		<span class="tooltip"><p>Shows a notification message in a specific view controller</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:atPosition:">+&nbsp;showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:atPosition:</a></code>
+		<span class="tooltip"><p>Shows a notification message in a specific view controller</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:withButtonTitle:withButtonCallback:atPosition:">+&nbsp;showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:withButtonTitle:withButtonCallback:atPosition:</a></code>
 		<span class="tooltip"><p>Shows a notification message in a specific view controller</p></span>
 	</span>
 	
@@ -627,6 +649,178 @@
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:atPosition:" title="showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:atPosition:"></a>
+	<h3 class="subsubtitle method-title">showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:atPosition:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Shows a notification message in a specific view controller</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (void)showNotificationInViewController:(UIViewController *)<em>viewController</em> withTitle:(NSString *)<em>title</em> withMessage:(NSString *)<em>message</em> withType:(TSMessageNotificationType)<em>type</em> withDuration:(NSTimeInterval)<em>duration</em> withCallback:(void ( ^ ) ( ))<em>callback</em> atPosition:(TSMessageNotificationPosition)<em>messagePosition</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>viewController</em></dt>
+			<dd><p>The view controller to show the notification in.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>title</em></dt>
+			<dd><p>The title of the notification view</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>message</em></dt>
+			<dd><p>The message that is displayed underneath the title</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>type</em></dt>
+			<dd><p>The notification type (Message, Warning, Error, Success)</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>duration</em></dt>
+			<dd><p>The duration of the notification being displayed</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>callback</em></dt>
+			<dd><p>The block that should be executed, when the user tapped on the message</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>position</em></dt>
+			<dd><p>The position of the message on the screen</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Shows a notification message in a specific view controller</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TSMessage.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:withButtonTitle:withButtonCallback:atPosition:" title="showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:withButtonTitle:withButtonCallback:atPosition:"></a>
+	<h3 class="subsubtitle method-title">showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:withButtonTitle:withButtonCallback:atPosition:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Shows a notification message in a specific view controller</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (void)showNotificationInViewController:(UIViewController *)<em>viewController</em> withTitle:(NSString *)<em>title</em> withMessage:(NSString *)<em>message</em> withType:(TSMessageNotificationType)<em>type</em> withDuration:(NSTimeInterval)<em>duration</em> withCallback:(void ( ^ ) ( ))<em>callback</em> withButtonTitle:(NSString *)<em>buttonTitle</em> withButtonCallback:(void ( ^ ) ( ))<em>buttonCallback</em> atPosition:(TSMessageNotificationPosition)<em>messagePosition</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>viewController</em></dt>
+			<dd><p>The view controller to show the notification in.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>title</em></dt>
+			<dd><p>The title of the notification view</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>message</em></dt>
+			<dd><p>The message that is displayed underneath the title</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>type</em></dt>
+			<dd><p>The notification type (Message, Warning, Error, Success)</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>duration</em></dt>
+			<dd><p>The duration of the notification being displayed</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>callback</em></dt>
+			<dd><p>The block that should be executed, when the user tapped on the message</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>buttonTitle</em></dt>
+			<dd><p>The title for button (optional)</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>buttonCallback</em></dt>
+			<dd><p>The block that should be executed, when the user tapped on the button</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>position</em></dt>
+			<dd><p>The position of the message on the screen</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Shows a notification message in a specific view controller</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TSMessage.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/showNotificationWithMessage:withType:" title="showNotificationWithMessage:withType:"></a>
 	<h3 class="subsubtitle method-title">showNotificationWithMessage:withType:</h3>
 	
@@ -758,7 +952,7 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Felix Krause. All rights reserved. (Last updated: 2013-04-22)</span><br />
+						<p><span class="copyright">&copy; 2013 Felix Krause. All rights reserved. (Last updated: 2013-05-13)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
 						

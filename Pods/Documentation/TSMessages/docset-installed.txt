@@ -1,4 +1,4 @@
 Documentation set was installed to Xcode!
 
-Path: /Users/chatch/Library/Developer/Shared/Documentation/DocSets/org.cocoapods.tsmessages.TSMessages-0.9.1.docset
-Time: 2013-04-22 21:18:44 +0000
+Path: /Users/chatch/Library/Developer/Shared/Documentation/DocSets/org.cocoapods.tsmessages.TSMessages-0.9.2.docset
+Time: 2013-05-13 20:48:57 +0000

@@ -11,6 +11,7 @@ It is very easy to add new notification types with a different design. Add the n
 
 **Take a look at the Example project to see how to use this library.** You have to open the workspace, not the project file, since the Example project uses cocoapods.
 
+Follow the developer on Twitter: [KrauseFx](http://twitter.com/krausefx)
 
 ## Installation
 
@@ -20,7 +21,7 @@ Add `pod 'TSMessages'` to your Podfile.
 
 ### Manually
 
-Drag the whole folder into your project and remove the example project. This library required ARC.
+Drag the whole folder into your project and remove the example project. This library requires ARC.
 
 To show notifications use the following code:
 --------
@@ -51,7 +52,7 @@ The following properties can be set:
 * **duration**: The duration the notification should be displayed
 * **callback**: The block that should be executed, when the user dismissed the message by tapping on it or swiping it to the top.
 
-Except the title and the notification type all of the lists values are optional
+Except the title and the notification type, all of the listed values are optional
 
 You don't need to do anything with TSMessageView, except you want to modify the behavior or the types of the notification itself.
 

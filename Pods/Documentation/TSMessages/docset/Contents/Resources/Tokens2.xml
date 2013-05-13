@@ -100,11 +100,33 @@
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TSMessageView/initWithTitle:withContent:withType:withDuration:inViewController:withCallback:</TokenIdentifier>
+			<TokenIdentifier>//apple_ref/occ/instm/TSMessageView/setMessagePosition:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TSMessageView.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) TSMessageNotificationPosition messagePosition</Declaration>
+			
+			
+			<Anchor>//api/name/messagePosition</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TSMessageView/messagePosition</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TSMessageView.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) TSMessageNotificationPosition messagePosition</Declaration>
+			
+			
+			<Anchor>//api/name/messagePosition</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TSMessageView/initWithTitle:withContent:withType:withDuration:inViewController:withCallback:withButtonTitle:withButtonCallback:atPosition:</TokenIdentifier>
 			<Abstract type="html">Inits the notification view. Do not call this from outisde this library.</Abstract>
 			<DeclaredIn>TSMessageView.h</DeclaredIn>			
 			
-			<Declaration>- (id)initWithTitle:(NSString *)title withContent:(NSString *)content withType:(TSMessageNotificationType)notificationType withDuration:(CGFloat)duration inViewController:(UIViewController *)viewController withCallback:(void ( ^ ) ( ))callback</Declaration>
+			<Declaration>- (id)initWithTitle:(NSString *)title withContent:(NSString *)content withType:(TSMessageNotificationType)notificationType withDuration:(CGFloat)duration inViewController:(UIViewController *)viewController withCallback:(void ( ^ ) ( ))callback withButtonTitle:(NSString *)buttonTitle withButtonCallback:(void ( ^ ) ( ))buttonCallback atPosition:(TSMessageNotificationPosition)position</Declaration>
 			<Parameters>
 				<Parameter>
 					<Name>title</Name>
@@ -124,10 +146,19 @@
 				</Parameter><Parameter>
 					<Name>callback</Name>
 					<Abstract type="html">The block that should be executed, when the user tapped on the message</Abstract>
+				</Parameter><Parameter>
+					<Name>buttonTitle</Name>
+					<Abstract type="html">The title for button (optional)</Abstract>
+				</Parameter><Parameter>
+					<Name>buttonCallback</Name>
+					<Abstract type="html">The block that should be executed, when the user tapped on the button</Abstract>
+				</Parameter><Parameter>
+					<Name>position</Name>
+					<Abstract type="html">The position of the message on the screen</Abstract>
 				</Parameter>
 			</Parameters>
 			
-			<Anchor>//api/name/initWithTitle:withContent:withType:withDuration:inViewController:withCallback:</Anchor>
+			<Anchor>//api/name/initWithTitle:withContent:withType:withDuration:inViewController:withCallback:withButtonTitle:withButtonCallback:atPosition:</Anchor>
 		</Token>
 		
 		<Token>

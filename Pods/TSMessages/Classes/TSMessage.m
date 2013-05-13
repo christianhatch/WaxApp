@@ -89,6 +89,45 @@ static BOOL notificationActive;
                             withDuration:(NSTimeInterval)duration
                             withCallback:(void (^)())callback
 {
+    [self showNotificationInViewController:viewController
+                                 withTitle:title
+                               withMessage:message
+                                  withType:type
+                              withDuration:duration
+                              withCallback:callback
+                                atPosition:TSMessageNotificationPositionTop];
+}
+
++ (void)showNotificationInViewController:(UIViewController *)viewController
+                               withTitle:(NSString *)title
+                             withMessage:(NSString *)message
+                                withType:(TSMessageNotificationType)type
+                            withDuration:(NSTimeInterval)duration
+                            withCallback:(void (^)())callback
+                              atPosition:(TSMessageNotificationPosition)messagePosition
+{
+    [self showNotificationInViewController:viewController
+                                 withTitle:title
+                               withMessage:message
+                                  withType:type
+                              withDuration:duration
+                              withCallback:callback
+                           withButtonTitle:nil
+                        withButtonCallback:nil
+                                atPosition:messagePosition];
+}
+
+
++ (void)showNotificationInViewController:(UIViewController *)viewController
+                               withTitle:(NSString *)title
+                             withMessage:(NSString *)message
+                                withType:(TSMessageNotificationType)type
+                            withDuration:(NSTimeInterval)duration
+                            withCallback:(void (^)())callback
+                         withButtonTitle:(NSString *)buttonTitle
+                      withButtonCallback:(void (^)())buttonCallback
+                              atPosition:(TSMessageNotificationPosition)messagePosition
+{
     for (TSMessageView *n in [TSMessage sharedMessage].messages)
     {
         if ([n.title isEqualToString:title] && [n.content isEqualToString:message])
@@ -103,7 +142,10 @@ static BOOL notificationActive;
                                                    withType:type
                                                withDuration:duration
                                            inViewController:viewController
-                                               withCallback:callback];
+                                               withCallback:callback
+                                            withButtonTitle:buttonTitle
+                                         withButtonCallback:buttonCallback
+                                                 atPosition:messagePosition];
     
     [[TSMessage sharedMessage].messages addObject:v];
     
@@ -143,6 +185,8 @@ static BOOL notificationActive;
 
 - (void)fadeInCurrentNotification
 {
+    if ([self.messages count] == 0) return;
+    
     notificationActive = YES;
     
     TSMessageView *currentView = [self.messages objectAtIndex:0];
@@ -176,10 +220,21 @@ static BOOL notificationActive;
         [currentView.viewController.view addSubview:currentView];
     }
     
+    CGPoint toPoint;
+    if (currentView.messagePosition == TSMessageNotificationPositionTop)
+    {
+        toPoint = CGPointMake(currentView.center.x,
+                              [[self class] navigationbarBottomOfViewController:currentView.viewController] + verticalOffset + CGRectGetHeight(currentView.frame) / 2.0);
+    }
+    else
+    {
+        toPoint = CGPointMake(currentView.center.x,
+                              currentView.viewController.view.frame.size.height - CGRectGetHeight(currentView.frame) / 2.0);
+    }
+    
     [UIView animateWithDuration:kTSMessageAnimationDuration animations:^
      {
-         currentView.center = CGPointMake(currentView.center.x,
-                                          [[self class] navigationbarBottomOfViewController:currentView.viewController] + verticalOffset + CGRectGetHeight(currentView.frame) / 2.);
+         currentView.center = toPoint;
          currentView.alpha = TSMessageViewAlpha;
      }];
     
@@ -203,16 +258,31 @@ static BOOL notificationActive;
                                              selector:@selector(fadeOutNotification:)
                                                object:currentView];
     
+    CGPoint fadeOutToPoint;
+    if (currentView.messagePosition == TSMessageNotificationPositionTop)
+    {
+        fadeOutToPoint = CGPointMake(currentView.center.x, -CGRectGetHeight(currentView.frame) / 2.0);;
+    }
+    else
+    {
+        fadeOutToPoint = CGPointMake(currentView.center.x,
+                                     currentView.viewController.view.frame.size.height);
+    }
+    
     [UIView animateWithDuration:kTSMessageAnimationDuration animations:^
      {
-         currentView.center = CGPointMake(currentView.center.x, -CGRectGetHeight(currentView.frame) / 2.);
+         currentView.center = fadeOutToPoint;
          currentView.alpha = 0.0;
      }
                      completion:^(BOOL finished)
      {
          [currentView removeFromSuperview];
          
-         [self.messages removeObjectAtIndex:0];
+         if ([self.messages count] > 0)
+         {
+             [self.messages removeObjectAtIndex:0];
+         }
+         
          notificationActive = NO;
          
          if ([self.messages count] > 0)

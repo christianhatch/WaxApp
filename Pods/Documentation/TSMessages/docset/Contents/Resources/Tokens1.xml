@@ -148,6 +148,80 @@
 		</Token>
 		
 		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/TSMessage/showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:atPosition:</TokenIdentifier>
+			<Abstract type="html">Shows a notification message in a specific view controller</Abstract>
+			<DeclaredIn>TSMessage.h</DeclaredIn>			
+			
+			<Declaration>+ (void)showNotificationInViewController:(UIViewController *)viewController withTitle:(NSString *)title withMessage:(NSString *)message withType:(TSMessageNotificationType)type withDuration:(NSTimeInterval)duration withCallback:(void ( ^ ) ( ))callback atPosition:(TSMessageNotificationPosition)messagePosition</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>viewController</Name>
+					<Abstract type="html">The view controller to show the notification in.</Abstract>
+				</Parameter><Parameter>
+					<Name>title</Name>
+					<Abstract type="html">The title of the notification view</Abstract>
+				</Parameter><Parameter>
+					<Name>message</Name>
+					<Abstract type="html">The message that is displayed underneath the title</Abstract>
+				</Parameter><Parameter>
+					<Name>type</Name>
+					<Abstract type="html">The notification type (Message, Warning, Error, Success)</Abstract>
+				</Parameter><Parameter>
+					<Name>duration</Name>
+					<Abstract type="html">The duration of the notification being displayed</Abstract>
+				</Parameter><Parameter>
+					<Name>callback</Name>
+					<Abstract type="html">The block that should be executed, when the user tapped on the message</Abstract>
+				</Parameter><Parameter>
+					<Name>position</Name>
+					<Abstract type="html">The position of the message on the screen</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:atPosition:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/TSMessage/showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:withButtonTitle:withButtonCallback:atPosition:</TokenIdentifier>
+			<Abstract type="html">Shows a notification message in a specific view controller</Abstract>
+			<DeclaredIn>TSMessage.h</DeclaredIn>			
+			
+			<Declaration>+ (void)showNotificationInViewController:(UIViewController *)viewController withTitle:(NSString *)title withMessage:(NSString *)message withType:(TSMessageNotificationType)type withDuration:(NSTimeInterval)duration withCallback:(void ( ^ ) ( ))callback withButtonTitle:(NSString *)buttonTitle withButtonCallback:(void ( ^ ) ( ))buttonCallback atPosition:(TSMessageNotificationPosition)messagePosition</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>viewController</Name>
+					<Abstract type="html">The view controller to show the notification in.</Abstract>
+				</Parameter><Parameter>
+					<Name>title</Name>
+					<Abstract type="html">The title of the notification view</Abstract>
+				</Parameter><Parameter>
+					<Name>message</Name>
+					<Abstract type="html">The message that is displayed underneath the title</Abstract>
+				</Parameter><Parameter>
+					<Name>type</Name>
+					<Abstract type="html">The notification type (Message, Warning, Error, Success)</Abstract>
+				</Parameter><Parameter>
+					<Name>duration</Name>
+					<Abstract type="html">The duration of the notification being displayed</Abstract>
+				</Parameter><Parameter>
+					<Name>callback</Name>
+					<Abstract type="html">The block that should be executed, when the user tapped on the message</Abstract>
+				</Parameter><Parameter>
+					<Name>buttonTitle</Name>
+					<Abstract type="html">The title for button (optional)</Abstract>
+				</Parameter><Parameter>
+					<Name>buttonCallback</Name>
+					<Abstract type="html">The block that should be executed, when the user tapped on the button</Abstract>
+				</Parameter><Parameter>
+					<Name>position</Name>
+					<Abstract type="html">The position of the message on the screen</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/showNotificationInViewController:withTitle:withMessage:withType:withDuration:withCallback:withButtonTitle:withButtonCallback:atPosition:</Anchor>
+		</Token>
+		
+		<Token>
 			<TokenIdentifier>//apple_ref/occ/clm/TSMessage/showInternetError</TokenIdentifier>
 			<Abstract type="html">Shows a predefined error message, that is displayed, when this action requires an internet connection</Abstract>
 			<DeclaredIn>TSMessage.h</DeclaredIn>			

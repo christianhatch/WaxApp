@@ -5,7 +5,6 @@
 #define __POD_InterAppCommunication
 #define __POD_KGNoise_tonyzonghui
 #define __POD_Lockbox
-#define __POD_MLUIColorAdditions
 #define __POD_OpenInChrome
 #define __POD_Orbiter
 #define __POD_STTweetLabel

@@ -5,9 +5,9 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.cocoapods.lockbox.Lockbox-1.2.0</string>
+	<string>org.cocoapods.lockbox.Lockbox-1.4.2</string>
 	<key>CFBundleName</key>
-	<string>Lockbox 1.2.0 Documentation</string>
+	<string>Lockbox 1.4.2 Documentation</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -18,7 +18,7 @@
 	<string>Lockbox is an Objective-C utility class for storing data securely in the keychain. Use it to store small, sensitive bits of data securely.</string>
 	
 	<key>DocSetFeedName</key>
-	<string>Lockbox 1.2.0 Documentation</string>
+	<string>Lockbox 1.4.2 Documentation</string>
 	
 	<key>DocSetMinimumXcodeVersion</key>
 	<string>3.0</string>

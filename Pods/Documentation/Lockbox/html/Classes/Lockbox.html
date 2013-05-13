@@ -12,7 +12,7 @@
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
-				<h1><a id="libraryTitle" href="../index.html">Lockbox 1.2.0 </a></h1>
+				<h1><a id="libraryTitle" href="../index.html">Lockbox 1.4.2 </a></h1>
 				<a id="developerHome" href="../index.html">Mark H. Granoff</a>
 			</div>
 			
@@ -42,13 +42,25 @@
 	
 	<option value="//api/name/arrayForKey:">&nbsp;&nbsp;&nbsp;&nbsp;+ arrayForKey:</option>
 	
+	<option value="//api/name/dateForKey:">&nbsp;&nbsp;&nbsp;&nbsp;+ dateForKey:</option>
+	
 	<option value="//api/name/setArray:forKey:">&nbsp;&nbsp;&nbsp;&nbsp;+ setArray:forKey:</option>
+	
+	<option value="//api/name/setArray:forKey:accessibility:">&nbsp;&nbsp;&nbsp;&nbsp;+ setArray:forKey:accessibility:</option>
+	
+	<option value="//api/name/setDate:forKey:">&nbsp;&nbsp;&nbsp;&nbsp;+ setDate:forKey:</option>
+	
+	<option value="//api/name/setDate:forKey:accessibility:">&nbsp;&nbsp;&nbsp;&nbsp;+ setDate:forKey:accessibility:</option>
 	
 	<option value="//api/name/setForKey:">&nbsp;&nbsp;&nbsp;&nbsp;+ setForKey:</option>
 	
 	<option value="//api/name/setSet:forKey:">&nbsp;&nbsp;&nbsp;&nbsp;+ setSet:forKey:</option>
 	
+	<option value="//api/name/setSet:forKey:accessibility:">&nbsp;&nbsp;&nbsp;&nbsp;+ setSet:forKey:accessibility:</option>
+	
 	<option value="//api/name/setString:forKey:">&nbsp;&nbsp;&nbsp;&nbsp;+ setString:forKey:</option>
+	
+	<option value="//api/name/setString:forKey:accessibility:">&nbsp;&nbsp;&nbsp;&nbsp;+ setString:forKey:accessibility:</option>
 	
 	<option value="//api/name/stringForKey:">&nbsp;&nbsp;&nbsp;&nbsp;+ stringForKey:</option>
 	
@@ -80,13 +92,25 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/arrayForKey:">arrayForKey:</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/dateForKey:">dateForKey:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setArray:forKey:">setArray:forKey:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setArray:forKey:accessibility:">setArray:forKey:accessibility:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setDate:forKey:">setDate:forKey:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setDate:forKey:accessibility:">setDate:forKey:accessibility:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setForKey:">setForKey:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setSet:forKey:">setSet:forKey:</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setSet:forKey:accessibility:">setSet:forKey:accessibility:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setString:forKey:">setString:forKey:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setString:forKey:accessibility:">setString:forKey:accessibility:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/stringForKey:">stringForKey:</a></span></li>
 	
@@ -146,6 +170,13 @@
 	
 </li><li>
 	<span class="tooltip">
+		<code><a href="#//api/name/setString:forKey:accessibility:">+&nbsp;setString:forKey:accessibility:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
 		<code><a href="#//api/name/stringForKey:">+&nbsp;stringForKey:</a></code>
 		
 	</span>
@@ -154,6 +185,13 @@
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/setArray:forKey:">+&nbsp;setArray:forKey:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setArray:forKey:accessibility:">+&nbsp;setArray:forKey:accessibility:</a></code>
 		
 	</span>
 	
@@ -174,7 +212,35 @@
 	
 </li><li>
 	<span class="tooltip">
+		<code><a href="#//api/name/setSet:forKey:accessibility:">+&nbsp;setSet:forKey:accessibility:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
 		<code><a href="#//api/name/setForKey:">+&nbsp;setForKey:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setDate:forKey:">+&nbsp;setDate:forKey:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setDate:forKey:accessibility:">+&nbsp;setDate:forKey:accessibility:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/dateForKey:">+&nbsp;dateForKey:</a></code>
 		
 	</span>
 	
@@ -206,12 +272,56 @@
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/dateForKey:" title="dateForKey:"></a>
+	<h3 class="subsubtitle method-title">dateForKey:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (NSDate *)dateForKey:(NSString *)<em>key</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/setArray:forKey:" title="setArray:forKey:"></a>
 	<h3 class="subsubtitle method-title">setArray:forKey:</h3>
 	
 	
 
 	<div class="method-subsection method-declaration"><code>+ (BOOL)setArray:(NSArray *)<em>value</em> forKey:(NSString *)<em>key</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setArray:forKey:accessibility:" title="setArray:forKey:accessibility:"></a>
+	<h3 class="subsubtitle method-title">setArray:forKey:accessibility:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (BOOL)setArray:(NSArray *)<em>value</em> forKey:(NSString *)<em>key</em> accessibility:(CFTypeRef)<em>accessibility</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setDate:forKey:" title="setDate:forKey:"></a>
+	<h3 class="subsubtitle method-title">setDate:forKey:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (BOOL)setDate:(NSDate *)<em>value</em> forKey:(NSString *)<em>key</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setDate:forKey:accessibility:" title="setDate:forKey:accessibility:"></a>
+	<h3 class="subsubtitle method-title">setDate:forKey:accessibility:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (BOOL)setDate:(NSDate *)<em>value</em> forKey:(NSString *)<em>key</em> accessibility:(CFTypeRef)<em>accessibility</em></code></div>
 
     
 </div>
@@ -239,12 +349,34 @@
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/setSet:forKey:accessibility:" title="setSet:forKey:accessibility:"></a>
+	<h3 class="subsubtitle method-title">setSet:forKey:accessibility:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (BOOL)setSet:(NSSet *)<em>value</em> forKey:(NSString *)<em>key</em> accessibility:(CFTypeRef)<em>accessibility</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/setString:forKey:" title="setString:forKey:"></a>
 	<h3 class="subsubtitle method-title">setString:forKey:</h3>
 	
 	
 
 	<div class="method-subsection method-declaration"><code>+ (BOOL)setString:(NSString *)<em>value</em> forKey:(NSString *)<em>key</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setString:forKey:accessibility:" title="setString:forKey:accessibility:"></a>
+	<h3 class="subsubtitle method-title">setString:forKey:accessibility:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (BOOL)setString:(NSString *)<em>value</em> forKey:(NSString *)<em>key</em> accessibility:(CFTypeRef)<em>accessibility</em></code></div>
 
     
 </div>
@@ -275,7 +407,7 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Mark H. Granoff. All rights reserved. (Last updated: 2013-04-22)</span><br />
+						<p><span class="copyright">&copy; 2013 Mark H. Granoff. All rights reserved. (Last updated: 2013-05-13)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
 						

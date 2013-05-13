@@ -2,16 +2,14 @@ PODS:
   - AFNetworking (1.2.1)
   - InterAppCommunication (1.0)
   - KGNoise@tonyzonghui (1.2.0)
-  - Lockbox (1.2.0)
-  - MLUIColorAdditions (1.0.0)
+  - Lockbox (1.4.2)
   - OpenInChrome (0.0.1)
   - Orbiter (0.0.1):
     - AFNetworking (>= 0.9)
   - STTweetLabel (2.2.2)
   - SVProgressHUD (0.9)
   - SVPullToRefresh (0.4.1)
-  - TSMessages (0.9.1):
-    - MLUIColorAdditions
+  - TSMessages (0.9.2)
 
 DEPENDENCIES:
   - AFNetworking
@@ -29,13 +27,12 @@ SPEC CHECKSUMS:
   AFNetworking: 616da0028916ce296f5c3cef74e5552eb4e10e13
   InterAppCommunication: 8b5c768edf16414947f4fae4d15a86cc38ddbf8c
   KGNoise@tonyzonghui: 632e5363cde4cbaba10876d50a68a2123a0f30e8
-  Lockbox: e237a944f2040d4f27e8077726b7bbe0489febdb
-  MLUIColorAdditions: c128da8c87b724cdc6c9a1b4cfe8832ca62b8d2a
+  Lockbox: d1be948dcf7ef9e584ee9d56787728f99336e87f
   OpenInChrome: 4990ae561b1c8e38caa6fc6c346f4565f6c37bfb
   Orbiter: b083e5567d9b90e1da1ccda4b3c410df26d5da8d
   STTweetLabel: 9d93c324a4ecf5b9e6d73b5ff2b4813e4a8adc91
   SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
   SVPullToRefresh: 61a0e4bd12bd6f8e3465909810b0fbeb1a28d5f2
-  TSMessages: 916e168ec96b90fbe2756bc4e28c555a2abc83fc
+  TSMessages: 9169abb0e6962810b9aa8f731d7c481b05a73dec
 
 COCOAPODS: 0.18.1
