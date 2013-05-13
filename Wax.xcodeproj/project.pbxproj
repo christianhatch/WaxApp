@@ -17,15 +17,6 @@
 		452FADDB174074910091F8D4 /* WaxUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC817404A2D005F48ED /* WaxUser.m */; };
 		452FADDC174074910091F8D4 /* WaxAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA32131726063C00980320 /* WaxAPIClient.m */; };
 		452FADDD174074910091F8D4 /* WaxDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC017403888005F48ED /* WaxDataManager.m */; };
-		452FADDE174074910091F8D4 /* AIKContactsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA321A17260D6B00980320 /* AIKContactsManager.m */; };
-		452FADDF174074910091F8D4 /* AIKFacebookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31DA1725FB8000980320 /* AIKFacebookManager.m */; };
-		452FADE0174074910091F8D4 /* AIKErrorUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31D81725FB8000980320 /* AIKErrorUtilities.m */; };
-		452FADE1174074910091F8D4 /* AIKLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31DC1725FB8000980320 /* AIKLocationManager.m */; };
-		452FADE2174074910091F8D4 /* AIKTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31DE1725FB8000980320 /* AIKTabBarController.m */; };
-		452FADE3174074910091F8D4 /* AIKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31E01725FB8000980320 /* AIKWebViewController.m */; };
-		452FADE4174074910091F8D4 /* AIKAutoCompleter.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31EA1725FB8000980320 /* AIKAutoCompleter.m */; };
-		452FADE5174074910091F8D4 /* AIKEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31EC1725FB8000980320 /* AIKEmptyView.m */; };
-		452FADE6174074910091F8D4 /* AIKProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31EE1725FB8000980320 /* AIKProgressBar.m */; };
 		452FADF61740856B0091F8D4 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA322217260ED400980320 /* FacebookSDK.framework */; };
 		452FADF7174085A50091F8D4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA32351726111B00980320 /* CoreLocation.framework */; };
 		452FADF8174085AA0091F8D4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA321E17260DA000980320 /* AVFoundation.framework */; };
@@ -40,12 +31,18 @@
 		452FAE01174085EB0091F8D4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F71620171F163C009097F3 /* CoreGraphics.framework */; };
 		452FAE03174085FC0091F8D4 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452FAE02174085FC0091F8D4 /* AddressBookUI.framework */; };
 		452FAE04174086060091F8D4 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452FAE02174085FC0091F8D4 /* AddressBookUI.framework */; };
-		452FAE051740865F0091F8D4 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA31E41725FB8000980320 /* libFlurry.a */; };
-		452FAE06174086630091F8D4 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA31E61725FB8000980320 /* libTestFlight.a */; };
 		452FAE07174087890091F8D4 /* WaxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F7164D171F163D009097F3 /* WaxTests.m */; };
 		452FAE0A174088390091F8D4 /* WaxAPIClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAE09174088390091F8D4 /* WaxAPIClientTests.m */; };
 		452FAE0D174089570091F8D4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 452FAE0F174089570091F8D4 /* Localizable.strings */; };
 		452FAE1617408C200091F8D4 /* NSError+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAE1517408C200091F8D4 /* NSError+WaxKit.m */; };
+		452FAE1917409C340091F8D4 /* WaxKitCategoriesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAE1817409C340091F8D4 /* WaxKitCategoriesTests.m */; };
+		452FAE1C1740AC030091F8D4 /* persons.json in Resources */ = {isa = PBXBuildFile; fileRef = 452FAE1B1740AC030091F8D4 /* persons.json */; };
+		452FAE1E1740AE2F0091F8D4 /* videos.json in Resources */ = {isa = PBXBuildFile; fileRef = 452FAE1D1740AE2F0091F8D4 /* videos.json */; };
+		452FAE201741503E0091F8D4 /* icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = 452FAE1F1741503E0091F8D4 /* icon57.png */; };
+		452FAE22174150410091F8D4 /* icon114.png in Resources */ = {isa = PBXBuildFile; fileRef = 452FAE21174150410091F8D4 /* icon114.png */; };
+		452FAEE317416C680091F8D4 /* UIView+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAEE217416C680091F8D4 /* UIView+WaxKit.m */; };
+		452FAEE417416C680091F8D4 /* UIView+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAEE217416C680091F8D4 /* UIView+WaxKit.m */; };
+		452FAF5D1741766A0091F8D4 /* libAcaciaKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 452FAF58174176190091F8D4 /* libAcaciaKit.a */; };
 		454BBDC117403888005F48ED /* WaxDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC017403888005F48ED /* WaxDataManager.m */; };
 		454BBDC5174049C4005F48ED /* ModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC4174049C4005F48ED /* ModelObject.m */; };
 		454BBDC917404A2E005F48ED /* WaxUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC817404A2D005F48ED /* WaxUser.m */; };
@@ -54,35 +51,9 @@
 		459C28271725EC82009C5487 /* UIFont+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C28201725EC82009C5487 /* UIFont+WaxKit.m */; };
 		459C28291725EC82009C5487 /* UIImage+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C28221725EC82009C5487 /* UIImage+WaxKit.m */; };
 		45EA31AE1725FADB00980320 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA31AD1725FADB00980320 /* MessageUI.framework */; };
-		45EA31EF1725FB8000980320 /* AVAsset+AcaciaKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31B51725FB8000980320 /* AVAsset+AcaciaKit.m */; };
-		45EA31F01725FB8000980320 /* NSArray+AcaciaKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31B71725FB8000980320 /* NSArray+AcaciaKit.m */; };
-		45EA31F11725FB8000980320 /* NSDictionary+AcaciaKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31B91725FB8000980320 /* NSDictionary+AcaciaKit.m */; };
-		45EA31F21725FB8000980320 /* NSNotificationCenter+AcaciaKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31BB1725FB8000980320 /* NSNotificationCenter+AcaciaKit.m */; };
-		45EA31F31725FB8000980320 /* NSString+AcaciaKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31BD1725FB8000980320 /* NSString+AcaciaKit.m */; };
-		45EA31F51725FB8000980320 /* RIButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31C11725FB8000980320 /* RIButtonItem.m */; };
-		45EA31F61725FB8000980320 /* UIActionSheet+AcaciaKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31C31725FB8000980320 /* UIActionSheet+AcaciaKit.m */; };
-		45EA31F71725FB8000980320 /* UIAlertView+AcaciaKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31C51725FB8000980320 /* UIAlertView+AcaciaKit.m */; };
-		45EA31F81725FB8000980320 /* UIButton+AcaciaKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31C71725FB8000980320 /* UIButton+AcaciaKit.m */; };
-		45EA31F91725FB8000980320 /* UIColor+AcaciaKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31C91725FB8000980320 /* UIColor+AcaciaKit.m */; };
-		45EA31FA1725FB8000980320 /* UIDevice+AcaciaKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31CB1725FB8000980320 /* UIDevice+AcaciaKit.m */; };
-		45EA31FB1725FB8000980320 /* UIImage+AcaciaKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31CD1725FB8000980320 /* UIImage+AcaciaKit.m */; };
-		45EA31FC1725FB8000980320 /* UIImageView+AcaciaKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31CF1725FB8000980320 /* UIImageView+AcaciaKit.m */; };
-		45EA31FD1725FB8000980320 /* UIView+AcaciaKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31D11725FB8000980320 /* UIView+AcaciaKit.m */; };
-		45EA31FE1725FB8000980320 /* UIViewController+AcaciaKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31D31725FB8000980320 /* UIViewController+AcaciaKit.m */; };
-		45EA32001725FB8000980320 /* AIKErrorUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31D81725FB8000980320 /* AIKErrorUtilities.m */; };
-		45EA32011725FB8000980320 /* AIKFacebookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31DA1725FB8000980320 /* AIKFacebookManager.m */; };
-		45EA32021725FB8000980320 /* AIKLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31DC1725FB8000980320 /* AIKLocationManager.m */; };
-		45EA32031725FB8000980320 /* AIKTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31DE1725FB8000980320 /* AIKTabBarController.m */; };
-		45EA32041725FB8000980320 /* AIKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31E01725FB8000980320 /* AIKWebViewController.m */; };
-		45EA32051725FB8000980320 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA31E41725FB8000980320 /* libFlurry.a */; };
-		45EA32061725FB8000980320 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA31E61725FB8000980320 /* libTestFlight.a */; };
-		45EA32071725FB8000980320 /* AIKAutoCompleter.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31EA1725FB8000980320 /* AIKAutoCompleter.m */; };
-		45EA32081725FB8000980320 /* AIKEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31EC1725FB8000980320 /* AIKEmptyView.m */; };
-		45EA32091725FB8000980320 /* AIKProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA31EE1725FB8000980320 /* AIKProgressBar.m */; };
 		45EA320D1726025300980320 /* NSURL+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA320C1726025300980320 /* NSURL+WaxKit.m */; };
 		45EA3210172602A700980320 /* NSString+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA320F172602A700980320 /* NSString+WaxKit.m */; };
 		45EA32141726063C00980320 /* WaxAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA32131726063C00980320 /* WaxAPIClient.m */; };
-		45EA321B17260D6C00980320 /* AIKContactsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA321A17260D6B00980320 /* AIKContactsManager.m */; };
 		45EA321D17260D8100980320 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA321C17260D8000980320 /* AddressBook.framework */; };
 		45EA321F17260DA100980320 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA321E17260DA000980320 /* AVFoundation.framework */; };
 		45EA322117260E8200980320 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA322017260E8100980320 /* libz.dylib */; };
@@ -114,6 +85,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		452FAF57174176190091F8D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 452FAF52174176180091F8D4 /* AcaciaKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 452FAE2C1741637E0091F8D4;
+			remoteInfo = AcaciaKit;
+		};
+		452FAF59174176190091F8D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 452FAF52174176180091F8D4 /* AcaciaKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 452FAE3D1741637E0091F8D4;
+			remoteInfo = AcaciaKitTests;
+		};
+		452FAF5B174176510091F8D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 452FAF52174176180091F8D4 /* AcaciaKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 452FAE2B1741637E0091F8D4;
+			remoteInfo = AcaciaKit;
+		};
 		45F71644171F163D009097F3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 45F71611171F163C009097F3 /* Project object */;
@@ -135,9 +127,18 @@
 		452FAE02174085FC0091F8D4 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		452FAE08174088390091F8D4 /* WaxAPIClientTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxAPIClientTests.h; sourceTree = "<group>"; };
 		452FAE09174088390091F8D4 /* WaxAPIClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxAPIClientTests.m; sourceTree = "<group>"; };
-		452FAE0E174089570091F8D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		452FAE10174089590091F8D4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		452FAE0E174089570091F8D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		452FAE10174089590091F8D4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		452FAE1517408C200091F8D4 /* NSError+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+WaxKit.m"; sourceTree = "<group>"; };
+		452FAE1717409C340091F8D4 /* WaxKitCategoriesTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxKitCategoriesTests.h; sourceTree = "<group>"; };
+		452FAE1817409C340091F8D4 /* WaxKitCategoriesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxKitCategoriesTests.m; sourceTree = "<group>"; };
+		452FAE1B1740AC030091F8D4 /* persons.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = persons.json; sourceTree = "<group>"; };
+		452FAE1D1740AE2F0091F8D4 /* videos.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = videos.json; sourceTree = "<group>"; };
+		452FAE1F1741503E0091F8D4 /* icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon57.png; path = ../icon57.png; sourceTree = "<group>"; };
+		452FAE21174150410091F8D4 /* icon114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon114.png; path = ../icon114.png; sourceTree = "<group>"; };
+		452FAEE117416C680091F8D4 /* UIView+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WaxKit.h"; sourceTree = "<group>"; };
+		452FAEE217416C680091F8D4 /* UIView+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WaxKit.m"; sourceTree = "<group>"; };
+		452FAF52174176180091F8D4 /* AcaciaKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AcaciaKit.xcodeproj; path = ../../AcaciaKit/AcaciaKit.xcodeproj; sourceTree = "<group>"; };
 		454BBDBF17403888005F48ED /* WaxDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxDataManager.h; sourceTree = "<group>"; };
 		454BBDC017403888005F48ED /* WaxDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxDataManager.m; sourceTree = "<group>"; };
 		454BBDC3174049C4005F48ED /* ModelObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelObject.h; sourceTree = "<group>"; };
@@ -156,65 +157,12 @@
 		459C28851725F29C009C5487 /* WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxKit.h; sourceTree = "<group>"; };
 		45EA31AD1725FADB00980320 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		45EA31AF1725FB0000980320 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		45EA31B21725FB8000980320 /* AcaciaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcaciaKit.h; sourceTree = "<group>"; };
-		45EA31B41725FB8000980320 /* AVAsset+AcaciaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVAsset+AcaciaKit.h"; sourceTree = "<group>"; };
-		45EA31B51725FB8000980320 /* AVAsset+AcaciaKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVAsset+AcaciaKit.m"; sourceTree = "<group>"; };
-		45EA31B61725FB8000980320 /* NSArray+AcaciaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+AcaciaKit.h"; sourceTree = "<group>"; };
-		45EA31B71725FB8000980320 /* NSArray+AcaciaKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+AcaciaKit.m"; sourceTree = "<group>"; };
-		45EA31B81725FB8000980320 /* NSDictionary+AcaciaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+AcaciaKit.h"; sourceTree = "<group>"; };
-		45EA31B91725FB8000980320 /* NSDictionary+AcaciaKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+AcaciaKit.m"; sourceTree = "<group>"; };
-		45EA31BA1725FB8000980320 /* NSNotificationCenter+AcaciaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+AcaciaKit.h"; sourceTree = "<group>"; };
-		45EA31BB1725FB8000980320 /* NSNotificationCenter+AcaciaKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+AcaciaKit.m"; sourceTree = "<group>"; };
-		45EA31BC1725FB8000980320 /* NSString+AcaciaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AcaciaKit.h"; sourceTree = "<group>"; };
-		45EA31BD1725FB8000980320 /* NSString+AcaciaKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AcaciaKit.m"; sourceTree = "<group>"; };
-		45EA31C01725FB8000980320 /* RIButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIButtonItem.h; sourceTree = "<group>"; };
-		45EA31C11725FB8000980320 /* RIButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIButtonItem.m; sourceTree = "<group>"; };
-		45EA31C21725FB8000980320 /* UIActionSheet+AcaciaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+AcaciaKit.h"; sourceTree = "<group>"; };
-		45EA31C31725FB8000980320 /* UIActionSheet+AcaciaKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+AcaciaKit.m"; sourceTree = "<group>"; };
-		45EA31C41725FB8000980320 /* UIAlertView+AcaciaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+AcaciaKit.h"; sourceTree = "<group>"; };
-		45EA31C51725FB8000980320 /* UIAlertView+AcaciaKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+AcaciaKit.m"; sourceTree = "<group>"; };
-		45EA31C61725FB8000980320 /* UIButton+AcaciaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+AcaciaKit.h"; sourceTree = "<group>"; };
-		45EA31C71725FB8000980320 /* UIButton+AcaciaKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+AcaciaKit.m"; sourceTree = "<group>"; };
-		45EA31C81725FB8000980320 /* UIColor+AcaciaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AcaciaKit.h"; sourceTree = "<group>"; };
-		45EA31C91725FB8000980320 /* UIColor+AcaciaKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AcaciaKit.m"; sourceTree = "<group>"; };
-		45EA31CA1725FB8000980320 /* UIDevice+AcaciaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+AcaciaKit.h"; sourceTree = "<group>"; };
-		45EA31CB1725FB8000980320 /* UIDevice+AcaciaKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+AcaciaKit.m"; sourceTree = "<group>"; };
-		45EA31CC1725FB8000980320 /* UIImage+AcaciaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AcaciaKit.h"; sourceTree = "<group>"; };
-		45EA31CD1725FB8000980320 /* UIImage+AcaciaKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AcaciaKit.m"; sourceTree = "<group>"; };
-		45EA31CE1725FB8000980320 /* UIImageView+AcaciaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AcaciaKit.h"; sourceTree = "<group>"; };
-		45EA31CF1725FB8000980320 /* UIImageView+AcaciaKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AcaciaKit.m"; sourceTree = "<group>"; };
-		45EA31D01725FB8000980320 /* UIView+AcaciaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AcaciaKit.h"; sourceTree = "<group>"; };
-		45EA31D11725FB8000980320 /* UIView+AcaciaKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AcaciaKit.m"; sourceTree = "<group>"; };
-		45EA31D21725FB8000980320 /* UIViewController+AcaciaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+AcaciaKit.h"; sourceTree = "<group>"; };
-		45EA31D31725FB8000980320 /* UIViewController+AcaciaKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+AcaciaKit.m"; sourceTree = "<group>"; };
-		45EA31D71725FB8000980320 /* AIKErrorUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIKErrorUtilities.h; sourceTree = "<group>"; };
-		45EA31D81725FB8000980320 /* AIKErrorUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIKErrorUtilities.m; sourceTree = "<group>"; };
-		45EA31D91725FB8000980320 /* AIKFacebookManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIKFacebookManager.h; sourceTree = "<group>"; };
-		45EA31DA1725FB8000980320 /* AIKFacebookManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIKFacebookManager.m; sourceTree = "<group>"; };
-		45EA31DB1725FB8000980320 /* AIKLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIKLocationManager.h; sourceTree = "<group>"; };
-		45EA31DC1725FB8000980320 /* AIKLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIKLocationManager.m; sourceTree = "<group>"; };
-		45EA31DD1725FB8000980320 /* AIKTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIKTabBarController.h; sourceTree = "<group>"; };
-		45EA31DE1725FB8000980320 /* AIKTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIKTabBarController.m; sourceTree = "<group>"; };
-		45EA31DF1725FB8000980320 /* AIKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIKWebViewController.h; sourceTree = "<group>"; };
-		45EA31E01725FB8000980320 /* AIKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIKWebViewController.m; sourceTree = "<group>"; };
-		45EA31E31725FB8000980320 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
-		45EA31E41725FB8000980320 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
-		45EA31E61725FB8000980320 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
-		45EA31E71725FB8000980320 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
-		45EA31E91725FB8000980320 /* AIKAutoCompleter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIKAutoCompleter.h; sourceTree = "<group>"; };
-		45EA31EA1725FB8000980320 /* AIKAutoCompleter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIKAutoCompleter.m; sourceTree = "<group>"; };
-		45EA31EB1725FB8000980320 /* AIKEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIKEmptyView.h; sourceTree = "<group>"; };
-		45EA31EC1725FB8000980320 /* AIKEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIKEmptyView.m; sourceTree = "<group>"; };
-		45EA31ED1725FB8000980320 /* AIKProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIKProgressBar.h; sourceTree = "<group>"; };
-		45EA31EE1725FB8000980320 /* AIKProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIKProgressBar.m; sourceTree = "<group>"; };
 		45EA320B1726025300980320 /* NSURL+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+WaxKit.h"; sourceTree = "<group>"; };
 		45EA320C1726025300980320 /* NSURL+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WaxKit.m"; sourceTree = "<group>"; };
 		45EA320E172602A700980320 /* NSString+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WaxKit.h"; sourceTree = "<group>"; };
 		45EA320F172602A700980320 /* NSString+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WaxKit.m"; sourceTree = "<group>"; };
 		45EA32121726063C00980320 /* WaxAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxAPIClient.h; sourceTree = "<group>"; };
 		45EA32131726063C00980320 /* WaxAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxAPIClient.m; sourceTree = "<group>"; };
-		45EA321917260D6A00980320 /* AIKContactsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIKContactsManager.h; sourceTree = "<group>"; };
-		45EA321A17260D6B00980320 /* AIKContactsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIKContactsManager.m; sourceTree = "<group>"; };
 		45EA321C17260D8000980320 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		45EA321E17260DA000980320 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		45EA322017260E8100980320 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -255,6 +203,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				452FAF5D1741766A0091F8D4 /* libAcaciaKit.a in Frameworks */,
 				452FAE04174086060091F8D4 /* AddressBookUI.framework in Frameworks */,
 				45EA32361726111C00980320 /* CoreLocation.framework in Frameworks */,
 				45EA323417260F8E00980320 /* Social.framework in Frameworks */,
@@ -271,8 +220,6 @@
 				45F7161F171F163C009097F3 /* Foundation.framework in Frameworks */,
 				45F71621171F163C009097F3 /* CoreGraphics.framework in Frameworks */,
 				ED7FED56E137433B946BCAEE /* libPods.a in Frameworks */,
-				45EA32051725FB8000980320 /* libFlurry.a in Frameworks */,
-				45EA32061725FB8000980320 /* libTestFlight.a in Frameworks */,
 				45EA32381726113300980320 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -284,8 +231,6 @@
 				452FAE03174085FC0091F8D4 /* AddressBookUI.framework in Frameworks */,
 				452FAE01174085EB0091F8D4 /* CoreGraphics.framework in Frameworks */,
 				452FAE00174085E30091F8D4 /* MessageUI.framework in Frameworks */,
-				452FAE051740865F0091F8D4 /* libFlurry.a in Frameworks */,
-				452FAE06174086630091F8D4 /* libTestFlight.a in Frameworks */,
 				452FADFF174085DB0091F8D4 /* AddressBook.framework in Frameworks */,
 				452FADFE174085D10091F8D4 /* libz.dylib in Frameworks */,
 				452FADFD174085CB0091F8D4 /* AdSupport.framework in Frameworks */,
@@ -306,6 +251,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		452FAE1A1740AC030091F8D4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				452FAE1D1740AE2F0091F8D4 /* videos.json */,
+				452FAE1B1740AC030091F8D4 /* persons.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		452FAF53174176180091F8D4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				452FAF58174176190091F8D4 /* libAcaciaKit.a */,
+				452FAF5A174176190091F8D4 /* AcaciaKitTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		459C281B1725EC82009C5487 /* WaxKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -321,6 +284,8 @@
 		459C281C1725EC82009C5487 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				452FAEE117416C680091F8D4 /* UIView+WaxKit.h */,
+				452FAEE217416C680091F8D4 /* UIView+WaxKit.m */,
 				45EA320E172602A700980320 /* NSString+WaxKit.h */,
 				45EA320F172602A700980320 /* NSString+WaxKit.m */,
 				45EA320B1726025300980320 /* NSURL+WaxKit.h */,
@@ -347,114 +312,6 @@
 		459C28241725EC82009C5487 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		45EA31B11725FB8000980320 /* AcaciaKit */ = {
-			isa = PBXGroup;
-			children = (
-				45EA31B21725FB8000980320 /* AcaciaKit.h */,
-				45EA31B31725FB8000980320 /* Categories */,
-				45EA31D41725FB8000980320 /* Controllers */,
-				45EA31E11725FB8000980320 /* Vendor */,
-				45EA31E81725FB8000980320 /* Views */,
-			);
-			path = AcaciaKit;
-			sourceTree = SOURCE_ROOT;
-		};
-		45EA31B31725FB8000980320 /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				45EA31B41725FB8000980320 /* AVAsset+AcaciaKit.h */,
-				45EA31B51725FB8000980320 /* AVAsset+AcaciaKit.m */,
-				45EA31B61725FB8000980320 /* NSArray+AcaciaKit.h */,
-				45EA31B71725FB8000980320 /* NSArray+AcaciaKit.m */,
-				45EA31B81725FB8000980320 /* NSDictionary+AcaciaKit.h */,
-				45EA31B91725FB8000980320 /* NSDictionary+AcaciaKit.m */,
-				45EA31BA1725FB8000980320 /* NSNotificationCenter+AcaciaKit.h */,
-				45EA31BB1725FB8000980320 /* NSNotificationCenter+AcaciaKit.m */,
-				45EA31BC1725FB8000980320 /* NSString+AcaciaKit.h */,
-				45EA31BD1725FB8000980320 /* NSString+AcaciaKit.m */,
-				45EA31C01725FB8000980320 /* RIButtonItem.h */,
-				45EA31C11725FB8000980320 /* RIButtonItem.m */,
-				45EA31C21725FB8000980320 /* UIActionSheet+AcaciaKit.h */,
-				45EA31C31725FB8000980320 /* UIActionSheet+AcaciaKit.m */,
-				45EA31C41725FB8000980320 /* UIAlertView+AcaciaKit.h */,
-				45EA31C51725FB8000980320 /* UIAlertView+AcaciaKit.m */,
-				45EA31C61725FB8000980320 /* UIButton+AcaciaKit.h */,
-				45EA31C71725FB8000980320 /* UIButton+AcaciaKit.m */,
-				45EA31C81725FB8000980320 /* UIColor+AcaciaKit.h */,
-				45EA31C91725FB8000980320 /* UIColor+AcaciaKit.m */,
-				45EA31CA1725FB8000980320 /* UIDevice+AcaciaKit.h */,
-				45EA31CB1725FB8000980320 /* UIDevice+AcaciaKit.m */,
-				45EA31CC1725FB8000980320 /* UIImage+AcaciaKit.h */,
-				45EA31CD1725FB8000980320 /* UIImage+AcaciaKit.m */,
-				45EA31CE1725FB8000980320 /* UIImageView+AcaciaKit.h */,
-				45EA31CF1725FB8000980320 /* UIImageView+AcaciaKit.m */,
-				45EA31D01725FB8000980320 /* UIView+AcaciaKit.h */,
-				45EA31D11725FB8000980320 /* UIView+AcaciaKit.m */,
-				45EA31D21725FB8000980320 /* UIViewController+AcaciaKit.h */,
-				45EA31D31725FB8000980320 /* UIViewController+AcaciaKit.m */,
-			);
-			path = Categories;
-			sourceTree = "<group>";
-		};
-		45EA31D41725FB8000980320 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				45EA321917260D6A00980320 /* AIKContactsManager.h */,
-				45EA321A17260D6B00980320 /* AIKContactsManager.m */,
-				45EA31D91725FB8000980320 /* AIKFacebookManager.h */,
-				45EA31DA1725FB8000980320 /* AIKFacebookManager.m */,
-				45EA31D71725FB8000980320 /* AIKErrorUtilities.h */,
-				45EA31D81725FB8000980320 /* AIKErrorUtilities.m */,
-				45EA31DB1725FB8000980320 /* AIKLocationManager.h */,
-				45EA31DC1725FB8000980320 /* AIKLocationManager.m */,
-				45EA31DD1725FB8000980320 /* AIKTabBarController.h */,
-				45EA31DE1725FB8000980320 /* AIKTabBarController.m */,
-				45EA31DF1725FB8000980320 /* AIKWebViewController.h */,
-				45EA31E01725FB8000980320 /* AIKWebViewController.m */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		45EA31E11725FB8000980320 /* Vendor */ = {
-			isa = PBXGroup;
-			children = (
-				45EA31E21725FB8000980320 /* Flurry */,
-				45EA31E51725FB8000980320 /* TestFlight */,
-			);
-			path = Vendor;
-			sourceTree = "<group>";
-		};
-		45EA31E21725FB8000980320 /* Flurry */ = {
-			isa = PBXGroup;
-			children = (
-				45EA31E31725FB8000980320 /* Flurry.h */,
-				45EA31E41725FB8000980320 /* libFlurry.a */,
-			);
-			path = Flurry;
-			sourceTree = "<group>";
-		};
-		45EA31E51725FB8000980320 /* TestFlight */ = {
-			isa = PBXGroup;
-			children = (
-				45EA31E61725FB8000980320 /* libTestFlight.a */,
-				45EA31E71725FB8000980320 /* TestFlight.h */,
-			);
-			path = TestFlight;
-			sourceTree = "<group>";
-		};
-		45EA31E81725FB8000980320 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				45EA31E91725FB8000980320 /* AIKAutoCompleter.h */,
-				45EA31EA1725FB8000980320 /* AIKAutoCompleter.m */,
-				45EA31EB1725FB8000980320 /* AIKEmptyView.h */,
-				45EA31EC1725FB8000980320 /* AIKEmptyView.m */,
-				45EA31ED1725FB8000980320 /* AIKProgressBar.h */,
-				45EA31EE1725FB8000980320 /* AIKProgressBar.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -488,10 +345,10 @@
 		45F71610171F163C009097F3 = {
 			isa = PBXGroup;
 			children = (
+				452FAF52174176180091F8D4 /* AcaciaKit.xcodeproj */,
 				45F71622171F163C009097F3 /* Wax */,
 				45F71646171F163D009097F3 /* WaxTests */,
 				459C281B1725EC82009C5487 /* WaxKit */,
-				45EA31B11725FB8000980320 /* AcaciaKit */,
 				45F7161B171F163C009097F3 /* Frameworks */,
 				45F7161A171F163C009097F3 /* Products */,
 				51B50416C7D54C66A44B546E /* Pods.xcconfig */,
@@ -552,6 +409,8 @@
 		45F71623171F163C009097F3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				452FAE21174150410091F8D4 /* icon114.png */,
+				452FAE1F1741503E0091F8D4 /* icon57.png */,
 				45F71624171F163C009097F3 /* Wax-Info.plist */,
 				45F71625171F163C009097F3 /* InfoPlist.strings */,
 				452FAE0F174089570091F8D4 /* Localizable.strings */,
@@ -569,8 +428,11 @@
 			children = (
 				45F7164C171F163D009097F3 /* WaxTests.h */,
 				45F7164D171F163D009097F3 /* WaxTests.m */,
+				452FAE1717409C340091F8D4 /* WaxKitCategoriesTests.h */,
+				452FAE1817409C340091F8D4 /* WaxKitCategoriesTests.m */,
 				452FAE08174088390091F8D4 /* WaxAPIClientTests.h */,
 				452FAE09174088390091F8D4 /* WaxAPIClientTests.m */,
+				452FAE1A1740AC030091F8D4 /* Resources */,
 				45F71647171F163D009097F3 /* Supporting Files */,
 			);
 			path = WaxTests;
@@ -602,6 +464,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				452FAF5C174176510091F8D4 /* PBXTargetDependency */,
 			);
 			name = Wax;
 			productName = Wax;
@@ -648,6 +511,12 @@
 			mainGroup = 45F71610171F163C009097F3;
 			productRefGroup = 45F7161A171F163C009097F3 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 452FAF53174176180091F8D4 /* Products */;
+					ProjectRef = 452FAF52174176180091F8D4 /* AcaciaKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				45F71618171F163C009097F3 /* Wax */,
@@ -655,6 +524,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		452FAF58174176190091F8D4 /* libAcaciaKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAcaciaKit.a;
+			remoteRef = 452FAF57174176190091F8D4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		452FAF5A174176190091F8D4 /* AcaciaKitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AcaciaKitTests.octest;
+			remoteRef = 452FAF59174176190091F8D4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		45F71617171F163C009097F3 /* Resources */ = {
@@ -668,6 +554,8 @@
 				45F71636171F163D009097F3 /* MainStoryboard.storyboard in Resources */,
 				45EA322817260F2B00980320 /* FacebookSDKResources.bundle in Resources */,
 				452FAE0D174089570091F8D4 /* Localizable.strings in Resources */,
+				452FAE201741503E0091F8D4 /* icon57.png in Resources */,
+				452FAE22174150410091F8D4 /* icon114.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -676,6 +564,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				45F7164B171F163D009097F3 /* InfoPlist.strings in Resources */,
+				452FAE1C1740AC030091F8D4 /* persons.json in Resources */,
+				452FAE1E1740AE2F0091F8D4 /* videos.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,40 +652,17 @@
 				459C28251725EC82009C5487 /* UIButton+WaxKit.m in Sources */,
 				459C28271725EC82009C5487 /* UIFont+WaxKit.m in Sources */,
 				459C28291725EC82009C5487 /* UIImage+WaxKit.m in Sources */,
-				45EA31EF1725FB8000980320 /* AVAsset+AcaciaKit.m in Sources */,
-				45EA31F01725FB8000980320 /* NSArray+AcaciaKit.m in Sources */,
-				45EA31F11725FB8000980320 /* NSDictionary+AcaciaKit.m in Sources */,
-				45EA31F21725FB8000980320 /* NSNotificationCenter+AcaciaKit.m in Sources */,
-				45EA31F31725FB8000980320 /* NSString+AcaciaKit.m in Sources */,
-				45EA31F51725FB8000980320 /* RIButtonItem.m in Sources */,
-				45EA31F61725FB8000980320 /* UIActionSheet+AcaciaKit.m in Sources */,
-				45EA31F71725FB8000980320 /* UIAlertView+AcaciaKit.m in Sources */,
-				45EA31F81725FB8000980320 /* UIButton+AcaciaKit.m in Sources */,
-				45EA31F91725FB8000980320 /* UIColor+AcaciaKit.m in Sources */,
-				45EA31FA1725FB8000980320 /* UIDevice+AcaciaKit.m in Sources */,
-				45EA31FB1725FB8000980320 /* UIImage+AcaciaKit.m in Sources */,
-				45EA31FC1725FB8000980320 /* UIImageView+AcaciaKit.m in Sources */,
-				45EA31FD1725FB8000980320 /* UIView+AcaciaKit.m in Sources */,
-				45EA31FE1725FB8000980320 /* UIViewController+AcaciaKit.m in Sources */,
-				45EA32001725FB8000980320 /* AIKErrorUtilities.m in Sources */,
-				45EA32011725FB8000980320 /* AIKFacebookManager.m in Sources */,
-				45EA32021725FB8000980320 /* AIKLocationManager.m in Sources */,
-				45EA32031725FB8000980320 /* AIKTabBarController.m in Sources */,
-				45EA32041725FB8000980320 /* AIKWebViewController.m in Sources */,
-				45EA32071725FB8000980320 /* AIKAutoCompleter.m in Sources */,
-				45EA32081725FB8000980320 /* AIKEmptyView.m in Sources */,
-				45EA32091725FB8000980320 /* AIKProgressBar.m in Sources */,
 				45EA320D1726025300980320 /* NSURL+WaxKit.m in Sources */,
 				45EA3210172602A700980320 /* NSString+WaxKit.m in Sources */,
 				45EA32141726063C00980320 /* WaxAPIClient.m in Sources */,
 				452FADB017404D450091F8D4 /* VideoObject.m in Sources */,
-				45EA321B17260D6C00980320 /* AIKContactsManager.m in Sources */,
 				451EBD2D1726CF29000D600E /* WaxDefines.m in Sources */,
 				454BBDC117403888005F48ED /* WaxDataManager.m in Sources */,
 				454BBDC5174049C4005F48ED /* ModelObject.m in Sources */,
 				454BBDC917404A2E005F48ED /* WaxUser.m in Sources */,
 				454BBDCD17404A39005F48ED /* PersonObject.m in Sources */,
 				452FAE1617408C200091F8D4 /* NSError+WaxKit.m in Sources */,
+				452FAEE317416C680091F8D4 /* UIView+WaxKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -812,22 +679,20 @@
 				452FADDB174074910091F8D4 /* WaxUser.m in Sources */,
 				452FADDC174074910091F8D4 /* WaxAPIClient.m in Sources */,
 				452FADDD174074910091F8D4 /* WaxDataManager.m in Sources */,
-				452FADDE174074910091F8D4 /* AIKContactsManager.m in Sources */,
-				452FADDF174074910091F8D4 /* AIKFacebookManager.m in Sources */,
-				452FADE0174074910091F8D4 /* AIKErrorUtilities.m in Sources */,
-				452FADE1174074910091F8D4 /* AIKLocationManager.m in Sources */,
-				452FADE2174074910091F8D4 /* AIKTabBarController.m in Sources */,
-				452FADE3174074910091F8D4 /* AIKWebViewController.m in Sources */,
-				452FADE4174074910091F8D4 /* AIKAutoCompleter.m in Sources */,
-				452FADE5174074910091F8D4 /* AIKEmptyView.m in Sources */,
-				452FADE6174074910091F8D4 /* AIKProgressBar.m in Sources */,
 				452FAE0A174088390091F8D4 /* WaxAPIClientTests.m in Sources */,
+				452FAE1917409C340091F8D4 /* WaxKitCategoriesTests.m in Sources */,
+				452FAEE417416C680091F8D4 /* UIView+WaxKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		452FAF5C174176510091F8D4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AcaciaKit;
+			targetProxy = 452FAF5B174176510091F8D4 /* PBXContainerItemProxy */;
+		};
 		45F71645171F163D009097F3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 45F71618171F163C009097F3 /* Wax */;
@@ -949,11 +814,24 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wax/Wax-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				HEADER_SEARCH_PATHS = (
+					"${PODS_HEADERS_SEARCH_PATHS}",
+					"\"$(TARGET_BUILD_DIR)/usr/local/lib/include\"",
+					"\"$(OBJROOT)/UninstalledProducts/include\"",
+				);
 				INFOPLIST_FILE = "Wax/Wax-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/AcaciaKit/Vendor/Flurry\"",
-					"\"$(SRCROOT)/AcaciaKit/Vendor/TestFlight\"",
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "EBBFA9BD-F87B-4F6A-913A-46F6D573BE83";
@@ -974,11 +852,24 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wax/Wax-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				HEADER_SEARCH_PATHS = (
+					"${PODS_HEADERS_SEARCH_PATHS}",
+					"”$(TARGET_BUILD_DIR)/usr/local/lib/include”",
+					"”$(OBJROOT)/UninstalledProducts/include”",
+				);
 				INFOPLIST_FILE = "Wax/Wax-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/AcaciaKit/Vendor/Flurry\"",
-					"\"$(SRCROOT)/AcaciaKit/Vendor/TestFlight\"",
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "7FD6AC0C-9801-4DA4-979A-FE2218B0267E";
@@ -1002,11 +893,7 @@
 				GCC_PREFIX_HEADER = "Wax/Wax-Prefix.pch";
 				HEADER_SEARCH_PATHS = "${PODS_HEADERS_SEARCH_PATHS}";
 				INFOPLIST_FILE = "WaxTests/WaxTests-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/AcaciaKit/Vendor/Flurry\"",
-					"\"$(SRCROOT)/AcaciaKit/Vendor/TestFlight\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -1029,11 +916,7 @@
 				GCC_PREFIX_HEADER = "Wax/Wax-Prefix.pch";
 				HEADER_SEARCH_PATHS = "${PODS_HEADERS_SEARCH_PATHS}";
 				INFOPLIST_FILE = "WaxTests/WaxTests-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/AcaciaKit/Vendor/Flurry\"",
-					"\"$(SRCROOT)/AcaciaKit/Vendor/TestFlight\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -1081,11 +964,24 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wax/Wax-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "TESTFLIGHT=1";
+				HEADER_SEARCH_PATHS = (
+					"${PODS_HEADERS_SEARCH_PATHS}",
+					"”$(TARGET_BUILD_DIR)/usr/local/lib/include”",
+					"”$(OBJROOT)/UninstalledProducts/include”",
+				);
 				INFOPLIST_FILE = "Wax/Wax-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/AcaciaKit/Vendor/Flurry\"",
-					"\"$(SRCROOT)/AcaciaKit/Vendor/TestFlight\"",
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "7FD6AC0C-9801-4DA4-979A-FE2218B0267E";
@@ -1109,11 +1005,7 @@
 				GCC_PREFIX_HEADER = "Wax/Wax-Prefix.pch";
 				HEADER_SEARCH_PATHS = "${PODS_HEADERS_SEARCH_PATHS}";
 				INFOPLIST_FILE = "WaxTests/WaxTests-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/AcaciaKit/Vendor/Flurry\"",
-					"\"$(SRCROOT)/AcaciaKit/Vendor/TestFlight\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;

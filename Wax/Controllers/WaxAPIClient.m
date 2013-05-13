@@ -9,9 +9,6 @@
 #import "WaxAPIClient.h"
 
 
-//typedef void (^JSONProcessingBlock)(NSMutableArray *processedResponse);
-
-
 @interface WaxAPIClient ()
 @property (nonatomic) dispatch_queue_t jsonProcessingQueue;
 @end
@@ -19,7 +16,7 @@
 @implementation WaxAPIClient
 @synthesize jsonProcessingQueue; 
 
-//alloc & init 
+#pragma mark - Alloc & Init
 + (WaxAPIClient *)sharedClient{
     static WaxAPIClient *_sharedClient = nil;
     static dispatch_once_t oncePredicate;
@@ -34,7 +31,7 @@
         return nil;
     }
     
-    self.jsonProcessingQueue = dispatch_queue_create("com.acaciainteractive.kiwi.jsonprocessingqueue", NULL);
+    self.jsonProcessingQueue = dispatch_queue_create("com.wax.api.jsonprocessingqueue", NULL);
     
     [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
     [self setDefaultHeader:@"Accept" value:@"application/json"];
@@ -60,14 +57,14 @@
     [self enqueueHTTPRequestOperation:operation];
 }
 
-//json processing
+#pragma mark - JSON Processing
 -(void)processArrayOf:(Class)modelObjectClass fromResponseObject:(id)responseObject withCompletionBlock:(void (^)(NSMutableArray *processedResponse))completion{
     
     dispatch_async(self.jsonProcessingQueue, ^{
                 
         id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
         
-        DLog(@"Processing for %@ class. Responseobject: %@", modelObjectClass, responseObject);
+//        DLog(@"Processing for %@ class. Responseobject: %@", modelObjectClass, responseObject);
         
         NSArray *rawPersonDictionaries = [validated objectForKeyNotNull:kKeyForJSON];
         
@@ -86,6 +83,8 @@
         
     });
 }
+
+#pragma mark - Public API
 -(void)fetchFeedFromPath:(NSString *)path personId:(NSString *)personId lastTimeStamp:(NSNumber *)lastTimeStamp completion:(void (^)(NSMutableArray *, NSError *))completion{
 
     NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:personId, @"personid", lastTimeStamp, @"lastitem", nil];

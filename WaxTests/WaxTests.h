@@ -8,7 +8,11 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
+
 @interface WaxTests : SenTestCase
 
++(id)JSONFromFileNamed:(NSString *)fileName;
+
+-(void)testJSONFromFileNamed; 
 
 @end

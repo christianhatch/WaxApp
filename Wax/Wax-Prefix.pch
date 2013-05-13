@@ -16,5 +16,5 @@
 
     #import "WaxDefines.h"
     #import "WaxKit.h"
-    #import "AcaciaKit.h"
+    #import <AcaciaKit/AcaciaKit.h>
 #endif

@@ -8,7 +8,7 @@
 
 #import "WaxDataManager.h"
 #import "WaxKit.h"
-#import "AcaciaKit.h"
+#import <AcaciaKit/AcaciaKit.h>
 
 @implementation WaxDataManager
 
@@ -27,7 +27,7 @@
 #ifdef DEBUG
             DLog(@"LOGGED OUT DUE TO INVALID TOKEN");
 #else
-            [[KiwiUser currentUser] logOut:YES];
+            [[WaxUser currentUser] logOut:YES];
 #endif
             [[AIKErrorUtilities sharedUtilities] logMessageToAllServices:[NSString stringWithFormat:@"response object failed validation and logged user out %@", responseObject]];
             return nil;

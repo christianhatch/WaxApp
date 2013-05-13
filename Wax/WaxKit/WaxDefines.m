@@ -58,7 +58,6 @@ NSString *const kWaxNotificationFacebookAccountDidChange = @"waxUserFacebookAcco
 #define kInfiniteScrollingBatchCount        10
 
 //ui stuff
-#define kDEFAULT_CORNER_RADIUS              5
 #define kHeaderHeightDefault                23
 
 #define ksegueMeToSettings                  @"MeToSettings"

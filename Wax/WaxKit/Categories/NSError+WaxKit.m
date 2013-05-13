@@ -71,7 +71,7 @@ static inline NSError * NSErrorFromCode(int errorCode) {
             recoverySuggestion = NSLocalizedString(@"com.wax.api.suggestion=1010", @"Sorry, we encountered and error creating your account. Please try again, and if the problem persists please email support@wax.li"); 
         }break;
     }
-    return [NSError errorWithDomain:kWaxAPIErrorDomain code:errorCode userInfo:@{NSLocalizedFailureReasonErrorKey : errorReason, NSLocalizedRecoverySuggestionErrorKey : recoverySuggestion}];
+    return [NSError errorWithDomain:kWaxAPIErrorDomain code:errorCode userInfo:@{NSLocalizedDescriptionKey : errorReason, NSLocalizedRecoverySuggestionErrorKey : recoverySuggestion}];
 }
 
 @end

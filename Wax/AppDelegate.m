@@ -7,8 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "TestFlight.h"
-#import "Flurry.h"
+#import <AcaciaKit/TestFlight.h>
+#import <AcaciaKit/Flurry.h>
 
 @protocol UIDeviceHack <NSObject>
 -(NSString *)uniqueIdentifier;

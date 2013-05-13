@@ -7,6 +7,8 @@
 //
 
 #import "WaxTests.h"
+#import "WaxKit.h"
+
 
 @implementation WaxTests
 
@@ -22,8 +24,33 @@
     [super tearDown];
 }
 
-- (void)testExample{
-    STFail(@"Unit tests are not implemented yet in WaxTests");
+-(void)testJSONFromFileNamed{
+    id json = [WaxTests JSONFromFileNamed:@"persons"];
+    STAssertNotNil(json, @"json should not be nil!");
+    STAssertFalse([json isKindOfClass:[NSError class]], @"json should not be an error!");
+    STAssertTrue([NSJSONSerialization isValidJSONObject:json], @"json object is valid");
+}
+
++(id)JSONFromFileNamed:(NSString *)fileName{
+
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSString *resource = [bundle pathForResource:fileName ofType:@"json"];
+    
+    NSError *dataError = nil;
+    NSError *jsonError = nil;
+    
+    NSData *data = [NSData dataWithContentsOfFile:resource options:kNilOptions error:&dataError];
+    if (dataError) {
+        return dataError;
+    }else{
+        id jsonData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
+        
+        if (jsonError) {
+            return jsonError;
+        }else{
+            return jsonData;
+        }
+    }
 }
 
 @end

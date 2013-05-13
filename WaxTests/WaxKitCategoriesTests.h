@@ -1,5 +1,5 @@
 //
-//  WaxAPIClientTests.h
+//  WaxKitCategoriesTests.h
 //  Wax
 //
 //  Created by Christian Hatch on 5/12/13.
@@ -8,9 +8,10 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface WaxAPIClientTests : SenTestCase
+@interface WaxKitCategoriesTests : SenTestCase
 
--(void)testJSONPersonProcessing;
--(void)testJSONFeedProcessing;
+#pragma mark - NSError (WaxKit)
+
+
 
 @end

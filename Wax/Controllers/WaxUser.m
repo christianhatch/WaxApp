@@ -8,14 +8,11 @@
 
 #import "WaxUser.h"
 #import "Lockbox.h"
-#import "AIKErrorUtilities.h"
 #import "WaxAPIClient.h"
 #import <Accounts/Accounts.h>
 #import <Twitter/Twitter.h>
-#import <FacebookSDK/FacebookSDK.h>
-#import "AIKFacebookManager.h"
 #import <Crashlytics/Crashlytics.h>
-#import "Flurry.h"
+#import <AcaciaKit/Flurry.h>
 
 @interface WaxUser ()
 @end
@@ -203,7 +200,7 @@
     
     [[NSUserDefaults standardUserDefaults] synchronize];
     [UIImageView clearAFImageCache];
-    [UIButton clearAFImageCache];
+//    [UIButton clearAFImageCache];
     
     [[UIApplication sharedApplication] unregisterForRemoteNotifications];
     [[[WaxAPIClient sharedClient] operationQueue] cancelAllOperations];

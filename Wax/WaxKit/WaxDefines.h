@@ -7,6 +7,12 @@
 //
 
 
+#ifdef DEBUG
+#ifndef UNITTESTING
+#define UNITTESTING
+#endif
+#endif
+
 #pragma mark - API
 extern NSString *const kWaxAPIBaseURL;
 extern NSString *const kWaxAPISalt;
@@ -122,8 +128,6 @@ extern NSString *const kWaxNotificationFacebookAccountDidChange;
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
-//#define IOS_6_OR_GREATER                            SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")
-//#define IOS_5_1_TO_IOS_6                            SYSTEM_VERSION_LESS_THAN(@"6.0")
 
 
 

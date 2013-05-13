@@ -6,8 +6,7 @@
 //  Copyright (c) 2013 Acacia Interactive. All rights reserved.
 //
 
-#import "UIImage+AcaciaKit.h"
-#import "AcaciaKit.h"
+#import <AcaciaKit/AcaciaKit.h>
 
 @implementation UIImage (WaxKit)
 
