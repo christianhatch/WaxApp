@@ -42,6 +42,12 @@
 		452FAE22174150410091F8D4 /* icon114.png in Resources */ = {isa = PBXBuildFile; fileRef = 452FAE21174150410091F8D4 /* icon114.png */; };
 		452FAEE317416C680091F8D4 /* UIView+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAEE217416C680091F8D4 /* UIView+WaxKit.m */; };
 		452FAEE417416C680091F8D4 /* UIView+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAEE217416C680091F8D4 /* UIView+WaxKit.m */; };
+		452FAFDD1741830E0091F8D4 /* libAcaciaKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 452FAFD8174182D10091F8D4 /* libAcaciaKit.a */; };
+		452FAFDE174183560091F8D4 /* libAcaciaKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 452FAFD8174182D10091F8D4 /* libAcaciaKit.a */; };
+		452FAFE51741860D0091F8D4 /* WaxAutoCompleter.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAFE21741860D0091F8D4 /* WaxAutoCompleter.m */; };
+		452FAFE61741860D0091F8D4 /* WaxAutoCompleter.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAFE21741860D0091F8D4 /* WaxAutoCompleter.m */; };
+		452FAFE71741860D0091F8D4 /* WaxEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAFE41741860D0091F8D4 /* WaxEmptyView.m */; };
+		452FAFE81741860D0091F8D4 /* WaxEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAFE41741860D0091F8D4 /* WaxEmptyView.m */; };
 		454BBDC117403888005F48ED /* WaxDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC017403888005F48ED /* WaxDataManager.m */; };
 		454BBDC5174049C4005F48ED /* ModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC4174049C4005F48ED /* ModelObject.m */; };
 		454BBDC917404A2E005F48ED /* WaxUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC817404A2D005F48ED /* WaxUser.m */; };
@@ -84,6 +90,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		452FAFD7174182D10091F8D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 452FAFD2174182D00091F8D4 /* AcaciaKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 452FAE2C1741637E0091F8D4;
+			remoteInfo = AcaciaKit;
+		};
+		452FAFD9174182D10091F8D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 452FAFD2174182D00091F8D4 /* AcaciaKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 452FAE3D1741637E0091F8D4;
+			remoteInfo = AcaciaKitTests;
+		};
+		452FAFDB174182DF0091F8D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 452FAFD2174182D00091F8D4 /* AcaciaKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 452FAE2B1741637E0091F8D4;
+			remoteInfo = AcaciaKit;
+		};
 		45F71644171F163D009097F3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 45F71611171F163C009097F3 /* Project object */;
@@ -116,6 +143,11 @@
 		452FAE21174150410091F8D4 /* icon114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon114.png; path = ../icon114.png; sourceTree = "<group>"; };
 		452FAEE117416C680091F8D4 /* UIView+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WaxKit.h"; sourceTree = "<group>"; };
 		452FAEE217416C680091F8D4 /* UIView+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WaxKit.m"; sourceTree = "<group>"; };
+		452FAFD2174182D00091F8D4 /* AcaciaKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AcaciaKit.xcodeproj; path = AcaciaKit/AcaciaKit.xcodeproj; sourceTree = "<group>"; };
+		452FAFE11741860D0091F8D4 /* WaxAutoCompleter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxAutoCompleter.h; sourceTree = "<group>"; };
+		452FAFE21741860D0091F8D4 /* WaxAutoCompleter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxAutoCompleter.m; sourceTree = "<group>"; };
+		452FAFE31741860D0091F8D4 /* WaxEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxEmptyView.h; sourceTree = "<group>"; };
+		452FAFE41741860D0091F8D4 /* WaxEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxEmptyView.m; sourceTree = "<group>"; };
 		454BBDBF17403888005F48ED /* WaxDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxDataManager.h; sourceTree = "<group>"; };
 		454BBDC017403888005F48ED /* WaxDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxDataManager.m; sourceTree = "<group>"; };
 		454BBDC3174049C4005F48ED /* ModelObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelObject.h; sourceTree = "<group>"; };
@@ -180,6 +212,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				452FAFDD1741830E0091F8D4 /* libAcaciaKit.a in Frameworks */,
 				452FAE04174086060091F8D4 /* AddressBookUI.framework in Frameworks */,
 				45EA32361726111C00980320 /* CoreLocation.framework in Frameworks */,
 				45EA323417260F8E00980320 /* Social.framework in Frameworks */,
@@ -204,6 +237,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				452FAFDE174183560091F8D4 /* libAcaciaKit.a in Frameworks */,
 				452FAE03174085FC0091F8D4 /* AddressBookUI.framework in Frameworks */,
 				452FAE01174085EB0091F8D4 /* CoreGraphics.framework in Frameworks */,
 				452FAE00174085E30091F8D4 /* MessageUI.framework in Frameworks */,
@@ -234,6 +268,15 @@
 				452FAE1B1740AC030091F8D4 /* persons.json */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		452FAFD3174182D00091F8D4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				452FAFD8174182D10091F8D4 /* libAcaciaKit.a */,
+				452FAFDA174182D10091F8D4 /* AcaciaKitTests.octest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		459C281B1725EC82009C5487 /* WaxKit */ = {
@@ -279,6 +322,10 @@
 		459C28241725EC82009C5487 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				452FAFE11741860D0091F8D4 /* WaxAutoCompleter.h */,
+				452FAFE21741860D0091F8D4 /* WaxAutoCompleter.m */,
+				452FAFE31741860D0091F8D4 /* WaxEmptyView.h */,
+				452FAFE41741860D0091F8D4 /* WaxEmptyView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -312,6 +359,7 @@
 		45F71610171F163C009097F3 = {
 			isa = PBXGroup;
 			children = (
+				452FAFD2174182D00091F8D4 /* AcaciaKit.xcodeproj */,
 				45F71622171F163C009097F3 /* Wax */,
 				45F71646171F163D009097F3 /* WaxTests */,
 				459C281B1725EC82009C5487 /* WaxKit */,
@@ -430,6 +478,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				452FAFDC174182DF0091F8D4 /* PBXTargetDependency */,
 			);
 			name = Wax;
 			productName = Wax;
@@ -476,6 +525,12 @@
 			mainGroup = 45F71610171F163C009097F3;
 			productRefGroup = 45F7161A171F163C009097F3 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 452FAFD3174182D00091F8D4 /* Products */;
+					ProjectRef = 452FAFD2174182D00091F8D4 /* AcaciaKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				45F71618171F163C009097F3 /* Wax */,
@@ -483,6 +538,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		452FAFD8174182D10091F8D4 /* libAcaciaKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAcaciaKit.a;
+			remoteRef = 452FAFD7174182D10091F8D4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		452FAFDA174182D10091F8D4 /* AcaciaKitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AcaciaKitTests.octest;
+			remoteRef = 452FAFD9174182D10091F8D4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		45F71617171F163C009097F3 /* Resources */ = {
@@ -605,6 +677,8 @@
 				454BBDCD17404A39005F48ED /* PersonObject.m in Sources */,
 				452FAE1617408C200091F8D4 /* NSError+WaxKit.m in Sources */,
 				452FAEE317416C680091F8D4 /* UIView+WaxKit.m in Sources */,
+				452FAFE51741860D0091F8D4 /* WaxAutoCompleter.m in Sources */,
+				452FAFE71741860D0091F8D4 /* WaxEmptyView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,12 +698,19 @@
 				452FAE0A174088390091F8D4 /* WaxAPIClientTests.m in Sources */,
 				452FAE1917409C340091F8D4 /* WaxKitCategoriesTests.m in Sources */,
 				452FAEE417416C680091F8D4 /* UIView+WaxKit.m in Sources */,
+				452FAFE61741860D0091F8D4 /* WaxAutoCompleter.m in Sources */,
+				452FAFE81741860D0091F8D4 /* WaxEmptyView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		452FAFDC174182DF0091F8D4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AcaciaKit;
+			targetProxy = 452FAFDB174182DF0091F8D4 /* PBXContainerItemProxy */;
+		};
 		45F71645171F163D009097F3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 45F71618171F163C009097F3 /* Wax */;
@@ -831,6 +912,17 @@
 				HEADER_SEARCH_PATHS = "${PODS_HEADERS_SEARCH_PATHS}";
 				INFOPLIST_FILE = "WaxTests/WaxTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -854,6 +946,17 @@
 				HEADER_SEARCH_PATHS = "${PODS_HEADERS_SEARCH_PATHS}";
 				INFOPLIST_FILE = "WaxTests/WaxTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -943,6 +1046,17 @@
 				HEADER_SEARCH_PATHS = "${PODS_HEADERS_SEARCH_PATHS}";
 				INFOPLIST_FILE = "WaxTests/WaxTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;

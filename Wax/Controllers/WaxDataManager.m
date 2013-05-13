@@ -7,8 +7,6 @@
 //
 
 #import "WaxDataManager.h"
-#import "WaxKit.h"
-#import <AcaciaKit/AcaciaKit.h>
 
 @implementation WaxDataManager
 

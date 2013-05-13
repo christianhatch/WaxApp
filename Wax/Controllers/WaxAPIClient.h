@@ -32,9 +32,7 @@
                 completion:(void (^)(NSMutableArray *persons, NSError *error))completion;
 
 
-#ifdef UNITTESTING
 -(void)processArrayOf:(Class)modelObjectClass fromResponseObject:(id)responseObject withCompletionBlock:(void (^)(NSMutableArray *processedResponse))completion;
-#endif
 
 
 
