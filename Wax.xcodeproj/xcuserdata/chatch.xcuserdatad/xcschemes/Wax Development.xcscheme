@@ -38,6 +38,16 @@
                ReferencedContainer = "container:Wax.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "452FAE3C1741637E0091F8D4"
+               BuildableName = "AcaciaKitTests.octest"
+               BlueprintName = "AcaciaKitTests"
+               ReferencedContainer = "container:AcaciaKit/AcaciaKit.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
