@@ -1,0 +1,36 @@
+/* 
+  Localizable.strings
+  Wax
+
+  Created by Christian Hatch on 5/12/13.
+  Copyright (c) 2013 Christian Hatch. All rights reserved.
+*/
+
+
+//API error codes
+"com.wax.api.error=1001" = "nom d'utilisateur et mot de passe ne marche pas";
+"com.wax.api.error=1002" = "vous avez utilisez Facebook de créer un compte";
+"com.wax.api.error=1003" = "cette nom d'utilisateur dejà existé";
+"com.wax.api.error=1004" = "cette addresse e-mail dejà existé";
+"com.wax.api.error=1005" = "entrez un addresse e-mail qui est valide s'il-vous plait";
+"com.wax.api.error=1006" = "Username must be between 2-15 characters";
+"com.wax.api.error=1007" = "Username uses invalid characters";
+"com.wax.api.error=1008" = "Please enter full name";
+"com.wax.api.error=1009" = "Password must be at least 6 characters";
+"com.wax.api.error=1010" = "There was an error creating your account";
+
+//API error suggestions
+"com.wax.api.suggestion=1001" = "verifiez votre addresse e-mail et mot de passe et essayiez encore!";
+"com.wax.api.suggestion=1002" = "You must log in through Facebook";
+"com.wax.api.suggestion=1003" = "Please choose a different username";
+"com.wax.api.suggestion=1004" = "This email has already been registered with Wax. Either log in to your account, or create a new account with a different email address";
+"com.wax.api.suggestion=1005" = "This is not a real email address. Wax requires a valid email address or Facebook account to sign up";
+"com.wax.api.suggestion=1006" = "Please either lengthen or shorten your username and try again";
+"com.wax.api.suggestion=1007" = "Usernames can only contain alphanumeric characters. Please remove any non-alphanumeric characters fromy your username and try again";
+"com.wax.api.suggestion=1008" = "You must enter your full name to sign up with Wax";
+"com.wax.api.suggestion=1009" = "Your password is too short, it must be at least 6 characters long";
+"com.wax.api.suggestion=1010" = "Sorry, we encountered and error creating your account. Please try again, and if the problem persists please email supportwax.li";
+
+//misc.
+"Please try again!" = "Essayiez encore s'il vous plait!";
+"Unknown Error" = "Erreur Inconnu";

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AFHTTPClient.h"
+#import <AFNetworking/AFNetworking.h> 
 
 //enum{
 //    AIKProfilePictureRequestTypeFacebook = 1, //currently does the same thing as 'initial signup', but reserved for future use

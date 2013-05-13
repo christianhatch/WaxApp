@@ -10,6 +10,7 @@
 #pragma mark - API
 extern NSString *const kWaxAPIBaseURL;
 extern NSString *const kWaxAPISalt;
+extern NSString *const kWaxAPIErrorDomain; 
 
 
 #pragma mark - Third Party
@@ -41,6 +42,7 @@ extern NSString *const kUserFacebookAccountIDKey;
 extern NSString *const kWaxNotificationProfilePictureDidChange;
 extern NSString *const kWaxNotificationTwitterAccountDidChange;
 extern NSString *const kWaxNotificationFacebookAccountDidChange;
+
 
 
 #define kKeyForJSON                         @"response"
