@@ -66,7 +66,7 @@
         
 //        DLog(@"Processing for %@ class. Responseobject: %@", modelObjectClass, responseObject);
         
-        NSArray *rawPersonDictionaries = [validated objectForKeyNotNull:kKeyForJSON];
+        NSArray *rawPersonDictionaries = [validated objectForKeyNotNull:kWaxAPIJSONKey];
         
         NSMutableArray *persons = [NSMutableArray arrayWithCapacity:rawPersonDictionaries.count];
        

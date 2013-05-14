@@ -17,7 +17,7 @@
 extern NSString *const kWaxAPIBaseURL;
 extern NSString *const kWaxAPISalt;
 extern NSString *const kWaxAPIErrorDomain; 
-
+extern NSString *const kWaxAPIJSONKey; 
 
 #pragma mark - Third Party
 extern NSString *const kThirdPartyAWSAccessKey;
@@ -43,15 +43,13 @@ extern NSString *const kUserLastNameKey;
 extern NSString *const kUserEmailKey;
 extern NSString *const kUserTwitterAccountIDKey;
 extern NSString *const kUserFacebookAccountIDKey;
+extern NSString *const kFalseString;
+
 
 #pragma mark - Notifications
 extern NSString *const kWaxNotificationProfilePictureDidChange;
 extern NSString *const kWaxNotificationTwitterAccountDidChange;
 extern NSString *const kWaxNotificationFacebookAccountDidChange;
-
-
-
-#define kKeyForJSON                         @"response"
 
 
 //urls

@@ -55,6 +55,14 @@
 		459C28251725EC82009C5487 /* UIButton+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C281E1725EC82009C5487 /* UIButton+WaxKit.m */; };
 		459C28271725EC82009C5487 /* UIFont+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C28201725EC82009C5487 /* UIFont+WaxKit.m */; };
 		459C28291725EC82009C5487 /* UIImage+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C28221725EC82009C5487 /* UIImage+WaxKit.m */; };
+		45AF70271741C8C2008399D3 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF70261741C8C2008399D3 /* SignupViewController.m */; };
+		45AF70281741C8C2008399D3 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF70261741C8C2008399D3 /* SignupViewController.m */; };
+		45AF702C1741C8F0008399D3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF702B1741C8F0008399D3 /* LoginViewController.m */; };
+		45AF702D1741C8F0008399D3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF702B1741C8F0008399D3 /* LoginViewController.m */; };
+		45AF70301741C97E008399D3 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF702F1741C97E008399D3 /* SplashViewController.m */; };
+		45AF70311741C97E008399D3 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF702F1741C97E008399D3 /* SplashViewController.m */; };
+		45AF70381741CBA7008399D3 /* WaxTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF70371741CBA7008399D3 /* WaxTabBarController.m */; };
+		45AF70391741CBA7008399D3 /* WaxTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF70371741CBA7008399D3 /* WaxTabBarController.m */; };
 		45EA31AE1725FADB00980320 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA31AD1725FADB00980320 /* MessageUI.framework */; };
 		45EA320D1726025300980320 /* NSURL+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA320C1726025300980320 /* NSURL+WaxKit.m */; };
 		45EA3210172602A700980320 /* NSString+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA320F172602A700980320 /* NSString+WaxKit.m */; };
@@ -164,6 +172,14 @@
 		459C28221725EC82009C5487 /* UIImage+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+WaxKit.m"; sourceTree = "<group>"; };
 		459C28841725F1F3009C5487 /* WaxDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaxDefines.h; path = WaxKit/WaxDefines.h; sourceTree = "<group>"; };
 		459C28851725F29C009C5487 /* WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxKit.h; sourceTree = "<group>"; };
+		45AF70251741C8C2008399D3 /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
+		45AF70261741C8C2008399D3 /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
+		45AF702A1741C8F0008399D3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		45AF702B1741C8F0008399D3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		45AF702E1741C97D008399D3 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
+		45AF702F1741C97E008399D3 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
+		45AF70361741CBA7008399D3 /* WaxTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxTabBarController.h; sourceTree = "<group>"; };
+		45AF70371741CBA7008399D3 /* WaxTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxTabBarController.m; sourceTree = "<group>"; };
 		45EA31AD1725FADB00980320 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		45EA31AF1725FB0000980320 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		45EA320B1726025300980320 /* NSURL+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+WaxKit.h"; sourceTree = "<group>"; };
@@ -333,6 +349,14 @@
 		45EA32111726063C00980320 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				45AF70361741CBA7008399D3 /* WaxTabBarController.h */,
+				45AF70371741CBA7008399D3 /* WaxTabBarController.m */,
+				45AF702E1741C97D008399D3 /* SplashViewController.h */,
+				45AF702F1741C97E008399D3 /* SplashViewController.m */,
+				45AF70251741C8C2008399D3 /* SignupViewController.h */,
+				45AF70261741C8C2008399D3 /* SignupViewController.m */,
+				45AF702A1741C8F0008399D3 /* LoginViewController.h */,
+				45AF702B1741C8F0008399D3 /* LoginViewController.m */,
 				454BBDC717404A2D005F48ED /* WaxUser.h */,
 				454BBDC817404A2D005F48ED /* WaxUser.m */,
 				45EA32121726063C00980320 /* WaxAPIClient.h */,
@@ -679,6 +703,10 @@
 				452FAEE317416C680091F8D4 /* UIView+WaxKit.m in Sources */,
 				452FAFE51741860D0091F8D4 /* WaxAutoCompleter.m in Sources */,
 				452FAFE71741860D0091F8D4 /* WaxEmptyView.m in Sources */,
+				45AF70271741C8C2008399D3 /* SignupViewController.m in Sources */,
+				45AF702C1741C8F0008399D3 /* LoginViewController.m in Sources */,
+				45AF70301741C97E008399D3 /* SplashViewController.m in Sources */,
+				45AF70381741CBA7008399D3 /* WaxTabBarController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -700,6 +728,10 @@
 				452FAEE417416C680091F8D4 /* UIView+WaxKit.m in Sources */,
 				452FAFE61741860D0091F8D4 /* WaxAutoCompleter.m in Sources */,
 				452FAFE81741860D0091F8D4 /* WaxEmptyView.m in Sources */,
+				45AF70281741C8C2008399D3 /* SignupViewController.m in Sources */,
+				45AF702D1741C8F0008399D3 /* LoginViewController.m in Sources */,
+				45AF70311741C97E008399D3 /* SplashViewController.m in Sources */,
+				45AF70391741CBA7008399D3 /* WaxTabBarController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

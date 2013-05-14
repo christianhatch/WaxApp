@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void(^WaxUserCompletionBlock)(NSError *error);
+
 @interface WaxUser : NSObject
 
 +(WaxUser *)currentUser;
 
+#pragma mark - User Information Getters
 -(NSString *)token;
 -(NSString *)userid;
 -(NSString *)username;
@@ -23,9 +26,7 @@
 -(NSString *)twitterAccountName;
 //-(BOOL)hasNoFriends;
 
--(BOOL)twitterAccountSaved;
--(BOOL)facebookAccountSaved;
-
+#pragma mark - User Information Setters
 -(void)saveToken:(NSString *)token;
 -(void)saveUserid:(NSString *)userid;
 -(void)saveUserame:(NSString *)username;
@@ -36,19 +37,36 @@
 -(void)saveFacebookAccountId:(NSString *)facebookAccountId;
 //-(void)saveNoFriends:(BOOL)noFriends;
 
--(void)logInWithResponse:(NSDictionary *)response;
--(void)signedUpWithResponse:(NSDictionary *)response andProfilePic:(UIImage *)profilePicture;
--(void)logOut:(BOOL)fromTokenError;
--(void)uploadNewProfilePicture:(UIImage *)profilePicture; 
--(void)fetchFacebookProfilePictureAndShowUser:(BOOL)showUser;
 
+#pragma mark - Signup/Login/Logout/Update Pic
+-(void)connectFacebookWithCompletion:(WaxUserCompletionBlock)completion;
+
+-(void)loginWithUsername:(NSString *)username
+                password:(NSString *)password
+              completion:(WaxUserCompletionBlock)completion;
+
+-(void)signupWithUsername:(NSString *)username
+                 password:(NSString *)password
+                 fullName:(NSString *)fullName
+                    email:(NSString *)email
+                  picture:(UIImage *)picture
+               completion:(WaxUserCompletionBlock)completion;
+
+-(void)updateProfilePicture:(UIImage *)profilePicture completion:(WaxUserCompletionBlock)completion;
+-(void)syncFacebookProfilePictureWithCompletion:(WaxUserCompletionBlock)completion;
+-(void)logOut;
+
+#pragma mark - Utility Methods
+-(BOOL)isLoggedIn;
+-(BOOL)twitterAccountConnected;
+-(BOOL)facebookAccountConnected;
 -(BOOL)useridIsCurrentUser:(NSString *)userid;
+-(void)chooseTwitterAccountWithCompletion:(WaxUserCompletionBlock)completion;
 
--(void)chooseNewTwitterAccount;
+
 
 -(void)resetForInitialLaunch; 
 
--(BOOL)isLoggedIn;
 
 //#ifndef RELEASE
 //-(BOOL)isSuperUser;

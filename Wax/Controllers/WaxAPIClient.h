@@ -102,8 +102,6 @@
 -(void)sendSilentFBPostWithShareID:(NSString *)shareID
                            caption:(NSString *)caption;
 
-//-(void)toggleServerURLSOrSwitchToDevServer:(BOOL)switchToDev; 
-
 
 #ifndef RELEASE
 -(void)deleteVideoWithFeedItem:(FeedObject *)feedItem andSuperUserPrivelages:(BOOL)admin; 

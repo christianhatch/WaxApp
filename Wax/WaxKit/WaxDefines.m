@@ -13,6 +13,7 @@
 NSString *const kWaxAPIBaseURL = @"https://app.wax.li/v0.0.1/";
 NSString *const kWaxAPISalt = @"rO8j!AJp_uEvl(Y%)Go3LvZA5cOcSTt^t5Pon&8r";
 NSString *const kWaxAPIErrorDomain = @"com.wax.api"; 
+NSString *const kWaxAPIJSONKey = @"response";
 
 
 #pragma mark - Third Party
@@ -43,7 +44,7 @@ NSString *const kUserLastNameKey = @"waxLastName";
 NSString *const kUserEmailKey = @"waxEmail"; 
 NSString *const kUserTwitterAccountIDKey = @"waxTwitterAccountID";
 NSString *const kUserFacebookAccountIDKey = @"waxFacebookAccountID"; 
-
+NSString *const kFalseString = @"false";
 
 #pragma mark - Notifications
 NSString *const kWaxNotificationProfilePictureDidChange = @"waxUserProfilePictureDidChangeNotification";

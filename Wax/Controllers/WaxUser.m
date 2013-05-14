@@ -8,19 +8,17 @@
 
 #import "WaxUser.h"
 #import "Lockbox.h"
-#import "WaxAPIClient.h"
 #import <Accounts/Accounts.h>
-#import <Twitter/Twitter.h>
 #import <Crashlytics/Crashlytics.h>
 #import <AcaciaKit/Flurry.h>
+
 
 @interface WaxUser ()
 @end
 
 @implementation WaxUser
 
-
-+ (WaxUser *)currentUser{
++(WaxUser *)currentUser{
     static WaxUser *sharedID = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -29,22 +27,7 @@
     return sharedID;
 }
 
--(NSString *)userid {
-    NSString *userIdentification = [Lockbox stringForKey:kUserIDKey];
-    if ([userIdentification isEmptyOrNull]){
-        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"GETTING Userid, isEmptyOrNull. Userid = %@", userIdentification]];
-        [self logOut:YES];
-    }
-    return userIdentification;
-}
--(void)saveUserid:(NSString *)userid{
-    if ([userid isEmptyOrNull]){
-        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING Userid isEmptyOrNull. Userid = %@", userid]];
-        [self logOut:YES];
-    }else{
-        [Lockbox setString:userid forKey:kUserIDKey];
-    }
-}
+#pragma mark - User Information Getters
 -(NSString *)token{
     NSString *securityToken = [Lockbox stringForKey:kUserTokenKey];
     if ([securityToken isEmptyOrNull]) {
@@ -55,56 +38,31 @@
     NSString *hashed = [[NSString stringWithFormat:@"%@%i%@", securityToken, time, kWaxAPISalt] MD5];
     return hashed;
 }
--(void)saveToken:(NSString *)token{
-    if ([token isEmptyOrNull]){
-        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING Token isEmptyOrNull. Token = %@", token]];
+-(NSString *)userid{
+    NSString *userIdentification = [Lockbox stringForKey:kUserIDKey];
+    if ([userIdentification isEmptyOrNull]){
+        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"GETTING Userid, isEmptyOrNull. Userid = %@", userIdentification]];
         [self logOut:YES];
-    }else{
-        [Lockbox setString:token forKey:kUserTokenKey];
     }
+    return userIdentification;
 }
 -(NSString *)username{
     return [Lockbox stringForKey:kUserNameKey];
 }
--(void)saveUserame:(NSString *)username{
-    [Lockbox setString:username forKey:kUserNameKey];
-}
 -(NSString *)email{
     return [Lockbox stringForKey:kUserEmailKey];
-}
--(void)saveEmail:(NSString *)email{
-    [Lockbox setString:email forKey:kUserEmailKey];
 }
 -(NSString *)firstname{
     return [Lockbox stringForKey:kUserFirstNameKey];
 }
--(void)saveFirstname:(NSString *)firstname{
-    [Lockbox setString:firstname forKey:kUserFirstNameKey];
-}
 -(NSString *)lastname{
     return [Lockbox stringForKey:kUserLastNameKey];
 }
--(void)saveLastname:(NSString *)lastname{
-    [Lockbox setString:lastname forKey:kUserLastNameKey];
-}
-//-(BOOL)hasNoFriends{
-//    return [[NSUserDefaults standardUserDefaults] boolForKey:KWUserNoFriendsKey];
-//}
-//-(void)saveNoFriends:(BOOL)noFriends{
-//    [[NSUserDefaults standardUserDefaults] setBool:!noFriends forKey:KWUserNoFriendsKey];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-//}
--(void)saveTwitterAccountId:(NSString *)twitterAccountId{
-    if ([twitterAccountId isEmptyOrNull]){
-        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING twitter account isEmptyOrNull. twitter accountID = %@", twitterAccountId]];
-    }else{
-        [Lockbox setString:twitterAccountId forKey:kUserTwitterAccountIDKey];
-        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationTwitterAccountDidChange object:self];
-    }
-}
 -(NSString *)twitterAccountId{
-    NSString *twitterAccount = [Lockbox stringForKey:kUserTwitterAccountIDKey];
-    return twitterAccount;
+    return [Lockbox stringForKey:kUserTwitterAccountIDKey];
+}
+-(NSString *)facebookAccountId{
+    return [Lockbox stringForKey:kUserFacebookAccountIDKey];
 }
 -(NSString *)twitterAccountName{
     NSString *name = @"none";
@@ -115,8 +73,44 @@
     }
     return name;
 }
--(BOOL)twitterAccountSaved{
-    return ![[self twitterAccountId] isEqualToString:@"false"];
+//-(BOOL)hasNoFriends;
+
+#pragma mark - User Information Setters
+-(void)saveToken:(NSString *)token{
+    if ([token isEmptyOrNull]){
+        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING Token isEmptyOrNull. Token = %@", token]];
+        [self logOut:YES];
+    }else{
+        [Lockbox setString:token forKey:kUserTokenKey];
+    }
+}
+-(void)saveUserid:(NSString *)userid{
+    if ([userid isEmptyOrNull]){
+        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING Userid isEmptyOrNull. Userid = %@", userid]];
+        [self logOut:YES];
+    }else{
+        [Lockbox setString:userid forKey:kUserIDKey];
+    }
+}
+-(void)saveUserame:(NSString *)username{
+    [Lockbox setString:username forKey:kUserNameKey];
+}
+-(void)saveEmail:(NSString *)email{
+    [Lockbox setString:email forKey:kUserEmailKey];
+}
+-(void)saveFirstname:(NSString *)firstname{
+    [Lockbox setString:firstname forKey:kUserFirstNameKey];
+}
+-(void)saveLastname:(NSString *)lastname{
+    [Lockbox setString:lastname forKey:kUserLastNameKey];
+}
+-(void)saveTwitterAccountId:(NSString *)twitterAccountId{
+    if ([twitterAccountId isEmptyOrNull]){
+        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING twitter account isEmptyOrNull. twitter accountID = %@", twitterAccountId]];
+    }else{
+        [Lockbox setString:twitterAccountId forKey:kUserTwitterAccountIDKey];
+        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationTwitterAccountDidChange object:self];
+    }
 }
 -(void)saveFacebookAccountId:(NSString *)facebookAccountId{
     if ([facebookAccountId isEmptyOrNull]){
@@ -125,15 +119,139 @@
         [Lockbox setString:facebookAccountId forKey:kUserFacebookAccountIDKey];
     }
 }
--(NSString *)facebookAccountId{
-    NSString *facebookID = [Lockbox stringForKey:kUserFacebookAccountIDKey];
-    return facebookID; 
-}
--(BOOL)facebookAccountSaved{
-    return ![[self facebookAccountId] isEqualToString:@"false"];
+//-(void)saveNoFriends:(BOOL)noFriends;
+
+
+#pragma mark - Signup/Login/Logout/Update Pic
+-(void)connectFacebookWithCompletion:(WaxUserCompletionBlock)completion{
+    [[AIKFacebookManager sharedManager] connectFacebookWithCompletion:^(id<FBGraphUser> user, NSError *error) {
+        if ([self isLoggedIn]) {
+            //update this class's data and update data on server
+        }else{
+            //create account on server and then login to that account
+        }
+    }];
 }
 
-#pragma mark - Public API
+-(void)loginWithUsername:(NSString *)username password:(NSString *)password completion:(WaxUserCompletionBlock)completion{
+    //login to server and save returned data
+}
+
+-(void)signupWithUsername:(NSString *)username password:(NSString *)password fullName:(NSString *)fullName email:(NSString *)email picture:(UIImage *)picture completion:(WaxUserCompletionBlock)completion{
+    //sign up on server and save returned data
+}
+
+-(void)updateProfilePicture:(UIImage *)profilePicture completion:(WaxUserCompletionBlock)completion{
+    //update profile picture on AWS
+}
+-(void)syncFacebookProfilePictureWithCompletion:(WaxUserCompletionBlock)completion{
+    //should be a single call to the server to get it all done there
+}
+-(void)logOut{
+    //clear all information
+}
+
+#pragma mark - Utility Methods
+-(BOOL)isLoggedIn{
+    return ((![[self userid] isEqualToString:kFalseString]) && (![[self token] isEqualToString:kFalseString]));
+}
+-(BOOL)twitterAccountConnected{
+    return (![[self twitterAccountId] isEqualToString:kFalseString]);
+}
+-(BOOL)facebookAccountConnected{
+    return (![[self facebookAccountId] isEqualToString:kFalseString]);
+}
+-(BOOL)useridIsCurrentUser:(NSString *)userid{
+    return [[self userid] isEqualToString:userid];
+}
+-(void)chooseTwitterAccountWithCompletion:(WaxUserCompletionBlock)completion{
+    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+	ACAccountType *twitterAccountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+    
+    [accountStore requestAccessToAccountsWithType:twitterAccountType options:nil completion:^(BOOL granted, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(granted) {
+                NSArray *twitterAccounts = [accountStore accountsWithAccountType:twitterAccountType];
+                switch(twitterAccounts.count) {
+                    case 0:{
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Twitter Accounts", @"No Twitter Accounts") message:NSLocalizedString(@"You haven't setup a Twitter account yet. Please add one by going through the Settings App > Twitter", @"You haven't setup a Twitter account yet. Please add one by going through the Settings App > Twitter") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"Dismiss") otherButtonTitles:nil];
+                        [alertView show];
+                    }break;
+                    case 1:{
+                        ACAccount *account = [twitterAccounts objectAtIndexNotNull:0];
+                        RIButtonItem *delete = [RIButtonItem item];
+                        delete.label = @"Disconnect Twitter";
+                        delete.action = ^{
+                            [self saveTwitterAccountId:kFalseString];
+                        };
+                        RIButtonItem *actbtn = [RIButtonItem item];
+                        actbtn.label = account.username;
+                        actbtn.action = ^{
+                            [self saveTwitterAccountId:account.identifier];
+                        };
+                        UIActionSheet *chooser = [[UIActionSheet alloc] initWithTitle:@"Which Twitter account would you like to use with Wax?" cancelButtonItem:[RIButtonItem cancelButton] destructiveButtonItem:delete otherButtonItems:actbtn, nil];
+                        [chooser showInView:mainWindowView];
+                    }break;
+                    default:{
+                        UIActionSheet *chooser = nil;
+                        if ([self twitterAccountConnected]) {
+                            RIButtonItem *delete = [RIButtonItem item];
+                            delete.label = @"Disconnect Twitter";
+                            delete.action = ^{
+                                [self saveTwitterAccountId:kFalseString];
+                            };
+                            chooser = [[UIActionSheet alloc] initWithTitle:@"Which Twitter account would you like to use with Wax?" cancelButtonItem:nil destructiveButtonItem:delete otherButtonItems:nil, nil];
+                        }else{
+                            chooser = [[UIActionSheet alloc] initWithTitle:@"Which Twitter account would you like to use with Wax?" cancelButtonItem:nil destructiveButtonItem:nil otherButtonItems:nil, nil];
+                        }
+                        for (ACAccount *account in twitterAccounts) {
+                            RIButtonItem *button = [RIButtonItem item];
+                            button.label = [NSString stringWithFormat:@"@%@", account.username];
+                            button.action = ^{
+                                [self saveTwitterAccountId:account.identifier];
+                            };
+                            [chooser addButtonItem:button];
+                        }
+                        [chooser setCancelButtonIndex:[chooser addButtonItem:[RIButtonItem cancelButton]]];
+                        [chooser showInView:mainWindowView];
+                        }break;
+                    }
+                } else {
+                    [self showNoTwitterAccessAlert];
+                }
+            });
+        }
+    ];
+}
+-(void)resetForInitialLaunch{
+    NSString *reset = kFalseString;
+    [self saveToken:reset];
+    [self saveUserid:reset];
+    [self saveUserame:reset];
+    [self saveEmail:reset];
+    [self saveFirstname:reset];
+    [self saveLastname:reset];
+    [self saveTwitterAccountId:reset];
+    [self saveFacebookAccountId:reset];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUserSaveToCameraRollKey];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -(void)saveUserInformation:(NSDictionary *)info{
     [self saveToken:[info objectForKeyNotNull:@"token"]];
     [self saveUserid:[info objectForKeyNotNull:@"userid"]];
@@ -174,7 +292,7 @@
             [proPic start];
         }];
     }else{
-        [[AIKFacebookManager sharedManager] loginWithFacebook];
+//        [[AIKFacebookManager sharedManager] loginWithFacebook];
     }
 }
 -(void)uploadNewProfilePicture:(UIImage *)profilePicture{
@@ -184,14 +302,14 @@
 //    [[WaxDataManager sharedManager] setTrendsFeed:[NSMutableArray array]]; 
 }
 -(void)logOut:(BOOL)fromTokenError{
-    [self saveToken:@"false"];
-    [self saveUserid:@"false"];
-    [self saveUserame:@"false"];
-    [self saveEmail:@"false"];
-    [self saveFirstname:@"false"];
-    [self saveLastname:@"false"];
-    [self saveTwitterAccountId:@"false"];
-    [[AIKFacebookManager sharedManager] logoutFacebook];
+    [self saveToken:kFalseString];
+    [self saveUserid:kFalseString];
+    [self saveUserame:kFalseString];
+    [self saveEmail:kFalseString];
+    [self saveFirstname:kFalseString];
+    [self saveLastname:kFalseString];
+    [self saveTwitterAccountId:kFalseString];
+    [[AIKFacebookManager sharedManager] logoutFacebookWithCompletion:nil];
     
 //#ifndef RELEASE
 //    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:KWSuperUserModeEnableKey];
@@ -212,83 +330,8 @@
         [[AIKErrorUtilities sharedUtilities] logMessageToAllServices:@"User logged out from token error (or perhaps not, unclear..)"];
     }
 }
--(BOOL)isLoggedIn{
-    return ((![[self userid] isEqualToString:@"false"]) && (![[self token] isEqualToString:@"false"]));
-}
--(void)resetForInitialLaunch{
-    [self saveToken:@"false"];
-    [self saveUserid:@"false"];
-    [self saveUserame:@"false"];
-    [self saveEmail:@"false"];
-    [self saveFirstname:@"false"];
-    [self saveLastname:@"false"];
-    [self saveTwitterAccountId:@"false"];
-    [self saveFacebookAccountId:@"false"];
-//    [self saveNoFriends:NO];
-    
-}
--(BOOL)useridIsCurrentUser:(NSString *)userid{
-    return [[self userid] isEqualToString:userid]; 
-}
--(void)chooseNewTwitterAccount{
-    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-	ACAccountType *twitterAccountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    
-    [accountStore requestAccessToAccountsWithType:twitterAccountType options:nil completion:^(BOOL granted, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if(granted) {
-                NSArray *twitterAccounts = [accountStore accountsWithAccountType:twitterAccountType];
-                switch(twitterAccounts.count) {
-                    case 0:{
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Twitter Accounts", @"No Twitter Accounts") message:NSLocalizedString(@"You haven't setup a Twitter account yet. Please add one by going through the Settings App > Twitter", @"You haven't setup a Twitter account yet. Please add one by going through the Settings App > Twitter") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"Dismiss") otherButtonTitles:nil];
-                        [alertView show];
-                    }break;
-                    case 1:{
-                        ACAccount *account = [twitterAccounts objectAtIndexNotNull:0];
-                        RIButtonItem *delete = [RIButtonItem item];
-                        delete.label = @"Disconnect Twitter";
-                        delete.action = ^{
-                            [self saveTwitterAccountId:@"false"]; 
-                        };
-                        RIButtonItem *actbtn = [RIButtonItem item];
-                        actbtn.label = account.username;
-                        actbtn.action = ^{
-                            [self saveTwitterAccountId:account.identifier];
-                        };
-                        UIActionSheet *chooser = [[UIActionSheet alloc] initWithTitle:@"Which Twitter account would you like to use with Wax?" cancelButtonItem:[RIButtonItem cancelButton] destructiveButtonItem:delete otherButtonItems:actbtn, nil];
-                        [chooser showInView:mainWindowView];
-                    }break;
-                    default:{                        
-                        UIActionSheet *chooser = nil;
-                        if ([self twitterAccountSaved]) {
-                            RIButtonItem *delete = [RIButtonItem item];
-                            delete.label = @"Disconnect Twitter";
-                            delete.action = ^{
-                                [self saveTwitterAccountId:@"false"];
-                            };
-                            chooser = [[UIActionSheet alloc] initWithTitle:@"Which Twitter account would you like to use with Wax?" cancelButtonItem:nil destructiveButtonItem:delete otherButtonItems:nil, nil];
-                        }else{
-                            chooser = [[UIActionSheet alloc] initWithTitle:@"Which Twitter account would you like to use with Wax?" cancelButtonItem:nil destructiveButtonItem:nil otherButtonItems:nil, nil];
-                        }
-                        for (ACAccount *account in twitterAccounts) {
-                            RIButtonItem *button = [RIButtonItem item];
-                            button.label = [NSString stringWithFormat:@"@%@", account.username];
-                            button.action = ^{
-                                [self saveTwitterAccountId:account.identifier];
-                            };
-                            [chooser addButtonItem:button];
-                        }
-                        [chooser setCancelButtonIndex:[chooser addButtonItem:[RIButtonItem cancelButton]]];
-                        [chooser showInView:mainWindowView];
-                    }break;
-                }
-            } else {
-                [self showNoTwitterAccessAlert];
-            }
-        });
-    }
-	 ];
-}
+
+#pragma mark - Internal Methods
 -(void)showNoTwitterAccessAlert{
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Access to Twitter", @"No Access to Twitter") message:NSLocalizedString(@"To share to Twitter, Wax requires access to your Twitter Accounts. Please grant access through the Settings App and going to Twitter", @"To sign in with Twitter the App requires access to your Twitter Accounts. Please grant access through the Settings App and going to Twitter") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"Dismiss") otherButtonTitles:nil];
     [alertView show];
