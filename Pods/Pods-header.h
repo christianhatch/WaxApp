@@ -2,6 +2,19 @@
 #define __COCOA_PODS
 
 #define __POD_AFNetworking
+#define __POD_AWSiOSSDK
+#define __POD_AWSiOSSDK_AutoScaling
+#define __POD_AWSiOSSDK_CloudWatch
+#define __POD_AWSiOSSDK_DynamoDB
+#define __POD_AWSiOSSDK_EC2
+#define __POD_AWSiOSSDK_ElasticLoadBalancing
+#define __POD_AWSiOSSDK_Runtime
+#define __POD_AWSiOSSDK_S3
+#define __POD_AWSiOSSDK_SES
+#define __POD_AWSiOSSDK_SNS
+#define __POD_AWSiOSSDK_SQS
+#define __POD_AWSiOSSDK_STS
+#define __POD_AWSiOSSDK_SimpleDB
 #define __POD_InterAppCommunication
 #define __POD_KGNoise_tonyzonghui
 #define __POD_Lockbox

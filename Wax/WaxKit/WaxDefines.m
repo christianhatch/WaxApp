@@ -55,14 +55,11 @@ NSString *const kWaxNotificationFacebookAccountDidChange = @"waxUserFacebookAcco
 
 
 //networking stuff
-
 #define kInfiniteScrollingBatchCount        10
 
 //ui stuff
 #define kHeaderHeightDefault                23
 
-#define ksegueMeToSettings                  @"MeToSettings"
-#define ksegueSettingsToPassword            @"SettingsToChangePassword"
 
 #define kFeedCellFlagConfirmText            @"Are you sure you want to flag this Kiwi as innapropriate?"
 #define kFeedCellDeleteConfirmText          @"Are you sure you want to delete your Kiwi?"
@@ -72,13 +69,6 @@ NSString *const kWaxNotificationFacebookAccountDidChange = @"waxUserFacebookAcco
 #define KWLaunchOptionGotoIDKey             @"pID"
 #define KWLaunchOptionGotoTypeKey           @"pType"
 #define KWLaunchOptionUsernameKey           @"pName"
-
-//nsnotification constants
-#define KWProfilePictureChangedNotification     @"profilePictureDidChange"
-#define KWAccountPrivacyChangedNotification     @"accountPrivacyDidChange"
-#define KWTwitterAccountChangedNotification     @"twitterAccountDidChange"
-#define KWFacebookAccountChangedNotification    @"facebookAccountDidChange"
-//#define KWContactsChangedNotification           @"contactsDidChange"
 
 
 

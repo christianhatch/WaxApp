@@ -11,18 +11,16 @@
 
 @interface PersonObject : ModelObject
 
-@property (nonatomic, copy) NSString *username;
-@property (nonatomic, copy) NSString *firstname;
-@property (nonatomic, copy) NSString *lastname;
 @property (nonatomic, copy) NSString *userid;
+@property (nonatomic, copy) NSString *username;
+@property (nonatomic, copy) NSString *fullName;
+
+@property (nonatomic, assign) BOOL isFollowing;
 
 @property (nonatomic, copy) NSNumber *followersCount;
 @property (nonatomic, copy) NSNumber *followingCount;
-@property (nonatomic, copy) NSNumber *likeCount;
-@property (nonatomic, copy) NSNumber *serverTimeStamp;
-@property (nonatomic, copy) NSNumber *count;
+@property (nonatomic, copy) NSNumber *titlesCount;
 
-@property (nonatomic, assign) BOOL isFollowing;
 
 -(id)initWithFBGraphUser:(id <FBGraphUser>)graphuser;
 

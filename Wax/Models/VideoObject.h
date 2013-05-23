@@ -10,25 +10,28 @@
 
 @interface VideoObject : ModelObject
 
+//info about the user who created the video
+@property (nonatomic, copy) NSString *userID;
 @property (nonatomic, copy) NSString *username;
-@property (nonatomic, copy) NSNumber *commentCount;
-@property (nonatomic, copy) NSNumber *likeCount;
-@property (nonatomic, copy) NSNumber *viewCount;
-@property (nonatomic, copy) NSString *timeStamp;
-@property (nonatomic, copy) NSString *caption;
+@property (nonatomic, copy) NSString *fullName;
+@property (nonatomic, copy) NSNumber *rank;
+@property (nonatomic, copy) NSNumber *tagCount;
+@property (nonatomic, assign, getter=isFollowing) BOOL following;
 
-@property (nonatomic, copy) NSString *userid;
-@property (nonatomic, copy) NSString *vidId;
+//info about the video itself
+@property (nonatomic, copy) NSString *videoID;
 @property (nonatomic, copy) NSString *videoLink;
-@property (nonatomic, copy) NSString *shareId;
-@property (nonatomic, copy) NSNumber *serverTimeStamp;
-@property (nonatomic, copy) NSNumber *trendCount;
-@property (nonatomic, copy) NSString *location;
-@property (nonatomic, copy) NSNumber *likeStamp;
+@property (nonatomic, copy) NSString *caption;
+@property (nonatomic, copy) NSString *shareID;
+@property (nonatomic, copy) NSString *timeStamp;
+@property (nonatomic, copy) NSString *tag;
 
-@property (nonatomic, assign) BOOL isFollowing;
-@property (nonatomic, assign) BOOL didLike;
-@property (nonatomic, assign) BOOL noSharing;
+@property (nonatomic, copy) NSNumber *votesCount;
+@property (nonatomic, copy) NSNumber *viewCount;
+
+
+//info about the current user's relationship to the video
+@property (nonatomic, assign) BOOL didVote;
 
 
 @end

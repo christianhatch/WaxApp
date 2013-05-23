@@ -31,7 +31,7 @@
 -(id)initWithDictionary:(NSDictionary *)dictionary{
     self = [super init];
     if(self) {
-        self.commentCount = [dictionary objectForKeyNotNull:@"commentcount"] ;
+        self.commentCount = [dictionary objectForKeyNotNull:@"commentcount"];
         
         self.likeCount = [dictionary objectForKeyNotNull:@"likecount"]  == nil ? 0 : [dictionary objectForKeyNotNull:@"likecount"];
         self.caption = [dictionary objectForKeyNotNull:@"caption"]  == nil ? @"" : [dictionary objectForKeyNotNull:@"caption"];
@@ -64,6 +64,9 @@
 -(NSString *)description{
     NSString *descrippy = [NSString stringWithFormat:@"FeedObject Description:\nComment Count: %@ LikeCount: %@ Caption: %@ Timestamp: %@ Location: %@ Likestamp: %@ Username: %@ Userid: %@ VidId: %@ VideoLink: %@ ServerTimestamp: %@ ViewCount: %@ SharedId: %@ Trendcount: %@ IsFollowing: %i DidLike: %i NoSharing: %i", self.commentCount, self.likeCount, self.caption, self.timeStamp, self.location, self.likeStamp, self.username, self.userid, self.vidId, self.videoLink, self.serverTimeStamp, self.viewCount, self.shareId, self.trendCount, self.isFollowing, self.didLike, self.noSharing];
     return descrippy;
+}
+-(NSNumber *)infiniteScrollingID{
+    
 }
 
 @end

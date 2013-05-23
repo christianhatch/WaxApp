@@ -51,55 +51,12 @@ extern NSString *const kWaxNotificationProfilePictureDidChange;
 extern NSString *const kWaxNotificationTwitterAccountDidChange;
 extern NSString *const kWaxNotificationFacebookAccountDidChange;
 
-
-//urls
-#define kForgotPasswordURL                  @"passwords/forgot.php"
-#define kLoginURL                           @"logins/login.php"
-#define kFBLoginURL                         @"logins/facebooklogin.php"
-#define kSignupURL                          @"logins/signup.php"
-#define kAllFollowersURL                    @"logins/allfollowing.php"
-#define kFriendsFeedURL                     @"feeds/friend.php"
-#define kTrendsFeedURL                      @"feeds/trend.php"
-#define kPeopleFeedURL                      @"feeds/user.php"
-#define kLikeFeedURL                        @"feeds/like.php"
-#define kTagFeedURL                         @"feeds/tag.php"
-#define kNotificationsURL                   @"notes/get.php"
-#define kMarkNotesReadURL                   @"notes/view.php"
-#define kNoteCountURL                       @"notes/count.php"
-#define kVideoViewedURL                     @"videos/view.php"
-#define kUploadVideoURL                     @"videos/put.php"
-#define kFlagVideoURL                       @"videos/flag.php"
-#define kLikeListURL                        @"videos/likelist.php"
-#define kDeleteVideoURL                     @"videos/delete.php"
-#define kLikeVideoURL                       @"videos/like.php"
-#define kVideoInfoURL                       @"videos/get.php"
-#define kVideoCommentsURL                   @"comments/get.php"
-#define kSendCommentURL                     @"comments/put.php"
-#define kDeleteCommentURL                   @"comments/delete.php"
-#define kAddFollowURL                       @"users/put.php"
-#define kRemoveFollowURL                    @"users/delete.php"
-#define kFacebookFriendsURL                 @"users/fbfriends.php"
-#define kContactsOnKiwiURL                  @"users/contactfriends.php"
-#define kProfileInfoURL                     @"users/getprofile.php"
-#define kFollowingURL                       @"users/following.php"
-#define kFollowersURL                       @"users/followers.php"
-#define kPeopleSearchURL                    @"users/search.php"
-#define kDiscoverURL                        @"tags/trending.php"
-#define kSearchTagsURL                      @"tags/search.php"
-#define kUpdateSettingsURL                  @"settings/update.php"
-#define kGetSettingsURL                     @"settings/get.php"
-#define kChangeUsernameURL                  @"settings/changename.php"
-#define kUpdateFacebookURL                  @"settings/fbconnect.php"
-#define kChangePasswordURL                  @"passwords/update.php"
-
-#define kRequestPrivateFollowURL            @"privateusers/put.php"
-#define kPendingUsersListURL                @"privateusers/get.php"
-#define kAcceptOrDelcineFollowerURL         @"privateusers/update.php"
-#define kDeletePrivateFollowerURL           @"privateusers/delete.php"
+#pragma mark - Contstants
+#define kCornerRadiusDefault                5
 
 
 
-
+#pragma mark - Macro Functions
 
 
 //utilities

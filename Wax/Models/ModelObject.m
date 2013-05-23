@@ -9,6 +9,7 @@
 #import "ModelObject.h"
 
 @implementation ModelObject
+@synthesize infiniteScrollingID = _infiniteScrollingID;
 
 -(id)initWithDictionary:(NSDictionary *)dictionary{
     //override in subclasses
@@ -23,7 +24,6 @@
 -(void)encodeWithCoder:(NSCoder *)aCoder{
     //override in subclasses
 }
-
 
 
 @end

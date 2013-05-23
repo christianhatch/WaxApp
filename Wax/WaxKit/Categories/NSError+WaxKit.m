@@ -17,7 +17,7 @@
     if (NSErrorFromCode([[dictionary objectForKeyNotNull:@"code"] intValue])) {
         return NSErrorFromCode([[dictionary objectForKeyNotNull:@"code"] intValue]);
     }else{
-        return [NSError errorWithDomain:kWaxAPIErrorDomain code:[[dictionary objectForKeyNotNull:@"code"] intValue] userInfo:@{NSLocalizedFailureReasonErrorKey: [dictionary objectForKeyNotNull:@"message"] ? [dictionary objectForKeyNotNull:@"message"] : @"Unknown Error"}];
+        return [NSError errorWithDomain:kWaxAPIErrorDomain code:[[dictionary objectForKeyNotNull:@"code"] intValue] userInfo:@{NSLocalizedDescriptionKey : [dictionary objectForKeyNotNull:@"message"] ? [dictionary objectForKeyNotNull:@"message"] : @"Unknown Error"}];
     }
 }
 

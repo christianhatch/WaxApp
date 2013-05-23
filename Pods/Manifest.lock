@@ -1,5 +1,42 @@
 PODS:
   - AFNetworking (1.2.1)
+  - AWSiOSSDK (1.5.0):
+    - AWSiOSSDK/AutoScaling
+    - AWSiOSSDK/CloudWatch
+    - AWSiOSSDK/DynamoDB
+    - AWSiOSSDK/EC2
+    - AWSiOSSDK/ElasticLoadBalancing
+    - AWSiOSSDK/Runtime
+    - AWSiOSSDK/S3
+    - AWSiOSSDK/SES
+    - AWSiOSSDK/SimpleDB
+    - AWSiOSSDK/SNS
+    - AWSiOSSDK/SQS
+    - AWSiOSSDK/STS
+  - AWSiOSSDK/AutoScaling (1.5.0):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/CloudWatch (1.5.0):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/DynamoDB (1.5.0):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/EC2 (1.5.0):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/ElasticLoadBalancing (1.5.0):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/Runtime (1.5.0):
+    - AWSiOSSDK/DynamoDB
+  - AWSiOSSDK/S3 (1.5.0):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/SES (1.5.0):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/SimpleDB (1.5.0):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/SNS (1.5.0):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/SQS (1.5.0):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/STS (1.5.0):
+    - AWSiOSSDK/Runtime
   - InterAppCommunication (1.0)
   - KGNoise@tonyzonghui (1.2.0)
   - Lockbox (1.4.2)
@@ -13,6 +50,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - AWSiOSSDK
   - InterAppCommunication
   - KGNoise@tonyzonghui
   - Lockbox
@@ -24,7 +62,8 @@ DEPENDENCIES:
   - TSMessages
 
 SPEC CHECKSUMS:
-  AFNetworking: 616da0028916ce296f5c3cef74e5552eb4e10e13
+  AFNetworking: a44069e3c9c89867544f6639482f155c7e5f9b41
+  AWSiOSSDK: a7bf2c2d13bb5675855c9263c90115a344f1d9a5
   InterAppCommunication: 8b5c768edf16414947f4fae4d15a86cc38ddbf8c
   KGNoise@tonyzonghui: 632e5363cde4cbaba10876d50a68a2123a0f30e8
   Lockbox: d1be948dcf7ef9e584ee9d56787728f99336e87f
@@ -35,4 +74,4 @@ SPEC CHECKSUMS:
   SVPullToRefresh: 61a0e4bd12bd6f8e3465909810b0fbeb1a28d5f2
   TSMessages: 9169abb0e6962810b9aa8f731d7c481b05a73dec
 
-COCOAPODS: 0.18.1
+COCOAPODS: 0.19.1
