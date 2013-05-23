@@ -253,13 +253,13 @@
 
 
 -(void)saveUserInformation:(NSDictionary *)info{
-    [self saveToken:[info objectForKeyNotNull:@"token"]];
-    [self saveUserid:[info objectForKeyNotNull:@"userid"]];
-    [self saveUserame:[info objectForKeyNotNull:@"username"]];
-    [self saveEmail:[info objectForKeyNotNull:@"email"]];
-    [self saveFirstname:[info objectForKeyNotNull:@"firstname"]];
-    [self saveLastname:[info objectForKeyNotNull:@"lastname"]];
-//    [self saveNoFriends:[[info objectForKeyNotNull:@"following"] boolValue]];
+    [self saveToken:[info objectForKeyOrNil:@"token"]];
+    [self saveUserid:[info objectForKeyOrNil:@"userid"]];
+    [self saveUserame:[info objectForKeyOrNil:@"username"]];
+    [self saveEmail:[info objectForKeyOrNil:@"email"]];
+    [self saveFirstname:[info objectForKeyOrNil:@"firstname"]];
+    [self saveLastname:[info objectForKeyOrNil:@"lastname"]];
+//    [self saveNoFriends:[[info objectForKeyOrNil:@"following"] boolValue]];
     
     [Flurry setUserID:[[WaxUser currentUser] username]];
     [Crashlytics setUserIdentifier:[self userid]];

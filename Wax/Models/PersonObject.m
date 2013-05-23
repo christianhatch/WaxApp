@@ -13,7 +13,7 @@
 #define kusernameKey            @"username"
 #define kfullnameKey            @"fullname"
 
-#define kisFollowingKey         @"isfollowing"
+#define kfollowingKey           @"isfollowing"
 
 #define kfollowersCountKey      @"followerscount"
 #define kfollowingCountKey      @"followingcount"
@@ -25,7 +25,7 @@
 @synthesize username = _username;
 @synthesize fullName = _fullName;
 
-@synthesize isFollowing = _isFollowing;
+@synthesize following = _following;
 
 @synthesize followersCount = _followersCount;
 @synthesize followingCount = _followingCount;
@@ -37,17 +37,17 @@
     self = [super init];
     if (self) {
         @try {
-            self.userid = [dictionary objectForKeyNotNull:@"userid"];
-            self.username = [dictionary objectForKeyNotNull:@"username"];
-            self.fullName = [dictionary objectForKeyNotNull:@"name"];
+            self.userid = [dictionary objectForKeyOrNil:@"userid"];
+            self.username = [dictionary objectForKeyOrNil:@"username"];
+            self.fullName = [dictionary objectForKeyOrNil:@"name"];
             
-            self.isFollowing = [[dictionary objectForKeyNotNull:@"isfollowing"] boolValue];
+            self.following = [[dictionary objectForKeyOrNil:@"isfollowing"] boolValue];
             
-            self.followersCount = [dictionary objectForKeyNotNull:@"followers"];
-            self.followingCount = [dictionary objectForKeyNotNull:@"following"];
-            self.titlesCount = [dictionary objectForKeyNotNull:@"titles"];
+            self.followersCount = [dictionary objectForKeyOrNil:@"followers"];
+            self.followingCount = [dictionary objectForKeyOrNil:@"following"];
+            self.titlesCount = [dictionary objectForKeyOrNil:@"titles"];
             
-            self.infiniteScrollingID = [dictionary objectForKeyNotNull:@"item_number"];
+            self.infiniteScrollingID = [dictionary objectForKeyOrNil:@"item_number"];
         }
         @catch (NSException *exception) {
             [[AIKErrorUtilities sharedUtilities] logExceptionWithMessage:@"Tried to init person object with a nil persondictionary!" exception:exception];
@@ -72,7 +72,7 @@
 
 
 -(NSString *)description{
-    NSString *descrippy = [NSString stringWithFormat:@"PersonObject:\nUserid: %@\nUsername: %@\nFullname: %@\nIsFollowing: %i\nFollowersCount: %@\nFollowingCount: %@\nTitlesCount: %@\nInfiniteScrollingID: %@", self.userid, self.username, self.fullName, self.isFollowing, self.followersCount, self.followingCount, self.titlesCount, self.infiniteScrollingID];
+    NSString *descrippy = [NSString stringWithFormat:@"PersonObject:\nUserid: %@\nUsername: %@\nFullname: %@\nFollowing: %i\nFollowersCount: %@\nFollowingCount: %@\nTitlesCount: %@\nInfiniteScrollingID: %@", self.userid, self.username, self.fullName, self.following, self.followersCount, self.followingCount, self.titlesCount, self.infiniteScrollingID];
     return descrippy;
 }
 
@@ -84,7 +84,7 @@
         _username = [acoder decodeObjectForKey:kusernameKey];
         _fullName = [acoder decodeObjectForKey:kfullnameKey];
         
-        _isFollowing = [acoder decodeBoolForKey:kisFollowingKey];
+        _following = [acoder decodeBoolForKey:kfollowingKey];
        
         _followersCount = [acoder decodeObjectForKey:kfollowersCountKey];
         _followingCount = [acoder decodeObjectForKey:kfollowingCountKey];
@@ -99,7 +99,7 @@
     [acoder encodeObject:_username forKey:kusernameKey];
     [acoder encodeObject:_fullName forKey:kfullnameKey];
     
-    [acoder encodeBool:_isFollowing forKey:kisFollowingKey];
+    [acoder encodeBool:_following forKey:kfollowingKey];
    
     [acoder encodeObject:_followersCount forKey:kfollowersCountKey];
     [acoder encodeObject:_followingCount forKey:kfollowingCountKey];

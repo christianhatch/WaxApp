@@ -133,7 +133,7 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
                 cell.frame = CGRectMake(0, 0, self.bounds.size.width, 49); 
             }
-            cell.textLabel.text = [[self.hashtagsArray objectAtIndexNotNull:indexPath.row] objectForKeyNotNull:@"tag"];
+            cell.textLabel.text = [[self.hashtagsArray objectAtIndexNotNull:indexPath.row] objectForKeyOrNil:@"tag"];
             cell.accessoryType = UITableViewCellAccessoryNone;
             return cell;
         }break;
@@ -150,7 +150,7 @@
                 [self.textView setText:[self.textView.text stringByReplacingOccurrencesOfString:self.searchTerm withString:[NSString stringWithFormat:@"@%@", person.username]]];
             }break;
             case CHAutoCompleteSourceTypeHashTags:{
-                [self.textView setText:[self.textView.text stringByReplacingOccurrencesOfString:self.searchTerm withString:[[self.hashtagsArray objectAtIndexNotNull:indexPath.row] objectForKeyNotNull:@"tag"]]];
+                [self.textView setText:[self.textView.text stringByReplacingOccurrencesOfString:self.searchTerm withString:[[self.hashtagsArray objectAtIndexNotNull:indexPath.row] objectForKeyOrNil:@"tag"]]];
             }break;
         }
     }

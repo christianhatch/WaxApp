@@ -14,10 +14,10 @@
 
 -(NSError *)errorObjectFromAPIResponse:(NSDictionary *)dictionary{
     
-    if (NSErrorFromCode([[dictionary objectForKeyNotNull:@"code"] intValue])) {
-        return NSErrorFromCode([[dictionary objectForKeyNotNull:@"code"] intValue]);
+    if (NSErrorFromCode([[dictionary objectForKeyOrNil:@"code"] intValue])) {
+        return NSErrorFromCode([[dictionary objectForKeyOrNil:@"code"] intValue]);
     }else{
-        return [NSError errorWithDomain:kWaxAPIErrorDomain code:[[dictionary objectForKeyNotNull:@"code"] intValue] userInfo:@{NSLocalizedDescriptionKey : [dictionary objectForKeyNotNull:@"message"] ? [dictionary objectForKeyNotNull:@"message"] : @"Unknown Error"}];
+        return [NSError errorWithDomain:kWaxAPIErrorDomain code:[[dictionary objectForKeyOrNil:@"code"] intValue] userInfo:@{NSLocalizedDescriptionKey : [dictionary objectForKeyOrNil:@"message"] ? [dictionary objectForKeyOrNil:@"message"] : @"Unknown Error"}];
     }
 }
 

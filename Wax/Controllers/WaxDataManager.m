@@ -21,7 +21,7 @@
 
 -(id)validateResponseObject:(id)responseObject{
     if (responseObject) {
-        if ([[[[responseObject objectForKeyNotNull:kWaxAPIJSONKey] objectAtIndexNotNull:0] objectForKeyNotNull:kWaxAPIJSONKey] isEqualToString:@"false"]) {
+        if ([[[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectAtIndexNotNull:0] objectForKeyOrNil:kWaxAPIJSONKey] isEqualToString:@"false"]) {
 #ifdef DEBUG
             DLog(@"LOGGED OUT DUE TO INVALID TOKEN");
 #else
@@ -29,7 +29,7 @@
 #endif
             [[AIKErrorUtilities sharedUtilities] logMessageToAllServices:[NSString stringWithFormat:@"response object failed validation and logged user out %@", responseObject]];
             return nil;
-        }else if ([[[[responseObject objectForKeyNotNull:kWaxAPIJSONKey] objectAtIndexNotNull:0] objectForKeyNotNull:@"error"] integerValue] == 103){
+        }else if ([[[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectAtIndexNotNull:0] objectForKeyOrNil:@"error"] integerValue] == 103){
             return nil;
         }else{
             return responseObject;

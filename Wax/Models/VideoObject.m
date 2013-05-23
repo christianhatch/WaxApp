@@ -8,65 +8,57 @@
 
 #import "VideoObject.h"
 
+
+
 @implementation VideoObject
 
+@synthesize userID = _userID;
 @synthesize username = _username;
-@synthesize commentCount = _commentCount;
-@synthesize likeCount = _likeCount;
-@synthesize viewCount = _viewCount;
-@synthesize timeStamp = _timeStamp;
-@synthesize userid = _userid;
-@synthesize vidId = _vidId;
+@synthesize rank = _rank;
+@synthesize tagCount = _tagCount;
+
+@synthesize videoID = _videoID;
 @synthesize videoLink = _videoLink;
-@synthesize shareId = _shareId;
-@synthesize serverTimeStamp = _serverTimeStamp;
-@synthesize isFollowing = _isFollowing;
-@synthesize didLike = _didLike;
-@synthesize caption = _caption;
-@synthesize trendCount = _trendCount;
-@synthesize location = _location;
-@synthesize likeStamp = _likeStamp;
-@synthesize noSharing = _noSharing;
+//@synthesize caption = _caption;
+@synthesize shareID = _shareID;
+@synthesize timeStamp = _timeStamp;
+@synthesize tag = _tag;
+
+@synthesize votesCount = _votesCount;
+@synthesize viewCount = _viewCount;
+
+@synthesize didVote = _didVote;
+@synthesize infiniteScrollingID = _infiniteScrollingID;
+
 
 -(id)initWithDictionary:(NSDictionary *)dictionary{
     self = [super init];
     if(self) {
-        self.commentCount = [dictionary objectForKeyNotNull:@"commentcount"];
+
+        self.userID = [dictionary objectForKey:@"userid" orDefaultValue:nil];
+        self.username = [dictionary objectForKey:@"username" orDefaultValue:NSLocalizedString(@"a user", @"a user")];
+        self.rank = [dictionary objectForKey:@"rank" orDefaultValue:@0];
+        self.tagCount = [dictionary objectForKey:@"tag_count" orDefaultValue:@0];
         
-        self.likeCount = [dictionary objectForKeyNotNull:@"likecount"]  == nil ? 0 : [dictionary objectForKeyNotNull:@"likecount"];
-        self.caption = [dictionary objectForKeyNotNull:@"caption"]  == nil ? @"" : [dictionary objectForKeyNotNull:@"caption"];
+        self.videoID = [dictionary objectForKey:@"videoid" orDefaultValue:nil];
+        self.videoLink = [dictionary objectForKey:@"videolink" orDefaultValue:nil];
+//        self.caption = 
+        self.shareID = [dictionary objectForKey:@"shareid" orDefaultValue:nil];
+        self.timeStamp = [NSString prettyTimeStamp:[dictionary objectForKey:@"timestamp" orDefaultValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]]]];
+        self.tag = [dictionary objectForKey:@"tag" orDefaultValue:NSLocalizedString(@"a competition", @"a competition")];
         
-        self.location = [dictionary objectForKeyNotNull:@"address"];
-        self.likeStamp = [dictionary objectForKeyNotNull:@"likestamp"];
+        self.votesCount = [dictionary objectForKey:@"votes" orDefaultValue:@0];
+        self.viewCount = [dictionary objectForKey:@"views" orDefaultValue:@0];
         
-        self.username = [dictionary objectForKeyNotNull:@"username"];
-        self.userid = [dictionary objectForKeyNotNull:@"userid"];
-        self.vidId = [dictionary objectForKeyNotNull:@"videoid"];
-        self.videoLink = [dictionary objectForKeyNotNull:@"videolink"];
-        
-        self.serverTimeStamp = [dictionary objectForKeyNotNull:@"timestamp"];
-        self.viewCount = [dictionary objectForKeyNotNull:@"viewcount"];
-        self.shareId = [dictionary objectForKeyNotNull:@"shareid"];
-        self.trendCount = [dictionary objectForKeyNotNull:@"trendcount"];
-        
-        self.isFollowing = [[dictionary objectForKeyNotNull:@"following"] boolValue];
-        self.didLike = [[dictionary objectForKeyNotNull:@"didlike"] boolValue];
-        self.noSharing = [[dictionary objectForKeyNotNull:@"canshare"] boolValue];
-        
-        if (self.location != nil) {
-            self.timeStamp = [NSString stringWithFormat:@"%@ near %@", [NSString prettyTimeStamp:self.serverTimeStamp], self.location];
-        }else{
-            self.timeStamp = [NSString prettyTimeStamp:self.serverTimeStamp];
-        }
+        self.didVote = [[dictionary objectForKey:@"didvote" orDefaultValue:NO] boolValue];
+       
+        self.infiniteScrollingID = [dictionary objectForKey:@"timestamp" orDefaultValue:nil]; 
     }
-    return self;
+        return self;
 }
 -(NSString *)description{
-    NSString *descrippy = [NSString stringWithFormat:@"FeedObject Description:\nComment Count: %@ LikeCount: %@ Caption: %@ Timestamp: %@ Location: %@ Likestamp: %@ Username: %@ Userid: %@ VidId: %@ VideoLink: %@ ServerTimestamp: %@ ViewCount: %@ SharedId: %@ Trendcount: %@ IsFollowing: %i DidLike: %i NoSharing: %i", self.commentCount, self.likeCount, self.caption, self.timeStamp, self.location, self.likeStamp, self.username, self.userid, self.vidId, self.videoLink, self.serverTimeStamp, self.viewCount, self.shareId, self.trendCount, self.isFollowing, self.didLike, self.noSharing];
+    NSString *descrippy = [NSString stringWithFormat:@"VideoObject Description:\nUserID: %@ Username: %@ Rank: %@ TagCount: %@ VideoID: %@ VideoLink: %@ ShareID: %@ TimeStamp: %@ Tag: %@ VotesCount: %@ ViewsCount: %@ DidVote: %i", self.userID, self.username, self.rank, self.tagCount, self.videoID, self.videoLink, self.shareID, self.timeStamp, self.tag, self.votesCount, self.viewCount, self.didVote];
     return descrippy;
-}
--(NSNumber *)infiniteScrollingID{
-    
 }
 
 @end

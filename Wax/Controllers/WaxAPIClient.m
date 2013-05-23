@@ -66,7 +66,7 @@
         
 //        DLog(@"Processing for %@ class. Responseobject: %@", modelObjectClass, responseObject);
         
-        NSArray *rawPersonDictionaries = [validated objectForKeyNotNull:kWaxAPIJSONKey];
+        NSArray *rawPersonDictionaries = [validated objectForKeyOrNil:kWaxAPIJSONKey];
         
         NSMutableArray *persons = [NSMutableArray arrayWithCapacity:rawPersonDictionaries.count];
        
@@ -226,7 +226,7 @@
             
         //        DLog(@"userame search response %@", responseObject);
             
-            NSArray *usersArray = [validated objectForKeyNotNull:kKeyForJSON];
+            NSArray *usersArray = [validated objectForKeyOrNil:kKeyForJSON];
             NSMutableArray *userObjects = [NSMutableArray arrayWithCapacity:usersArray.count];
             for(NSDictionary *dictionary in usersArray) {
                 PersonObject *cellItem = [[PersonObject alloc] initWithDictionary:dictionary];
@@ -252,7 +252,7 @@
             
 //        DLog(@"tag search response %@", responseObject);
             
-            NSMutableArray *response = [NSMutableArray arrayWithArray:[validated objectForKeyNotNull:kKeyForJSON]];
+            NSMutableArray *response = [NSMutableArray arrayWithArray:[validated objectForKeyOrNil:kKeyForJSON]];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [sender setValue:response forKeyPath:kHashTagsArray];
@@ -275,7 +275,7 @@
             
             //       DLog(@"%@", responseObject);
             
-            NSArray *rawFeedJSON = [validated objectForKeyNotNull:kKeyForJSON];
+            NSArray *rawFeedJSON = [validated objectForKeyOrNil:kKeyForJSON];
             NSMutableArray *feedArray = [NSMutableArray arrayWithCapacity:rawFeedJSON.count];
             for(NSDictionary *dictionary in rawFeedJSON) {
                 FeedObject *feedItem = [[FeedObject alloc] initWithDictionary:dictionary];
@@ -308,7 +308,7 @@
             
             //       DLog(@"%@", responseObject);
             
-            NSArray *rawFeedJSON = [validated objectForKeyNotNull:kKeyForJSON];
+            NSArray *rawFeedJSON = [validated objectForKeyOrNil:kKeyForJSON];
             NSMutableArray *feedArray = [NSMutableArray arrayWithCapacity:rawFeedJSON.count];
             for(NSDictionary *dictionary in rawFeedJSON) {
                 FeedObject *feedItem = [[FeedObject alloc] initWithDictionary:dictionary];
@@ -341,7 +341,7 @@
             
             //       DLog(@"%@", responseObject);
             
-            NSArray *rawFeedJSON = [validated objectForKeyNotNull:kKeyForJSON];
+            NSArray *rawFeedJSON = [validated objectForKeyOrNil:kKeyForJSON];
             NSMutableArray *feedArray = [NSMutableArray arrayWithCapacity:rawFeedJSON.count];
             for(NSDictionary *dictionary in rawFeedJSON) {
                 FeedObject *feedItem = [[FeedObject alloc] initWithDictionary:dictionary];
@@ -372,7 +372,7 @@
         dispatch_async(self.jsonProcessingQueue, ^{
             id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             
-            NSArray *rawJSON = [validated objectForKeyNotNull:kKeyForJSON];
+            NSArray *rawJSON = [validated objectForKeyOrNil:kKeyForJSON];
             NSMutableArray *notes = [NSMutableArray arrayWithCapacity:rawJSON.count];
             for(NSDictionary *dictionary in rawJSON) {
                 NotificationObject *noteItem = [[NotificationObject alloc] initWithDictionary:dictionary];
@@ -406,7 +406,7 @@
         
 //        DLog(@"notecount response %@", validated);
         
-        NSNumber *noteCount = [[[validated objectForKeyNotNull:kKeyForJSON] firstObject] objectForKeyNotNull:@"notecount"];
+        NSNumber *noteCount = [[[validated objectForKeyOrNil:kKeyForJSON] firstObject] objectForKeyOrNil:@"notecount"];
         
         [[WaxDataManager sharedManager] setNotificationCount:noteCount];
         
@@ -468,7 +468,7 @@
             
             //       DLog(@"%@", responseObject);
             
-            NSArray *feedJSONArray = [validated objectForKeyNotNull:kKeyForJSON];
+            NSArray *feedJSONArray = [validated objectForKeyOrNil:kKeyForJSON];
             NSMutableArray *feedArray = [NSMutableArray arrayWithCapacity: feedJSONArray.count];
             for(NSDictionary *dictionary in feedJSONArray) {
                 FeedObject *feedItem = [[FeedObject alloc] initWithDictionary:dictionary];
@@ -493,7 +493,7 @@
             
 //       DLog(@"%@", responseObject);
             
-            NSArray *feedJSONArray = [validated objectForKeyNotNull:kKeyForJSON];
+            NSArray *feedJSONArray = [validated objectForKeyOrNil:kKeyForJSON];
             NSMutableArray *feedArray = [NSMutableArray arrayWithCapacity: feedJSONArray.count];
             for(NSDictionary *dictionary in feedJSONArray) {
                 FeedObject *feedItem = [[FeedObject alloc] initWithDictionary:dictionary];
@@ -532,7 +532,7 @@
 //            
 //            //        DLog(@"response object %@", responseObject);
 //            
-//            NSArray *peopleJSON = [validated objectForKeyNotNull:kKeyForJSON];
+//            NSArray *peopleJSON = [validated objectForKeyOrNil:kKeyForJSON];
 //            NSMutableArray *peopleList = [NSMutableArray arrayWithCapacity:peopleJSON.count];
 //            for(NSDictionary *dictionary in peopleJSON) {
 //                PersonObject *cellItem = [[PersonObject alloc] initWithDictionary:dictionary];
@@ -564,7 +564,7 @@
             
             //        DLog(@"response object %@", responseObject);
             
-            NSArray *peopleJSON = [validated objectForKeyNotNull:kKeyForJSON];
+            NSArray *peopleJSON = [validated objectForKeyOrNil:kKeyForJSON];
             NSMutableArray *peopleList = [NSMutableArray arrayWithCapacity:peopleJSON.count];
             for(NSDictionary *dictionary in peopleJSON) {
                 PersonObject *cellItem = [[PersonObject alloc] initWithDictionary:dictionary];
@@ -599,7 +599,7 @@
             
             //        DLog(@"response object %@", responseObject);
             
-            NSArray *peopleTableJSONArray = [validated objectForKeyNotNull:kKeyForJSON];
+            NSArray *peopleTableJSONArray = [validated objectForKeyOrNil:kKeyForJSON];
             NSMutableArray *peopleTableArray = [NSMutableArray arrayWithCapacity: peopleTableJSONArray.count];
             for(NSDictionary *dictionary in peopleTableJSONArray) {
                 PersonObject *cellItem = [[PersonObject alloc] initWithDictionary:dictionary];
@@ -623,7 +623,7 @@
             
             //        DLog(@"%@", responseObject);
             
-            NSArray *videoCommentsJSONArray = [validated objectForKeyNotNull: kKeyForJSON];
+            NSArray *videoCommentsJSONArray = [validated objectForKeyOrNil: kKeyForJSON];
             NSMutableArray *commentArray = [NSMutableArray arrayWithCapacity: videoCommentsJSONArray.count];
             for(NSDictionary *dictionary in videoCommentsJSONArray) {
                 CommentObject *commentItem = [[CommentObject alloc] initWithDictionary:dictionary];
@@ -644,7 +644,7 @@
             id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             //        DLog(@"%@", responseObject);
             
-            NSArray *videoResponse = [validated objectForKeyNotNull: kKeyForJSON];
+            NSArray *videoResponse = [validated objectForKeyOrNil: kKeyForJSON];
             FeedObject *videoItem = [[FeedObject alloc] initWithDictionary:[videoResponse firstObject]];
             NSDictionary *userInfo = [NSDictionary dictionaryWithObject:videoItem forKey:kVideoInfoURL];
             [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kVideoInfoURL object:self userInfo:userInfo];
@@ -663,7 +663,7 @@
     [self postPath:kSendCommentURL parameters:commentParam success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(self.jsonProcessingQueue, ^{
             id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
-            NSArray *commentSuccess = [validated objectForKeyNotNull:kKeyForJSON];
+            NSArray *commentSuccess = [validated objectForKeyOrNil:kKeyForJSON];
             CommentObject *comment = [[CommentObject alloc] initWithDictionary:[commentSuccess objectAtIndexNotNull:0]];
             NSDictionary *userInfo = [NSDictionary dictionaryWithObject:comment forKey:kSendCommentURL];
             [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kSendCommentURL object:self userInfo:userInfo];
@@ -680,7 +680,7 @@
     [self postPath:kDeleteCommentURL parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[WaxDataManager sharedManager] validateResponseObject:responseObject];
         
-        //        NSArray *requestSuccess = [responseObject objectForKeyNotNull: objectForKey];
+        //        NSArray *requestSuccess = [responseObject objectForKeyOrNil: objectForKey];
         //        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:requestSuccess forKey:path];
         //        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:path object:self userInfo:userInfo];
         
@@ -698,7 +698,7 @@
     [self postPath:kFlagVideoURL parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[WaxDataManager sharedManager] validateResponseObject:responseObject];
         
-        //        NSArray *requestSuccess = [responseObject objectForKeyNotNull: objectForKey];
+        //        NSArray *requestSuccess = [responseObject objectForKeyOrNil: objectForKey];
         //        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:requestSuccess forKey:path];
         //        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:path object:self userInfo:userInfo];
         
@@ -716,7 +716,7 @@
     [self postPath:kLikeVideoURL parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[WaxDataManager sharedManager] validateResponseObject:responseObject];
         
-        //        NSArray *requestSuccess = [responseObject objectForKeyNotNull: objectForKey];
+        //        NSArray *requestSuccess = [responseObject objectForKeyOrNil: objectForKey];
         //        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:requestSuccess forKey:path];
         //        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:path object:self userInfo:userInfo];
         
@@ -764,7 +764,7 @@
     [self postPath:kProfileInfoURL parameters:profileInfoParam success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(self.jsonProcessingQueue, ^{
             id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
-            NSArray *response = [validated objectForKeyNotNull:kKeyForJSON];
+            NSArray *response = [validated objectForKeyOrNil:kKeyForJSON];
             PersonObject *person = [[PersonObject alloc] initWithDictionary:[response firstObject]];
             NSDictionary *userInfo = [NSDictionary dictionaryWithObject:person forKey:kProfileInfoURL];
             [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kProfileInfoURL object:self userInfo:userInfo];
@@ -787,7 +787,7 @@
     [self postPath:kGetSettingsURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(self.jsonProcessingQueue, ^{
             id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
-            NSArray *settings = [[validated objectForKeyNotNull:kKeyForJSON] firstObject];
+            NSArray *settings = [[validated objectForKeyOrNil:kKeyForJSON] firstObject];
             if (!settings) {
                 NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"error" forKey:kConnectionErrorNotify];
                 [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kConnectionErrorNotify object:kGetSettingsURL userInfo:userInfo];
@@ -807,7 +807,7 @@
     [self postPath:kDiscoverURL parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(self.jsonProcessingQueue, ^{
             id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
-            NSMutableArray *discoverJSON = [NSMutableArray arrayWithArray:[validated objectForKeyNotNull:kKeyForJSON]];
+            NSMutableArray *discoverJSON = [NSMutableArray arrayWithArray:[validated objectForKeyOrNil:kKeyForJSON]];
             discoverJSON.count & 1 ? [discoverJSON removeLastObject] : nil;
             NSMutableArray *discoverArray = [NSMutableArray arrayWithCapacity:discoverJSON.count/2];
             for (int count = 0; count < discoverJSON.count; count +=2) {
@@ -831,7 +831,7 @@
             id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
             //        DLog(@"tag search response %@", responseObject);
             
-            NSMutableArray *response = [NSMutableArray arrayWithArray:[validated objectForKeyNotNull:kKeyForJSON]];
+            NSMutableArray *response = [NSMutableArray arrayWithArray:[validated objectForKeyOrNil:kKeyForJSON]];
             NSDictionary *userInfo = [NSDictionary dictionaryWithObject:response forKey:kSearchTagsURL];
             [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kSearchTagsURL object:self userInfo:userInfo];
         }); 

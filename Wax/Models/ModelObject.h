@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Christian Hatch. All rights reserved.
 //
 
-#define kinfiniteScrollingIDKey = @"infinitescrollingid"
+#define kinfiniteScrollingIDKey @"infinitescrollingid"
 
 #import <Foundation/Foundation.h>
 

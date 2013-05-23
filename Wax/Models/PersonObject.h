@@ -15,7 +15,7 @@
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *fullName;
 
-@property (nonatomic, assign) BOOL isFollowing;
+@property (nonatomic, assign, getter=isFollowing) BOOL following;
 
 @property (nonatomic, copy) NSNumber *followersCount;
 @property (nonatomic, copy) NSNumber *followingCount;

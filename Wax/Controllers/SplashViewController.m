@@ -21,11 +21,24 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
+    [self enableSwipeToPopVC:YES];
+    
+    self.navigationItem.title = NSLocalizedString(@"Wax", @"Wax");
+    
     [self.signupWithFacebookButton addTarget:self action:@selector(signupWithFacebook:) forControlEvents:UIControlEventTouchUpInside];
     [self.signupWithEmailButton addTarget:self action:@selector(signupWithEmail:) forControlEvents:UIControlEventTouchUpInside];
     [self.loginButton addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
 
+    [self setUpView];
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+}
+
+
 -(void)signupWithFacebook:(id)sender{
     SignupViewController *signupVC = initViewControllerWithIdentifier(@"SignupVC");
     [self.navigationController pushViewController:signupVC animated:YES];
@@ -39,8 +52,17 @@
     [self.navigationController pushViewController:loginVC animated:YES];
 }
 
+-(void)setUpView{
+    [self.signupWithFacebookButton setTitle:NSLocalizedString(@"Sign Up With Facebook", @"Sign Up With Facebook") forState:UIControlStateNormal];
+    [self.signupWithFacebookButton setTitle:NSLocalizedString(@"Sign Up With Facebook", @"Sign Up With Facebook") forState:UIControlStateHighlighted];
+    
+    [self.signupWithEmailButton setTitle:NSLocalizedString(@"Sign Up With Email", @"Sign Up With Email") forState:UIControlStateNormal];
+    [self.signupWithEmailButton setTitle:NSLocalizedString(@"Sign Up With Email", @"Sign Up With Email") forState:UIControlStateHighlighted];
 
+    [self.loginButton setTitle:NSLocalizedString(@"Login", @"Login") forState:UIControlStateNormal];
+    [self.loginButton setTitle:NSLocalizedString(@"Login", @"Login") forState:UIControlStateHighlighted];
 
+}
 
 
 
