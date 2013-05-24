@@ -13,6 +13,10 @@
 #import <AcaciaKit/Flurry.h>
 
 
+NSString *const WaxUserDidLogInNotification = @"WaxUserLoggedIn";
+NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut"; 
+
+
 @interface WaxUser ()
 @end
 
@@ -30,139 +34,198 @@
 #pragma mark - User Information Getters
 -(NSString *)token{
     NSString *securityToken = [Lockbox stringForKey:kUserTokenKey];
-    if ([securityToken isEmptyOrNull]) {
-        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"Token isEmptyOrNull. Token = %@", securityToken]];
-        [self logOut:YES];
+    if ([NSString isEmptyOrNil:securityToken]) {
+        return kFalseString; 
+    }else{
+        NSInteger time = [[NSDate date] timeIntervalSince1970]/300;
+        NSString *hashed = [[NSString stringWithFormat:@"%@%i%@", securityToken, time, kWaxAPISalt] MD5];
+        return hashed;
     }
-    NSInteger time = [[NSDate date] timeIntervalSince1970]/300;
-    NSString *hashed = [[NSString stringWithFormat:@"%@%i%@", securityToken, time, kWaxAPISalt] MD5];
-    return hashed;
 }
--(NSString *)userid{
+-(NSString *)userID{
     NSString *userIdentification = [Lockbox stringForKey:kUserIDKey];
-    if ([userIdentification isEmptyOrNull]){
-        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"GETTING Userid, isEmptyOrNull. Userid = %@", userIdentification]];
-        [self logOut:YES];
+    if ([NSString isEmptyOrNil:userIdentification]){
+        return kFalseString;
+    }else{
+        return userIdentification;
     }
-    return userIdentification;
 }
+
 -(NSString *)username{
     return [Lockbox stringForKey:kUserNameKey];
+}
+-(NSString *)fullName{
+    return [Lockbox stringForKey:kUserFirstNameKey];
 }
 -(NSString *)email{
     return [Lockbox stringForKey:kUserEmailKey];
 }
--(NSString *)firstname{
-    return [Lockbox stringForKey:kUserFirstNameKey];
+
+-(NSString *)facebookAccountID{
+    NSString *fbid = [Lockbox stringForKey:kUserFacebookAccountIDKey];
+    if ([NSString isEmptyOrNil:fbid]) {
+        return kFalseString;
+    }else{
+        return fbid;
+    }
 }
--(NSString *)lastname{
-    return [Lockbox stringForKey:kUserLastNameKey];
-}
--(NSString *)twitterAccountId{
-    return [Lockbox stringForKey:kUserTwitterAccountIDKey];
-}
--(NSString *)facebookAccountId{
-    return [Lockbox stringForKey:kUserFacebookAccountIDKey];
+-(NSString *)twitterAccountID{
+    NSString *twid = [Lockbox stringForKey:kUserTwitterAccountIDKey];
+    if ([NSString isEmptyOrNil:twid]) {
+        return kFalseString;
+    }else{
+        return twid;
+    }
 }
 -(NSString *)twitterAccountName{
     NSString *name = @"none";
     if ([Lockbox stringForKey:kUserTwitterAccountIDKey]) {
         ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-        ACAccount *twitter = [accountStore accountWithIdentifier:[self twitterAccountId]];
+        ACAccount *twitter = [accountStore accountWithIdentifier:[self twitterAccountID]];
         name = [NSString stringWithFormat:@"@%@",twitter.username];
     }
     return name;
 }
-//-(BOOL)hasNoFriends;
 
 #pragma mark - User Information Setters
 -(void)saveToken:(NSString *)token{
-    if ([token isEmptyOrNull]){
-        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING Token isEmptyOrNull. Token = %@", token]];
-        [self logOut:YES];
+    if ([NSString isEmptyOrNil:token]){
+//        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING Token isEmptyOrNull. Token = %@", token]];
+        [self logOut];
     }else{
         [Lockbox setString:token forKey:kUserTokenKey];
     }
 }
--(void)saveUserid:(NSString *)userid{
-    if ([userid isEmptyOrNull]){
-        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING Userid isEmptyOrNull. Userid = %@", userid]];
-        [self logOut:YES];
+-(void)saveUserID:(NSString *)userID{
+    if ([NSString isEmptyOrNil:userID]){
+//        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING Userid isEmptyOrNull. Userid = %@", userid]];
+        [self logOut];
     }else{
-        [Lockbox setString:userid forKey:kUserIDKey];
+        [Lockbox setString:userID forKey:kUserIDKey];
     }
 }
+
 -(void)saveUserame:(NSString *)username{
     [Lockbox setString:username forKey:kUserNameKey];
+}
+-(void)saveFullName:(NSString *)fullName{
+    [Lockbox setString:fullName forKey:kUserFirstNameKey];
 }
 -(void)saveEmail:(NSString *)email{
     [Lockbox setString:email forKey:kUserEmailKey];
 }
--(void)saveFirstname:(NSString *)firstname{
-    [Lockbox setString:firstname forKey:kUserFirstNameKey];
-}
--(void)saveLastname:(NSString *)lastname{
-    [Lockbox setString:lastname forKey:kUserLastNameKey];
-}
--(void)saveTwitterAccountId:(NSString *)twitterAccountId{
-    if ([twitterAccountId isEmptyOrNull]){
-        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING twitter account isEmptyOrNull. twitter accountID = %@", twitterAccountId]];
+
+-(void)saveFacebookAccountID:(NSString *)facebookAccountID{
+    if ([NSString isEmptyOrNil:facebookAccountID]){
+//        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING facebook account isEmptyOrNull. facebook accountID = %@", facebookAccountId]];
     }else{
-        [Lockbox setString:twitterAccountId forKey:kUserTwitterAccountIDKey];
+        [Lockbox setString:facebookAccountID forKey:kUserFacebookAccountIDKey];
+    }
+}
+-(void)saveTwitterAccountID:(NSString *)twitterAccountID{
+    if ([NSString isEmptyOrNil:twitterAccountID]){
+//        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING twitter account isEmptyOrNull. twitter accountID = %@", twitterAccountId]];
+    }else{
+        [Lockbox setString:twitterAccountID forKey:kUserTwitterAccountIDKey];
         [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationTwitterAccountDidChange object:self];
     }
 }
--(void)saveFacebookAccountId:(NSString *)facebookAccountId{
-    if ([facebookAccountId isEmptyOrNull]){
-        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING facebook account isEmptyOrNull. facebook accountID = %@", facebookAccountId]];
-    }else{
-        [Lockbox setString:facebookAccountId forKey:kUserFacebookAccountIDKey];
-    }
-}
-//-(void)saveNoFriends:(BOOL)noFriends;
 
 
 #pragma mark - Signup/Login/Logout/Update Pic
--(void)connectFacebookWithCompletion:(WaxUserCompletionBlock)completion{
-    [[AIKFacebookManager sharedManager] connectFacebookWithCompletion:^(id<FBGraphUser> user, NSError *error) {
-        if ([self isLoggedIn]) {
-            //update this class's data and update data on server
+-(void)createAccountWithUsername:(NSString *)username fullName:(NSString *)fullName email:(NSString *)email passwordOrFacebookID:(NSString *)passwordOrFacebookID completion:(WaxUserCompletionBlock)completion{
+    //sign up on server and save returned data
+    [[WaxAPIClient sharedClient] createAccountWithUsername:username fullName:fullName email:email passwordOrFacebookID:passwordOrFacebookID completion:^(LoginObject *loginResponse, NSError *error) {
+        if (!error) {
+            [self finishLoggingInAndSaveUserInformation:loginResponse]; 
         }else{
-            //create account on server and then login to that account
+            [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Creating Account", @"Problem Creating Account") error:error andShowAlertWithButtonHandler:^{
+                [SVProgressHUD dismiss];
+            }];
         }
     }];
 }
-
+-(void)loginWithFacebookID:(NSString *)facebookID fullName:(NSString *)fullName email:(NSString *)email completion:(WaxUserCompletionBlock)completion{
+    [[WaxAPIClient sharedClient] loginWithFacebookID:facebookID fullName:fullName email:email completion:^(LoginObject *loginResponse, NSError *error) {
+        if (!error) {
+            [self finishLoggingInAndSaveUserInformation:loginResponse];
+        }else{
+            [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Logging in via Facebook", @"Problem Logging in via Facebook") error:error andShowAlertWithButtonHandler:^{
+                [SVProgressHUD dismiss];
+            }];
+        }
+    }];
+}
 -(void)loginWithUsername:(NSString *)username password:(NSString *)password completion:(WaxUserCompletionBlock)completion{
-    //login to server and save returned data
+    [[WaxAPIClient sharedClient] loginWithUsername:username password:password completion:^(LoginObject *loginResponse, NSError *error) {
+        if (!error) {
+            [self finishLoggingInAndSaveUserInformation:loginResponse];
+        }else{
+            [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Logging in via Email", @"Problem Logging in via Email") error:error andShowAlertWithButtonHandler:^{
+                [SVProgressHUD dismiss];
+            }];
+        }
+    }];    
+}
+-(void)finishLoggingInAndSaveUserInformation:(LoginObject *)loginResponse{
+    [self saveToken:loginResponse.token];
+    [self saveUserID:loginResponse.userID];
+    
+    [self saveUserame:loginResponse.username];
+    [self saveFullName:loginResponse.fullName];
+    [self saveEmail:loginResponse.email];
+    
+    [self saveFacebookAccountID:loginResponse.facebookID];
+    
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound |UIRemoteNotificationTypeAlert)];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:WaxUserDidLogInNotification object:self];
 }
 
--(void)signupWithUsername:(NSString *)username password:(NSString *)password fullName:(NSString *)fullName email:(NSString *)email picture:(UIImage *)picture completion:(WaxUserCompletionBlock)completion{
-    //sign up on server and save returned data
+-(void)chooseNewprofilePictureWithCompletion:(void (^)(NSError *, UIImage *))completion{
+    /*
+    present action sheet:
+    1) (if fb is logged in) sync fb pro pic
+        call 'syncfbpropic' method
+    2) take new picture
+        present uiimagepickercontroller
+        call 'update profile picture' method at the end
+    3) choose new picture
+        present uiimagepickercontroller
+        call 'update profile picture' method at the end
+     
+    */
 }
-
 -(void)updateProfilePicture:(UIImage *)profilePicture completion:(WaxUserCompletionBlock)completion{
-    //update profile picture on AWS
+    //crop to square
+    //resize to like 150x150
+    //reduce quality
+    //convert to jpg data
+    //upload to s3
 }
 -(void)syncFacebookProfilePictureWithCompletion:(WaxUserCompletionBlock)completion{
-    //should be a single call to the server to get it all done there
+    //should be a single call to stu's script
 }
 -(void)logOut{
-    //clear all information
+    [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+    [[[WaxAPIClient sharedClient] operationQueue] cancelAllOperations];
+    [[AIKFacebookManager sharedManager] logoutFacebookWithCompletion:nil];
+    [self resetForInitialLaunch];
+    [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:WaxUserDidLogOutNotification object:self]; 
 }
 
 #pragma mark - Utility Methods
 -(BOOL)isLoggedIn{
-    return ((![[self userid] isEqualToString:kFalseString]) && (![[self token] isEqualToString:kFalseString]));
+    return ((![[self userID] isEqualToString:kFalseString]) && (![[self token] isEqualToString:kFalseString]));
 }
 -(BOOL)twitterAccountConnected{
-    return (![[self twitterAccountId] isEqualToString:kFalseString]);
+    return (![[self twitterAccountID] isEqualToString:kFalseString]);
 }
 -(BOOL)facebookAccountConnected{
-    return (![[self facebookAccountId] isEqualToString:kFalseString]);
+    return (![[self facebookAccountID] isEqualToString:kFalseString]);
 }
--(BOOL)useridIsCurrentUser:(NSString *)userid{
-    return [[self userid] isEqualToString:userid];
+-(BOOL)userIDIsCurrentUser:(NSString *)userID{
+    return [[self userID] isEqualToString:userID];
 }
 -(void)chooseTwitterAccountWithCompletion:(WaxUserCompletionBlock)completion{
     ACAccountStore *accountStore = [[ACAccountStore alloc] init];
@@ -178,16 +241,16 @@
                         [alertView show];
                     }break;
                     case 1:{
-                        ACAccount *account = [twitterAccounts objectAtIndexNotNull:0];
+                        ACAccount *account = [twitterAccounts objectAtIndexOrNil:0];
                         RIButtonItem *delete = [RIButtonItem item];
                         delete.label = @"Disconnect Twitter";
                         delete.action = ^{
-                            [self saveTwitterAccountId:kFalseString];
+                            [self saveTwitterAccountID:kFalseString];
                         };
                         RIButtonItem *actbtn = [RIButtonItem item];
                         actbtn.label = account.username;
                         actbtn.action = ^{
-                            [self saveTwitterAccountId:account.identifier];
+                            [self saveTwitterAccountID:account.identifier];
                         };
                         UIActionSheet *chooser = [[UIActionSheet alloc] initWithTitle:@"Which Twitter account would you like to use with Wax?" cancelButtonItem:[RIButtonItem cancelButton] destructiveButtonItem:delete otherButtonItems:actbtn, nil];
                         [chooser showInView:mainWindowView];
@@ -198,7 +261,7 @@
                             RIButtonItem *delete = [RIButtonItem item];
                             delete.label = @"Disconnect Twitter";
                             delete.action = ^{
-                                [self saveTwitterAccountId:kFalseString];
+                                [self saveTwitterAccountID:kFalseString];
                             };
                             chooser = [[UIActionSheet alloc] initWithTitle:@"Which Twitter account would you like to use with Wax?" cancelButtonItem:nil destructiveButtonItem:delete otherButtonItems:nil, nil];
                         }else{
@@ -208,7 +271,7 @@
                             RIButtonItem *button = [RIButtonItem item];
                             button.label = [NSString stringWithFormat:@"@%@", account.username];
                             button.action = ^{
-                                [self saveTwitterAccountId:account.identifier];
+                                [self saveTwitterAccountID:account.identifier];
                             };
                             [chooser addButtonItem:button];
                         }
@@ -224,15 +287,15 @@
     ];
 }
 -(void)resetForInitialLaunch{
-    NSString *reset = kFalseString;
-    [self saveToken:reset];
-    [self saveUserid:reset];
-    [self saveUserame:reset];
-    [self saveEmail:reset];
-    [self saveFirstname:reset];
-    [self saveLastname:reset];
-    [self saveTwitterAccountId:reset];
-    [self saveFacebookAccountId:reset];
+    [self saveToken:kFalseString];
+    [self saveUserID:kFalseString];
+    
+    [self saveUserame:kFalseString];
+    [self saveFullName:kFalseString];
+    [self saveEmail:kFalseString];
+    
+    [self saveTwitterAccountID:kFalseString];
+    [self saveFacebookAccountID:kFalseString];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUserSaveToCameraRollKey];
 }
 
@@ -251,15 +314,13 @@
 
 
 
-
+/*
 -(void)saveUserInformation:(NSDictionary *)info{
     [self saveToken:[info objectForKeyOrNil:@"token"]];
     [self saveUserid:[info objectForKeyOrNil:@"userid"]];
     [self saveUserame:[info objectForKeyOrNil:@"username"]];
     [self saveEmail:[info objectForKeyOrNil:@"email"]];
     [self saveFirstname:[info objectForKeyOrNil:@"firstname"]];
-    [self saveLastname:[info objectForKeyOrNil:@"lastname"]];
-//    [self saveNoFriends:[[info objectForKeyOrNil:@"following"] boolValue]];
     
     [Flurry setUserID:[[WaxUser currentUser] username]];
     [Crashlytics setUserIdentifier:[self userid]];
@@ -330,6 +391,7 @@
         [[AIKErrorUtilities sharedUtilities] logMessageToAllServices:@"User logged out from token error (or perhaps not, unclear..)"];
     }
 }
+*/
 
 #pragma mark - Internal Methods
 -(void)showNoTwitterAccessAlert{

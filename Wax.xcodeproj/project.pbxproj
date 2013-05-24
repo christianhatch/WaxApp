@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45009A42174EB8FF00EE0B5C /* LoginObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 45009A41174EB8FF00EE0B5C /* LoginObject.m */; };
+		45009A43174EB8FF00EE0B5C /* LoginObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 45009A41174EB8FF00EE0B5C /* LoginObject.m */; };
+		45009A46174EB90A00EE0B5C /* SettingsObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 45009A45174EB90A00EE0B5C /* SettingsObject.m */; };
+		45009A47174EB90A00EE0B5C /* SettingsObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 45009A45174EB90A00EE0B5C /* SettingsObject.m */; };
+		45009A4A174EBCF600EE0B5C /* LoginObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45009A49174EBCF600EE0B5C /* LoginObjectTests.m */; };
+		45009A4D174EBD0200EE0B5C /* SettingsObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45009A4C174EBD0200EE0B5C /* SettingsObjectTests.m */; };
+		45009A50174EBD0A00EE0B5C /* PersonObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45009A4F174EBD0A00EE0B5C /* PersonObjectTests.m */; };
+		45009A53174EBD1200EE0B5C /* VideoObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45009A52174EBD1200EE0B5C /* VideoObjectTests.m */; };
 		451EBD2D1726CF29000D600E /* WaxDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 451EBD2C1726CF29000D600E /* WaxDefines.m */; };
 		452FADB017404D450091F8D4 /* VideoObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FADAF17404D450091F8D4 /* VideoObject.m */; };
 		452FADD6174074910091F8D4 /* WaxDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 451EBD2C1726CF29000D600E /* WaxDefines.m */; };
@@ -35,7 +43,6 @@
 		452FAE0A174088390091F8D4 /* WaxAPIClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAE09174088390091F8D4 /* WaxAPIClientTests.m */; };
 		452FAE0D174089570091F8D4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 452FAE0F174089570091F8D4 /* Localizable.strings */; };
 		452FAE1617408C200091F8D4 /* NSError+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAE1517408C200091F8D4 /* NSError+WaxKit.m */; };
-		452FAE1917409C340091F8D4 /* WaxKitCategoriesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAE1817409C340091F8D4 /* WaxKitCategoriesTests.m */; };
 		452FAE1C1740AC030091F8D4 /* persons.json in Resources */ = {isa = PBXBuildFile; fileRef = 452FAE1B1740AC030091F8D4 /* persons.json */; };
 		452FAE1E1740AE2F0091F8D4 /* videos.json in Resources */ = {isa = PBXBuildFile; fileRef = 452FAE1D1740AE2F0091F8D4 /* videos.json */; };
 		452FAE201741503E0091F8D4 /* icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = 452FAE1F1741503E0091F8D4 /* icon57.png */; };
@@ -130,6 +137,18 @@
 
 /* Begin PBXFileReference section */
 		1C9784DDF7E84C01BC8F8951 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		45009A40174EB8FF00EE0B5C /* LoginObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginObject.h; sourceTree = "<group>"; };
+		45009A41174EB8FF00EE0B5C /* LoginObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginObject.m; sourceTree = "<group>"; };
+		45009A44174EB90A00EE0B5C /* SettingsObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsObject.h; sourceTree = "<group>"; };
+		45009A45174EB90A00EE0B5C /* SettingsObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsObject.m; sourceTree = "<group>"; };
+		45009A48174EBCF600EE0B5C /* LoginObjectTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginObjectTests.h; sourceTree = "<group>"; };
+		45009A49174EBCF600EE0B5C /* LoginObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginObjectTests.m; sourceTree = "<group>"; };
+		45009A4B174EBD0200EE0B5C /* SettingsObjectTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsObjectTests.h; sourceTree = "<group>"; };
+		45009A4C174EBD0200EE0B5C /* SettingsObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsObjectTests.m; sourceTree = "<group>"; };
+		45009A4E174EBD0A00EE0B5C /* PersonObjectTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonObjectTests.h; sourceTree = "<group>"; };
+		45009A4F174EBD0A00EE0B5C /* PersonObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonObjectTests.m; sourceTree = "<group>"; };
+		45009A51174EBD1200EE0B5C /* VideoObjectTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoObjectTests.h; sourceTree = "<group>"; };
+		45009A52174EBD1200EE0B5C /* VideoObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoObjectTests.m; sourceTree = "<group>"; };
 		451EBD2C1726CF29000D600E /* WaxDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaxDefines.m; path = WaxKit/WaxDefines.m; sourceTree = "<group>"; };
 		452FADAE17404D450091F8D4 /* VideoObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoObject.h; sourceTree = "<group>"; };
 		452FADAF17404D450091F8D4 /* VideoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoObject.m; sourceTree = "<group>"; };
@@ -143,8 +162,6 @@
 		452FAE0E174089570091F8D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		452FAE10174089590091F8D4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		452FAE1517408C200091F8D4 /* NSError+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+WaxKit.m"; sourceTree = "<group>"; };
-		452FAE1717409C340091F8D4 /* WaxKitCategoriesTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxKitCategoriesTests.h; sourceTree = "<group>"; };
-		452FAE1817409C340091F8D4 /* WaxKitCategoriesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxKitCategoriesTests.m; sourceTree = "<group>"; };
 		452FAE1B1740AC030091F8D4 /* persons.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = persons.json; sourceTree = "<group>"; };
 		452FAE1D1740AE2F0091F8D4 /* videos.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = videos.json; sourceTree = "<group>"; };
 		452FAE1F1741503E0091F8D4 /* icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon57.png; path = ../icon57.png; sourceTree = "<group>"; };
@@ -277,6 +294,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		45009A54174EBD1700EE0B5C /* ModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				45009A48174EBCF600EE0B5C /* LoginObjectTests.h */,
+				45009A49174EBCF600EE0B5C /* LoginObjectTests.m */,
+				45009A4B174EBD0200EE0B5C /* SettingsObjectTests.h */,
+				45009A4C174EBD0200EE0B5C /* SettingsObjectTests.m */,
+				45009A4E174EBD0A00EE0B5C /* PersonObjectTests.h */,
+				45009A4F174EBD0A00EE0B5C /* PersonObjectTests.m */,
+				45009A51174EBD1200EE0B5C /* VideoObjectTests.h */,
+				45009A52174EBD1200EE0B5C /* VideoObjectTests.m */,
+			);
+			name = ModelTests;
+			sourceTree = "<group>";
+		};
+		45009A55174EBF1600EE0B5C /* Login/Signup ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				45AF702E1741C97D008399D3 /* SplashViewController.h */,
+				45AF702F1741C97E008399D3 /* SplashViewController.m */,
+				45AF70251741C8C2008399D3 /* SignupViewController.h */,
+				45AF70261741C8C2008399D3 /* SignupViewController.m */,
+				45AF702A1741C8F0008399D3 /* LoginViewController.h */,
+				45AF702B1741C8F0008399D3 /* LoginViewController.m */,
+			);
+			name = "Login/Signup ViewControllers";
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		452FAE1A1740AC030091F8D4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,12 +397,6 @@
 			children = (
 				45AF70361741CBA7008399D3 /* WaxTabBarController.h */,
 				45AF70371741CBA7008399D3 /* WaxTabBarController.m */,
-				45AF702E1741C97D008399D3 /* SplashViewController.h */,
-				45AF702F1741C97E008399D3 /* SplashViewController.m */,
-				45AF70251741C8C2008399D3 /* SignupViewController.h */,
-				45AF70261741C8C2008399D3 /* SignupViewController.m */,
-				45AF702A1741C8F0008399D3 /* LoginViewController.h */,
-				45AF702B1741C8F0008399D3 /* LoginViewController.m */,
 				454BBDC717404A2D005F48ED /* WaxUser.h */,
 				454BBDC817404A2D005F48ED /* WaxUser.m */,
 				45EA32121726063C00980320 /* WaxAPIClient.h */,
@@ -372,6 +412,10 @@
 			children = (
 				454BBDC3174049C4005F48ED /* ModelObject.h */,
 				454BBDC4174049C4005F48ED /* ModelObject.m */,
+				45009A40174EB8FF00EE0B5C /* LoginObject.h */,
+				45009A41174EB8FF00EE0B5C /* LoginObject.m */,
+				45009A44174EB90A00EE0B5C /* SettingsObject.h */,
+				45009A45174EB90A00EE0B5C /* SettingsObject.m */,
 				454BBDCB17404A39005F48ED /* PersonObject.h */,
 				454BBDCC17404A39005F48ED /* PersonObject.m */,
 				452FADAE17404D450091F8D4 /* VideoObject.h */,
@@ -438,6 +482,7 @@
 				45F7162C171F163D009097F3 /* AppDelegate.m */,
 				45F71634171F163D009097F3 /* MainStoryboard.storyboard */,
 				45EA32151726093600980320 /* Models */,
+				45009A55174EBF1600EE0B5C /* Login/Signup ViewControllers */,
 				45EA32111726063C00980320 /* Controllers */,
 				45F71623171F163C009097F3 /* Supporting Files */,
 			);
@@ -466,8 +511,7 @@
 			children = (
 				45F7164C171F163D009097F3 /* WaxTests.h */,
 				45F7164D171F163D009097F3 /* WaxTests.m */,
-				452FAE1717409C340091F8D4 /* WaxKitCategoriesTests.h */,
-				452FAE1817409C340091F8D4 /* WaxKitCategoriesTests.m */,
+				45009A54174EBD1700EE0B5C /* ModelTests */,
 				452FAE08174088390091F8D4 /* WaxAPIClientTests.h */,
 				452FAE09174088390091F8D4 /* WaxAPIClientTests.m */,
 				452FAE1A1740AC030091F8D4 /* Resources */,
@@ -707,6 +751,8 @@
 				45AF702C1741C8F0008399D3 /* LoginViewController.m in Sources */,
 				45AF70301741C97E008399D3 /* SplashViewController.m in Sources */,
 				45AF70381741CBA7008399D3 /* WaxTabBarController.m in Sources */,
+				45009A42174EB8FF00EE0B5C /* LoginObject.m in Sources */,
+				45009A46174EB90A00EE0B5C /* SettingsObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -724,7 +770,6 @@
 				452FADDC174074910091F8D4 /* WaxAPIClient.m in Sources */,
 				452FADDD174074910091F8D4 /* WaxDataManager.m in Sources */,
 				452FAE0A174088390091F8D4 /* WaxAPIClientTests.m in Sources */,
-				452FAE1917409C340091F8D4 /* WaxKitCategoriesTests.m in Sources */,
 				452FAEE417416C680091F8D4 /* UIView+WaxKit.m in Sources */,
 				452FAFE61741860D0091F8D4 /* WaxAutoCompleter.m in Sources */,
 				452FAFE81741860D0091F8D4 /* WaxEmptyView.m in Sources */,
@@ -732,6 +777,12 @@
 				45AF702D1741C8F0008399D3 /* LoginViewController.m in Sources */,
 				45AF70311741C97E008399D3 /* SplashViewController.m in Sources */,
 				45AF70391741CBA7008399D3 /* WaxTabBarController.m in Sources */,
+				45009A43174EB8FF00EE0B5C /* LoginObject.m in Sources */,
+				45009A47174EB90A00EE0B5C /* SettingsObject.m in Sources */,
+				45009A4A174EBCF600EE0B5C /* LoginObjectTests.m in Sources */,
+				45009A4D174EBD0200EE0B5C /* SettingsObjectTests.m in Sources */,
+				45009A50174EBD0A00EE0B5C /* PersonObjectTests.m in Sources */,
+				45009A53174EBD1200EE0B5C /* VideoObjectTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

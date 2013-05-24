@@ -13,5 +13,7 @@
 +(UIButton *)whiteButtonWithTitle:(NSString *)title;
 +(UIButton *)greenButtonWithTitle:(NSString *)title;
 
+-(void)setImage:(UIImage *)image forState:(UIControlState)state animated:(BOOL)animated; 
+-(void)setBackgroundImage:(UIImage *)image forState:(UIControlState)state animated:(BOOL)animated;
 
 @end

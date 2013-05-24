@@ -20,7 +20,7 @@
     return [NSURL URLWithString:[NSString stringWithFormat:@"https://stream.kiwi.ly/vods3/_definst_/mp4:amazons3/%@/userinfo-%@/%@/playlist.m3u8", kThirdPartyAWSBucket, userid, videoLink]];
 }
 +(NSURL *)profilePictureURLFromUserid:(NSString *)userid{    
-    if ([[WaxUser currentUser] useridIsCurrentUser:userid]) {
+    if ([[WaxUser currentUser] userIDIsCurrentUser:userid]) {
 //        double lastChange = [[NSUserDefaults standardUserDefaults] doubleForKey:KWProfilePictureChangeDateKey];
 //        double currentTime = [[NSDate date] timeIntervalSince1970];
 //        double difference = (currentTime - lastChange) / 86400;

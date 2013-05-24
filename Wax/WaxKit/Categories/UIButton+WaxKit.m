@@ -35,5 +35,19 @@
     [btn.titleLabel setTextAlignment:NSTextAlignmentCenter];
     return btn;
 }
+-(void)setImage:(UIImage *)image forState:(UIControlState)state animated:(BOOL)animated{
+    if (animated) {
+        [UIView transitionWithView:self.imageView duration:WaxAnimationDurationDefault options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+            [self setImage:image forState:state];
+        } completion:nil];
+    }
+}
+-(void)setBackgroundImage:(UIImage *)image forState:(UIControlState)state animated:(BOOL)animated{
+    if (animated) {
+        [UIView transitionWithView:self.imageView duration:WaxAnimationDurationDefault options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+            [self setBackgroundImage:image forState:state];
+        } completion:nil];
+    }
+}
 
 @end

@@ -22,4 +22,6 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *disclaimerLabel;
 
+@property (nonatomic, assign) BOOL facebookSignup; 
+
 @end

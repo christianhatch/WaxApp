@@ -36,22 +36,23 @@
 -(id)initWithDictionary:(NSDictionary *)dictionary{
     self = [super init];
     if (self) {
-        @try {
-            self.userid = [dictionary objectForKeyOrNil:@"userid"];
-            self.username = [dictionary objectForKeyOrNil:@"username"];
-            self.fullName = [dictionary objectForKeyOrNil:@"name"];
+//        @try {
+            self.userid = [dictionary objectForKey:@"userid" orDefaultValue:@""];
+            self.username = [dictionary objectForKey:@"username" orDefaultValue:NSLocalizedString(@"a user", @"a user")];
+            self.fullName = [dictionary objectForKey:@"name"  orDefaultValue:NSLocalizedString(@"a user", @"a user")];
             
-            self.following = [[dictionary objectForKeyOrNil:@"isfollowing"] boolValue];
+            self.following = [[dictionary objectForKey:@"isfollowing" orDefaultValue:NO] boolValue];
             
-            self.followersCount = [dictionary objectForKeyOrNil:@"followers"];
-            self.followingCount = [dictionary objectForKeyOrNil:@"following"];
-            self.titlesCount = [dictionary objectForKeyOrNil:@"titles"];
+            self.followersCount = [dictionary objectForKey:@"followers" orDefaultValue:@0];
+            self.followingCount = [dictionary objectForKey:@"following" orDefaultValue:@0];
+            self.titlesCount = [dictionary objectForKey:@"titles" orDefaultValue:@0];
             
-            self.infiniteScrollingID = [dictionary objectForKeyOrNil:@"item_number"];
-        }
-        @catch (NSException *exception) {
-            [[AIKErrorUtilities sharedUtilities] logExceptionWithMessage:@"Tried to init person object with a nil persondictionary!" exception:exception];
-        }
+            self.infiniteScrollingID = [dictionary objectForKey:@"item_number" orDefaultValue:nil];
+        
+//        }
+//        @catch (NSException *exception) {
+//            [[AIKErrorUtilities sharedUtilities] logExceptionWithMessage:@"Tried to init person object with a nil persondictionary!" exception:exception];
+//        }
     }
     return self;
 }
@@ -64,7 +65,7 @@
             self.fullName = [NSString stringWithFormat:@"%@ %@", graphuser.first_name, graphuser.last_name];
         }
         @catch (NSException *exception) {
-            [[AIKErrorUtilities sharedUtilities] logExceptionWithMessage:@"Tried to init person object with a nil fbgraphuser!" exception:exception];
+            [[AIKErrorManager sharedManager] logExceptionWithMessage:@"Tried to init person object with a nil fbgraphuser!" exception:exception];
         }
     }
     return self;

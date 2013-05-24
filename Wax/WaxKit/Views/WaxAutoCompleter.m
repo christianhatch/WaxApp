@@ -133,7 +133,7 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
                 cell.frame = CGRectMake(0, 0, self.bounds.size.width, 49); 
             }
-            cell.textLabel.text = [[self.hashtagsArray objectAtIndexNotNull:indexPath.row] objectForKeyOrNil:@"tag"];
+            cell.textLabel.text = [[self.hashtagsArray objectAtIndexOrNil:indexPath.row] objectForKeyOrNil:@"tag"];
             cell.accessoryType = UITableViewCellAccessoryNone;
             return cell;
         }break;
@@ -146,22 +146,22 @@
     @try {
         switch (self.sourceType) {
             case CHAutoCompleteSourceTypeUsers:{
-                PersonObject *person = [self.usersArray objectAtIndexNotNull:indexPath.row];
+                PersonObject *person = [self.usersArray objectAtIndexOrNil:indexPath.row];
                 [self.textView setText:[self.textView.text stringByReplacingOccurrencesOfString:self.searchTerm withString:[NSString stringWithFormat:@"@%@", person.username]]];
             }break;
             case CHAutoCompleteSourceTypeHashTags:{
-                [self.textView setText:[self.textView.text stringByReplacingOccurrencesOfString:self.searchTerm withString:[[self.hashtagsArray objectAtIndexNotNull:indexPath.row] objectForKeyOrNil:@"tag"]]];
+                [self.textView setText:[self.textView.text stringByReplacingOccurrencesOfString:self.searchTerm withString:[[self.hashtagsArray objectAtIndexOrNil:indexPath.row] objectForKeyOrNil:@"tag"]]];
             }break;
         }
     }
     @catch (NSException *exception) {
-        [[AIKErrorUtilities sharedUtilities] logExceptionWithMessage:@"WaxAutoCompleter selected row and CAUGHT EXCEPTION" exception:exception]; 
+        [[AIKErrorManager sharedManager] logExceptionWithMessage:@"WaxAutoCompleter selected row and CAUGHT EXCEPTION" exception:exception]; 
     }
     [self hideOptionsView];
 }
 #pragma mark - Public API
 -(void)searchAutoCompleteWithString:(NSString *)string{
-    if (![string isEmptyOrNull]){
+    if (![NSString isEmptyOrNil:string]){
         NSString *word = [[string componentsSeparatedByString:@" "] lastObject];
         if ([word hasPrefix:@"@"] && ![word isEqualToString:@"@"]) {
             self.searchTerm = word;

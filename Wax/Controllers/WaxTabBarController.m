@@ -10,11 +10,10 @@
 #import "SplashViewController.h"
 
 @interface WaxTabBarController ()
-
 @end
 
-@implementation WaxTabBarController
 
+@implementation WaxTabBarController
 
 - (void)viewDidLoad{
     [super viewDidLoad];
@@ -24,6 +23,7 @@
     self.tabBar.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.tabBar.bounds].CGPath;
     self.delegate = self;
     [self setupTabBarIcons];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSplashScreen) name:WaxUserDidLogOutNotification object:nil];
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -46,7 +46,7 @@
 }
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
     if ([viewController.title isEqualToString:@"Capture"]){
-        [AIKLocationManager locationPermittedOrAsk];
+        [AIKLocationManager askForAuthorizationAndStartUpdatingLocation];
         [self capture];
         return NO;
     }else{
@@ -68,7 +68,7 @@
     }
 }
 -(void)capture{
-    [[AIKErrorUtilities sharedUtilities] logMessageToAllServices:@"Tapped record on tabbar"];
+    [[AIKErrorManager sharedManager] logMessageToAllServices:@"Tapped record on tabbar"];
 //    VideoCaptureViewController *vcc = [[VideoCaptureViewController alloc] init];
 //    [self presentViewController:vcc animated:YES completion:nil];
 }

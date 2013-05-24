@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Christian Hatch. All rights reserved.
 //
 
-
+#define WaxAnimationDurationDefault 0.35f
 
 //Categories
 #import "NSString+WaxKit.h"
@@ -14,6 +14,7 @@
 #import "UIButton+WaxKit.h"
 #import "UIFont+WaxKit.h"
 #import "UIImage+WaxKit.h"
+#import "NSError+WaxKit.h"
 
 //Controllers
 #import "WaxAPIClient.h"
@@ -22,5 +23,11 @@
 
 
 //Models
+#import "LoginObject.h"
+#import "SettingsObject.h"
+
 #import "PersonObject.h"
 #import "VideoObject.h"
+
+//third party
+#import "SVProgressHUD.h"

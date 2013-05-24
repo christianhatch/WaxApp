@@ -22,37 +22,36 @@
     [super viewDidLoad];
     
     [self enableSwipeToPopVC:YES];
-    
-    self.navigationItem.title = NSLocalizedString(@"Wax", @"Wax");
-    
-    [self.signupWithFacebookButton addTarget:self action:@selector(signupWithFacebook:) forControlEvents:UIControlEventTouchUpInside];
-    [self.signupWithEmailButton addTarget:self action:@selector(signupWithEmail:) forControlEvents:UIControlEventTouchUpInside];
+        
+    [self.signupWithFacebookButton addTarget:self action:@selector(signup:) forControlEvents:UIControlEventTouchUpInside];
+    self.signupWithFacebookButton.tag = 2;
+  
+    [self.signupWithEmailButton addTarget:self action:@selector(signup:) forControlEvents:UIControlEventTouchUpInside];
     [self.loginButton addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
 
     [self setUpView];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [SVProgressHUD dismiss];
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 }
-
-
--(void)signupWithFacebook:(id)sender{
+-(void)signup:(UIButton *)sender{
     SignupViewController *signupVC = initViewControllerWithIdentifier(@"SignupVC");
+    signupVC.facebookSignup = (sender.tag == 2);
     [self.navigationController pushViewController:signupVC animated:YES];
 }
--(void)signupWithEmail:(id)sender{
-    SignupViewController *signupVC = initViewControllerWithIdentifier(@"SignupVC");
-    [self.navigationController pushViewController:signupVC animated:YES];
-}
+
 -(void)login:(id)sender{
     LoginViewController *loginVC = initViewControllerWithIdentifier(@"LoginVC");
     [self.navigationController pushViewController:loginVC animated:YES];
 }
 
 -(void)setUpView{
+    self.navigationItem.title = NSLocalizedString(@"Wax", @"Wax");
+
     [self.signupWithFacebookButton setTitle:NSLocalizedString(@"Sign Up With Facebook", @"Sign Up With Facebook") forState:UIControlStateNormal];
     [self.signupWithFacebookButton setTitle:NSLocalizedString(@"Sign Up With Facebook", @"Sign Up With Facebook") forState:UIControlStateHighlighted];
     

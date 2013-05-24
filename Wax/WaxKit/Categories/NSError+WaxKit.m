@@ -12,18 +12,18 @@
 @implementation NSError (WaxKit)
 
 
--(NSError *)errorObjectFromAPIResponse:(NSDictionary *)dictionary{
++(NSError *)waxAPIErrorFromResponse:(NSDictionary *)response{
     
-    if (NSErrorFromCode([[dictionary objectForKeyOrNil:@"code"] intValue])) {
-        return NSErrorFromCode([[dictionary objectForKeyOrNil:@"code"] intValue]);
+    if (NSErrorFromCode([[response objectForKeyOrNil:@"code"] intValue])) {
+        return NSErrorFromCode([[response objectForKeyOrNil:@"code"] intValue]);
     }else{
-        return [NSError errorWithDomain:kWaxAPIErrorDomain code:[[dictionary objectForKeyOrNil:@"code"] intValue] userInfo:@{NSLocalizedDescriptionKey : [dictionary objectForKeyOrNil:@"message"] ? [dictionary objectForKeyOrNil:@"message"] : @"Unknown Error"}];
+        return [NSError errorWithDomain:kWaxAPIErrorDomain code:[[response objectForKeyOrNil:@"code"] intValue] userInfo:@{NSLocalizedDescriptionKey : [response objectForKeyOrNil:@"message"] ? [response objectForKeyOrNil:@"message"] : NSLocalizedString(@"Unknown Error", @"Unknown Error")}];
     }
 }
 
 static inline NSError * NSErrorFromCode(int errorCode) {
 
-    NSString *errorReason = NSLocalizedString(@"Uknown Error", @"Unknown Error");
+    NSString *errorReason = NSLocalizedString(@"Unknown Error", @"Unknown Error");
     NSString *recoverySuggestion = NSLocalizedString(@"Please try again!", @"Please try again!"); 
     
     switch (errorCode) {

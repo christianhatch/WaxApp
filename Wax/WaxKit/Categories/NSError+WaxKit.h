@@ -10,8 +10,7 @@
 
 @interface NSError (WaxKit)
 
--(NSError *)errorObjectFromAPIResponse:(NSDictionary *)dictionary;
-
++(NSError *)waxAPIErrorFromResponse:(NSDictionary *)response;
 
 
 @end

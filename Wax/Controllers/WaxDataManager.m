@@ -20,23 +20,27 @@
 }
 
 -(id)validateResponseObject:(id)responseObject{
+    
+    id returnObject = responseObject;
+    
     if (responseObject) {
-        if ([[[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectAtIndexNotNull:0] objectForKeyOrNil:kWaxAPIJSONKey] isEqualToString:@"false"]) {
+        if ([[[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectAtIndexOrNil:0] objectForKeyOrNil:kWaxAPIJSONKey] isEqualToString:kFalseString]) {
 #ifdef DEBUG
             DLog(@"LOGGED OUT DUE TO INVALID TOKEN");
 #else
-            [[WaxUser currentUser] logOut:YES];
+            [[WaxUser currentUser] logOut];
 #endif
-            [[AIKErrorUtilities sharedUtilities] logMessageToAllServices:[NSString stringWithFormat:@"response object failed validation and logged user out %@", responseObject]];
-            return nil;
-        }else if ([[[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectAtIndexNotNull:0] objectForKeyOrNil:@"error"] integerValue] == 103){
-            return nil;
-        }else{
-            return responseObject;
+            [[AIKErrorManager sharedManager] logMessageToAllServices:[NSString stringWithFormat:@"response object failed validation and logged user out %@", responseObject]];
+            
+            returnObject = nil; 
+            
+        }else if ([[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectAtIndexOrNil:0] objectForKeyOrNil:@"error"]){
+            NSError *error = [NSError waxAPIErrorFromResponse:[[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectAtIndexOrNil:0] objectForKeyOrNil:@"error"]];
+           
+            returnObject = error;
         }
-    }else{
-        return responseObject;
     }
+    return returnObject;
 }
 
 @end

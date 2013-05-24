@@ -36,14 +36,14 @@
 #pragma mark - Remote Notifications
 -(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     UrbanAirshipOrbiter *ship = [UrbanAirshipOrbiter urbanAirshipManagerWithApplicationKey:kThirdPartyUrbanAirshipAppKey applicationSecret:kThirdPartyUrbanAirshipAppSecret];
-    [ship registerDeviceToken:deviceToken withAlias:[[WaxUser currentUser] userid] success:^(id responseObject) {
+    [ship registerDeviceToken:deviceToken withAlias:[[WaxUser currentUser] userID] success:^(id responseObject) {
         //yay
     } failure:^(NSError *error) {
-        [[AIKErrorUtilities sharedUtilities] logErrorWithMessage:@"error registering device token with urban airship" error:error];
+        [[AIKErrorManager sharedManager] logErrorWithMessage:@"error registering device token with urban airship" error:error];
     }];
 }
 -(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    [[AIKErrorUtilities sharedUtilities] logErrorWithMessage:@"Did Fail To Register For Remote Notifications" error:error];
+    [[AIKErrorManager sharedManager] logErrorWithMessage:@"Did Fail To Register For Remote Notifications" error:error];
 }
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
     //do lots of fun things here!
@@ -139,6 +139,6 @@
     [[WaxUser currentUser] resetForInitialLaunch];
 }
 -(void)crashlyticsDidDetectCrashDuringPreviousExecution:(Crashlytics *)crashlytics{
-    [[AIKErrorUtilities sharedUtilities] didCrash];
+    [[AIKErrorManager sharedManager] didCrash];
 }
 @end

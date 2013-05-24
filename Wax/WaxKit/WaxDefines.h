@@ -64,7 +64,7 @@ extern NSString *const kWaxNotificationFacebookAccountDidChange;
 
 //misc shortcuts
 #define initViewControllerWithIdentifier(i) [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:i]
-#define mainWindowView [[[[UIApplication sharedApplication] keyWindow] subviews] objectAtIndexNotNull:0]
+#define mainWindowView [[[[UIApplication sharedApplication] keyWindow] subviews] objectAtIndex:0]
 
 //custom logging
 #ifdef DEBUG

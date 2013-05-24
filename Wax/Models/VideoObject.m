@@ -33,7 +33,7 @@
 
 -(id)initWithDictionary:(NSDictionary *)dictionary{
     self = [super init];
-    if(self) {
+    if (self) {
 
         self.userID = [dictionary objectForKey:@"userid" orDefaultValue:nil];
         self.username = [dictionary objectForKey:@"username" orDefaultValue:NSLocalizedString(@"a user", @"a user")];
@@ -54,7 +54,7 @@
        
         self.infiniteScrollingID = [dictionary objectForKey:@"timestamp" orDefaultValue:nil]; 
     }
-        return self;
+    return self;
 }
 -(NSString *)description{
     NSString *descrippy = [NSString stringWithFormat:@"VideoObject Description:\nUserID: %@ Username: %@ Rank: %@ TagCount: %@ VideoID: %@ VideoLink: %@ ShareID: %@ TimeStamp: %@ Tag: %@ VotesCount: %@ ViewsCount: %@ DidVote: %i", self.userID, self.username, self.rank, self.tagCount, self.videoID, self.videoLink, self.shareID, self.timeStamp, self.tag, self.votesCount, self.viewCount, self.didVote];
