@@ -7,7 +7,7 @@
 //
 
 #import "WaxAPIClient.h"
-
+#import <AFAmazonS3Client/AFAmazonS3Client.h>
 
 @interface WaxAPIClient ()
 @property (nonatomic) dispatch_queue_t jsonProcessingQueue;
@@ -66,7 +66,7 @@
         }];
 
     }else{
-        [NSException raise:@"One or more parameters is nil!" format:@"Cannot invoke this method with nil paramaters"];
+        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke this method with nil paramaters"];
     }
 }
 -(void)loginWithFacebookID:(NSString *)facebookID fullName:(NSString *)fullName email:(NSString *)email completion:(WaxAPIClientCompletionBlockTypeLogin)completion{
@@ -79,7 +79,7 @@
         }];
 
     }else{
-        [NSException raise:@"One or more parameters is nil!" format:@"Cannot invoke this method with nil paramaters"];
+        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke this method with nil paramaters"];
     }
 }
 -(void)loginWithUsername:(NSString *)username password:(NSString *)password completion:(WaxAPIClientCompletionBlockTypeLogin)completion{
@@ -92,7 +92,7 @@
         }];
         
     }else{
-        [NSException raise:@"One or more parameters is nil!" format:@"Cannot invoke this method with nil paramaters"];
+        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke this method with nil paramaters"];
     }
 }
 
@@ -105,7 +105,7 @@
             }
         }];
     }else{
-        [NSException raise:@"One or more parameters is nil!" format:@"Cannot invoke this method with nil paramaters"];
+        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke this method with nil paramaters"];
     }
 }
 -(void)fetchHomeFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
@@ -116,7 +116,7 @@
             }
         }];
     }else{
-        [NSException raise:@"One or more parameters is nil!" format:@"Cannot invoke this method with nil paramaters"];
+        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke this method with nil paramaters"];
     }
 }
 -(void)fetchFeedForTag:(NSString *)tag sortedBy:(WaxAPIClientTagSortType)sortedBy infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
@@ -138,7 +138,7 @@
             }break;
         }
     }else{
-        [NSException raise:@"One or more parameters is nil!" format:@"Cannot invoke this method with nil paramaters"];
+        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke this method with nil paramaters"];
     }
 }
 
@@ -153,7 +153,7 @@
         }];
 
     }else{
-        [NSException raise:@"One or more parameters is nil!" format:@"Cannot invoke this method with nil paramaters"];
+        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke this method with nil paramaters"];
     }
 }
 -(void)fetchProfileInformationForUser:(NSString *)personID completion:(WaxAPIClientCompletionBlockTypeUser)completion{
@@ -166,7 +166,7 @@
         }];
         
     }else{
-        [NSException raise:@"One or more parameters is nil!" format:@"Cannot invoke this method with nil paramaters"];
+        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke this method with nil paramaters"];
     }
 }
 -(void)fetchFollowersForUser:(NSString *)personID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
@@ -177,7 +177,7 @@
             }
         }];
     }else{
-        [NSException raise:@"One or more parameters is nil!" format:@"Cannot invoke this method with nil paramaters"];
+        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke this method with nil paramaters"];
     }
 }
 -(void)fetchFollowingForUser:(NSString *)personID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
@@ -188,7 +188,7 @@
             }
         }];
     }else{
-        [NSException raise:@"One or more parameters is nil!" format:@"Cannot invoke this method with nil paramaters"];
+        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke this method with nil paramaters"];
     }
 }
 -(void)searchForUser:(NSString *)searchTerm infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
@@ -199,10 +199,16 @@
             }
         }];
     }else{
-        [NSException raise:@"One or more parameters is nil!" format:@"Cannot invoke this method with nil paramaters"];
+        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke this method with nil paramaters"];
     }
 }
-
+-(void)syncFacebookProfilePictureWithCompletion:(WaxAPIClientCompletionBlockTypeSimple)completion{
+    [self postPath:@"users/fbprofilepic" parameters:nil modelClass:nil completionBlock:^(id model, NSError *error) {
+        if (completion) {
+            completion((model == nil), error); 
+        }
+    }];
+}
 #pragma mark - Videos
 -(void)uploadVideoMetadata:(NSString *)videoLink videoLength:(NSNumber *)videoLength tag:(NSString *)tag category:(NSString *)category caption:(NSString *)caption location:(CLLocation *)location completion:(WaxAPIClientCompletionBlockTypeVideoUpload)completion{
     
@@ -215,7 +221,7 @@
             }
         }];
     }else{
-        [NSException raise:@"One or more parameters is nil!" format:@"Cannot invoke this method with nil paramaters"];
+        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke this method with nil paramaters"];
     }
 }
 -(void)voteUpVideo:(NSString *)videoID ofUser:(NSString *)personID completion:(WaxAPIClientCompletionBlockTypeSimple)completion{
@@ -226,7 +232,7 @@
             }
         }];
     }else{
-        [NSException raise:@"One or more parameters is nil!" format:@"Cannot invoke this method with nil paramaters"];
+        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke this method with nil paramaters"];
     }
 }
 -(void)performAction:(WaxAPIClientVideoActionType)actionType onVideoID:(NSString *)videoID completion:(WaxAPIClientCompletionBlockTypeSimple)completion{
@@ -253,7 +259,7 @@
         }];
 
     }else{
-        [NSException raise:@"One or more parameters is nil!" format:@"Cannot invoke this method with nil paramaters"];
+        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke this method with nil paramaters"];
     }
 }
 
@@ -274,7 +280,7 @@
         }];
 
     }else{
-        [NSException raise:@"One or more parameters is nil!" format:@"Cannot invoke this method with nil paramaters"];
+        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke this method with nil paramaters"];
     }
 }
 
@@ -327,15 +333,15 @@
             }
         }];
     }else{
-        [NSException raise:@"Path is nil!" format:@"Cannot post without a path!"];
+        [NSException raise:NSInvalidArgumentException format:@"Cannot post without a path!"];
     }
 }
 -(void)processResponseObject:(id)responseObject forArrayOfModelClass:(Class)modelClass withCompletionBlock:(void (^)(NSMutableArray *processedResponse, NSError *error))completion{
     
     dispatch_async(self.jsonProcessingQueue, ^{
         
-        id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
-                        
+        id validated = [self validateResponseObject:responseObject];
+        
         if ([validated isKindOfClass:[NSError class]]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (completion) {
@@ -343,7 +349,7 @@
                 }
             });
         }else{
-            NSArray *rawDictionaries = [validated objectForKeyOrNil:kWaxAPIJSONKey];
+            NSArray *rawDictionaries = validated;
             NSMutableArray *modelObjectArray = [NSMutableArray arrayWithCapacity:rawDictionaries.count];
             
             for(NSDictionary *dictionary in modelObjectArray) {
@@ -362,7 +368,7 @@
 
     dispatch_async(self.jsonProcessingQueue, ^{
         
-        id validated = [[WaxDataManager sharedManager] validateResponseObject:responseObject];
+        id validated = [self validateResponseObject:responseObject];
         
         if ([validated isKindOfClass:[NSError class]]) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -373,7 +379,7 @@
         }else{
             id modelObject = nil; 
             if (modelClass) {
-                modelObject = [[modelClass alloc] initWithDictionary:[validated objectForKeyOrNil:kWaxAPIJSONKey]];
+                modelObject = [[modelClass alloc] initWithDictionary:validated];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (completion) {
@@ -383,6 +389,78 @@
         }
     });
 }
+//this method checks that the request was completed and returns the raw response object or error. also handles logging user out when getting a token error (error 9999)
+-(id)validateResponseObject:(id)responseObject{
+    
+    id returnObject = nil;
+    
+    if (responseObject) {
+        if ([[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectForKeyOrNil:@"complete"] boolValue]) {
+            returnObject = [[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectForKeyOrNil:@"data"];
+        }else{
+            NSError *error = [NSError waxAPIErrorFromResponse:[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectForKeyOrNil:@"error"]];
+            if (error.code == 9999) {
+                [[WaxUser currentUser] logOut];
+            }else{
+                returnObject = error;
+            }
+        }
+    }
+
+    return returnObject;
+
+//
+//    
+//    
+//    
+//    
+//    
+//    
+//    
+//    
+//    id returnObject = responseObject;
+//    
+//    if (responseObject) {
+//        
+//        if ([[[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectAtIndexOrNil:0] objectForKeyOrNil:kWaxAPIJSONKey] isEqualToString:kFalseString]) {
+//#ifdef DEBUG
+//            DLog(@"LOGGED OUT DUE TO INVALID TOKEN");
+//#else
+//            [[WaxUser currentUser] logOut];
+//#endif
+//            [[AIKErrorManager sharedManager] logMessageToAllServices:[NSString stringWithFormat:@"response object failed validation and logged user out %@", responseObject]];
+//            
+//            returnObject = nil;
+//            
+//        }else if ([[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectAtIndexOrNil:0] objectForKeyOrNil:@"error"]){
+//            NSError *error = [NSError waxAPIErrorFromResponse:[[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectAtIndexOrNil:0] objectForKeyOrNil:@"error"]];
+//            
+//            returnObject = error;
+//        }
+//    }
+//    return returnObject;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

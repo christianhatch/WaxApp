@@ -12,8 +12,6 @@
 
 + (WaxDataManager *)sharedManager;
 
--(id)validateResponseObject:(id)responseObject;
-
 
 
 @end

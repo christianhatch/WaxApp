@@ -28,15 +28,48 @@
     
     [self setUpView];
 }
-
 -(void)loginWithFacebook:(id)sender{
-    DLog(@"login fbook");
+
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Logging In With Facebook...", @"Logging In With Facebook...")];
+    
+    [[AIKFacebookManager sharedManager] connectFacebookWithCompletion:^(id<FBGraphUser> user, NSError *error) {
+        if (!error) {
+            [[WaxUser currentUser] loginWithFacebookID:user.id fullName:user.name email:[user objectForKey:@"email"] completion:^(NSError *error) {
+                if (!error) {
+                    [SVProgressHUD dismiss];
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }else{
+                    [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"Problem Logging In With Facebook", @"Problem Loggin In With Facebook") error:error buttonHandler:^{
+                        [SVProgressHUD dismiss];
+                    }];
+                }
+            }];
+        }else{
+            [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Getting Information From Facebook", @"Problem Getting Information From Facebook") error:error andShowAlertWithButtonHandler:^{
+                [SVProgressHUD dismiss];
+            }];
+        }
+    }]; 
 }
 -(void)forgotPassword:(id)sender{
-    DLog(@"forgot password");
+    
+    [[AIKErrorManager sharedManager] showAlertWithTitle:@"Soon!" message:@"We'll have this up and running in a jiffy, so don't forget your password just yet!" buttonHandler:nil];
+    
 }
 -(void)login:(id)sender{
-    DLog(@"login");
+
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Logging In...", @"Logging In...")];
+    
+    [[WaxUser currentUser] loginWithUsername:self.usernameField.text password:self.passwordField.text completion:^(NSError *error) {
+        if (!error) {
+            [SVProgressHUD dismiss];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }else{
+            [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"Problem Logging In", @"Problem Loggin In") error:error buttonHandler:^{
+                [SVProgressHUD dismiss];
+            }];
+        }
+    }];
 }
 
 -(void)setUpView{
@@ -44,12 +77,7 @@
     self.loginButton.title = NSLocalizedString(@"Log In", @"Log In"); 
     
     self.usernameField.placeholder = NSLocalizedString(@"Username", @"Username");
-//    self.usernameField.borderStyle = UITextBorderStyleNone;
-//    self.usernameField.textAlignment = NSTextAlignmentCenter;
-    
     self.passwordField.placeholder = NSLocalizedString(@"Password", @"Password");
-//    self.passwordField.borderStyle = UITextBorderStyleNone;
-//    self.passwordField.textAlignment = NSTextAlignmentCenter;
     
     [self.forgotPasswordButton setTitle:NSLocalizedString(@"forgot password?", @"forgot password?") forState:UIControlStateNormal];
     [self.forgotPasswordButton setTitle:NSLocalizedString(@"forgot password?", @"forgot password?") forState:UIControlStateHighlighted];

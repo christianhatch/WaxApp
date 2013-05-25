@@ -12,7 +12,8 @@ extern NSString *const WaxUserDidLogInNotification;
 extern NSString *const WaxUserDidLogOutNotification; 
 
 
-typedef void(^WaxUserCompletionBlock)(NSError *error);
+typedef void(^WaxUserCompletionBlockTypeSimple)(NSError *error);
+typedef void(^WaxUserCompletionBlockTypeProfilePicture)(NSError *error, UIImage *profilePicture);
 
 @interface WaxUser : NSObject
 
@@ -46,19 +47,19 @@ typedef void(^WaxUserCompletionBlock)(NSError *error);
                         fullName:(NSString *)fullName
                            email:(NSString *)email
             passwordOrFacebookID:(NSString *)passwordOrFacebookID
-                      completion:(WaxUserCompletionBlock)completion;
+                      completion:(WaxUserCompletionBlockTypeSimple)completion;
 
 -(void)loginWithFacebookID:(NSString *)facebookID
                   fullName:(NSString *)fullName
                      email:(NSString *)email
-                completion:(WaxUserCompletionBlock)completion;
+                completion:(WaxUserCompletionBlockTypeSimple)completion;
 
 -(void)loginWithUsername:(NSString *)username
                 password:(NSString *)password
-              completion:(WaxUserCompletionBlock)completion;
+              completion:(WaxUserCompletionBlockTypeSimple)completion;
 
--(void)chooseNewprofilePictureWithCompletion:(void(^)(NSError *error, UIImage *profilePicture))completion;
--(void)syncFacebookProfilePictureWithCompletion:(WaxUserCompletionBlock)completion;
+-(void)chooseNewprofilePicture:(UIViewController *)sender completion:(WaxUserCompletionBlockTypeProfilePicture)completion;
+-(void)syncFacebookProfilePictureWithCompletion:(WaxUserCompletionBlockTypeProfilePicture)completion;
 -(void)logOut;
 
 #pragma mark - Utility Methods
@@ -66,7 +67,7 @@ typedef void(^WaxUserCompletionBlock)(NSError *error);
 -(BOOL)twitterAccountConnected;
 -(BOOL)facebookAccountConnected;
 -(BOOL)userIDIsCurrentUser:(NSString *)userID;
--(void)chooseTwitterAccountWithCompletion:(WaxUserCompletionBlock)completion;
+-(void)chooseTwitterAccountWithCompletion:(WaxUserCompletionBlockTypeSimple)completion;
 
 -(void)resetForInitialLaunch; 
 

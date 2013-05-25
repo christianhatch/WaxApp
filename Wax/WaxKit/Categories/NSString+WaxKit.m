@@ -10,21 +10,23 @@
 
 @implementation NSString (WaxKit)
 
-+(NSString *)s3ProfilePictureKeyFromUserid:(NSString *)userid{
-    return [[NSString stringWithFormat:@"userinfo-%@/profilepicture", userid] lowercaseString];
-}
-
-+(NSString *)s3VideoKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink{
-    return [[NSString stringWithFormat:@"userinfo-%@/%@", userid, videoLink] lowercaseString];
-}
-
-+(NSString *)s3ThumbnailKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink{
-    return [[NSString stringWithFormat:@"userinfo-%@/%@.jpg", userid, videoLink] lowercaseString];
-}
-
 +(NSString *)videoFilePathAfterSquaring{
     return [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"exported.mp4"];
 }
++(NSString *)libraryFilePathByAppendingFileName:(NSString *)filename andExtension:(NSString *)extension{
+    return [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", filename, extension]];
+}
+
++(NSString *)s3ProfilePictureKeyFromUserid:(NSString *)userid{
+    return [[NSString stringWithFormat:@"%@/profile_picture.jpg", userid] lowercaseString];
+}
++(NSString *)s3VideoKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink{
+    return [[NSString stringWithFormat:@"%@/%@", userid, videoLink] lowercaseString];
+}
++(NSString *)s3ThumbnailKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink{
+    return [[NSString stringWithFormat:@"%@/%@.jpg", userid, videoLink] lowercaseString];
+}
+
 
 //+(NSString *)apiPathWithGroup:(WaxAPIGroupType)group path:(NSString *)path{
 //    return [NSString stringWithFormat:@"%@/%@", StringFromGroupType(group), path];

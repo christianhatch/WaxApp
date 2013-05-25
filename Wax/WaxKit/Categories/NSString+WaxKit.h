@@ -21,6 +21,8 @@
 @interface NSString (WaxKit)
 
 +(NSString *)videoFilePathAfterSquaring;
++(NSString *)libraryFilePathByAppendingFileName:(NSString *)filename andExtension:(NSString *)extension;
+
 +(NSString *)s3ProfilePictureKeyFromUserid:(NSString *)userid;
 +(NSString *)s3VideoKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink;
 +(NSString *)s3ThumbnailKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink;

@@ -48,7 +48,7 @@
             if (!error) {
                 [SVProgressHUD dismiss];
                 
-                [FBRequestConnection startWithGraphPath:@"me?fields=picture.type(square)" completionHandler:^(FBRequestConnection *connection, id <FBGraphObject> result, NSError *error) {
+                [FBRequestConnection startWithGraphPath:@"me?fields=picture.type(large)" completionHandler:^(FBRequestConnection *connection, id <FBGraphObject> result, NSError *error) {
                     NSURL *url = [NSURL URLWithString:[[[result objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"]];
                     AFImageRequestOperation *proPic = [AFImageRequestOperation imageRequestOperationWithRequest:[NSURLRequest requestWithURL:url] success:^(UIImage *image) {
                         [self.profilePictureButton setBackgroundImage:image forState:UIControlStateNormal animated:YES];
@@ -71,7 +71,7 @@
     }
 }
 -(void)profilePicture:(id)sender{    
-    [[WaxUser currentUser] chooseNewprofilePictureWithCompletion:^(NSError *error, UIImage *profilePicture) {
+    [[WaxUser currentUser] chooseNewprofilePicture:self completion:^(NSError *error, UIImage *profilePicture) {
         if (profilePicture) {
             [self.profilePictureButton setImage:profilePicture forState:UIControlStateNormal animated:YES];
         }
@@ -122,7 +122,7 @@
     }
     if (!self.facebookSignup && !self.profilePictureButton.imageView.image) {
         [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"No Profile Picture", @"No Profile Picture") message:NSLocalizedString(@"Please choose a profile picture", @"Please choose a profile picture") buttonHandler:^{
-            [[WaxUser currentUser] chooseNewprofilePictureWithCompletion:nil];
+            [self profilePicture:self];
         }];
     }
     

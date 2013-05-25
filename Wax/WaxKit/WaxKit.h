@@ -20,6 +20,7 @@
 #import "WaxAPIClient.h"
 #import "WaxUser.h"
 #import "WaxDataManager.h" 
+#import "WaxS3Client.h"
 
 
 //Models

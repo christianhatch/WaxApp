@@ -167,6 +167,8 @@ typedef NSInteger WaxAPIClientVideoActionType;
  infiniteScrollingID:(NSNumber *)infiniteScrollingID
           completion:(WaxAPIClientCompletionBlockTypeList)completion;
 
+-(void)syncFacebookProfilePictureWithCompletion:(WaxAPIClientCompletionBlockTypeSimple)completion; 
+
 
 #pragma mark - Videos
 -(void)uploadVideoMetadata:(NSString *)videoLink
@@ -192,7 +194,6 @@ typedef NSInteger WaxAPIClientVideoActionType;
 #pragma mark - Settings
 -(void)fetchSettingsWithCompletion:(WaxAPIClientCompletionBlockTypeSettings)completion;
 
-
 -(void)updateSettings:(NSString *)email
              fullName:(NSString *)fullName
          pushSettings:(NSDictionary *)pushSettings
@@ -203,6 +204,7 @@ typedef NSInteger WaxAPIClientVideoActionType;
 
 #pragma mark - Internal Methods
 -(void)processResponseObject:(id)responseObject forArrayOfModelClass:(Class)modelClass withCompletionBlock:(void (^)(NSMutableArray *processedResponse, NSError *error))completion;
+
 
 /*
 #ifndef RELEASE
