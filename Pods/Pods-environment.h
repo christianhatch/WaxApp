@@ -6,12 +6,6 @@
 // project.
 
 
-// AFNetworking
-#define COCOAPODS_POD_AVAILABLE_AFNetworking
-#define COCOAPODS_VERSION_MAJOR_AFNetworking 1
-#define COCOAPODS_VERSION_MINOR_AFNetworking 2
-#define COCOAPODS_VERSION_PATCH_AFNetworking 1
-
 // InterAppCommunication
 #define COCOAPODS_POD_AVAILABLE_InterAppCommunication
 #define COCOAPODS_VERSION_MAJOR_InterAppCommunication 1
@@ -35,12 +29,6 @@
 #define COCOAPODS_VERSION_MAJOR_OpenInChrome 0
 #define COCOAPODS_VERSION_MINOR_OpenInChrome 0
 #define COCOAPODS_VERSION_PATCH_OpenInChrome 1
-
-// Orbiter
-#define COCOAPODS_POD_AVAILABLE_Orbiter
-#define COCOAPODS_VERSION_MAJOR_Orbiter 0
-#define COCOAPODS_VERSION_MINOR_Orbiter 0
-#define COCOAPODS_VERSION_PATCH_Orbiter 1
 
 // STTweetLabel
 #define COCOAPODS_POD_AVAILABLE_STTweetLabel

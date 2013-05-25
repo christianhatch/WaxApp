@@ -1,5 +1,4 @@
 platform :ios, '6.0'
-pod 'Orbiter'
 pod 'Lockbox'
 pod 'SVPullToRefresh'
 pod 'STTweetLabel'

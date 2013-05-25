@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Christian Hatch. All rights reserved.
 //
 
-#import "AFAmazonS3Client.h"
+#import <AcaciaKit/AcaciaKit.h>
 
 @interface WaxS3Client : AFAmazonS3Client
 
