@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import <AcaciaKit/TestFlight.h>
 #import <AcaciaKit/Flurry.h>
-#import <Orbiter/Orbiter.h>
 
 @protocol UIDeviceHack <NSObject>
 -(NSString *)uniqueIdentifier;
@@ -35,9 +34,11 @@
 
 #pragma mark - Remote Notifications
 -(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    UrbanAirshipOrbiter *ship = [UrbanAirshipOrbiter urbanAirshipManagerWithApplicationKey:kThirdPartyUrbanAirshipAppKey applicationSecret:kThirdPartyUrbanAirshipAppSecret];
-    [ship registerDeviceToken:deviceToken withAlias:[[WaxUser currentUser] userID] success:^(id responseObject) {
-        //yay
+    
+    AFUrbanAirshipClient *ship = [[AFUrbanAirshipClient alloc] initWithApplicationKey:kThirdPartyUrbanAirshipAppKey applicationSecret:kThirdPartyUrbanAirshipAppSecret];
+
+    [ship registerDeviceToken:deviceToken withAlias:[[WaxUser currentUser] userID] success:^{
+        //yay!
     } failure:^(NSError *error) {
         [[AIKErrorManager sharedManager] logErrorWithMessage:@"error registering device token with urban airship" error:error];
     }];

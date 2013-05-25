@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AFNetworking/AFNetworking.h> 
+
+#import <AcaciaKit/AcaciaKit.h>
 
 @class LoginObject, PersonObject, VideoObject, SettingsObject, CLLocation;
 
@@ -82,7 +83,7 @@ enum{
 typedef NSInteger WaxAPIClientVideoActionType;
 
 
-@interface WaxAPIClient : AFHTTPClient //<AmazonServiceRequestDelegate>
+@interface WaxAPIClient : AFHTTPClient 
 
 + (WaxAPIClient *)sharedClient;
 

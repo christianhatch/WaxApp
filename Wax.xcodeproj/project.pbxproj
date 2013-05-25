@@ -155,7 +155,6 @@
 		452FADAE17404D450091F8D4 /* VideoObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoObject.h; sourceTree = "<group>"; };
 		452FADAF17404D450091F8D4 /* VideoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoObject.m; sourceTree = "<group>"; };
 		452FADE7174074DA0091F8D4 /* NSError+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+WaxKit.h"; sourceTree = "<group>"; };
-		452FADEF174081240091F8D4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = fr; path = fr.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		452FADF0174081240091F8D4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		452FADF1174081240091F8D4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		452FAE02174085FC0091F8D4 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
@@ -832,7 +831,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				45F71635171F163D009097F3 /* en */,
-				452FADEF174081240091F8D4 /* fr */,
 			);
 			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";

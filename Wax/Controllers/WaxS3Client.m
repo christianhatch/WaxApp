@@ -7,7 +7,6 @@
 //
 
 #import "WaxS3Client.h"
-#import <AFKissXMLRequestOperation/AFKissXMLRequestOperation.h>
 
 @implementation WaxS3Client
 
@@ -23,7 +22,6 @@
     self = [super initWithAccessKeyID:accessKey secret:secret];
     if (self) {
         self.bucket = kThirdPartyAWSBucket; 
-        [self registerHTTPOperationClass:[AFKissXMLRequestOperation class]];
     }
     return self;
 }
@@ -35,16 +33,16 @@
     NSData *picData = UIImageJPEGRepresentation([UIImage cropImageToSquare:profilePicture], 0.01);
     [picData writeToFile:[NSString libraryFilePathByAppendingFileName:@"profile_picture" andExtension:@"jpg"] atomically:YES];
     
-    [self putObjectWithFile:[NSString libraryFilePathByAppendingFileName:@"profile_picture" andExtension:@"jpg"] destinationPath:[NSString s3ProfilePictureKeyFromUserid:[[WaxUser currentUser] userID]] parameters:nil progress:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+    [self putObjectWithFile:[NSString libraryFilePathByAppendingFileName:@"profile_picture" andExtension:@"jpg"] destinationPath:[NSString s3ProfilePictureKeyFromUserid:[[WaxUser currentUser] userID]] parameters:nil progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
         if (progress) {
             CGFloat proggy = (totalBytesWritten/totalBytesExpectedToWrite);
             progress(proggy, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
         }
     } completion:^(id responseObject, NSError *error) {
         if (completion) {
-            completion(responseObject, error); 
+            completion(responseObject, error);
         }
-    }]; 
+    }];
 }
 -(void)putObjectWithFile:(NSString *)path destinationPath:(NSString *)destinationPath parameters:(NSDictionary *)parameters progress:(void (^)(CGFloat, NSUInteger, long long, long long))progress completion:(void (^)(id, NSError *))completion{
     

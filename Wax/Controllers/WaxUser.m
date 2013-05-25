@@ -12,8 +12,6 @@
 #import <Crashlytics/Crashlytics.h>
 #import <AcaciaKit/Flurry.h>
 
-#import <AFAmazonS3Client/AFAmazonS3Client.h>
-
 NSString *const WaxUserDidLogInNotification = @"WaxUserLoggedIn";
 NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut"; 
 

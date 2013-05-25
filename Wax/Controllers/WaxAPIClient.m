@@ -7,7 +7,6 @@
 //
 
 #import "WaxAPIClient.h"
-#import <AFAmazonS3Client/AFAmazonS3Client.h>
 
 @interface WaxAPIClient ()
 @property (nonatomic) dispatch_queue_t jsonProcessingQueue;
