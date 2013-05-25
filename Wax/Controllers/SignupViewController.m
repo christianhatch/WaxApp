@@ -48,13 +48,9 @@
             if (!error) {
                 [SVProgressHUD dismiss];
                 
-                [FBRequestConnection startWithGraphPath:@"me?fields=picture.type(large)" completionHandler:^(FBRequestConnection *connection, id <FBGraphObject> result, NSError *error) {
-                    NSURL *url = [NSURL URLWithString:[[[result objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"]];
-                    AFImageRequestOperation *proPic = [AFImageRequestOperation imageRequestOperationWithRequest:[NSURLRequest requestWithURL:url] success:^(UIImage *image) {
-                        [self.profilePictureButton setBackgroundImage:image forState:UIControlStateNormal animated:YES];
-                        [loadingPicView stopAnimating]; 
-                    }];
-                    [proPic start];
+                [[AIKFacebookManager sharedManager] fetchProfilePictureForFacebookID:user.id completion:^(NSError *error, UIImage *profilePic) {
+                    [self.profilePictureButton setBackgroundImage:profilePic forState:UIControlStateNormal animated:YES];
+                    [loadingPicView stopAnimating];
                 }];
                 
                 self.passwordField.text = user.id; 

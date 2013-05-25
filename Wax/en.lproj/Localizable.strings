@@ -18,6 +18,7 @@
 "com.wax.api.error=1008" = "Please enter full name";
 "com.wax.api.error=1009" = "Password must be at least 6 characters";
 "com.wax.api.error=1010" = "There was an error creating your account";
+
 //API error suggestions
 "com.wax.api.suggestion=1001" = "Please check your typing and try again!";
 "com.wax.api.suggestion=1002" = "You must log in through Facebook";

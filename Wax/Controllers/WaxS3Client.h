@@ -7,6 +7,7 @@
 //
 
 #import <AcaciaKit/AcaciaKit.h>
+#import <AcaciaKit/AFAmazonS3Client.h>
 
 @interface WaxS3Client : AFAmazonS3Client
 
@@ -15,6 +16,14 @@
 -(void)uploadProfilePicture:(UIImage *)profilePicture
                    progress:(void (^)(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))progress
                  completion:(void (^)(id responseObject, NSError *error))completion;
+
+-(void)uploadVideoAtPath:(NSString *)path
+                progress:(void (^)(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))progress
+              completion:(void (^)(id responseObject, NSError *error))completion;
+
+-(void)uploadThumbnail:(UIImage *)thumbnail
+              progress:(void (^)(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))progress
+            completion:(void (^)(id responseObject, NSError *error))completion;
 
 -(void)putObjectWithFile:(NSString *)path
          destinationPath:(NSString *)destinationPath

@@ -30,25 +30,37 @@
     
     //resize to 100x100!!!
 
-    NSData *picData = UIImageJPEGRepresentation([UIImage cropImageToSquare:profilePicture], 0.01);
-    [picData writeToFile:[NSString libraryFilePathByAppendingFileName:@"profile_picture" andExtension:@"jpg"] atomically:YES];
-    
-    [self putObjectWithFile:[NSString libraryFilePathByAppendingFileName:@"profile_picture" andExtension:@"jpg"] destinationPath:[NSString s3ProfilePictureKeyFromUserid:[[WaxUser currentUser] userID]] parameters:nil progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        if (progress) {
-            CGFloat proggy = (totalBytesWritten/totalBytesExpectedToWrite);
-            progress(proggy, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
-        }
-    } completion:^(id responseObject, NSError *error) {
-        if (completion) {
-            completion(responseObject, error);
-        }
+    [UIImage asyncSaveImage:[UIImage cropImageToSquare:profilePicture] asJPEGInLibraryWithFilename:@"profile_picture" quality:0.01 completion:^(NSString *path) {
+        [self putObjectWithFile:path destinationPath:[NSString s3ProfilePictureKeyFromUserid:[[WaxUser currentUser] userID]] parameters:nil progress:progress completion:completion];
     }];
 }
+
+-(void)uploadVideoAtPath:(NSString *)path progress:(void (^)(CGFloat, NSUInteger, long long, long long))progress completion:(void (^)(id, NSError *))completion{
+    
+    [self putObjectWithFile:path destinationPath:[NSString s3VideoKeyFromUserid:[[WaxUser currentUser] userID] andVideoLink:nil] parameters:nil progress:progress completion:completion];
+}
+-(void)uploadThumbnail:(UIImage *)thumbnail progress:(void (^)(CGFloat, NSUInteger, long long, long long))progress completion:(void (^)(id, NSError *))completion{
+        
+    [UIImage asyncSaveImage:thumbnail asJPEGInLibraryWithFilename:@"thumbnail" quality:0.8 completion:^(NSString *path) {
+        [self putObjectWithFile:path destinationPath:[NSString s3ProfilePictureKeyFromUserid:[[WaxUser currentUser] userID]] parameters:nil progress:progress completion:completion];
+    }];
+
+}
+
+
+
+
+
+
+
+
+
+
 -(void)putObjectWithFile:(NSString *)path destinationPath:(NSString *)destinationPath parameters:(NSDictionary *)parameters progress:(void (^)(CGFloat, NSUInteger, long long, long long))progress completion:(void (^)(id, NSError *))completion{
     
      [self putObjectWithFile:path destinationPath:destinationPath parameters:parameters progress:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
          if (progress) {
-             CGFloat proggy = (totalBytesWritten/totalBytesExpectedToWrite); 
+             CGFloat proggy = (float)(totalBytesWritten/totalBytesExpectedToWrite); 
              progress(proggy, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
          }
      } success:^(id responseObject) {

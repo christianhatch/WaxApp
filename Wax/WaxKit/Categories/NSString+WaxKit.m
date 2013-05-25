@@ -13,9 +13,6 @@
 +(NSString *)videoFilePathAfterSquaring{
     return [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"exported.mp4"];
 }
-+(NSString *)libraryFilePathByAppendingFileName:(NSString *)filename andExtension:(NSString *)extension{
-    return [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", filename, extension]];
-}
 
 +(NSString *)s3ProfilePictureKeyFromUserid:(NSString *)userid{
     return [[NSString stringWithFormat:@"%@/profile_picture.jpg", userid] lowercaseString];
