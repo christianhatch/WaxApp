@@ -21,7 +21,7 @@
 
 
 @implementation PersonObject
-@synthesize userid = _userid;
+@synthesize userID = _userID;
 @synthesize username = _username;
 @synthesize fullName = _fullName;
 
@@ -37,7 +37,7 @@
     self = [super init];
     if (self) {
 //        @try {
-            self.userid = [dictionary objectForKey:@"userid" orDefaultValue:@""];
+            self.userID = [dictionary objectForKey:@"userid" orDefaultValue:@""];
             self.username = [dictionary objectForKey:@"username" orDefaultValue:NSLocalizedString(@"a user", @"a user")];
             self.fullName = [dictionary objectForKey:@"name"  orDefaultValue:NSLocalizedString(@"a user", @"a user")];
             
@@ -61,7 +61,7 @@
     self = [super init];
     if (self) {
         @try {
-            self.userid = graphuser.id;
+            self.userID = graphuser.id;
             self.fullName = [NSString stringWithFormat:@"%@ %@", graphuser.first_name, graphuser.last_name];
         }
         @catch (NSException *exception) {
@@ -73,7 +73,7 @@
 
 
 -(NSString *)description{
-    NSString *descrippy = [NSString stringWithFormat:@"PersonObject:\nUserid: %@\nUsername: %@\nFullname: %@\nFollowing: %i\nFollowersCount: %@\nFollowingCount: %@\nTitlesCount: %@\nInfiniteScrollingID: %@", self.userid, self.username, self.fullName, self.following, self.followersCount, self.followingCount, self.titlesCount, self.infiniteScrollingID];
+    NSString *descrippy = [NSString stringWithFormat:@"PersonObject:\nUserid: %@\nUsername: %@\nFullname: %@\nFollowing: %i\nFollowersCount: %@\nFollowingCount: %@\nTitlesCount: %@\nInfiniteScrollingID: %@", self.userID, self.username, self.fullName, self.following, self.followersCount, self.followingCount, self.titlesCount, self.infiniteScrollingID];
     return descrippy;
 }
 
@@ -81,7 +81,7 @@
 - (id)initWithCoder:(NSCoder *)acoder {
     self = [super init];
     if (self) {
-        _userid = [acoder decodeObjectForKey:kuseridKey];
+        _userID = [acoder decodeObjectForKey:kuseridKey];
         _username = [acoder decodeObjectForKey:kusernameKey];
         _fullName = [acoder decodeObjectForKey:kfullnameKey];
         
@@ -96,7 +96,7 @@
     return self;
 }
 - (void)encodeWithCoder:(NSCoder *)acoder {
-    [acoder encodeObject:_userid forKey:kuseridKey];
+    [acoder encodeObject:_userID forKey:kuseridKey];
     [acoder encodeObject:_username forKey:kusernameKey];
     [acoder encodeObject:_fullName forKey:kfullnameKey];
     

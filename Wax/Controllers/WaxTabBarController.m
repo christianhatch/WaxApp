@@ -8,6 +8,7 @@
 
 #import "WaxTabBarController.h"
 #import "SplashViewController.h"
+#import "ProfileViewController.h"
 
 @interface WaxTabBarController ()
 @end
@@ -49,6 +50,13 @@
         [AIKLocationManager askForAuthorizationAndStartUpdatingLocation];
         [self capture];
         return NO;
+    }else if ([viewController.title isEqualToString:@"Me"]){
+        UINavigationController *nav = (UINavigationController *)viewController;
+        if ([[nav.viewControllers objectAtIndexOrNil:0] isKindOfClass:[ProfileViewController class]]) {
+            ProfileViewController *profile = [nav.viewControllers objectAtIndexOrNil:0];
+            profile.user = [[WaxUser currentUser] personObject];
+        }
+        return YES;
     }else{
         /*
         UINavigationController *nav = (UINavigationController *)self.selectedViewController;

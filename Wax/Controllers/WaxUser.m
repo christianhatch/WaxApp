@@ -137,40 +137,49 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 
 #pragma mark - Signup/Login/Logout/Update Pic
 -(void)createAccountWithUsername:(NSString *)username fullName:(NSString *)fullName email:(NSString *)email passwordOrFacebookID:(NSString *)passwordOrFacebookID completion:(WaxUserCompletionBlockTypeSimple)completion{
-    //sign up on server and save returned data
+
     [[WaxAPIClient sharedClient] createAccountWithUsername:username fullName:fullName email:email passwordOrFacebookID:passwordOrFacebookID completion:^(LoginObject *loginResponse, NSError *error) {
         if (!error) {
-            [self finishLoggingInAndSaveUserInformation:loginResponse]; 
+            [self finishLoggingInAndSaveUserInformation:loginResponse completion:completion];
         }else{
             [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Creating Account", @"Problem Creating Account") error:error andShowAlertWithButtonHandler:^{
-                [SVProgressHUD dismiss];
+                
             }];
+            if (completion) {
+                completion(error); 
+            }
         }
     }];
 }
 -(void)loginWithFacebookID:(NSString *)facebookID fullName:(NSString *)fullName email:(NSString *)email completion:(WaxUserCompletionBlockTypeSimple)completion{
+    
     [[WaxAPIClient sharedClient] loginWithFacebookID:facebookID fullName:fullName email:email completion:^(LoginObject *loginResponse, NSError *error) {
         if (!error) {
-            [self finishLoggingInAndSaveUserInformation:loginResponse];
+            [self finishLoggingInAndSaveUserInformation:loginResponse completion:completion];
         }else{
             [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Logging in via Facebook", @"Problem Logging in via Facebook") error:error andShowAlertWithButtonHandler:^{
-                [SVProgressHUD dismiss];
+                
             }];
+            if (completion) {
+                completion(error);
+            }
         }
     }];
 }
 -(void)loginWithUsername:(NSString *)username password:(NSString *)password completion:(WaxUserCompletionBlockTypeSimple)completion{
     [[WaxAPIClient sharedClient] loginWithUsername:username password:password completion:^(LoginObject *loginResponse, NSError *error) {
         if (!error) {
-            [self finishLoggingInAndSaveUserInformation:loginResponse];
+            [self finishLoggingInAndSaveUserInformation:loginResponse completion:completion];
         }else{
             [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Logging in via Email", @"Problem Logging in via Email") error:error andShowAlertWithButtonHandler:^{
-                [SVProgressHUD dismiss];
             }];
+            if (completion) {
+                completion(error);
+            }
         }
-    }];    
+    }];
 }
--(void)finishLoggingInAndSaveUserInformation:(LoginObject *)loginResponse{
+-(void)finishLoggingInAndSaveUserInformation:(LoginObject *)loginResponse completion:(WaxUserCompletionBlockTypeSimple)completion{
     [self saveToken:loginResponse.token];
     [self saveUserID:loginResponse.userID];
     
@@ -183,6 +192,10 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound |UIRemoteNotificationTypeAlert)];
     
     [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:WaxUserDidLogInNotification object:self];
+
+    if (completion) {
+        completion(nil);
+    }
 }
 
 -(void)chooseNewprofilePicture:(UIViewController *)sender completion:(WaxUserCompletionBlockTypeProfilePicture)completion{
@@ -239,20 +252,30 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     [profPicSheet setCancelButtonIndex:[profPicSheet addButtonItem:[RIButtonItem cancelButton]]];
     [profPicSheet showInView:mainWindowView];
 }
--(void)updateProfilePicture:(UIImage *)profilePicture completion:(WaxUserCompletionBlockTypeProfilePicture)completion{
+-(void)updateProfilePictureOnServer:(UIImage *)profilePicture andShowUICallbacks:(BOOL)showUICallbacks completion:(WaxUserCompletionBlockTypeProfilePicture)completion{
     
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"Updating Profile Picture...", @"Updating Profile Picture...")];
+    if (showUICallbacks) {
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"Updating Profile Picture...", @"Updating Profile Picture...")];
+    }
     
     [[WaxS3Client sharedClient] uploadProfilePicture:profilePicture progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-
-        [SVProgressHUD showProgress:percentage status:NSLocalizedString(@"Updating Profile Picture...", @"Updating Profile Picture...")];
+       
+        if (showUICallbacks) {
+            [SVProgressHUD showProgress:percentage status:NSLocalizedString(@"Updating Profile Picture...", @"Updating Profile Picture...")];
+        }
 
     } completion:^(id responseObject, NSError *error) {
         if (!error) {
-            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Updated Profile Picture!", @"Updated Profile Picture!")];
-            self.profilePictureCompletion(nil, nil);
+            if (showUICallbacks) {
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Updated Profile Picture!", @"Updated Profile Picture!")];
+            }
+            if (completion) {
+                completion(nil, profilePicture);
+            }
         }else{
-            self.profilePictureCompletion(error, nil);
+            if (completion) {
+                completion(error, nil);
+            }
         }
     }]; 
 }
@@ -272,8 +295,8 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     [picker dismissViewControllerAnimated:YES completion:nil];
     
     UIImage *profPic = [info objectForKey:UIImagePickerControllerEditedImage];
-
-    [self updateProfilePicture:profPic completion:self.profilePictureCompletion];
+    
+    self.profilePictureCompletion(nil, profPic); 
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
@@ -285,11 +308,18 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     [[UIApplication sharedApplication] unregisterForRemoteNotifications];
     [[[WaxAPIClient sharedClient] operationQueue] cancelAllOperations];
     [[AIKFacebookManager sharedManager] logoutFacebookWithCompletion:nil];
-    [self resetForInitialLaunch];
+    [WaxUser resetForInitialLaunch];
     [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:WaxUserDidLogOutNotification object:self]; 
 }
 
 #pragma mark - Utility Methods
+-(PersonObject *)personObject{
+    PersonObject *me = [[PersonObject alloc] init];
+    me.userID = [self userID];
+    me.username = [self username];
+    me.fullName = [self fullName];
+    return me; 
+}
 -(BOOL)isLoggedIn{
     return ((![[self userID] isEqualToString:kFalseString]) && (![[self token] isEqualToString:kFalseString]));
 }
@@ -361,16 +391,16 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         }
     ];
 }
--(void)resetForInitialLaunch{
-    [self saveToken:kFalseString];
-    [self saveUserID:kFalseString];
++(void)resetForInitialLaunch{
+    [[WaxUser currentUser] saveToken:kFalseString];
+    [[WaxUser currentUser] saveUserID:kFalseString];
     
-    [self saveUserame:kFalseString];
-    [self saveFullName:kFalseString];
-    [self saveEmail:kFalseString];
+    [[WaxUser currentUser] saveUserame:kFalseString];
+    [[WaxUser currentUser] saveFullName:kFalseString];
+    [[WaxUser currentUser] saveEmail:kFalseString];
     
-    [self saveTwitterAccountID:kFalseString];
-    [self saveFacebookAccountID:kFalseString];
+    [[WaxUser currentUser] saveTwitterAccountID:kFalseString];
+    [[WaxUser currentUser] saveFacebookAccountID:kFalseString];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUserSaveToCameraRollKey];
 }
 

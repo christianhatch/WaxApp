@@ -11,7 +11,7 @@
 
 @interface PersonObject : ModelObject
 
-@property (nonatomic, copy) NSString *userid;
+@property (nonatomic, copy) NSString *userID;
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *fullName;
 

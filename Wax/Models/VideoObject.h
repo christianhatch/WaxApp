@@ -19,13 +19,13 @@
 #pragma mark - info about the video itself
 @property (nonatomic, copy) NSString *videoID;
 @property (nonatomic, copy) NSString *videoLink;
-//@property (nonatomic, copy) NSString *caption;
 @property (nonatomic, copy) NSString *shareID;
 @property (nonatomic, copy) NSString *timeStamp;
 @property (nonatomic, copy) NSString *tag;
 
 @property (nonatomic, copy) NSNumber *votesCount;
 @property (nonatomic, copy) NSNumber *viewCount;
+@property (nonatomic, copy) NSString *caption;
 
 #pragma mark - info about the current user's relationship to the video
 @property (nonatomic, assign) BOOL didVote;

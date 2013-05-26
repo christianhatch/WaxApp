@@ -44,7 +44,6 @@
     [UIImage asyncSaveImage:thumbnail asJPEGInLibraryWithFilename:@"thumbnail" quality:0.8 completion:^(NSString *path) {
         [self putObjectWithFile:path destinationPath:[NSString s3ProfilePictureKeyFromUserid:[[WaxUser currentUser] userID]] parameters:nil progress:progress completion:completion];
     }];
-
 }
 
 

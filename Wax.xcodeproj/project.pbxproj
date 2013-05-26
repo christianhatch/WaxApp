@@ -72,6 +72,12 @@
 		45AF70311741C97E008399D3 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF702F1741C97E008399D3 /* SplashViewController.m */; };
 		45AF70381741CBA7008399D3 /* WaxTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF70371741CBA7008399D3 /* WaxTabBarController.m */; };
 		45AF70391741CBA7008399D3 /* WaxTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF70371741CBA7008399D3 /* WaxTabBarController.m */; };
+		45B8AAEA17515858009450EA /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B8AAE917515858009450EA /* ProfileViewController.m */; };
+		45B8AAEB17515858009450EA /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B8AAE917515858009450EA /* ProfileViewController.m */; };
+		45B8AAEE17515F49009450EA /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B8AAED17515F49009450EA /* SettingsViewController.m */; };
+		45B8AAEF17515F49009450EA /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B8AAED17515F49009450EA /* SettingsViewController.m */; };
+		45B8AAF917517ABD009450EA /* UploadObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B8AAF817517ABD009450EA /* UploadObject.m */; };
+		45B8AAFA17517ABD009450EA /* UploadObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B8AAF817517ABD009450EA /* UploadObject.m */; };
 		45EA31AE1725FADB00980320 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA31AD1725FADB00980320 /* MessageUI.framework */; };
 		45EA320D1726025300980320 /* NSURL+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA320C1726025300980320 /* NSURL+WaxKit.m */; };
 		45EA3210172602A700980320 /* NSString+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA320F172602A700980320 /* NSString+WaxKit.m */; };
@@ -200,6 +206,12 @@
 		45AF702F1741C97E008399D3 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
 		45AF70361741CBA7008399D3 /* WaxTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxTabBarController.h; sourceTree = "<group>"; };
 		45AF70371741CBA7008399D3 /* WaxTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxTabBarController.m; sourceTree = "<group>"; };
+		45B8AAE817515858009450EA /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		45B8AAE917515858009450EA /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		45B8AAEC17515F49009450EA /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		45B8AAED17515F49009450EA /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		45B8AAF717517ABD009450EA /* UploadObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadObject.h; sourceTree = "<group>"; };
+		45B8AAF817517ABD009450EA /* UploadObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadObject.m; sourceTree = "<group>"; };
 		45EA31AD1725FADB00980320 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		45EA31AF1725FB0000980320 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		45EA320B1726025300980320 /* NSURL+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+WaxKit.h"; sourceTree = "<group>"; };
@@ -312,7 +324,7 @@
 			name = ModelTests;
 			sourceTree = "<group>";
 		};
-		45009A55174EBF1600EE0B5C /* Login/Signup ViewControllers */ = {
+		45009A55174EBF1600EE0B5C /* Login/Signup */ = {
 			isa = PBXGroup;
 			children = (
 				45AF702E1741C97D008399D3 /* SplashViewController.h */,
@@ -322,7 +334,7 @@
 				45AF702A1741C8F0008399D3 /* LoginViewController.h */,
 				45AF702B1741C8F0008399D3 /* LoginViewController.m */,
 			);
-			name = "Login/Signup ViewControllers";
+			name = Login/Signup;
 			path = Controllers;
 			sourceTree = "<group>";
 		};
@@ -395,6 +407,27 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		45B8AB001751803D009450EA /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				45B8AAE817515858009450EA /* ProfileViewController.h */,
+				45B8AAE917515858009450EA /* ProfileViewController.m */,
+				45B8AAEC17515F49009450EA /* SettingsViewController.h */,
+				45B8AAED17515F49009450EA /* SettingsViewController.m */,
+			);
+			name = Profile;
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		45B8AB0117518055009450EA /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				45009A55174EBF1600EE0B5C /* Login/Signup */,
+				45B8AB001751803D009450EA /* Profile */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		45EA32111726063C00980320 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -425,6 +458,8 @@
 				454BBDCC17404A39005F48ED /* PersonObject.m */,
 				452FADAE17404D450091F8D4 /* VideoObject.h */,
 				452FADAF17404D450091F8D4 /* VideoObject.m */,
+				45B8AAF717517ABD009450EA /* UploadObject.h */,
+				45B8AAF817517ABD009450EA /* UploadObject.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -487,7 +522,7 @@
 				45F7162C171F163D009097F3 /* AppDelegate.m */,
 				45F71634171F163D009097F3 /* MainStoryboard.storyboard */,
 				45EA32151726093600980320 /* Models */,
-				45009A55174EBF1600EE0B5C /* Login/Signup ViewControllers */,
+				45B8AB0117518055009450EA /* ViewControllers */,
 				45EA32111726063C00980320 /* Controllers */,
 				45F71623171F163C009097F3 /* Supporting Files */,
 			);
@@ -759,6 +794,9 @@
 				45009A42174EB8FF00EE0B5C /* LoginObject.m in Sources */,
 				45009A46174EB90A00EE0B5C /* SettingsObject.m in Sources */,
 				4530BF50175112F0005D5AAD /* WaxS3Client.m in Sources */,
+				45B8AAEA17515858009450EA /* ProfileViewController.m in Sources */,
+				45B8AAEE17515F49009450EA /* SettingsViewController.m in Sources */,
+				45B8AAF917517ABD009450EA /* UploadObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -790,6 +828,9 @@
 				45009A50174EBD0A00EE0B5C /* PersonObjectTests.m in Sources */,
 				45009A53174EBD1200EE0B5C /* VideoObjectTests.m in Sources */,
 				4530BF51175112F0005D5AAD /* WaxS3Client.m in Sources */,
+				45B8AAEB17515858009450EA /* ProfileViewController.m in Sources */,
+				45B8AAEF17515F49009450EA /* SettingsViewController.m in Sources */,
+				45B8AAFA17517ABD009450EA /* UploadObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

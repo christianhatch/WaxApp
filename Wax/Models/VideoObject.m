@@ -19,7 +19,7 @@
 
 @synthesize videoID = _videoID;
 @synthesize videoLink = _videoLink;
-//@synthesize caption = _caption;
+@synthesize caption = _caption;
 @synthesize shareID = _shareID;
 @synthesize timeStamp = _timeStamp;
 @synthesize tag = _tag;
@@ -42,14 +42,14 @@
         
         self.videoID = [dictionary objectForKey:@"videoid" orDefaultValue:nil];
         self.videoLink = [dictionary objectForKey:@"videolink" orDefaultValue:nil];
-//        self.caption = 
         self.shareID = [dictionary objectForKey:@"shareid" orDefaultValue:nil];
         self.timeStamp = [NSString prettyTimeStamp:[dictionary objectForKey:@"timestamp" orDefaultValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]]]];
         self.tag = [dictionary objectForKey:@"tag" orDefaultValue:NSLocalizedString(@"a competition", @"a competition")];
         
         self.votesCount = [dictionary objectForKey:@"votes" orDefaultValue:@0];
         self.viewCount = [dictionary objectForKey:@"views" orDefaultValue:@0];
-        
+        self.caption = [dictionary objectForKey:@"captions" orDefaultValue:NSLocalizedString(@"a caption", @"a caption")];
+
         self.didVote = [[dictionary objectForKey:@"didvote" orDefaultValue:NO] boolValue];
        
         self.infiniteScrollingID = [dictionary objectForKey:@"timestamp" orDefaultValue:nil]; 

@@ -137,7 +137,7 @@
 }
 -(void)initialLaunch{
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"initialLaunch"]; //set the flag so this is run only the first time the app is opened
-    [[WaxUser currentUser] resetForInitialLaunch];
+    [WaxUser resetForInitialLaunch];
 }
 -(void)crashlyticsDidDetectCrashDuringPreviousExecution:(Crashlytics *)crashlytics{
     [[AIKErrorManager sharedManager] didCrash];

@@ -11,6 +11,7 @@
 extern NSString *const WaxUserDidLogInNotification;
 extern NSString *const WaxUserDidLogOutNotification; 
 
+@class PersonObject;
 
 typedef void(^WaxUserCompletionBlockTypeSimple)(NSError *error);
 typedef void(^WaxUserCompletionBlockTypeProfilePicture)(NSError *error, UIImage *profilePicture);
@@ -59,17 +60,25 @@ typedef void(^WaxUserCompletionBlockTypeProfilePicture)(NSError *error, UIImage 
               completion:(WaxUserCompletionBlockTypeSimple)completion;
 
 -(void)chooseNewprofilePicture:(UIViewController *)sender completion:(WaxUserCompletionBlockTypeProfilePicture)completion;
+
+-(void)updateProfilePictureOnServer:(UIImage *)profilePicture
+                 andShowUICallbacks:(BOOL)showUICallbacks
+                         completion:(WaxUserCompletionBlockTypeProfilePicture)completion;
+
 -(void)syncFacebookProfilePictureWithCompletion:(WaxUserCompletionBlockTypeProfilePicture)completion;
+
 -(void)logOut;
 
 #pragma mark - Utility Methods
+-(PersonObject *)personObject; 
+
 -(BOOL)isLoggedIn;
 -(BOOL)twitterAccountConnected;
 -(BOOL)facebookAccountConnected;
 -(BOOL)userIDIsCurrentUser:(NSString *)userID;
 -(void)chooseTwitterAccountWithCompletion:(WaxUserCompletionBlockTypeSimple)completion;
 
--(void)resetForInitialLaunch; 
++(void)resetForInitialLaunch;
 
 
 //#ifndef RELEASE

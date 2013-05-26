@@ -17,7 +17,7 @@
 "com.wax.api.error=1007" = "Username uses invalid characters";
 "com.wax.api.error=1008" = "Please enter full name";
 "com.wax.api.error=1009" = "Password must be at least 6 characters";
-"com.wax.api.error=1010" = "There was an error creating your account";
+"com.wax.api.error=1010" = "No Account";
 
 //API error suggestions
 "com.wax.api.suggestion=1001" = "Please check your typing and try again!";
@@ -29,7 +29,8 @@
 "com.wax.api.suggestion=1007" = "Usernames can only contain alphanumeric characters. Please remove any non-alphanumeric characters fromy your username and try again";
 "com.wax.api.suggestion=1008" = "You must enter your full name to sign up with Wax";
 "com.wax.api.suggestion=1009" = "Your password is too short, it must be at least 6 characters long";
-"com.wax.api.suggestion=1010" = "Sorry, we encountered and error creating your account. Please try again, and if the problem persists please email supportwax.li";
+"com.wax.api.suggestion=1010" = "It looks like you haven't yet created a Wax account. You can sign up by simply choosing a username to use on Wax";
+
 
 //misc.
 "Please try again!" = "Please try again!";

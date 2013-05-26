@@ -40,20 +40,48 @@
 }
 -(void)signup:(UIButton *)sender{
     SignupViewController *signupVC = initViewControllerWithIdentifier(@"SignupVC");
-    signupVC.facebookSignup = (sender.tag == 2);
-    [self.navigationController pushViewController:signupVC animated:YES];
+    
+    if (sender.tag == 2) {
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"Logging In With Facebook...", @"Logging In With Facebook...")];
+        
+        [[AIKFacebookManager sharedManager] connectFacebookWithCompletion:^(id<FBGraphUser> user, NSError *error) {
+            if (!error) {
+                [[WaxUser currentUser] loginWithFacebookID:user.id fullName:user.name email:[user objectForKey:@"email"] completion:^(NSError *error) {
+                    if (!error) {
+                        [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Logged In!", @"Logged In!")];
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                    }else{
+                        [SVProgressHUD dismiss];
+                        if (error.code == 1010) {
+                            [[AIKFacebookManager sharedManager] logoutFacebookWithCompletion:^{
+                                signupVC.facebookSignup = YES;
+                                [self.navigationController pushViewController:signupVC animated:YES];
+                            }];
+                        }
+                    }
+                }];
+            }else{
+                [SVProgressHUD dismiss];
+            }
+        }];
+    }else{
+        [self.navigationController pushViewController:signupVC animated:YES];
+    }
 }
-
 -(void)login:(id)sender{
     LoginViewController *loginVC = initViewControllerWithIdentifier(@"LoginVC");
     [self.navigationController pushViewController:loginVC animated:YES];
 }
-
+-(void)pushFacebookSignupVC{
+    SignupViewController *signupVC = initViewControllerWithIdentifier(@"SignupVC");
+    signupVC.facebookSignup = YES;
+    [self.navigationController pushViewController:signupVC animated:YES];
+}
 -(void)setUpView{
     self.navigationItem.title = NSLocalizedString(@"Wax", @"Wax");
 
-    [self.signupWithFacebookButton setTitle:NSLocalizedString(@"Sign Up With Facebook", @"Sign Up With Facebook") forState:UIControlStateNormal];
-    [self.signupWithFacebookButton setTitle:NSLocalizedString(@"Sign Up With Facebook", @"Sign Up With Facebook") forState:UIControlStateHighlighted];
+    [self.signupWithFacebookButton setTitle:NSLocalizedString(@"Connect With Facebook", @"Connect With Facebook") forState:UIControlStateNormal];
+    [self.signupWithFacebookButton setTitle:NSLocalizedString(@"Connect With Facebook", @"Connect With Facebook") forState:UIControlStateHighlighted];
     
     [self.signupWithEmailButton setTitle:NSLocalizedString(@"Sign Up With Email", @"Sign Up With Email") forState:UIControlStateNormal];
     [self.signupWithEmailButton setTitle:NSLocalizedString(@"Sign Up With Email", @"Sign Up With Email") forState:UIControlStateHighlighted];

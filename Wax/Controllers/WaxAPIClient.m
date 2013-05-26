@@ -56,6 +56,7 @@
 
 #pragma mark - Logins
 -(void)createAccountWithUsername:(NSString *)username fullName:(NSString *)fullName email:(NSString *)email passwordOrFacebookID:(NSString *)passwordOrFacebookID completion:(WaxAPIClientCompletionBlockTypeLogin)completion{
+ 
     if (username && fullName && email && passwordOrFacebookID) {
        
         [self postPath:@"logins/signup" parameters:@{@"username":username, @"name":fullName, @"email":email, ([[AIKFacebookManager sharedManager] sessionIsActive] ? @"facebookid" : @"password"):passwordOrFacebookID} modelClass:[LoginObject class] completionBlock:^(id model, NSError *error) {
@@ -147,7 +148,7 @@
         
         [self postPath:@"users/put" parameters:@{@"personid":personID} modelClass:[PersonObject class] completionBlock:^(id model, NSError *error) {
             if (completion) {
-                completion((error == nil), error);
+                completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
             }
         }];
 
@@ -204,17 +205,29 @@
 -(void)syncFacebookProfilePictureWithCompletion:(WaxAPIClientCompletionBlockTypeSimple)completion{
     [self postPath:@"users/fbprofilepic" parameters:nil modelClass:nil completionBlock:^(id model, NSError *error) {
         if (completion) {
-            completion((model == nil), error); 
+            completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
         }
     }];
 }
 #pragma mark - Videos
 -(void)uploadVideoMetadata:(NSString *)videoLink videoLength:(NSNumber *)videoLength tag:(NSString *)tag category:(NSString *)category caption:(NSString *)caption location:(CLLocation *)location completion:(WaxAPIClientCompletionBlockTypeVideoUpload)completion{
     
+    if (videoLink && videoLength && tag && category) {
+       
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:videoLink, @"videolink", videoLength, @"videolength", tag, @"tag", category, @"category", caption, @"caption", [NSNumber numberWithDouble:location.coordinate.latitude], @"lat", [NSNumber numberWithDouble:location.coordinate.longitude], @"lon", nil];
+      
+        [self postPath:@"videos/put" parameters:params modelClass:nil completionBlock:^(id model, NSError *error) {
+            if (completion) {
+                completion([model objectForKeyOrNil:@"shareid"], error);
+            }
+        }];
+    }else{
+        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke this method with nil paramaters"];
+    }
 }
 -(void)fetchMetadataForVideo:(NSString *)videoID completion:(WaxAPIClientCompletionBlockTypeVideo)completion{
     if (videoID) {
-        [self postPath:@"videos/put" parameters:@{@"videoid":videoID} modelClass:[VideoObject class] completionBlock:^(id model, NSError *error) {
+        [self postPath:@"videos/get" parameters:@{@"videoid":videoID} modelClass:[VideoObject class] completionBlock:^(id model, NSError *error) {
             if (completion) {
                 completion(model, error); 
             }
@@ -227,7 +240,7 @@
     if (videoID && personID) {
         [self postPath:@"videos/vote" parameters:@{@"videoid":videoID, @"personid":personID} modelClass:nil completionBlock:^(id model, NSError *error) {
             if (completion) {
-                completion((error == nil), error);
+                completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
             }
         }];
     }else{
@@ -253,7 +266,7 @@
         }
         [self postPath:path parameters:@{@"videoid": videoID} modelClass:nil completionBlock:^(id model, NSError *error) {
             if (completion) {
-                completion((error == nil), error);
+                completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
             }
         }];
 
@@ -376,9 +389,9 @@
                 }
             });
         }else{
-            id modelObject = nil; 
+            id modelObject = validated;
             if (modelClass) {
-                modelObject = [[modelClass alloc] initWithDictionary:validated];
+                modelObject = [[modelClass alloc] initWithDictionary:[validated objectAtIndexOrNil:0]];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (completion) {
@@ -388,8 +401,9 @@
         }
     });
 }
-//this method checks that the request was completed and returns the raw response object or error. also handles logging user out when getting a token error (error 9999)
 -(id)validateResponseObject:(id)responseObject{
+    
+    DLog(@"response %@", responseObject);
     
     id returnObject = nil;
     
@@ -405,39 +419,7 @@
             }
         }
     }
-
     return returnObject;
-
-//
-//    
-//    
-//    
-//    
-//    
-//    
-//    
-//    
-//    id returnObject = responseObject;
-//    
-//    if (responseObject) {
-//        
-//        if ([[[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectAtIndexOrNil:0] objectForKeyOrNil:kWaxAPIJSONKey] isEqualToString:kFalseString]) {
-//#ifdef DEBUG
-//            DLog(@"LOGGED OUT DUE TO INVALID TOKEN");
-//#else
-//            [[WaxUser currentUser] logOut];
-//#endif
-//            [[AIKErrorManager sharedManager] logMessageToAllServices:[NSString stringWithFormat:@"response object failed validation and logged user out %@", responseObject]];
-//            
-//            returnObject = nil;
-//            
-//        }else if ([[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectAtIndexOrNil:0] objectForKeyOrNil:@"error"]){
-//            NSError *error = [NSError waxAPIErrorFromResponse:[[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectAtIndexOrNil:0] objectForKeyOrNil:@"error"]];
-//            
-//            returnObject = error;
-//        }
-//    }
-//    return returnObject;
 }
 
 

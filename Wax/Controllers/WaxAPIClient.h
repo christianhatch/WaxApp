@@ -59,7 +59,7 @@ typedef void(^WaxAPIClientCompletionBlockTypeSettings)(SettingsObject *settings,
  @abstract Completion block type used when returning the results of a video metadata upload request.
  @discussion This completion block type returns a valid login object and a nil error object if successful, or a nil login object and a valid error object if unsuccessful.
  */
-typedef void(^WaxAPIClientCompletionBlockTypeVideoUpload)(BOOL complete, NSString *shareID, NSError *error);
+typedef void(^WaxAPIClientCompletionBlockTypeVideoUpload)(NSString *shareID, NSError *error);
 
 /**
  @typedef
@@ -202,15 +202,10 @@ typedef NSInteger WaxAPIClientVideoActionType;
 
 
 
-
 #pragma mark - Internal Methods
 -(void)processResponseObject:(id)responseObject forArrayOfModelClass:(Class)modelClass withCompletionBlock:(void (^)(NSMutableArray *processedResponse, NSError *error))completion;
 
 
-/*
-#ifndef RELEASE
--(void)deleteVideoWithFeedItem:(FeedObject *)feedItem andSuperUserPrivelages:(BOOL)admin; 
-#endif
-*/
+
 
 @end

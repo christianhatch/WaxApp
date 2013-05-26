@@ -7,6 +7,8 @@
 //
 
 #import "LoginViewController.h"
+#import "SplashViewController.h"
+#import "SignupViewController.h"
 
 @interface LoginViewController ()
 
@@ -36,18 +38,25 @@
         if (!error) {
             [[WaxUser currentUser] loginWithFacebookID:user.id fullName:user.name email:[user objectForKey:@"email"] completion:^(NSError *error) {
                 if (!error) {
-                    [SVProgressHUD dismiss];
+                    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Logged In!", @"Logged In!")];
                     [self dismissViewControllerAnimated:YES completion:nil];
                 }else{
-                    [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"Problem Logging In With Facebook", @"Problem Loggin In With Facebook") error:error buttonHandler:^{
-                        [SVProgressHUD dismiss];
-                    }];
+                    [SVProgressHUD dismiss];
+                    if (error.code == 1010) {
+                        UINavigationController *navController = self.navigationController;
+
+                        SignupViewController *signup = initViewControllerWithIdentifier(@"SignupVC");
+                        signup.facebookSignup = YES;
+                       
+                        NSMutableArray *vcs = [NSMutableArray arrayWithArray:navController.viewControllers];
+                        [vcs removeObject:self];
+                        navController.viewControllers = vcs;
+                        [navController pushViewController:signup animated:YES];
+                    }
                 }
             }];
         }else{
-            [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Getting Information From Facebook", @"Problem Getting Information From Facebook") error:error andShowAlertWithButtonHandler:^{
-                [SVProgressHUD dismiss];
-            }];
+            [SVProgressHUD dismiss];
         }
     }]; 
 }
@@ -62,12 +71,10 @@
     
     [[WaxUser currentUser] loginWithUsername:self.usernameField.text password:self.passwordField.text completion:^(NSError *error) {
         if (!error) {
-            [SVProgressHUD dismiss];
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Logged In!", @"Logged In!")];
             [self dismissViewControllerAnimated:YES completion:nil];
         }else{
-            [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"Problem Logging In", @"Problem Loggin In") error:error buttonHandler:^{
-                [SVProgressHUD dismiss];
-            }];
+            
         }
     }];
 }
@@ -83,8 +90,8 @@
     [self.forgotPasswordButton setTitle:NSLocalizedString(@"forgot password?", @"forgot password?") forState:UIControlStateHighlighted];
     [self.forgotPasswordButton setTitleColor:[UIColor darkTextColor] forState:UIControlStateHighlighted];
     
-    [self.loginFacebookButton setTitle:NSLocalizedString(@"Login With Facebook", @"Login With Facebook") forState:UIControlStateNormal];
-    [self.loginFacebookButton setTitle:NSLocalizedString(@"Login With Facebook", @"Login With Facebook") forState:UIControlStateHighlighted];
+    [self.loginFacebookButton setTitle:NSLocalizedString(@"Connect With Facebook", @"Connect With Facebook") forState:UIControlStateNormal];
+    [self.loginFacebookButton setTitle:NSLocalizedString(@"Connect With Facebook", @"Connect With Facebook") forState:UIControlStateHighlighted];
     [self.loginFacebookButton sizeToFit];
     self.loginFacebookButton.center = CGPointMake(self.view.center.x, self.loginFacebookButton.center.y);
     

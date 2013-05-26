@@ -45,9 +45,10 @@
         [loadingPicView startAnimating];
         
         [[AIKFacebookManager sharedManager] connectFacebookWithCompletion:^(id<FBGraphUser> user, NSError *error) {
+            
+            [SVProgressHUD dismiss];
+            
             if (!error) {
-                [SVProgressHUD dismiss];
-                
                 [[AIKFacebookManager sharedManager] fetchProfilePictureForFacebookID:user.id completion:^(NSError *error, UIImage *profilePic) {
                     [self.profilePictureButton setBackgroundImage:profilePic forState:UIControlStateNormal animated:YES];
                     [loadingPicView stopAnimating];
@@ -58,10 +59,7 @@
                 self.emailField.text = [user objectForKey:@"email"];
                 
             }else{
-                [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Getting Information From Facebook", @"Problem Getting Information From Facebook") error:error andShowAlertWithButtonHandler:^{
-                    [SVProgressHUD dismiss];
-                    [self.navigationController popViewControllerAnimated:YES]; 
-                }]; 
+                
             }
         }];
     }
@@ -77,12 +75,22 @@
     if ([self verifyInputtedData]) {
         [SVProgressHUD showWithStatus:NSLocalizedString(@"Creating Account...", @"Creating Account...")];
         
+        if (!self.facebookSignup) {
+            [[WaxUser currentUser] updateProfilePictureOnServer:self.profilePictureButton.imageView.image andShowUICallbacks:NO completion:^(NSError *error, UIImage *profilePicture) {
+                if (error) {
+                    [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture") error:error andShowAlertWithButtonHandler:^{
+                        //try again? tell user to manually go try again?
+                    }];
+                }
+            }];
+        }
         [[WaxUser currentUser] createAccountWithUsername:self.usernameField.text fullName:self.fullNameField.text email:self.emailField.text passwordOrFacebookID:self.passwordField.text completion:^(NSError *error) {
             if (!error) {
                 [self dismissViewControllerAnimated:YES completion:nil];
             }else{
+                [SVProgressHUD dismiss];
                 [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Creating Account", @"Problem Creating Account") error:error andShowAlertWithButtonHandler:^{
-                    [SVProgressHUD dismiss];
+                    
                 }];
             }
         }];
@@ -104,19 +112,16 @@
                 [self.usernameField becomeFirstResponder];
             }];
         }
-    }
-    if ([NSString isEmptyOrNil:self.emailField.text]) {
+    }else if ([NSString isEmptyOrNil:self.emailField.text]) {
         verified = NO;
         [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"No Email", @"No Email") message:NSLocalizedString(@"Please enter your email address", @"Please enter your email address") buttonHandler:^{
             [self.emailField becomeFirstResponder];
         }];
-    }
-    if (!self.facebookSignup && [NSString isEmptyOrNil:self.passwordField.text]) {
+    }else if (!self.facebookSignup && [NSString isEmptyOrNil:self.passwordField.text]) {
         [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"No Password", @"No Password") message:NSLocalizedString(@"Please choose a password", @"Please choose a password") buttonHandler:^{
             [self.passwordField becomeFirstResponder];
         }];
-    }
-    if (!self.facebookSignup && !self.profilePictureButton.imageView.image) {
+    }else if (!self.facebookSignup && !self.profilePictureButton.imageView.image) {
         [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"No Profile Picture", @"No Profile Picture") message:NSLocalizedString(@"Please choose a profile picture", @"Please choose a profile picture") buttonHandler:^{
             [self profilePicture:self];
         }];
