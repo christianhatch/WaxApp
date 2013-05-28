@@ -13,5 +13,7 @@
 + (WaxDataManager *)sharedManager;
 
 
+@property (nonatomic, strong) NSMutableArray *homeFeed; 
+
 
 @end

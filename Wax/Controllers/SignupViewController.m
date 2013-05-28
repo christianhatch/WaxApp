@@ -64,8 +64,9 @@
         }];
     }
 }
--(void)profilePicture:(id)sender{    
-    [[WaxUser currentUser] chooseNewprofilePicture:self completion:^(NSError *error, UIImage *profilePicture) {
+-(void)profilePicture:(id)sender{
+    
+    [[WaxUser currentUser] chooseNewprofilePicture:self completion:^(UIImage *profilePicture, NSError *error) {
         if (profilePicture) {
             [self.profilePictureButton setImage:profilePicture forState:UIControlStateNormal animated:YES];
         }
@@ -76,7 +77,7 @@
         [SVProgressHUD showWithStatus:NSLocalizedString(@"Creating Account...", @"Creating Account...")];
         
         if (!self.facebookSignup) {
-            [[WaxUser currentUser] updateProfilePictureOnServer:self.profilePictureButton.imageView.image andShowUICallbacks:YES completion:^(NSError *error, UIImage *profilePicture) {
+            [[WaxUser currentUser] updateProfilePictureOnServer:self.profilePictureButton.imageView.image andShowUICallbacks:NO completion:^(NSError *error) {
                 if (error) {
                     [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture") error:error andShowAlertWithButtonHandler:^{
                         //try again? tell user to manually go try again?

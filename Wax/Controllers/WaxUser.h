@@ -14,7 +14,7 @@ extern NSString *const WaxUserDidLogOutNotification;
 @class PersonObject;
 
 typedef void(^WaxUserCompletionBlockTypeSimple)(NSError *error);
-typedef void(^WaxUserCompletionBlockTypeProfilePicture)(NSError *error, UIImage *profilePicture);
+typedef void(^WaxUserCompletionBlockTypeProfilePicture)(UIImage *profilePicture, NSError *error);
 
 @interface WaxUser : NSObject
 
@@ -63,9 +63,9 @@ typedef void(^WaxUserCompletionBlockTypeProfilePicture)(NSError *error, UIImage 
 
 -(void)updateProfilePictureOnServer:(UIImage *)profilePicture
                  andShowUICallbacks:(BOOL)showUICallbacks
-                         completion:(WaxUserCompletionBlockTypeProfilePicture)completion;
+                         completion:(WaxUserCompletionBlockTypeSimple)completion;
 
--(void)syncFacebookProfilePictureWithCompletion:(WaxUserCompletionBlockTypeProfilePicture)completion;
+-(void)syncFacebookProfilePictureWithCompletion:(WaxUserCompletionBlockTypeSimple)completion;
 
 -(void)logOut;
 

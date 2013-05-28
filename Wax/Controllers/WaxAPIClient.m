@@ -31,6 +31,7 @@
     }
     
     self.jsonProcessingQueue = dispatch_queue_create("com.wax.api.jsonprocessingqueue", NULL);
+    self.allowsInvalidSSLCertificate = NO;
     
     [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
     [self setDefaultHeader:@"Accept" value:@"application/json"];
@@ -63,67 +64,65 @@
     }
     
     return [super multipartFormRequestWithMethod:method path:path parameters:finalParameters constructingBodyWithBlock:block];
-
 }
+
 #pragma mark - Public API -
 
 #pragma mark - Logins
 -(void)createAccountWithUsername:(NSString *)username fullName:(NSString *)fullName email:(NSString *)email passwordOrFacebookID:(NSString *)passwordOrFacebookID completion:(WaxAPIClientCompletionBlockTypeLogin)completion{
- 
-    if (username && fullName && email && passwordOrFacebookID) {
-       
-        [self postPath:@"logins/signup" parameters:@{@"username":username, @"name":fullName, @"email":email, ([[AIKFacebookManager sharedManager] sessionIsActive] ? @"facebookid" : @"password"):passwordOrFacebookID} modelClass:[LoginObject class] completionBlock:^(id model, NSError *error) {
-            if (completion) {
-                completion(model, error);
-            }
-        }];
-
-    }else{
-        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke %@ with nil paramaters!", NSStringFromSelector(@selector(_cmd))];
-    }
+        
+    NSParameterAssert(username);
+    NSParameterAssert(fullName);
+    NSParameterAssert(email);
+    NSParameterAssert(passwordOrFacebookID);
+        
+    [self postPath:@"logins/signup" parameters:@{@"username":username, @"name":fullName, @"email":email, ([[AIKFacebookManager sharedManager] sessionIsActive] ? @"facebookid" : @"password"):passwordOrFacebookID} modelClass:[LoginObject class] completionBlock:^(id model, NSError *error) {
+        if (completion) {
+            completion(model, error);
+        }
+    }];
 }
 -(void)loginWithFacebookID:(NSString *)facebookID fullName:(NSString *)fullName email:(NSString *)email completion:(WaxAPIClientCompletionBlockTypeLogin)completion{
-    if (facebookID && fullName && email) {
         
-        [self postPath:@"logins/facebook" parameters:@{@"name":fullName, @"email":email, @"facebookid":facebookID} modelClass:[LoginObject class] completionBlock:^(id model, NSError *error) {
-            if (completion) {
-                completion(model, error);
-            }
-        }];
-
-    }else{
-        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke %@ with nil paramaters!", NSStringFromSelector(@selector(_cmd))];
-    }
+    NSParameterAssert(facebookID);
+    NSParameterAssert(fullName);
+    NSParameterAssert(email);
+    
+    [self postPath:@"logins/facebook" parameters:@{@"name":fullName, @"email":email, @"facebookid":facebookID} modelClass:[LoginObject class] completionBlock:^(id model, NSError *error) {
+        if (completion) {
+            completion(model, error);
+        }
+    }];
 }
 -(void)loginWithUsername:(NSString *)username password:(NSString *)password completion:(WaxAPIClientCompletionBlockTypeLogin)completion{
-    if (username && password) {
         
-        [self postPath:@"logins/login" parameters:@{@"username":username, @"password":password} modelClass:[LoginObject class] completionBlock:^(id model, NSError *error) {
-            if (completion) {
-                completion(model, error);
-            }
-        }];
-        
-    }else{
-        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke %@ with nil paramaters!", NSStringFromSelector(@selector(_cmd))];
-    }
+    NSParameterAssert(username);
+    NSParameterAssert(password);
+    
+    [self postPath:@"logins/login" parameters:@{@"username":username, @"password":password} modelClass:[LoginObject class] completionBlock:^(id model, NSError *error) {
+        if (completion) {
+            completion(model, error);
+        }
+    }];
 }
 
 #pragma mark - Feeds
 -(void)fetchFeedForUser:(NSString *)personID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
-    if (personID) {
-        [self fetchFeedFromPath:@"feeds/user" tagOrPersonID:personID infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
-            if (completion) {
-                completion(list, error); 
-            }
-        }];
-    }else{
-        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke %@ with nil paramaters!", NSStringFromSelector(@selector(_cmd))];
-    }
+    
+    NSParameterAssert(personID);
+    
+    [self fetchFeedFromPath:@"feeds/user" tagOrPersonID:personID infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
+        if (completion) {
+            completion(list, error); 
+        }
+    }];
 }
 -(void)fetchHomeFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
     if ([[WaxUser currentUser] isLoggedIn]) {
         [self fetchFeedFromPath:@"feeds/home" tagOrPersonID:[[WaxUser currentUser] userID] infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
+            
+            [WaxDataManager sharedManager].homeFeed = list;
+            
             if (completion) {
                 completion(list, error);
             }
@@ -131,87 +130,103 @@
     }
 }
 -(void)fetchFeedForTag:(NSString *)tag sortedBy:(WaxAPIClientTagSortType)sortedBy infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
-    if (tag && sortedBy) {
-        switch (sortedBy) {
-            case WaxAPIClientTagSortTypeRank:{
-                [self fetchFeedFromPath:@"feeds/tag" tagOrPersonID:tag infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
-                    if (completion) {
-                        completion(list, error);
-                    }
-                }];
-            }break;
-            case WaxAPIClientTagSortTypeRecent:{
-                [self fetchFeedFromPath:@"feeds/tag_recent" tagOrPersonID:tag infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
-                    if (completion) {
-                        completion(list, error);
-                    }
-                }];
-            }break;
-        }
-    }else{
-        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke %@ with nil paramaters!", NSStringFromSelector(@selector(_cmd))];
+    
+    NSParameterAssert(tag);
+    NSParameterAssert(sortedBy);
+    
+    switch (sortedBy) {
+        case WaxAPIClientTagSortTypeRank:{
+            [self fetchFeedFromPath:@"feeds/tag" tagOrPersonID:tag infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
+                if (completion) {
+                    completion(list, error);
+                }
+            }];
+        }break;
+        case WaxAPIClientTagSortTypeRecent:{
+            [self fetchFeedFromPath:@"feeds/tag_recent" tagOrPersonID:tag infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
+                if (completion) {
+                    completion(list, error);
+                }
+            }];
+        }break;
     }
 }
 
 #pragma mark - Users
 -(void)toggleFollowUser:(NSString *)personID completion:(WaxAPIClientCompletionBlockTypeSimple)completion{
-    if (personID) {
         
-        [self postPath:@"users/put" parameters:@{@"personid":personID} modelClass:[PersonObject class] completionBlock:^(id model, NSError *error) {
-            if (completion) {
-                completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
-            }
-        }];
+    NSParameterAssert(personID);
 
-    }else{
-        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke %@ with nil paramaters!", NSStringFromSelector(@selector(_cmd))];
-    }
+    [self postPath:@"users/put" parameters:@{@"personid":personID} modelClass:[PersonObject class] completionBlock:^(id model, NSError *error) {
+        if (completion) {
+            completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
+        }
+    }];
 }
 -(void)fetchProfileInformationForUser:(NSString *)personID completion:(WaxAPIClientCompletionBlockTypeUser)completion{
-    if (personID) {
-        
-        [self postPath:@"users/profile" parameters:@{@"personid": personID} modelClass:[PersonObject class] completionBlock:^(id model, NSError *error) {
-            if (completion) {
-                completion(model, error);
-            }
-        }];
-        
-    }else{
-        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke %@ with nil paramaters!", NSStringFromSelector(@selector(_cmd))];
-    }
+    
+    NSParameterAssert(personID);
+    
+    [self postPath:@"users/profile" parameters:@{@"personid": personID} modelClass:[PersonObject class] completionBlock:^(id model, NSError *error) {
+        if (completion) {
+            completion(model, error);
+        }
+    }];
 }
 -(void)fetchFollowersForUser:(NSString *)personID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
-    if (personID) {
-        [self fetchPeopleFromPath:@"users/followers" personId:personID infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
-            if (completion) {
-                completion(list, error);
-            }
-        }];
-    }else{
-        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke %@ with nil paramaters!", NSStringFromSelector(@selector(_cmd))];
-    }
+    
+    NSParameterAssert(personID);
+    
+    [self fetchPeopleFromPath:@"users/followers" personId:personID infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
+        if (completion) {
+            completion(list, error);
+        }
+    }];
 }
 -(void)fetchFollowingForUser:(NSString *)personID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
-    if (personID) {
-        [self fetchPeopleFromPath:@"users/following" personId:personID infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
-            if (completion) {
-                completion(list, error);
-            }
-        }];
-    }else{
-        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke %@ with nil paramaters!", NSStringFromSelector(@selector(_cmd))];
-    }
+    
+    NSParameterAssert(personID);
+    
+    [self fetchPeopleFromPath:@"users/following" personId:personID infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
+        if (completion) {
+            completion(list, error);
+        }
+    }];
 }
 -(void)searchForUser:(NSString *)searchTerm infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
-    if (searchTerm) {
-        [self fetchPeopleFromPath:@"users/search" personId:searchTerm infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
-            if (completion) {
-                completion(list, error);
-            }
-        }];
-    }else{
-        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke %@ with nil paramaters!", NSStringFromSelector(@selector(_cmd))];
-    }
+    
+    NSParameterAssert(searchTerm);
+    
+    [self fetchPeopleFromPath:@"users/search" personId:searchTerm infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
+        if (completion) {
+            completion(list, error);
+        }
+    }];
+}
+-(void)uploadProfilePicture:(UIImage *)profilePicture progress:(void (^)(CGFloat, NSUInteger, long long, long long))progress completion:(void (^)(id, NSError *))completion{
+        
+    NSParameterAssert(profilePicture);
+    
+    UIImage *square = [UIImage cropImageToSquare:profilePicture];
+    //resize photo!
+    NSData *picData = UIImageJPEGRepresentation(square, 0.01);
+    
+    [self postMultiPartPath:@"settings/update_picture" parameters:@{@"facebook": @0} constructingBodyWithBlock:^(id <AFMultipartFormData>formData) {
+        [formData appendPartWithFileData:picData name:@"profile_picture" fileName:@"profile_picture.jpg" mimeType:@"image/jpeg"];
+    } progress:progress completion:completion]; 
+
+}
+-(void)uploadVideoAtPath:(NSString *)path progress:(void (^)(CGFloat, NSUInteger, long long, long long))progress completion:(void (^)(id, NSError *))completion{
+    
+    NSParameterAssert(path);
+    
+    NSData *video = [NSData dataWithContentsOfFile:path];
+    
+    [self postMultiPartPath:@"settings/update_picture" parameters:@{@"facebook": @0} constructingBodyWithBlock:^(id <AFMultipartFormData>formData) {
+       
+        [formData appendPartWithFileData:video name:@"profile_picture" fileName:@"profile_picture.mp4" mimeType:@"video/mp4"];
+        
+    }progress:progress completion:completion];
 }
 -(void)syncFacebookProfilePictureWithCompletion:(WaxAPIClientCompletionBlockTypeSimple)completion{
     [self postPath:@"settings/update_picture" parameters:@{@"facebook": @1} modelClass:nil completionBlock:^(id model, NSError *error) {
@@ -220,110 +235,71 @@
         }
     }];
 }
--(void)uploadProfilePicture:(UIImage *)profilePicture progress:(void (^)(CGFloat, NSUInteger, long long, long long))progress completion:(void (^)(id, NSError *))completion{
-        
-    UIImage *square = [UIImage cropImageToSquare:profilePicture];
-    NSData *picData = UIImageJPEGRepresentation(square, 0.01);
-        
-    NSMutableURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:@"settings/update_picture" parameters:@{@"facebook": @0} constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
-        
-        [formData appendPartWithFileData:picData name:@"profile_picture" fileName:@"profile_picture.jpg" mimeType:@"image/jpeg"];
-    }];
-
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        
-        CGFloat proggy = (float)(totalBytesWritten/totalBytesExpectedToWrite);
-        
-        if (progress) {
-            progress(proggy, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite); 
-        }
-        
-    }];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self processResponseObject:responseObject forModelClass:nil withCompletionBlock:^(id model, NSError *error) {
-            if (completion) {
-                completion(responseObject, error);
-            }
-        }]; 
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (completion) {
-            completion(nil, error);
-        }
-    }];
-    
-    [self enqueueHTTPRequestOperation:operation];
-}
 
 
 #pragma mark - Videos
 -(void)uploadVideoMetadata:(NSString *)videoLink videoLength:(NSNumber *)videoLength tag:(NSString *)tag category:(NSString *)category caption:(NSString *)caption location:(CLLocation *)location completion:(WaxAPIClientCompletionBlockTypeVideoUpload)completion{
     
-    if (videoLink && videoLength && tag && category) {
-       
-        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:videoLink, @"videolink", videoLength, @"videolength", tag, @"tag", category, @"category", caption, @"caption", [NSNumber numberWithDouble:location.coordinate.latitude], @"lat", [NSNumber numberWithDouble:location.coordinate.longitude], @"lon", nil];
-      
-        [self postPath:@"videos/put" parameters:params modelClass:nil completionBlock:^(id model, NSError *error) {
-            if (completion) {
-                completion([model objectForKeyOrNil:@"shareid"], error);
-            }
-        }];
-    }else{
-        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke %@ with nil paramaters!", NSStringFromSelector(@selector(_cmd))];
-    }
+    
+    NSParameterAssert(videoLink);
+    NSParameterAssert(videoLength);
+    NSParameterAssert(tag);
+    NSParameterAssert(category);
+//    NSParameterAssert(caption);
+//    NSParameterAssert(location);
+           
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:videoLink, @"videolink", videoLength, @"videolength", tag, @"tag", category, @"category", caption, @"caption", [NSNumber numberWithDouble:location.coordinate.latitude], @"lat", [NSNumber numberWithDouble:location.coordinate.longitude], @"lon", nil];
+  
+    [self postPath:@"videos/put" parameters:params modelClass:nil completionBlock:^(id model, NSError *error) {
+        if (completion) {
+            completion([model objectForKeyOrNil:@"shareid"], error);
+        }
+    }];
 }
 -(void)fetchMetadataForVideo:(NSString *)videoID completion:(WaxAPIClientCompletionBlockTypeVideo)completion{
     
-    if (videoID) {
-        [self postPath:@"videos/get" parameters:@{@"videoid":videoID} modelClass:[VideoObject class] completionBlock:^(id model, NSError *error) {
-            if (completion) {
-                completion(model, error); 
-            }
-        }];
-    }else{
-        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke %@ with nil paramaters!", NSStringFromSelector(@selector(_cmd))];
-    }
+    NSParameterAssert(videoID);
+    
+    [self postPath:@"videos/get" parameters:@{@"videoid":videoID} modelClass:[VideoObject class] completionBlock:^(id model, NSError *error) {
+        if (completion) {
+            completion(model, error); 
+        }
+    }];
 }
 -(void)voteUpVideo:(NSString *)videoID ofUser:(NSString *)personID completion:(WaxAPIClientCompletionBlockTypeSimple)completion{
     
-    if (videoID && personID) {
+    NSParameterAssert(videoID);
+    NSParameterAssert(personID);
         
-        [self postPath:@"videos/vote" parameters:@{@"videoid":videoID, @"personid":personID} modelClass:nil completionBlock:^(id model, NSError *error) {
-            if (completion) {
-                completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
-            }
-        }];
-    }else{
-        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke %@ with nil paramaters!", NSStringFromSelector(@selector(_cmd))];
-    }
+    [self postPath:@"videos/vote" parameters:@{@"videoid":videoID, @"personid":personID} modelClass:nil completionBlock:^(id model, NSError *error) {
+        if (completion) {
+            completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
+        }
+    }];
 }
 -(void)performAction:(WaxAPIClientVideoActionType)actionType onVideoID:(NSString *)videoID completion:(WaxAPIClientCompletionBlockTypeSimple)completion{
     
-    if (actionType && videoID) {
-        
-        NSString *path = @"videos/";
-        
-        switch (actionType) {
-            case WaxAPIClientVideoActionTypeView:{
-                path = [path stringByAppendingString:@"view"]; 
-            }break;
-            case WaxAPIClientVideoActionTypeReport:{
-                path = [path stringByAppendingString:@"flag"];
-            }break;
-            case WaxAPIClientVideoActionTypeDelete:{
-                path = [path stringByAppendingString:@"delete"];
-            }break;
-        }
-        [self postPath:path parameters:@{@"videoid": videoID} modelClass:nil completionBlock:^(id model, NSError *error) {
-            if (completion) {
-                completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
-            }
-        }];
-
-    }else{
-        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke %@ with nil paramaters!", NSStringFromSelector(@selector(_cmd))];
+    NSParameterAssert(actionType);
+    NSParameterAssert(videoID);
+            
+    NSString *path = @"videos/";
+    
+    switch (actionType) {
+        case WaxAPIClientVideoActionTypeView:{
+            path = [path stringByAppendingString:@"view"]; 
+        }break;
+        case WaxAPIClientVideoActionTypeReport:{
+            path = [path stringByAppendingString:@"flag"];
+        }break;
+        case WaxAPIClientVideoActionTypeDelete:{
+            path = [path stringByAppendingString:@"delete"];
+        }break;
     }
+    [self postPath:path parameters:@{@"videoid": videoID} modelClass:nil completionBlock:^(id model, NSError *error) {
+        if (completion) {
+            completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
+        }
+    }];
 }
 
 #pragma mark - Settings
@@ -336,81 +312,104 @@
 }
 -(void)updateSettings:(NSString *)email fullName:(NSString *)fullName pushSettings:(NSDictionary *)pushSettings completion:(WaxAPIClientCompletionBlockTypeSettings)completion{
     
-    if (email && fullName && pushSettings) {
-        [self postPath:@"settings/update" parameters:@{@"email":email, @"name":fullName, @"pushsettings":pushSettings} modelClass:[SettingsObject class] completionBlock:^(id model, NSError *error) {
-            if (completion) {
-                completion(model, error);
-            }
-        }];
-
-    }else{
-        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke %@ with nil paramaters!", NSStringFromSelector(@selector(_cmd))];
-    }
+    NSParameterAssert(email);
+    NSParameterAssert(fullName);
+    NSParameterAssert(pushSettings);
+    
+    [self postPath:@"settings/update" parameters:@{@"email":email, @"name":fullName, @"pushsettings":pushSettings} modelClass:[SettingsObject class] completionBlock:^(id model, NSError *error) {
+        if (completion) {
+            completion(model, error);
+        }
+    }];
 }
 
 
 #pragma mark - Internal Methods
 -(void)fetchFeedFromPath:(NSString *)path tagOrPersonID:(NSString *)tagOrPersonID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
 
-    if (path && tagOrPersonID) {
-        
-        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:tagOrPersonID, @"feedid", infiniteScrollingID, @"lastitem", nil];
+    NSParameterAssert(tagOrPersonID);
+            
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:tagOrPersonID, @"feedid", infiniteScrollingID, @"lastitem", nil];
 
-        [self postPath:path parameters:params modelClass:[VideoObject class] completionBlock:^(id model, NSError *error) {
-                if (completion) {
-                    completion(model, error);
-                }
-            }];
-    }else{
-        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke %@ with nil paramaters!", NSStringFromSelector(@selector(_cmd))];
-    }
+    [self postPath:path parameters:params modelClass:[VideoObject class] completionBlock:^(id model, NSError *error) {
+        if (completion) {
+            completion(model, error);
+        }
+    }];
 }
 
 -(void)fetchPeopleFromPath:(NSString *)path personId:(NSString *)personId infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
-        
-    if (path && personId) {
+    
+    NSParameterAssert(personId);
+    
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:personId, @"personid", infiniteScrollingID, @"lastitem", nil];
 
-        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:personId, @"personid", infiniteScrollingID, @"lastitem", nil];
-
-        [self postPath:path parameters:params modelClass:[PersonObject class] completionBlock:^(id model, NSError *error) {
+    [self postPath:path parameters:params modelClass:[PersonObject class] completionBlock:^(id model, NSError *error) {
+        if (completion) {
+            completion(model, error);
+        }
+    }];
+}
+-(void)postPath:(NSString *)path parameters:(NSDictionary *)parameters modelClass:(Class)modelClass completionBlock:(void (^)(id model, NSError *error))completion{
+    
+    NSParameterAssert(path);
+    
+    [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self processResponseObject:responseObject forModelClass:modelClass withCompletionBlock:^(id model, NSError *error) {
             if (completion) {
                 completion(model, error);
             }
         }];
-    }else{
-        [NSException raise:NSInvalidArgumentException format:@"Cannot invoke %@ with nil paramaters!", NSStringFromSelector(@selector(_cmd))];
-    }
-}
--(void)postPath:(NSString *)path parameters:(NSDictionary *)parameters modelClass:(Class)modelClass completionBlock:(void (^)(id model, NSError *error))completion{
-    
-    if (path) {
-        [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self processResponseObject:responseObject forModelClass:modelClass withCompletionBlock:^(id model, NSError *error) {
-                if (completion) {
-                    completion(model, error);
-                }
-            }];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            if ([error.domain isEqualToString:(NSString *)kCFErrorDomainCFNetwork] || [error.domain isEqualToString:NSURLErrorDomain]) {
-                [[AIKErrorManager sharedManager] showAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion buttonHandler:^{
-                    if (completion) {
-                        completion(nil, error);
-                    }
-                }];
-            }else{
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        if ([error.domain isEqualToString:(NSString *)kCFErrorDomainCFNetwork] || [error.domain isEqualToString:NSURLErrorDomain] || [error.domain isEqualToString:AFNetworkingErrorDomain]) {
+            [[AIKErrorManager sharedManager] showAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion buttonHandler:^{
                 if (completion) {
                     completion(nil, error);
-                } 
+                }
+            }];
+//        }else{
+//            if (completion) {
+//                completion(nil, error);
+//            } 
+//        }
+    }];
+}
+-(void)postMultiPartPath:(NSString *)path parameters:(NSDictionary *)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block progress:(void (^)(CGFloat, NSUInteger, long long, long long))progress completion:(void (^)(id, NSError *))completion{
+    
+    NSParameterAssert(path);
+    NSParameterAssert(block);
+    
+    NSMutableURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:path parameters:parameters constructingBodyWithBlock:block];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        
+        CGFloat proggy = (float)(totalBytesWritten/totalBytesExpectedToWrite);
+        
+        if (progress) {
+            progress(proggy, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
+        }
+        
+    }];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self processResponseObject:responseObject forModelClass:nil withCompletionBlock:^(id model, NSError *error) {
+            if (completion) {
+                completion(model, error);
             }
         }];
-    }else{
-        [NSException raise:NSInvalidArgumentException format:@"Cannot post without a path!"];
-    }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[AIKErrorManager sharedManager] showAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion buttonHandler:^{
+            if (completion) {
+                completion(nil, error);
+            }
+        }];
+    }];
+    
+    [self enqueueHTTPRequestOperation:operation];
 }
 -(void)processResponseObject:(id)responseObject forModelClass:(Class)modelClass withCompletionBlock:(void (^)(id model, NSError *error))completion{
 
-//    dispatch_async(self.jsonProcessingQueue, ^{
-    
         [self validateResponseObject:responseObject completion:^(id response) {
             id validated = response;
             
@@ -445,11 +444,10 @@
                 });
             }
         }]; 
-//    });
 }
 -(void)validateResponseObject:(id)responseObject completion:(void (^)(id response))completion{
     
-    DLog(@"response %@", responseObject);
+//    DLog(@"response %@", responseObject);
     
     dispatch_async(self.jsonProcessingQueue, ^{
 

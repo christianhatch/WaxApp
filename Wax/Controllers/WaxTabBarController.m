@@ -10,7 +10,7 @@
 #import "SplashViewController.h"
 #import "ProfileViewController.h"
 
-@interface WaxTabBarController ()
+@interface WaxTabBarController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @end
 
 
@@ -77,8 +77,39 @@
 }
 -(void)capture{
     [[AIKErrorManager sharedManager] logMessageToAllServices:@"Tapped record on tabbar"];
-//    VideoCaptureViewController *vcc = [[VideoCaptureViewController alloc] init];
-//    [self presentViewController:vcc animated:YES completion:nil];
+    
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    picker.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+    picker.videoQuality = UIImagePickerControllerQualityTypeLow;
+    picker.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;
+    picker.cameraOverlayView.alpha = 0;
+    picker.delegate = self;
+    picker.mediaTypes = @[(NSString *)kUTTypeMovie];
+    picker.allowsEditing = NO;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+
+    NSString *path = [[info objectForKeyOrNil:UIImagePickerControllerMediaURL] path];
+
+    [[WaxAPIClient sharedClient] uploadVideoAtPath:path progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        
+        [SVProgressHUD showProgress:percentage status:@"uploading video"]; 
+        
+    } completion:^(id responseObject, NSError *error) {
+        
+        if (error) {
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+        }else{
+            [SVProgressHUD showSuccessWithStatus:@"uploaded vid!"];  
+        }
+        
+    }];
+}
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 -(void)showSplashScreen{
     UINavigationController *nav = initViewControllerWithIdentifier(@"SplashNav");

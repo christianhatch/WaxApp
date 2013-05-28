@@ -195,6 +195,10 @@ typedef NSInteger WaxAPIClientVideoActionType;
            onVideoID:(NSString *)videoID
           completion:(WaxAPIClientCompletionBlockTypeSimple)completion;
 
+-(void)uploadVideoAtPath:(NSString *)path
+                progress:(void (^)(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))progress
+              completion:(void (^)(id responseObject, NSError *error))completion;
+
 
 #pragma mark - Settings
 -(void)fetchSettingsWithCompletion:(WaxAPIClientCompletionBlockTypeSettings)completion;
@@ -209,6 +213,8 @@ typedef NSInteger WaxAPIClientVideoActionType;
 #pragma mark - Internal Methods
 
 -(void)postPath:(NSString *)path parameters:(NSDictionary *)parameters modelClass:(Class)modelClass completionBlock:(void (^)(id model, NSError *error))completion;
+
+-(void)postMultiPartPath:(NSString *)path parameters:(NSDictionary *)parameters constructingBodyWithBlock:(void (^)(id <AFMultipartFormData>formData))block progress:(void (^)(CGFloat progress, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))progress completion:(void (^)(id model, NSError *error))completion;
 
 
 //-(void)processResponseObject:(id)responseObject forArrayOfModelClass:(Class)modelClass withCompletionBlock:(void (^)(NSMutableArray *processedResponse, NSError *error))completion;

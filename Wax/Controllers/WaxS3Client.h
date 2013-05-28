@@ -13,9 +13,9 @@
 
 + (WaxS3Client *)sharedClient;
 
--(void)uploadProfilePicture:(UIImage *)profilePicture
-                   progress:(void (^)(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))progress
-                 completion:(void (^)(id responseObject, NSError *error))completion;
+//-(void)uploadProfilePicture:(UIImage *)profilePicture
+//                   progress:(void (^)(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))progress
+//                 completion:(void (^)(id responseObject, NSError *error))completion;
 
 -(void)uploadVideoAtPath:(NSString *)path
                 progress:(void (^)(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))progress

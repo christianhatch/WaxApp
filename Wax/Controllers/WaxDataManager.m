@@ -8,7 +8,11 @@
 
 #import "WaxDataManager.h"
 
+
+
 @implementation WaxDataManager
+@synthesize homeFeed = _homeFeed; 
+
 
 + (WaxDataManager *)sharedManager {
     static WaxDataManager *sharedID = nil;

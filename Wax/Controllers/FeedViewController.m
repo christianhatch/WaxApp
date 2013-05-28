@@ -19,17 +19,15 @@
     
     [self enableSwipeToPopVC:YES];
     
-    
     [self setUpView];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
     [[WaxAPIClient sharedClient] fetchHomeFeedWithInfiniteScrollingID:nil completion:^(NSMutableArray *list, NSError *error) {
-        
-        DLog(@"home feed %@", list)
-        if (error) {
-            DLog(@"error %@", error);
+
+        if (!error) {
+            
         }
         
     }];

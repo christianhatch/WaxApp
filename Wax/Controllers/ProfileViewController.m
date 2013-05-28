@@ -34,7 +34,7 @@
     [super viewDidAppear:animated];
 }
 -(void)chooseNewPic{
-    [[WaxUser currentUser] chooseNewprofilePicture:self completion:^(NSError *error, UIImage *profilePicture) {
+    [[WaxUser currentUser] chooseNewprofilePicture:self completion:^(UIImage *profilePicture, NSError *error) {
         
         [self.profPicBtn setBackgroundImage:profilePicture forState:UIControlStateNormal animated:YES];
         
@@ -43,7 +43,7 @@
     }];
 }
 -(void)uploadPic{
-    [[WaxUser currentUser] updateProfilePictureOnServer:[self.profPicBtn backgroundImageForState:UIControlStateNormal] andShowUICallbacks:YES completion:^(NSError *error, UIImage *profilePicture) {
+    [[WaxUser currentUser] updateProfilePictureOnServer:[self.profPicBtn backgroundImageForState:UIControlStateNormal] andShowUICallbacks:YES completion:^(NSError *error) {
         
         DLog(@"error uploading %@", error);
         
