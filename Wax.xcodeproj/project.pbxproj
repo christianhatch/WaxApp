@@ -55,8 +55,6 @@
 		452FAFE61741860D0091F8D4 /* WaxAutoCompleter.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAFE21741860D0091F8D4 /* WaxAutoCompleter.m */; };
 		452FAFE71741860D0091F8D4 /* WaxEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAFE41741860D0091F8D4 /* WaxEmptyView.m */; };
 		452FAFE81741860D0091F8D4 /* WaxEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAFE41741860D0091F8D4 /* WaxEmptyView.m */; };
-		4530BF50175112F0005D5AAD /* WaxS3Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 4530BF4F175112F0005D5AAD /* WaxS3Client.m */; };
-		4530BF51175112F0005D5AAD /* WaxS3Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 4530BF4F175112F0005D5AAD /* WaxS3Client.m */; };
 		454BBDC117403888005F48ED /* WaxDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC017403888005F48ED /* WaxDataManager.m */; };
 		454BBDC5174049C4005F48ED /* ModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC4174049C4005F48ED /* ModelObject.m */; };
 		454BBDC917404A2E005F48ED /* WaxUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC817404A2D005F48ED /* WaxUser.m */; };
@@ -183,8 +181,6 @@
 		452FAFE21741860D0091F8D4 /* WaxAutoCompleter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxAutoCompleter.m; sourceTree = "<group>"; };
 		452FAFE31741860D0091F8D4 /* WaxEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxEmptyView.h; sourceTree = "<group>"; };
 		452FAFE41741860D0091F8D4 /* WaxEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxEmptyView.m; sourceTree = "<group>"; };
-		4530BF4E175112F0005D5AAD /* WaxS3Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxS3Client.h; sourceTree = "<group>"; };
-		4530BF4F175112F0005D5AAD /* WaxS3Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxS3Client.m; sourceTree = "<group>"; };
 		454BBDBF17403888005F48ED /* WaxDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxDataManager.h; sourceTree = "<group>"; };
 		454BBDC017403888005F48ED /* WaxDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxDataManager.m; sourceTree = "<group>"; };
 		454BBDC3174049C4005F48ED /* ModelObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelObject.h; sourceTree = "<group>"; };
@@ -446,8 +442,6 @@
 				454BBDC817404A2D005F48ED /* WaxUser.m */,
 				45EA32121726063C00980320 /* WaxAPIClient.h */,
 				45EA32131726063C00980320 /* WaxAPIClient.m */,
-				4530BF4E175112F0005D5AAD /* WaxS3Client.h */,
-				4530BF4F175112F0005D5AAD /* WaxS3Client.m */,
 				454BBDBF17403888005F48ED /* WaxDataManager.h */,
 				454BBDC017403888005F48ED /* WaxDataManager.m */,
 			);
@@ -803,7 +797,6 @@
 				45AF70381741CBA7008399D3 /* WaxTabBarController.m in Sources */,
 				45009A42174EB8FF00EE0B5C /* LoginObject.m in Sources */,
 				45009A46174EB90A00EE0B5C /* SettingsObject.m in Sources */,
-				4530BF50175112F0005D5AAD /* WaxS3Client.m in Sources */,
 				45B8AAEA17515858009450EA /* ProfileViewController.m in Sources */,
 				45B8AAEE17515F49009450EA /* SettingsViewController.m in Sources */,
 				45B8AAF917517ABD009450EA /* UploadObject.m in Sources */,
@@ -838,7 +831,6 @@
 				45009A4D174EBD0200EE0B5C /* SettingsObjectTests.m in Sources */,
 				45009A50174EBD0A00EE0B5C /* PersonObjectTests.m in Sources */,
 				45009A53174EBD1200EE0B5C /* VideoObjectTests.m in Sources */,
-				4530BF51175112F0005D5AAD /* WaxS3Client.m in Sources */,
 				45B8AAEB17515858009450EA /* ProfileViewController.m in Sources */,
 				45B8AAEF17515F49009450EA /* SettingsViewController.m in Sources */,
 				45B8AAFA17517ABD009450EA /* UploadObject.m in Sources */,
