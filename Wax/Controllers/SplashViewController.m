@@ -72,11 +72,7 @@
     LoginViewController *loginVC = initViewControllerWithIdentifier(@"LoginVC");
     [self.navigationController pushViewController:loginVC animated:YES];
 }
--(void)pushFacebookSignupVC{
-    SignupViewController *signupVC = initViewControllerWithIdentifier(@"SignupVC");
-    signupVC.facebookSignup = YES;
-    [self.navigationController pushViewController:signupVC animated:YES];
-}
+
 -(void)setUpView{
     self.navigationItem.title = NSLocalizedString(@"Wax", @"Wax");
 

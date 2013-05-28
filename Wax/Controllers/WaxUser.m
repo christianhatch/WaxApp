@@ -210,9 +210,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         picker.delegate = self;
         picker.allowsEditing = YES;
-        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
-        picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         [sender presentViewController:picker animated:YES completion:nil];
     };
     RIButtonItem *takePic = [RIButtonItem item];
@@ -258,7 +256,8 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         [SVProgressHUD showWithStatus:NSLocalizedString(@"Updating Profile Picture...", @"Updating Profile Picture...")];
     }
     
-    [[WaxS3Client sharedClient] uploadProfilePicture:profilePicture progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+    
+    [[WaxAPIClient sharedClient] uploadProfilePicture:profilePicture progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
        
         if (showUICallbacks) {
             [SVProgressHUD showProgress:percentage status:NSLocalizedString(@"Updating Profile Picture...", @"Updating Profile Picture...")];

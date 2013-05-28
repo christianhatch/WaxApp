@@ -22,6 +22,10 @@
     [self enableSwipeToPopVC:YES];
         
     [self setUpView];
+    
+    [self.profPicBtn addTarget:self action:@selector(chooseNewPic) forControlEvents:UIControlEventTouchUpInside];
+    [self.uploadBtn addTarget:self action:@selector(uploadPic) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -29,7 +33,22 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 }
-
+-(void)chooseNewPic{
+    [[WaxUser currentUser] chooseNewprofilePicture:self completion:^(NSError *error, UIImage *profilePicture) {
+        
+        [self.profPicBtn setBackgroundImage:profilePicture forState:UIControlStateNormal animated:YES];
+        
+        DLog(@"error choosing %@", error);
+        
+    }];
+}
+-(void)uploadPic{
+    [[WaxUser currentUser] updateProfilePictureOnServer:[self.profPicBtn backgroundImageForState:UIControlStateNormal] andShowUICallbacks:YES completion:^(NSError *error, UIImage *profilePicture) {
+        
+        DLog(@"error uploading %@", error);
+        
+    }];
+}
 -(void)setUpView{
     if (self.user) {
         

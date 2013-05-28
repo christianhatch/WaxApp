@@ -14,5 +14,7 @@
 
 @property (nonatomic, strong) PersonObject *user;
 
+@property (strong, nonatomic) IBOutlet UIButton *profPicBtn;
+@property (strong, nonatomic) IBOutlet UIButton *uploadBtn;
 
 @end

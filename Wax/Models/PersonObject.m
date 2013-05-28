@@ -71,12 +71,10 @@
     return self;
 }
 
-
 -(NSString *)description{
-    NSString *descrippy = [NSString stringWithFormat:@"PersonObject:\nUserid: %@\nUsername: %@\nFullname: %@\nFollowing: %i\nFollowersCount: %@\nFollowingCount: %@\nTitlesCount: %@\nInfiniteScrollingID: %@", self.userID, self.username, self.fullName, self.following, self.followersCount, self.followingCount, self.titlesCount, self.infiniteScrollingID];
+    NSString *descrippy = [NSString stringWithFormat:@"PersonObject Description: UserID=%@ Username=%@ Fullname=%@ Following=%i FollowersCount=%@ FollowingCount=%@ TitlesCount=%@ InfiniteScrollingID=%@", self.userID, self.username, self.fullName, self.following, self.followersCount, self.followingCount, self.titlesCount, self.infiniteScrollingID];
     return descrippy;
 }
-
 
 - (id)initWithCoder:(NSCoder *)acoder {
     self = [super init];

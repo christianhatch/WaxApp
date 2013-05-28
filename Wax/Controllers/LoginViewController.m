@@ -74,7 +74,7 @@
             [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Logged In!", @"Logged In!")];
             [self dismissViewControllerAnimated:YES completion:nil];
         }else{
-            
+            [SVProgressHUD dismiss];
         }
     }];
 }

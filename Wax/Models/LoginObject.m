@@ -31,9 +31,9 @@
     return self;
 }
 
-//-(NSString *)description{
-//    NSString *descrippy = [NSString stringWithFormat:@"PersonObject:\nUserid: %@\nUsername: %@\nFullname: %@\nFollowing: %i\nFollowersCount: %@\nFollowingCount: %@\nTitlesCount: %@\nInfiniteScrollingID: %@", self.userid, self.username, self.fullName, self.following, self.followersCount, self.followingCount, self.titlesCount, self.infiniteScrollingID];
-//    return descrippy;
-//}
+-(NSString *)description{
+    NSString *descrippy = [NSString stringWithFormat:@"LoginObject Description: UserID=%@ Token=%@ FacebookID=%@ Username=%@ FullName=%@ Email=%@", self.userID, self.token, self.facebookID, self.username, self.fullName, self.email];
+    return descrippy;
+}
 
 @end

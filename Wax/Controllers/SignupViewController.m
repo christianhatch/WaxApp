@@ -76,7 +76,7 @@
         [SVProgressHUD showWithStatus:NSLocalizedString(@"Creating Account...", @"Creating Account...")];
         
         if (!self.facebookSignup) {
-            [[WaxUser currentUser] updateProfilePictureOnServer:self.profilePictureButton.imageView.image andShowUICallbacks:NO completion:^(NSError *error, UIImage *profilePicture) {
+            [[WaxUser currentUser] updateProfilePictureOnServer:self.profilePictureButton.imageView.image andShowUICallbacks:YES completion:^(NSError *error, UIImage *profilePicture) {
                 if (error) {
                     [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture") error:error andShowAlertWithButtonHandler:^{
                         //try again? tell user to manually go try again?
@@ -85,13 +85,13 @@
             }];
         }
         [[WaxUser currentUser] createAccountWithUsername:self.usernameField.text fullName:self.fullNameField.text email:self.emailField.text passwordOrFacebookID:self.passwordField.text completion:^(NSError *error) {
+
             if (!error) {
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Account Created!", @"Account Created!")];
                 [self dismissViewControllerAnimated:YES completion:nil];
             }else{
                 [SVProgressHUD dismiss];
-                [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Creating Account", @"Problem Creating Account") error:error andShowAlertWithButtonHandler:^{
-                    
-                }];
+                
             }
         }];
     }

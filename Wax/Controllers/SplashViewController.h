@@ -14,6 +14,4 @@
 @property (strong, nonatomic) IBOutlet UIButton *signupWithEmailButton;
 @property (strong, nonatomic) IBOutlet UIButton *loginButton;
 
--(void)pushFacebookSignupVC; 
-
 @end

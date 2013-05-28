@@ -34,9 +34,9 @@ NSString *const WaxAPIPushSettingsKeyChallengeAccepted = @"challenges";
     return self;
 }
 
-//-(NSString *)description{
-//    NSString *descrippy = [NSString stringWithFormat:@"PersonObject:\nUserid: %@\nUsername: %@\nFullname: %@\nFollowing: %i\nFollowersCount: %@\nFollowingCount: %@\nTitlesCount: %@\nInfiniteScrollingID: %@", self.userid, self.username, self.fullName, self.following, self.followersCount, self.followingCount, self.titlesCount, self.infiniteScrollingID];
-//    return descrippy;
-//}
+-(NSString *)description{
+    NSString *descrippy = [NSString stringWithFormat:@"SettingsObject Description: FacebookID=%@ PushSettings=%@ Username=%@ FullName=%@ Email=%@ ", self.facebookID, self.pushSettings, self.username, self.fullName, self.email];
+    return descrippy;
+}
 
 @end

@@ -170,6 +170,10 @@ typedef NSInteger WaxAPIClientVideoActionType;
 
 -(void)syncFacebookProfilePictureWithCompletion:(WaxAPIClientCompletionBlockTypeSimple)completion; 
 
+-(void)uploadProfilePicture:(UIImage *)profilePicture
+                   progress:(void (^)(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))progress
+                 completion:(void (^)(id responseObject, NSError *error))completion;
+
 
 #pragma mark - Videos
 -(void)uploadVideoMetadata:(NSString *)videoLink
@@ -203,7 +207,11 @@ typedef NSInteger WaxAPIClientVideoActionType;
 
 
 #pragma mark - Internal Methods
--(void)processResponseObject:(id)responseObject forArrayOfModelClass:(Class)modelClass withCompletionBlock:(void (^)(NSMutableArray *processedResponse, NSError *error))completion;
+
+-(void)postPath:(NSString *)path parameters:(NSDictionary *)parameters modelClass:(Class)modelClass completionBlock:(void (^)(id model, NSError *error))completion;
+
+
+//-(void)processResponseObject:(id)responseObject forArrayOfModelClass:(Class)modelClass withCompletionBlock:(void (^)(NSMutableArray *processedResponse, NSError *error))completion;
 
 
 

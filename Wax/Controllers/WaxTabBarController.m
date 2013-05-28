@@ -84,7 +84,9 @@
     UINavigationController *nav = initViewControllerWithIdentifier(@"SplashNav");
     SplashViewController *splashVC = initViewControllerWithIdentifier(@"SplashVC");
     nav.viewControllers = @[splashVC];
-    [self presentViewController:nav animated:YES completion:nil];
+    [self presentViewController:nav animated:YES completion:^{
+        [self setSelectedIndex:0];
+    }];
 }
 
 - (void)didReceiveMemoryWarning{
