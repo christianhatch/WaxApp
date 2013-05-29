@@ -7,21 +7,26 @@
 		<key>Wax AppStore.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>2</integer>
 		</dict>
 		<key>Wax Development.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>1</integer>
 		</dict>
-		<key>Wax Documentation.xcscheme</key>
+		<key>WaxDocumentation.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>5</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>4591001D1755906E000D8BCD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>45F71618171F163C009097F3</key>
 		<dict>
 			<key>primary</key>

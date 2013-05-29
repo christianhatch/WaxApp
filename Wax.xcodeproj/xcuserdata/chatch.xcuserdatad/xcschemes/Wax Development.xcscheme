@@ -20,6 +20,20 @@
                ReferencedContainer = "container:Wax.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4591001D1755906E000D8BCD"
+               BuildableName = "WaxDocumentation"
+               BlueprintName = "WaxDocumentation"
+               ReferencedContainer = "container:Wax.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

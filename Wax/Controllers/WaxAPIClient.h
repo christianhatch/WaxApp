@@ -7,7 +7,7 @@
 //
 
 
-#import <AcaciaKit/AcaciaKit.h>
+#import <AcaciaKit/AFNetworking.h>
 
 @class LoginObject, PersonObject, VideoObject, SettingsObject, CLLocation;
 
@@ -82,7 +82,7 @@ enum{
 typedef NSInteger WaxAPIClientVideoActionType;
 
 
-@interface WaxAPIClient : AIKRestfulAPIClient
+@interface WaxAPIClient : AFHTTPClient
 
 + (WaxAPIClient *)sharedClient;
 
