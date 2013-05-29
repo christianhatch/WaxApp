@@ -16,8 +16,8 @@
     return [NSURL fileURLWithPath:outputString];
 }
 +(NSURL *)streamingURLFromUserid:(NSString *)userid videoLink:(NSString *)videoLink{
-//    return [NSURL URLWithString:[NSString stringWithFormat:@"http://d3kr9whjwodb8q.cloudfront.net/userinfo-%@/%@", userid, videoLink]];
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://stream.kiwi.ly/vods3/_definst_/mp4:amazons3/%@/userinfo-%@/%@/playlist.m3u8", kThirdPartyAWSBucket, userid, videoLink]];
+//    return [NSURL URLWithString:[NSString stringWithFormat:@"http://d3kr9whjwodb8q.cloudfront.net/%@/%@", userid, videoLink]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://stream.kiwi.ly/vods3/_definst_/mp4:amazons3/%@/%@/%@/playlist.m3u8", kThirdPartyAWSBucket, userid, videoLink]];
 }
 +(NSURL *)profilePictureURLFromUserid:(NSString *)userid{    
     if ([[WaxUser currentUser] userIDIsCurrentUser:userid]) {
@@ -35,18 +35,18 @@
     }
 }
 +(NSURL *)cloudFrontProfilePictureURLFromUserid:(NSString *)userid{
-    return [NSURL URLWithString:[NSString stringWithFormat:@"http://d3kr9whjwodb8q.cloudfront.net/userinfo-%@/profilepicture", userid]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"http://d3kr9whjwodb8q.cloudfront.net/%@/profile_picture.jpg", userid]];
 }
 +(NSURL *)s3ProfilePictureURLFromUserid:(NSString *)userid{
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.s3.amazonaws.com/userinfo-%@/profilepicture", kThirdPartyAWSBucket, userid]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.s3.amazonaws.com/%@/profile_picture.jpg", kThirdPartyAWSBucket, userid]];
 }
 
 +(NSURL *)videoThumbnailURLFromUserid:(NSString *)userid videoLink:(NSString *)videoLink{
     NSString *fileName = [NSString stringWithFormat:@"%@.jpg", videoLink];
-    return [NSURL URLWithString:[NSString stringWithFormat:@"http://d3kr9whjwodb8q.cloudfront.net/userinfo-%@/%@", userid, fileName]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"http://d3kr9whjwodb8q.cloudfront.net/%@/%@", userid, fileName]];
 }
 +(NSURL *)shareURLFromShareId:(NSString *)shareId{
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://kiwi.ly/%@", shareId]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://wax.li/%@", shareId]];
 }
 
 @end

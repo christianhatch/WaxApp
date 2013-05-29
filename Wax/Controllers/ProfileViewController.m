@@ -32,6 +32,16 @@
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
+    [self.imageView setImageWithURL:[NSURL URLWithString:@"http://www.executive-shaving.co.uk/shaving/wax-supplies/wax-suppies.jpg"] placeholderImage:nil animated:YES andEnableAsButtonWithButtonHandler:^{
+        DLog(@"button tapped!");
+    } completion:^(NSError *error) {
+        DLog(@"error setting with url %@", error); 
+    }];
+    
+    [self.imageView setFacebookProfilePictureWithFacebookID:[[WaxUser currentUser] facebookAccountID] placeholderImage:nil animated:YES completion:^(NSError *error) {
+        DLog(@"error setting fb %@", error);
+    }];
 }
 -(void)chooseNewPic{
     [[WaxUser currentUser] chooseNewprofilePicture:self completion:^(UIImage *profilePicture, NSError *error) {

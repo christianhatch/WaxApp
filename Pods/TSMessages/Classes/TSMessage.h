@@ -20,9 +20,19 @@ typedef enum {
     TSMessageNotificationPositionBottom
 } TSMessageNotificationPosition;
 
+/** This enum can be passed to the duration parameter */
+typedef enum {
+    TSMessageNotificationDurationAutomatic = 0,
+    TSMessageNotificationDurationEndless = -1 // The notification is displayed until the user dismissed it or it is dismissed by calling dismissActiveNotification
+} TSMessageNotificationDuration;
+
+
 @interface TSMessage : NSObject
 
 + (instancetype)sharedMessage;
+
+/** Indicates whether a notification is currently active. */
++ (BOOL)isNotificationActive;
 
 /** Shows a notification message 
  @param message The title of the notification view
@@ -106,6 +116,7 @@ typedef enum {
  @param buttonTitle The title for button (optional)
  @param buttonCallback The block that should be executed, when the user tapped on the button
  @param position The position of the message on the screen
+ @param dismissingEnabled Should the message be dismissed when the user taps/swipes it
  */
 + (void)showNotificationInViewController:(UIViewController *)viewController
                                withTitle:(NSString *)title
@@ -115,7 +126,17 @@ typedef enum {
                             withCallback:(void (^)())callback
                          withButtonTitle:(NSString *)buttonTitle
                       withButtonCallback:(void (^)())buttonCallback
-                              atPosition:(TSMessageNotificationPosition)messagePosition;
+                              atPosition:(TSMessageNotificationPosition)messagePosition
+                     canBeDismisedByUser:(BOOL)dismissingEnabled;
+
+
+/** Fades out the currently displayed notification. If another notification is in the queue,
+ the next one will be displayed automatically 
+ @return YES if the currently displayed notification could be hidden. NO if no notification 
+ was currently displayed.
+ */
++ (BOOL)dismissActiveNotification;
+
 
 
 /** Shows a predefined error message, that is displayed, when this action requires an internet connection */

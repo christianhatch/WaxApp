@@ -16,5 +16,6 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *profPicBtn;
 @property (strong, nonatomic) IBOutlet UIButton *uploadBtn;
+@property (strong, nonatomic) IBOutlet UIImageView *imageView;
 
 @end

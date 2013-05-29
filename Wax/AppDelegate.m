@@ -95,9 +95,9 @@
 #ifdef TESTFLIGHT
     [TestFlight setDeviceIdentifier:[(id<UIDeviceHack>)[UIDevice currentDevice] uniqueIdentifier]];
 #endif
-    [TestFlight takeOff:kTestFlightAPIKey];
-    [Flurry startSession:kFlurryAPIKey];
-    [Crashlytics startWithAPIKey:kCrashlyticsAPIKey delegate:self];
+    [TestFlight takeOff:kThirdPartyTestFlightAPIKey];
+    [Flurry startSession:kThirdPartyFlurryAPIKey];
+    [Crashlytics startWithAPIKey:kThirdPartyCrashlyticsAPIKey delegate:self];
 #endif
 }
 -(void)customizeAppearance{

@@ -38,6 +38,11 @@ static BOOL notificationActive;
     return sharedMessages;
 }
 
++ (BOOL)isNotificationActive
+{
+    return notificationActive;
+}
+
 #pragma mark Methods to call from outside
 
 + (void)showNotificationWithMessage:(NSString *)message
@@ -114,7 +119,8 @@ static BOOL notificationActive;
                               withCallback:callback
                            withButtonTitle:nil
                         withButtonCallback:nil
-                                atPosition:messagePosition];
+                                atPosition:messagePosition
+                       canBeDismisedByUser:YES];
 }
 
 
@@ -127,10 +133,11 @@ static BOOL notificationActive;
                          withButtonTitle:(NSString *)buttonTitle
                       withButtonCallback:(void (^)())buttonCallback
                               atPosition:(TSMessageNotificationPosition)messagePosition
+                     canBeDismisedByUser:(BOOL)dismissingEnabled
 {
     for (TSMessageView *n in [TSMessage sharedMessage].messages)
     {
-        if ([n.title isEqualToString:title] && [n.content isEqualToString:message])
+        if (([n.title isEqualToString:title] || (!n.title && !title)) && ([n.content isEqualToString:message] || (!n.content && !message)))
         {
             return; // avoid showing the same messages twice in a row
         }
@@ -145,7 +152,8 @@ static BOOL notificationActive;
                                                withCallback:callback
                                             withButtonTitle:buttonTitle
                                          withButtonCallback:buttonCallback
-                                                 atPosition:messagePosition];
+                                                 atPosition:messagePosition
+                                          shouldBeDismissed:dismissingEnabled];
     
     [[TSMessage sharedMessage].messages addObject:v];
     
@@ -229,31 +237,37 @@ static BOOL notificationActive;
     else
     {
         toPoint = CGPointMake(currentView.center.x,
-                              currentView.viewController.view.frame.size.height - CGRectGetHeight(currentView.frame) / 2.0);
+                              currentView.viewController.view.bounds.size.height - CGRectGetHeight(currentView.frame) / 2.0);
     }
     
     [UIView animateWithDuration:kTSMessageAnimationDuration animations:^
      {
          currentView.center = toPoint;
          currentView.alpha = TSMessageViewAlpha;
+     } completion:^(BOOL finished) {
+         currentView.messageIsFullyDisplayed = YES;
      }];
     
     
-    if (currentView.duration == 0.0)
+    if (currentView.duration == TSMessageNotificationDurationAutomatic)
     {
         currentView.duration = kTSMessageAnimationDuration + kTSMessageDisplayTime + currentView.frame.size.height * kTSMessageExtraDisplayTimePerPixel;
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^
+    if (currentView.duration != TSMessageNotificationDurationEndless)
     {
-        [self performSelector:@selector(fadeOutNotification:)
-                   withObject:currentView
-                   afterDelay:currentView.duration];
-    });
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
+            [self performSelector:@selector(fadeOutNotification:)
+                       withObject:currentView
+                       afterDelay:currentView.duration];
+        });
+    }
 }
 
 - (void)fadeOutNotification:(TSMessageView *)currentView
 {
+    currentView.messageIsFullyDisplayed = NO;
     [NSObject cancelPreviousPerformRequestsWithTarget:self
                                              selector:@selector(fadeOutNotification:)
                                                object:currentView];
@@ -266,7 +280,7 @@ static BOOL notificationActive;
     else
     {
         fadeOutToPoint = CGPointMake(currentView.center.x,
-                                     currentView.viewController.view.frame.size.height);
+                                     currentView.viewController.view.bounds.size.height);
     }
     
     [UIView animateWithDuration:kTSMessageAnimationDuration animations:^
@@ -290,6 +304,21 @@ static BOOL notificationActive;
              [self fadeInCurrentNotification];
          }
      }];
+}
+
++ (BOOL)dismissActiveNotification
+{
+    if ([[TSMessage sharedMessage].messages count] == 0) return NO;
+    
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+        TSMessageView *currentMessage = [[TSMessage sharedMessage].messages objectAtIndex:0];
+        if (currentMessage.messageIsFullyDisplayed)
+        {
+            [[TSMessage sharedMessage] fadeOutNotification:currentMessage];
+        }
+    });
+    return YES;
 }
 
 #pragma mark class Methods to subclass

@@ -7,12 +7,6 @@
 //
 
 
-#ifdef DEBUG
-#ifndef UNITTESTING
-#define UNITTESTING
-#endif
-#endif
-
 #pragma mark - API
 extern NSString *const kWaxAPIBaseURL;
 extern NSString *const kWaxAPISalt;
@@ -53,36 +47,6 @@ extern NSString *const kWaxNotificationFacebookAccountDidChange;
 
 #pragma mark - Contstants
 #define kCornerRadiusDefault                5
-
-
-
-#pragma mark - Macro Functions
-
-
-//utilities
-#define degreesToRadians( degrees ) ( ( degrees ) / 180.0 * M_PI )
-
-//misc shortcuts
-#define initViewControllerWithIdentifier(i) [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:i]
-#define mainWindowView [[[[UIApplication sharedApplication] keyWindow] subviews] objectAtIndex:0]
-
-//custom logging
-#ifdef DEBUG
-#	define DLog(fmt, ...) NSLog((fmt), ##__VA_ARGS__); //log only in debug builds
-#	define VLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); //verbose log only in debug builds
-#else
-#	define DLog(...) //don't log in production builds
-#	define VLog(...) //don't verbose log in production builds
-#endif
-#define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); //always log, production or debug builds
-
-
-//system version
-#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
-#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
-#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
-#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
 
 

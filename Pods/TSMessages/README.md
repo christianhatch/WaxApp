@@ -11,7 +11,7 @@ It is very easy to add new notification types with a different design. Add the n
 
 **Take a look at the Example project to see how to use this library.** You have to open the workspace, not the project file, since the Example project uses cocoapods.
 
-Follow the developer on Twitter: [KrauseFx](http://twitter.com/krausefx)
+Follow the developer on Twitter: [KrauseFx](http://twitter.com/krausefx) (Felix Krause)
 
 ## Installation
 
@@ -66,6 +66,25 @@ If you don't want a detailed description (the text underneath the title) you don
 This project requires ARC.
 
 If you have ideas how to improve this library please let me know or send a pull request.
+
+Changes
+-----
+**0.9.3**
+
+* Added new customization options for buttons (font size, custom background image, separate font and shadow color)
+* Added method to dismiss the currently active message
+* Added option to show a message until it is dismissed by the user
+* Added option to disable dismissing notification by the user
+* Added method to check whether a notification is currently being displayed
+* Fixed auto rotation when notification is displayed on the bottom
+
+**0.9.2**
+
+* Added option to show message on the bottom of the screen
+* Added option to show a button inside the message
+
+
+
 
 TODOs
 -----

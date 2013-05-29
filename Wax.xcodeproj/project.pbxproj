@@ -262,8 +262,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45B1E5FF17545073008C0DF8 /* CFNetwork.framework in Frameworks */,
 				452FAFDD1741830E0091F8D4 /* libAcaciaKit.a in Frameworks */,
+				45B1E5FF17545073008C0DF8 /* CFNetwork.framework in Frameworks */,
 				452FAE04174086060091F8D4 /* AddressBookUI.framework in Frameworks */,
 				45EA32361726111C00980320 /* CoreLocation.framework in Frameworks */,
 				45EA323417260F8E00980320 /* Social.framework in Frameworks */,
@@ -415,8 +415,8 @@
 			children = (
 				45B8AAE817515858009450EA /* ProfileViewController.h */,
 				45B8AAE917515858009450EA /* ProfileViewController.m */,
-				45B8AAEC17515F49009450EA /* SettingsViewController.h */,
 				45B8AAED17515F49009450EA /* SettingsViewController.m */,
+				45B8AAEC17515F49009450EA /* SettingsViewController.h */,
 			);
 			name = Profile;
 			path = Controllers;
@@ -585,7 +585,8 @@
 				45F71616171F163C009097F3 /* Frameworks */,
 				45F71617171F163C009097F3 /* Resources */,
 				05875659751440EC8790F2FE /* Copy Pods Resources */,
-				45EA320A1725FD8A00980320 /* ShellScript */,
+				45EA320A1725FD8A00980320 /* Crashlytics */,
+				45ADEB11175546C50061623B /* Documentation */,
 			);
 			buildRules = (
 			);
@@ -726,13 +727,28 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"";
 		};
-		45EA320A1725FD8A00980320 /* ShellScript */ = {
+		45ADEB11175546C50061623B /* Documentation */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = Documentation;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\n\n########################################################################################################################\n###\n###\t\tappledoc.command\n###\n###\t\tBuild script to generate Docsets with the look of Apple's documentation.\n###\t\tScript only executes if the build setting of GENERATE_APPLEDOC has been defined as 1\n###\t\t\n###\t\tCopyright (c) 2012 Kevin Ross. All rights reserved.\n###\n###\t\tMutator:\t\tMutated:\t\tMutation:\n###\t\t--------\t\t--------\t\t---------\n###\t\tKross\t\t\t02.01.12\t\tInitial Version\n###\n########################################################################################################################\n\n# default install location...\n# /usr/local/bin/appledoc \n\n# Add /usr/local/bin to the environment's PATH since that is the default place for appledoc to be installed.\nexport PATH=\"/usr/local/bin:$PATH\"\n\n# only generate the documentation if the GENERATE_APPLEDOC build setting has been defined as \"1\".\nif [[ $GENERATE_APPLEDOC -eq 1 ]]; then\n\n\tREQUIRE_APPLEDOC=0\n\tLEVEL=\"warning\"\n\n\tif [[ $REQUIRE_APPLEDOC -eq 1 ]]; then\n\t\tLEVEL=\"error\"\n\tfi\n\n\tAPPLEDOC_PATH=`which appledoc`\n\t#echo \"APPLEDOC_PATH=${APPLEDOC_PATH}\"\n\n\tif [[ ! $APPLEDOC_PATH ]]; then\n\t\techo \"Searching for appledoc...\"\n\t\tAPPLEDOC_PATH=`find /usr -name appledoc 2> /dev/null`\n\tfi\n\n\tif [[ ! $APPLEDOC_PATH ]]; then\n\t\techo \"$LEVEL: Could not find appledoc... skipping build phase.\"\n\t\techo \"$LEVEL: #########################################################################################################\"\n\t\techo \"$LEVEL: Without appledoc installed the build will not re-generate the prject documentation!\"\n\t\techo \"$LEVEL: Consider downloading appledoc from http://gentlebytes.com/appledoc/\"\n\t\techo \"$LEVEL: #########################################################################################################\"\n\t\texit 0\n\tfi\n\n\techo \"found appledoc at path ${APPLEDOC_PATH}\"\n\techo \"Running appledoc...\"\n\n\t$APPLEDOC_PATH \\\n\t--project-company \"Acacia Interactive\" \\\n\t--company-id \"com.acaciainteractive\" \\\n\t--project-name \"Wax\" \\\n\t--no-warn-undocumented-member \\\n\t--no-warn-undocumented-object \\\n\t--warn-unknown-directive \\\n\t--output \"${PROJECT_DIR}/Documentation\" \\\n\t--ignore \"*.m\" \\\n\t--exclude-output \"${PROJECT_DIR}/Wax/Model/Generated\" \\\n\t--no-repeat-first-par \\\n\t--logformat xcode \\\n\t--install-docset \\\n\t--exit-threshold 2 \\\n\t\"${PROJECT_DIR}\"\n\nfi";
+		};
+		45EA320A1725FD8A00980320 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Crashlytics;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -892,6 +908,111 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4512D47417554A4A008970B1 /* Documentation */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "GENERATE_APPLEDOC=1";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "3A710599-AA5D-4622-9D6F-2154291EA124";
+				SDKROOT = iphoneos;
+			};
+			name = Documentation;
+		};
+		4512D47517554A4A008970B1 /* Documentation */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../../../FacebookSDK\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Wax/Wax-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"GENERATE_APPLEDOC=1",
+					"DEBUG=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PODS_HEADERS_SEARCH_PATHS}",
+					"\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include\"",
+				);
+				INFOPLIST_FILE = "Wax/Wax-Info.plist";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "EBBFA9BD-F87B-4F6A-913A-46F6D573BE83";
+				VERSIONING_SYSTEM = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Documentation;
+		};
+		4512D47617554A4A008970B1 /* Documentation */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Wax.app/Wax";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../../../FacebookSDK\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Wax/Wax-Prefix.pch";
+				HEADER_SEARCH_PATHS = "${PODS_HEADERS_SEARCH_PATHS}";
+				INFOPLIST_FILE = "WaxTests/WaxTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Documentation;
+		};
 		45F7164F171F163D009097F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -910,10 +1031,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -960,16 +1078,15 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../../FacebookSDK\"",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../../../FacebookSDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wax/Wax-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				HEADER_SEARCH_PATHS = (
 					"${PODS_HEADERS_SEARCH_PATHS}",
-					"\"$(TARGET_BUILD_DIR)/usr/local/lib/include\"",
-					"\"$(OBJROOT)/UninstalledProducts/include\"",
+					"\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include\"",
 				);
 				INFOPLIST_FILE = "Wax/Wax-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -987,6 +1104,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "EBBFA9BD-F87B-4F6A-913A-46F6D573BE83";
+				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -995,19 +1113,19 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Acacia Interactive, Inc.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../../FacebookSDK\"",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../../../FacebookSDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wax/Wax-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
 				HEADER_SEARCH_PATHS = (
 					"${PODS_HEADERS_SEARCH_PATHS}",
-					"”$(TARGET_BUILD_DIR)/usr/local/lib/include”",
-					"”$(OBJROOT)/UninstalledProducts/include”",
+					"\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include\"",
 				);
 				INFOPLIST_FILE = "Wax/Wax-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -1024,7 +1142,9 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7FD6AC0C-9801-4DA4-979A-FE2218B0267E";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1129,19 +1249,19 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Acacia Interactive, Inc.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../../FacebookSDK\"",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../../../FacebookSDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wax/Wax-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "TESTFLIGHT=1";
 				HEADER_SEARCH_PATHS = (
 					"${PODS_HEADERS_SEARCH_PATHS}",
-					"”$(TARGET_BUILD_DIR)/usr/local/lib/include”",
-					"”$(OBJROOT)/UninstalledProducts/include”",
+					"\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include\"",
 				);
 				INFOPLIST_FILE = "Wax/Wax-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -1158,7 +1278,9 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7FD6AC0C-9801-4DA4-979A-FE2218B0267E";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = TestFlight;
@@ -1204,6 +1326,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				45F7164F171F163D009097F3 /* Debug */,
+				4512D47417554A4A008970B1 /* Documentation */,
 				45F71650171F163D009097F3 /* Release */,
 				45F71661171F18D7009097F3 /* TestFlight */,
 			);
@@ -1214,6 +1337,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				45F71652171F163D009097F3 /* Debug */,
+				4512D47517554A4A008970B1 /* Documentation */,
 				45F71653171F163D009097F3 /* Release */,
 				45F71662171F18D7009097F3 /* TestFlight */,
 			);
@@ -1224,6 +1348,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				45F71655171F163D009097F3 /* Debug */,
+				4512D47617554A4A008970B1 /* Documentation */,
 				45F71656171F163D009097F3 /* Release */,
 				45F71663171F18D7009097F3 /* TestFlight */,
 			);

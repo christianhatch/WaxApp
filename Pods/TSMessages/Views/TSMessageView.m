@@ -53,6 +53,7 @@ static NSDictionary *notificationDesign;
     withButtonTitle:(NSString *)buttonTitle
  withButtonCallback:(void (^)())buttonCallback
          atPosition:(TSMessageNotificationPosition)position
+  shouldBeDismissed:(BOOL)dismissAble
 {
     if (!notificationDesign)
     {
@@ -73,7 +74,7 @@ static NSDictionary *notificationDesign;
         self.callback = callback;
         self.buttonCallback = buttonCallback;
         
-        CGFloat screenWidth = self.viewController.view.frame.size.width;
+        CGFloat screenWidth = self.viewController.view.bounds.size.width;
         NSDictionary *current;
         NSString *currentString;
         switch (notificationType)
@@ -144,7 +145,13 @@ static NSDictionary *notificationDesign;
         {
             _contentLabel = [[UILabel alloc] init];
             [self.contentLabel setText:content];
-            [self.contentLabel setTextColor:fontColor];
+            
+            UIColor *contentTextColor = [UIColor colorWithHexString:[current valueForKey:@"contentTextColor"] alpha:1.0];
+            if (!contentTextColor)
+            {
+                contentTextColor = fontColor;
+            }
+            [self.contentLabel setTextColor:contentTextColor];
             [self.contentLabel setBackgroundColor:[UIColor clearColor]];
             [self.contentLabel setFont:[UIFont systemFontOfSize:[[current valueForKey:@"contentFontSize"] floatValue]]];
             [self.contentLabel setShadowColor:self.titleLabel.shadowColor];
@@ -170,14 +177,34 @@ static NSDictionary *notificationDesign;
         {
             _button = [UIButton buttonWithType:UIButtonTypeCustom];
             
-            UIImage *img = [[UIImage imageNamed:@"NotificationButtonBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(15.0, 12.0, 15.0, 11.0)];
+            UIImage *buttonBackgroundImage = [[UIImage imageNamed:[current valueForKey:@"buttonBackgroundImageName"]] resizableImageWithCapInsets:UIEdgeInsetsMake(15.0, 12.0, 15.0, 11.0)];
             
-            [self.button setBackgroundImage:img forState:UIControlStateNormal];
+            if (!buttonBackgroundImage)
+            {
+                buttonBackgroundImage = [[UIImage imageNamed:[current valueForKey:@"NotificationButtonBackground"]] resizableImageWithCapInsets:UIEdgeInsetsMake(15.0, 12.0, 15.0, 11.0)];
+            }
+            
+            [self.button setBackgroundImage:buttonBackgroundImage forState:UIControlStateNormal];
             [self.button setTitle:self.buttonTitle forState:UIControlStateNormal];
-            [self.button setTitleShadowColor:self.titleLabel.shadowColor forState:UIControlStateNormal];
-            [self.button setTitleColor:fontColor forState:UIControlStateNormal];
-            self.button.titleLabel.font = [UIFont boldSystemFontOfSize:[[current valueForKey:@"titleFontSize"] floatValue]];
-            self.button.titleLabel.shadowOffset = self.titleLabel.shadowOffset;
+            
+            UIColor *buttonTitleShadowColor = [UIColor colorWithHexString:[current valueForKey:@"buttonTitleShadowColor"] alpha:1.0];
+            if (!buttonTitleShadowColor)
+            {
+                buttonTitleShadowColor = self.titleLabel.shadowColor;
+            }
+            
+            [self.button setTitleShadowColor:buttonTitleShadowColor forState:UIControlStateNormal];
+            
+            UIColor *buttonTitleTextColor = [UIColor colorWithHexString:[current valueForKey:@"buttonTitleTextColor"] alpha:1.0];
+            if (!buttonTitleTextColor)
+            {
+                buttonTitleTextColor = fontColor;
+            }
+            
+            [self.button setTitleColor:buttonTitleTextColor forState:UIControlStateNormal];
+            self.button.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
+            self.button.titleLabel.shadowOffset = CGSizeMake([[current valueForKey:@"buttonTitleShadowOffsetX"] floatValue],
+                                                             [[current valueForKey:@"buttonTitleShadowOffsetY"] floatValue]);
             [self.button addTarget:self
                             action:@selector(buttonTapped:)
                   forControlEvents:UIControlEventTouchUpInside];
@@ -210,22 +237,33 @@ static NSDictionary *notificationDesign;
         
         if (self.messagePosition == TSMessageNotificationPositionBottom)
         {
-            topPosition = self.viewController.view.frame.size.height;
+            topPosition = self.viewController.view.bounds.size.height;
         }
         
         self.frame = CGRectMake(0.0, topPosition, screenWidth, actualHeight);
-        self.autoresizingMask = (UIViewAutoresizingFlexibleWidth);
         
-        UISwipeGestureRecognizer *gestureRec = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                                         action:@selector(fadeMeOut)];
-        [gestureRec setDirection:(self.messagePosition == TSMessageNotificationPositionTop ?
-                                  UISwipeGestureRecognizerDirectionUp :
-                                  UISwipeGestureRecognizerDirectionDown)];
-        [self addGestureRecognizer:gestureRec];
+        if (self.messagePosition == TSMessageNotificationPositionTop)
+        {
+            self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        }
+        else
+        {
+            self.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin);
+        }
         
-        UITapGestureRecognizer *tapRec = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                 action:@selector(fadeMeOut)];
-        [self addGestureRecognizer:tapRec];
+        if (dismissAble)
+        {
+            UISwipeGestureRecognizer *gestureRec = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                             action:@selector(fadeMeOut)];
+            [gestureRec setDirection:(self.messagePosition == TSMessageNotificationPositionTop ?
+                                      UISwipeGestureRecognizerDirectionUp :
+                                      UISwipeGestureRecognizerDirectionDown)];
+            [self addGestureRecognizer:gestureRec];
+            
+            UITapGestureRecognizer *tapRec = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                     action:@selector(fadeMeOut)];
+            [self addGestureRecognizer:tapRec];
+        }
     }
     return self;
 }
@@ -234,7 +272,7 @@ static NSDictionary *notificationDesign;
 - (CGFloat)updateHeightOfMessageView
 {
     CGFloat currentHeight;
-    CGFloat screenWidth = self.viewController.view.frame.size.width;
+    CGFloat screenWidth = self.viewController.view.bounds.size.width;
     
     
     self.titleLabel.frame = CGRectMake(self.textSpaceLeft,
@@ -335,7 +373,8 @@ static NSDictionary *notificationDesign;
 
 - (void)buttonTapped:(id) sender
 {
-    if (self.buttonCallback) {
+    if (self.buttonCallback)
+    {
         self.buttonCallback();
     }
     

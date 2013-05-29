@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Acacia Interactive. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 
 #import <AcaciaKit/AcaciaKit.h>
 
@@ -83,7 +82,7 @@ enum{
 typedef NSInteger WaxAPIClientVideoActionType;
 
 
-@interface WaxAPIClient : AFHTTPClient 
+@interface WaxAPIClient : AIKRestfulAPIClient
 
 + (WaxAPIClient *)sharedClient;
 

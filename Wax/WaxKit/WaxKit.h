@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Christian Hatch. All rights reserved.
 //
 
-#define WaxAnimationDurationDefault 0.35f
 
 //Categories
 #import "NSString+WaxKit.h"
@@ -20,7 +19,6 @@
 #import "WaxAPIClient.h"
 #import "WaxUser.h"
 #import "WaxDataManager.h" 
-#import "WaxS3Client.h"
 
 
 //Models
