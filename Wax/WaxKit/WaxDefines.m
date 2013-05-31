@@ -17,9 +17,10 @@ NSString *const kWaxAPIJSONKey = @"response";
 
 
 #pragma mark - Third Party
-NSString *const kThirdPartyAWSAccessKey = @"AKIAJEU4MNQ7TAE53Z6Q";
-NSString *const kThirdPartyAWSSecretKey = @"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"; 
+//NSString *const kThirdPartyAWSAccessKey = @"AKIAJEU4MNQ7TAE53Z6Q";
+//NSString *const kThirdPartyAWSSecretKey = @"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"; 
 NSString *const kThirdPartyAWSBucket = @"waxusers"; 
+NSString *const kThirdPartyCloudFrontBaseURL = @"https://d21k04qwl5qjec.cloudfront.net";
 
 #ifdef DEBUG
 NSString *const kThirdPartyUrbanAirshipAppKey = @"fwDHlfpLQqmEIqS2Y3ElDQ";

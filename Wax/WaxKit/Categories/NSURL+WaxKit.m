@@ -15,9 +15,9 @@
     unlink([outputString UTF8String]); // If a file already exists, AVAssetWriter won't let you record new frames, so delete the old movie
     return [NSURL fileURLWithPath:outputString];
 }
+
 +(NSURL *)streamingURLFromUserid:(NSString *)userid videoLink:(NSString *)videoLink{
-//    return [NSURL URLWithString:[NSString stringWithFormat:@"http://d3kr9whjwodb8q.cloudfront.net/%@/%@", userid, videoLink]];
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://stream.kiwi.ly/vods3/_definst_/mp4:amazons3/%@/%@/%@/playlist.m3u8", kThirdPartyAWSBucket, userid, videoLink]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@", kThirdPartyCloudFrontBaseURL, userid, videoLink]];
 }
 +(NSURL *)profilePictureURLFromUserid:(NSString *)userid{    
     if ([[WaxUser currentUser] userIDIsCurrentUser:userid]) {
@@ -35,7 +35,7 @@
     }
 }
 +(NSURL *)cloudFrontProfilePictureURLFromUserid:(NSString *)userid{
-    return [NSURL URLWithString:[NSString stringWithFormat:@"http://d3kr9whjwodb8q.cloudfront.net/%@/profile_picture.jpg", userid]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/profile_picture.jpg", kThirdPartyCloudFrontBaseURL, userid]];
 }
 +(NSURL *)s3ProfilePictureURLFromUserid:(NSString *)userid{
     return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.s3.amazonaws.com/%@/profile_picture.jpg", kThirdPartyAWSBucket, userid]];
@@ -43,7 +43,7 @@
 
 +(NSURL *)videoThumbnailURLFromUserid:(NSString *)userid videoLink:(NSString *)videoLink{
     NSString *fileName = [NSString stringWithFormat:@"%@.jpg", videoLink];
-    return [NSURL URLWithString:[NSString stringWithFormat:@"http://d3kr9whjwodb8q.cloudfront.net/%@/%@", userid, fileName]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@", kThirdPartyCloudFrontBaseURL, userid, fileName]];
 }
 +(NSURL *)shareURLFromShareId:(NSString *)shareId{
     return [NSURL URLWithString:[NSString stringWithFormat:@"https://wax.li/%@", shareId]];

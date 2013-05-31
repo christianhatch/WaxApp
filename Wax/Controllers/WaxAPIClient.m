@@ -121,10 +121,26 @@
     if ([[WaxUser currentUser] isLoggedIn]) {
         [self fetchFeedFromPath:@"feeds/home" tagOrPersonID:[[WaxUser currentUser] userID] infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
             
-            [WaxDataManager sharedManager].homeFeed = list;
+            if (!error) {
+                [WaxDataManager sharedManager].homeFeed = list;
+            }
             
             if (completion) {
                 completion(list, error);
+            }
+        }];
+    }
+}
+-(void)fetchMyFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
+    if ([[WaxUser currentUser] isLoggedIn]) {
+        [self fetchFeedForUser:[[WaxUser currentUser] userID] infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
+            
+            if (!error) {
+                [WaxDataManager sharedManager].myFeed = list;
+            }
+            
+            if (completion) {
+                completion(list, error); 
             }
         }];
     }

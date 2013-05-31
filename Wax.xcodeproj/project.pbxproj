@@ -29,6 +29,10 @@
 		45009A4D174EBD0200EE0B5C /* SettingsObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45009A4C174EBD0200EE0B5C /* SettingsObjectTests.m */; };
 		45009A50174EBD0A00EE0B5C /* PersonObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45009A4F174EBD0A00EE0B5C /* PersonObjectTests.m */; };
 		45009A53174EBD1200EE0B5C /* VideoObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45009A52174EBD1200EE0B5C /* VideoObjectTests.m */; };
+		4518AD4017584FD800D5D95C /* VideoCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4518AD3F17584FD800D5D95C /* VideoCameraViewController.m */; };
+		4518AD4117584FD800D5D95C /* VideoCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4518AD3F17584FD800D5D95C /* VideoCameraViewController.m */; };
+		4518AD551758FC5300D5D95C /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518AD541758FC5300D5D95C /* AssetsLibrary.framework */; };
+		4518AD591758FCE700D5D95C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518AD581758FCE700D5D95C /* CoreMedia.framework */; };
 		451EBD2D1726CF29000D600E /* WaxDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 451EBD2C1726CF29000D600E /* WaxDefines.m */; };
 		452FADB017404D450091F8D4 /* VideoObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FADAF17404D450091F8D4 /* VideoObject.m */; };
 		452FADD6174074910091F8D4 /* WaxDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 451EBD2C1726CF29000D600E /* WaxDefines.m */; };
@@ -173,6 +177,10 @@
 		45009A4F174EBD0A00EE0B5C /* PersonObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonObjectTests.m; sourceTree = "<group>"; };
 		45009A51174EBD1200EE0B5C /* VideoObjectTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoObjectTests.h; sourceTree = "<group>"; };
 		45009A52174EBD1200EE0B5C /* VideoObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoObjectTests.m; sourceTree = "<group>"; };
+		4518AD3E17584FD800D5D95C /* VideoCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoCameraViewController.h; path = Controllers/VideoCameraViewController.h; sourceTree = "<group>"; };
+		4518AD3F17584FD800D5D95C /* VideoCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VideoCameraViewController.m; path = Controllers/VideoCameraViewController.m; sourceTree = "<group>"; };
+		4518AD541758FC5300D5D95C /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		4518AD581758FCE700D5D95C /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		451EBD2C1726CF29000D600E /* WaxDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaxDefines.m; path = WaxKit/WaxDefines.m; sourceTree = "<group>"; };
 		452FADAE17404D450091F8D4 /* VideoObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoObject.h; sourceTree = "<group>"; };
 		452FADAF17404D450091F8D4 /* VideoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoObject.m; sourceTree = "<group>"; };
@@ -219,8 +227,8 @@
 		45AF702B1741C8F0008399D3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		45AF702E1741C97D008399D3 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
 		45AF702F1741C97E008399D3 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
-		45AF70361741CBA7008399D3 /* WaxTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxTabBarController.h; sourceTree = "<group>"; };
-		45AF70371741CBA7008399D3 /* WaxTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxTabBarController.m; sourceTree = "<group>"; };
+		45AF70361741CBA7008399D3 /* WaxTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaxTabBarController.h; path = Controllers/WaxTabBarController.h; sourceTree = "<group>"; };
+		45AF70371741CBA7008399D3 /* WaxTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaxTabBarController.m; path = Controllers/WaxTabBarController.m; sourceTree = "<group>"; };
 		45B1E5F8175437E9008C0DF8 /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedViewController.h; path = Controllers/FeedViewController.h; sourceTree = "<group>"; };
 		45B1E5F9175437E9008C0DF8 /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedViewController.m; path = Controllers/FeedViewController.m; sourceTree = "<group>"; };
 		45B1E5FE17545073008C0DF8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -278,6 +286,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4518AD591758FCE700D5D95C /* CoreMedia.framework in Frameworks */,
+				45EA321F17260DA100980320 /* AVFoundation.framework in Frameworks */,
+				4518AD551758FC5300D5D95C /* AssetsLibrary.framework in Frameworks */,
 				452FAFDD1741830E0091F8D4 /* libAcaciaKit.a in Frameworks */,
 				45B1E5FF17545073008C0DF8 /* CFNetwork.framework in Frameworks */,
 				452FAE04174086060091F8D4 /* AddressBookUI.framework in Frameworks */,
@@ -289,7 +300,6 @@
 				45EA322C17260F6B00980320 /* AdSupport.framework in Frameworks */,
 				45EA322317260ED400980320 /* FacebookSDK.framework in Frameworks */,
 				45EA322117260E8200980320 /* libz.dylib in Frameworks */,
-				45EA321F17260DA100980320 /* AVFoundation.framework in Frameworks */,
 				45EA321D17260D8100980320 /* AddressBook.framework in Frameworks */,
 				45EA31AE1725FADB00980320 /* MessageUI.framework in Frameworks */,
 				45F7161D171F163C009097F3 /* UIKit.framework in Frameworks */,
@@ -353,6 +363,15 @@
 			);
 			name = Login/Signup;
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4518AD4217584FDE00D5D95C /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				4518AD3E17584FD800D5D95C /* VideoCameraViewController.h */,
+				4518AD3F17584FD800D5D95C /* VideoCameraViewController.m */,
+			);
+			name = Video;
 			sourceTree = "<group>";
 		};
 		452FAE1A1740AC030091F8D4 /* Resources */ = {
@@ -431,8 +450,8 @@
 				45AF70261741C8C2008399D3 /* SignupViewController.m */,
 				45B8AAE817515858009450EA /* ProfileViewController.h */,
 				45B8AAE917515858009450EA /* ProfileViewController.m */,
-				45B8AAED17515F49009450EA /* SettingsViewController.m */,
 				45B8AAEC17515F49009450EA /* SettingsViewController.h */,
+				45B8AAED17515F49009450EA /* SettingsViewController.m */,
 			);
 			name = Profile;
 			path = Controllers;
@@ -441,9 +460,12 @@
 		45B8AB0117518055009450EA /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				45AF70361741CBA7008399D3 /* WaxTabBarController.h */,
+				45AF70371741CBA7008399D3 /* WaxTabBarController.m */,
 				45B1E5F8175437E9008C0DF8 /* FeedViewController.h */,
 				45B1E5F9175437E9008C0DF8 /* FeedViewController.m */,
 				45009A55174EBF1600EE0B5C /* Login/Signup */,
+				4518AD4217584FDE00D5D95C /* Video */,
 				45B8AB001751803D009450EA /* Profile */,
 			);
 			name = ViewControllers;
@@ -452,8 +474,6 @@
 		45EA32111726063C00980320 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				45AF70361741CBA7008399D3 /* WaxTabBarController.h */,
-				45AF70371741CBA7008399D3 /* WaxTabBarController.m */,
 				454BBDC717404A2D005F48ED /* WaxUser.h */,
 				454BBDC817404A2D005F48ED /* WaxUser.m */,
 				45EA32121726063C00980320 /* WaxAPIClient.h */,
@@ -508,6 +528,8 @@
 		45F7161B171F163C009097F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4518AD581758FCE700D5D95C /* CoreMedia.framework */,
+				4518AD541758FC5300D5D95C /* AssetsLibrary.framework */,
 				45B1E5FE17545073008C0DF8 /* CFNetwork.framework */,
 				452FAE02174085FC0091F8D4 /* AddressBookUI.framework */,
 				45EA32371726113300980320 /* Crashlytics.framework */,
@@ -834,6 +856,7 @@
 				45B8AAEE17515F49009450EA /* SettingsViewController.m in Sources */,
 				45B8AAF917517ABD009450EA /* UploadObject.m in Sources */,
 				45B1E5FA175437E9008C0DF8 /* FeedViewController.m in Sources */,
+				4518AD4017584FD800D5D95C /* VideoCameraViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -868,6 +891,7 @@
 				45B8AAEF17515F49009450EA /* SettingsViewController.m in Sources */,
 				45B8AAFA17517ABD009450EA /* UploadObject.m in Sources */,
 				45B1E5FB175437E9008C0DF8 /* FeedViewController.m in Sources */,
+				4518AD4117584FD800D5D95C /* VideoCameraViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1263,6 +1287,7 @@
 				459100231755906E000D8BCD /* TestFlight */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		45F71614171F163C009097F3 /* Build configuration list for PBXProject "Wax" */ = {
 			isa = XCConfigurationList;

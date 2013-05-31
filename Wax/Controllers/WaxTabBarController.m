@@ -116,6 +116,12 @@
     SplashViewController *splashVC = initViewControllerWithIdentifier(@"SplashVC");
     nav.viewControllers = @[splashVC];
     [self presentViewController:nav animated:YES completion:^{
+        for (UINavigationController *nav in self.viewControllers) {
+            if ([nav respondsToSelector:@selector(popToRootViewControllerAnimated:)]) {
+                [nav popToRootViewControllerAnimated:NO]; 
+            }
+            
+        }
         [self setSelectedIndex:0];
     }];
 }

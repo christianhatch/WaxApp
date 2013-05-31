@@ -11,7 +11,7 @@
 
 
 @implementation WaxDataManager
-@synthesize homeFeed = _homeFeed; 
+@synthesize homeFeed = _homeFeed, myFeed = _myFeed;
 
 
 + (WaxDataManager *)sharedManager {

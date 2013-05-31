@@ -14,6 +14,6 @@
 
 
 @property (nonatomic, strong) NSMutableArray *homeFeed; 
-
+@property (nonatomic, strong) NSMutableArray *myFeed;
 
 @end

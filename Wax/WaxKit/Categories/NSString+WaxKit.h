@@ -8,15 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-//enum{
-//    WaxAPIGroupTypeLogins = 1,
-//    WaxAPIGroupTypeFeeds,
-//    WaxAPIGroupTypeUsers,
-//    WaxAPIGroupTypeVideos,
-//    WaxAPIGroupTypeSettings,
-//};
-//typedef NSInteger WaxAPIGroupType;
-
 
 @interface NSString (WaxKit)
 
@@ -26,6 +17,5 @@
 +(NSString *)s3VideoKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink;
 +(NSString *)s3ThumbnailKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink;
 
-//+(NSString *)apiPathWithGroup:(WaxAPIGroupType)group path:(NSString *)path;
 
 @end
