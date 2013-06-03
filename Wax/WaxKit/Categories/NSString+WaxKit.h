@@ -8,14 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface NSString (WaxKit)
 
-+(NSString *)videoFilePathAfterSquaring;
-
-+(NSString *)s3ProfilePictureKeyFromUserid:(NSString *)userid;
-+(NSString *)s3VideoKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink;
-+(NSString *)s3ThumbnailKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink;
-
+//+(NSString *)s3ProfilePictureKeyFromUserid:(NSString *)userid;
+//+(NSString *)s3VideoKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink;
+//+(NSString *)s3ThumbnailKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink;
 
 @end

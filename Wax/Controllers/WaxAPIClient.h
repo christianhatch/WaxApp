@@ -18,7 +18,7 @@
  @abstract Completion block type used when returning the results of a login request.
  @discussion This completion block type returns a valid login object and a nil error object if successful, or a nil login object and a valid error object if unsuccessful. 
  */
-typedef void(^WaxAPIClientCompletionBlockTypeLogin)(LoginObject *loginResponse, NSError *error);
+typedef void(^WaxAPIClientBlockTypeCompletionLogin)(LoginObject *loginResponse, NSError *error);
 
 /**
  @typedef
@@ -26,7 +26,7 @@ typedef void(^WaxAPIClientCompletionBlockTypeLogin)(LoginObject *loginResponse, 
  @abstract Completion block type used when returning the results of a request that returns an array of model objects
  @discussion This completion block type returns a mutable array of model objects appropriate to the request and a nil error object if successful, or a nil mutable array and a valid error object if unsuccessful.
  */
-typedef void(^WaxAPIClientCompletionBlockTypeList)(NSMutableArray *list, NSError *error);
+typedef void(^WaxAPIClientBlockTypeCompletionList)(NSMutableArray *list, NSError *error);
 
 /**
  @typedef
@@ -34,7 +34,7 @@ typedef void(^WaxAPIClientCompletionBlockTypeList)(NSMutableArray *list, NSError
  @abstract Completion block type used when returning the results of a request for the profile information of a particular user.
  @discussion This completion block type returns a valid person object and a nil error object if successful, or a nil person object and a valid error object if unsuccessful.
  */
-typedef void(^WaxAPIClientCompletionBlockTypeUser)(PersonObject *person, NSError *error);
+typedef void(^WaxAPIClientBlockTypeCompletionUser)(PersonObject *person, NSError *error);
 
 /**
  @typedef
@@ -42,7 +42,7 @@ typedef void(^WaxAPIClientCompletionBlockTypeUser)(PersonObject *person, NSError
  @abstract Completion block type used when returning the results of a request for the metadata of a particular video.
  @discussion This completion block type returns a valid video object and a nil error object if successful, or a nil video object and a valid error object if unsuccessful.
  */
-typedef void(^WaxAPIClientCompletionBlockTypeVideo)(VideoObject *person, NSError *error);
+typedef void(^WaxAPIClientBlockTypeCompletionVideo)(VideoObject *person, NSError *error);
 
 /**
  @typedef
@@ -50,15 +50,15 @@ typedef void(^WaxAPIClientCompletionBlockTypeVideo)(VideoObject *person, NSError
  @abstract Completion block type used when returning the results of a settings request.
  @discussion This completion block type returns a valid settings object and a nil error object if successful, or a nil settings object and a valid error object if unsuccessful.
  */
-typedef void(^WaxAPIClientCompletionBlockTypeSettings)(SettingsObject *settings, NSError *error);
+typedef void(^WaxAPIClientBlockTypeCompletionSettings)(SettingsObject *settings, NSError *error);
 
-/**
- @typedef
- 
- @abstract Completion block type used when returning the results of a video metadata upload request.
- @discussion This completion block type returns a valid login object and a nil error object if successful, or a nil login object and a valid error object if unsuccessful.
- */
-typedef void(^WaxAPIClientCompletionBlockTypeVideoUpload)(NSString *shareID, NSError *error);
+///**
+// @typedef
+// 
+// @abstract Completion block type used when returning the results of a video metadata upload request.
+// @discussion This completion block type returns a valid login object and a nil error object if successful, or a nil login object and a valid error object if unsuccessful.
+// */
+//typedef void(^WaxAPIClientBlockTypeCompletionVideoUpload)(NSString *shareID, NSError *error);
 
 /**
  @typedef
@@ -66,7 +66,17 @@ typedef void(^WaxAPIClientCompletionBlockTypeVideoUpload)(NSString *shareID, NSE
  @abstract Completion block type used when returning the results of a request which returns a single success/failure boolean. 
  @discussion This completion block type returns a true boolean and a nil error object if successful, or a false boolean and a valid error object if unsuccessful.
  */
-typedef void(^WaxAPIClientCompletionBlockTypeSimple)(BOOL complete, NSError *error);
+typedef void(^WaxAPIClientBlockTypeCompletionSimple)(BOOL complete, NSError *error);
+
+/**
+ @typedef
+ 
+ @abstract Progress block type used to report the upload progress for a multipart form request.
+ @discussion This progress block type returns a CGFloat which represents the percentage of the file uploaded, an NSUInteger which represents the bytes written thus far, a long long which represents the total bytes written, and a long long which represents teh total bytes expected to write.
+ */
+
+typedef void (^WaxAPIClientBlockTypeProgressUpload)(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite);
+
 
 enum{
     WaxAPIClientTagSortTypeRank,
@@ -103,7 +113,7 @@ typedef NSInteger WaxAPIClientVideoActionType;
                         fullName:(NSString *)fullName
                            email:(NSString *)email
             passwordOrFacebookID:(NSString *)passwordOrFacebookID
-                      completion:(WaxAPIClientCompletionBlockTypeLogin)completion;
+                      completion:(WaxAPIClientBlockTypeCompletionLogin)completion;
 /**
  @abstract
  Logs in a user via Facebook. 
@@ -118,7 +128,7 @@ typedef NSInteger WaxAPIClientVideoActionType;
 -(void)loginWithFacebookID:(NSString *)facebookID
                   fullName:(NSString *)fullName
                      email:(NSString *)email
-                completion:(WaxAPIClientCompletionBlockTypeLogin)completion;
+                completion:(WaxAPIClientBlockTypeCompletionLogin)completion;
 /**
  @abstract
  Logs in a user via their username and password.
@@ -131,85 +141,94 @@ typedef NSInteger WaxAPIClientVideoActionType;
  */
 -(void)loginWithUsername:(NSString *)username
                 password:(NSString *)password
-              completion:(WaxAPIClientCompletionBlockTypeLogin)completion;
+              completion:(WaxAPIClientBlockTypeCompletionLogin)completion;
 
 
 #pragma mark - Feeds
 -(void)fetchFeedForUser:(NSString *)personID
     infiniteScrollingID:(NSNumber *)infiniteScrollingID
-             completion:(WaxAPIClientCompletionBlockTypeList)completion;
+             completion:(WaxAPIClientBlockTypeCompletionList)completion;
 
 -(void)fetchHomeFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID
-                                 completion:(WaxAPIClientCompletionBlockTypeList)completion;
+                                 completion:(WaxAPIClientBlockTypeCompletionList)completion;
 
 -(void)fetchMyFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID
-                               completion:(WaxAPIClientCompletionBlockTypeList)completion;
+                               completion:(WaxAPIClientBlockTypeCompletionList)completion;
 
 
 -(void)fetchFeedForTag:(NSString *)tag
               sortedBy:(WaxAPIClientTagSortType)sortedBy
    infiniteScrollingID:(NSNumber *)infiniteScrollingID
-            completion:(WaxAPIClientCompletionBlockTypeList)completion;
+            completion:(WaxAPIClientBlockTypeCompletionList)completion;
 
 
 #pragma mark - Users
 -(void)toggleFollowUser:(NSString *)personID
-             completion:(WaxAPIClientCompletionBlockTypeSimple)completion;
+             completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
 
 -(void)fetchProfileInformationForUser:(NSString *)personID
-                           completion:(WaxAPIClientCompletionBlockTypeUser)completion;
+                           completion:(WaxAPIClientBlockTypeCompletionUser)completion;
 
 -(void)fetchFollowersForUser:(NSString *)personID
          infiniteScrollingID:(NSNumber *)infiniteScrollingID
-                  completion:(WaxAPIClientCompletionBlockTypeList)completion;
+                  completion:(WaxAPIClientBlockTypeCompletionList)completion;
 
 -(void)fetchFollowingForUser:(NSString *)personID
          infiniteScrollingID:(NSNumber *)infiniteScrollingID
-                  completion:(WaxAPIClientCompletionBlockTypeList)completion;
+                  completion:(WaxAPIClientBlockTypeCompletionList)completion;
 
 -(void)searchForUser:(NSString *)searchTerm
  infiniteScrollingID:(NSNumber *)infiniteScrollingID
-          completion:(WaxAPIClientCompletionBlockTypeList)completion;
+          completion:(WaxAPIClientBlockTypeCompletionList)completion;
 
--(void)syncFacebookProfilePictureWithCompletion:(WaxAPIClientCompletionBlockTypeSimple)completion; 
+-(void)syncFacebookProfilePictureWithCompletion:(WaxAPIClientBlockTypeCompletionSimple)completion; 
 
 -(void)uploadProfilePicture:(UIImage *)profilePicture
-                   progress:(void (^)(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))progress
-                 completion:(void (^)(id responseObject, NSError *error))completion;
+                   progress:(WaxAPIClientBlockTypeProgressUpload)progress
+                 completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
 
 
 #pragma mark - Videos
--(void)uploadVideoMetadata:(NSString *)videoLink
-               videoLength:(NSNumber *)videoLength
-                       tag:(NSString *)tag
-                  category:(NSString *)category
-                   caption:(NSString *)caption
-                  location:(CLLocation *)location
-                completion:(WaxAPIClientCompletionBlockTypeVideoUpload)completion;
+-(void)uploadVideoAtFileURL:(NSURL *)fileURL
+                  videoLink:(NSString *)videoLink
+                   progress:(WaxAPIClientBlockTypeProgressUpload)progress
+                 completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
+
+-(void)uploadThumbnailAtFileURL:(NSURL *)fileURL
+                  thumbnailLink:(NSString *)thumbnailLink
+                       progress:(WaxAPIClientBlockTypeProgressUpload)progress
+                     completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
+
+-(void)uploadVideoMetadataWithVideoLink:(NSString *)videoLink
+                            videoLength:(NSNumber *)videoLength
+                                    tag:(NSString *)tag
+                               category:(NSString *)category
+                                    lat:(NSNumber *)lat
+                                    lon:(NSNumber *)lon
+                             completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
+
+-(void)cancelVideoUploadingOperationWithVideoLink:(NSString *)videoLink;
 
 -(void)fetchMetadataForVideo:(NSString *)videoID
-                  completion:(WaxAPIClientCompletionBlockTypeVideo)completion;
+                  completion:(WaxAPIClientBlockTypeCompletionVideo)completion;
 
 -(void)voteUpVideo:(NSString *)videoID
             ofUser:(NSString *)personID
-        completion:(WaxAPIClientCompletionBlockTypeSimple)completion;
+        completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
 
 -(void)performAction:(WaxAPIClientVideoActionType)actionType
            onVideoID:(NSString *)videoID
-          completion:(WaxAPIClientCompletionBlockTypeSimple)completion;
+          completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
 
--(void)uploadVideoAtPath:(NSString *)path
-                progress:(void (^)(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))progress
-              completion:(void (^)(id responseObject, NSError *error))completion;
 
 
 #pragma mark - Settings
--(void)fetchSettingsWithCompletion:(WaxAPIClientCompletionBlockTypeSettings)completion;
+-(void)fetchSettingsWithCompletion:(WaxAPIClientBlockTypeCompletionSettings)completion;
 
 -(void)updateSettings:(NSString *)email
              fullName:(NSString *)fullName
          pushSettings:(NSDictionary *)pushSettings
-           completion:(WaxAPIClientCompletionBlockTypeSettings)completion;
+           completion:(WaxAPIClientBlockTypeCompletionSettings)completion;
 
 
 
@@ -217,10 +236,8 @@ typedef NSInteger WaxAPIClientVideoActionType;
 
 -(void)postPath:(NSString *)path parameters:(NSDictionary *)parameters modelClass:(Class)modelClass completionBlock:(void (^)(id model, NSError *error))completion;
 
--(void)postMultiPartPath:(NSString *)path parameters:(NSDictionary *)parameters constructingBodyWithBlock:(void (^)(id <AFMultipartFormData>formData))block progress:(void (^)(CGFloat progress, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))progress completion:(void (^)(id model, NSError *error))completion;
+-(void)postMultiPartPath:(NSString *)path parameters:(NSDictionary *)parameters constructingBodyWithBlock:(void (^)(id <AFMultipartFormData>formData))block progress:(WaxAPIClientBlockTypeProgressUpload)progress completion:(void (^)(id model, NSError *error))completion;
 
-
-//-(void)processResponseObject:(id)responseObject forArrayOfModelClass:(Class)modelClass withCompletionBlock:(void (^)(NSMutableArray *processedResponse, NSError *error))completion;
 
 
 

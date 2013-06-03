@@ -25,7 +25,6 @@
     
     [self.profPicBtn addTarget:self action:@selector(chooseNewPic) forControlEvents:UIControlEventTouchUpInside];
     [self.uploadBtn addTarget:self action:@selector(uploadPic) forControlEvents:UIControlEventTouchUpInside];
-    
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -33,32 +32,18 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    [self.imageView setImageWithURL:[NSURL URLWithString:@"http://www.executive-shaving.co.uk/shaving/wax-supplies/wax-suppies.jpg"] placeholderImage:nil animated:YES andEnableAsButtonWithButtonHandler:^{
-        DLog(@"button tapped!");
+    [self.imageView setImageWithURL:[NSURL URLWithString:@"http://www.executive-shaving.co.uk/shaving/wax-supplies/wax-suppies.jpg"] placeholderImage:nil animated:YES andEnableAsButtonWithButtonHandler:^(UIImageView *imageView) {
+        DLog(@"tapped!");
     } completion:^(NSError *error) {
-        DLog(@"error setting with url %@", error); 
+        
     }];
     
     [self.imageView setFacebookProfilePictureWithFacebookID:[[WaxUser currentUser] facebookAccountID] placeholderImage:nil animated:YES completion:^(NSError *error) {
         DLog(@"error setting fb %@", error);
     }];
 }
--(void)chooseNewPic{
-    [[WaxUser currentUser] chooseNewprofilePicture:self completion:^(UIImage *profilePicture, NSError *error) {
-        
-        [self.profPicBtn setBackgroundImage:profilePicture forState:UIControlStateNormal animated:YES];
-        
-        DLog(@"error choosing %@", error);
-        
-    }];
-}
--(void)uploadPic{
-    [[WaxUser currentUser] updateProfilePictureOnServer:[self.profPicBtn backgroundImageForState:UIControlStateNormal] andShowUICallbacks:YES completion:^(NSError *error) {
-        
-        DLog(@"error uploading %@", error);
-        
-    }];
-}
+
+
 -(void)setUpView{
     if (self.user) {
         

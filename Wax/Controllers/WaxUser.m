@@ -265,7 +265,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
             [SVProgressHUD showProgress:percentage status:NSLocalizedString(@"Updating Profile Picture...", @"Updating Profile Picture...")];
         }
 
-    } completion:^(id responseObject, NSError *error) {
+    } completion:^(BOOL complete, NSError *error) {
         if (!error) {
             if (showUICallbacks) {
                 [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Updated Profile Picture!", @"Updated Profile Picture!")];

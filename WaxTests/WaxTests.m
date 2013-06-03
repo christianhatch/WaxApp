@@ -9,7 +9,6 @@
 #import "WaxTests.h"
 #import "WaxKit.h"
 
-
 @implementation WaxTests
 
 - (void)setUp{
@@ -52,5 +51,9 @@
         }
     }
 }
+
+
+
+
 
 @end

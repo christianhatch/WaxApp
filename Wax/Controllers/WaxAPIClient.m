@@ -69,7 +69,7 @@
 #pragma mark - Public API -
 
 #pragma mark - Logins
--(void)createAccountWithUsername:(NSString *)username fullName:(NSString *)fullName email:(NSString *)email passwordOrFacebookID:(NSString *)passwordOrFacebookID completion:(WaxAPIClientCompletionBlockTypeLogin)completion{
+-(void)createAccountWithUsername:(NSString *)username fullName:(NSString *)fullName email:(NSString *)email passwordOrFacebookID:(NSString *)passwordOrFacebookID completion:(WaxAPIClientBlockTypeCompletionLogin)completion{
         
     NSParameterAssert(username);
     NSParameterAssert(fullName);
@@ -82,7 +82,7 @@
         }
     }];
 }
--(void)loginWithFacebookID:(NSString *)facebookID fullName:(NSString *)fullName email:(NSString *)email completion:(WaxAPIClientCompletionBlockTypeLogin)completion{
+-(void)loginWithFacebookID:(NSString *)facebookID fullName:(NSString *)fullName email:(NSString *)email completion:(WaxAPIClientBlockTypeCompletionLogin)completion{
         
     NSParameterAssert(facebookID);
     NSParameterAssert(fullName);
@@ -94,7 +94,7 @@
         }
     }];
 }
--(void)loginWithUsername:(NSString *)username password:(NSString *)password completion:(WaxAPIClientCompletionBlockTypeLogin)completion{
+-(void)loginWithUsername:(NSString *)username password:(NSString *)password completion:(WaxAPIClientBlockTypeCompletionLogin)completion{
         
     NSParameterAssert(username);
     NSParameterAssert(password);
@@ -107,7 +107,7 @@
 }
 
 #pragma mark - Feeds
--(void)fetchFeedForUser:(NSString *)personID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
+-(void)fetchFeedForUser:(NSString *)personID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     
     NSParameterAssert(personID);
     
@@ -117,7 +117,7 @@
         }
     }];
 }
--(void)fetchHomeFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
+-(void)fetchHomeFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     if ([[WaxUser currentUser] isLoggedIn]) {
         [self fetchFeedFromPath:@"feeds/home" tagOrPersonID:[[WaxUser currentUser] userID] infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
             
@@ -131,7 +131,7 @@
         }];
     }
 }
--(void)fetchMyFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
+-(void)fetchMyFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     if ([[WaxUser currentUser] isLoggedIn]) {
         [self fetchFeedForUser:[[WaxUser currentUser] userID] infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
             
@@ -145,7 +145,7 @@
         }];
     }
 }
--(void)fetchFeedForTag:(NSString *)tag sortedBy:(WaxAPIClientTagSortType)sortedBy infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
+-(void)fetchFeedForTag:(NSString *)tag sortedBy:(WaxAPIClientTagSortType)sortedBy infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     
     NSParameterAssert(tag);
     NSParameterAssert(sortedBy);
@@ -169,7 +169,7 @@
 }
 
 #pragma mark - Users
--(void)toggleFollowUser:(NSString *)personID completion:(WaxAPIClientCompletionBlockTypeSimple)completion{
+-(void)toggleFollowUser:(NSString *)personID completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
         
     NSParameterAssert(personID);
 
@@ -179,7 +179,7 @@
         }
     }];
 }
--(void)fetchProfileInformationForUser:(NSString *)personID completion:(WaxAPIClientCompletionBlockTypeUser)completion{
+-(void)fetchProfileInformationForUser:(NSString *)personID completion:(WaxAPIClientBlockTypeCompletionUser)completion{
     
     NSParameterAssert(personID);
     
@@ -189,7 +189,7 @@
         }
     }];
 }
--(void)fetchFollowersForUser:(NSString *)personID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
+-(void)fetchFollowersForUser:(NSString *)personID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     
     NSParameterAssert(personID);
     
@@ -199,7 +199,7 @@
         }
     }];
 }
--(void)fetchFollowingForUser:(NSString *)personID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
+-(void)fetchFollowingForUser:(NSString *)personID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     
     NSParameterAssert(personID);
     
@@ -209,7 +209,7 @@
         }
     }];
 }
--(void)searchForUser:(NSString *)searchTerm infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
+-(void)searchForUser:(NSString *)searchTerm infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     
     NSParameterAssert(searchTerm);
     
@@ -219,7 +219,7 @@
         }
     }];
 }
--(void)uploadProfilePicture:(UIImage *)profilePicture progress:(void (^)(CGFloat, NSUInteger, long long, long long))progress completion:(void (^)(id, NSError *))completion{
+-(void)uploadProfilePicture:(UIImage *)profilePicture progress:(WaxAPIClientBlockTypeProgressUpload)progress completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
         
     NSParameterAssert(profilePicture);
     
@@ -229,22 +229,14 @@
     
     [self postMultiPartPath:@"settings/update_picture" parameters:@{@"facebook": @0} constructingBodyWithBlock:^(id <AFMultipartFormData>formData) {
         [formData appendPartWithFileData:picData name:@"profile_picture" fileName:@"profile_picture.jpg" mimeType:@"image/jpeg"];
-    } progress:progress completion:completion]; 
+    } progress:progress completion:^(id model, NSError *error) {
+        if (completion) {
+            completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
+        }
+    }];
 
 }
--(void)uploadVideoAtPath:(NSString *)path progress:(void (^)(CGFloat, NSUInteger, long long, long long))progress completion:(void (^)(id, NSError *))completion{
-    
-    NSParameterAssert(path);
-    
-    NSData *video = [NSData dataWithContentsOfFile:path];
-    
-    [self postMultiPartPath:@"settings/update_picture" parameters:@{@"facebook": @0} constructingBodyWithBlock:^(id <AFMultipartFormData>formData) {
-       
-        [formData appendPartWithFileData:video name:@"profile_picture" fileName:@"profile_picture.mp4" mimeType:@"video/mp4"];
-        
-    }progress:progress completion:completion];
-}
--(void)syncFacebookProfilePictureWithCompletion:(WaxAPIClientCompletionBlockTypeSimple)completion{
+-(void)syncFacebookProfilePictureWithCompletion:(WaxAPIClientBlockTypeCompletionSimple)completion{
     [self postPath:@"settings/update_picture" parameters:@{@"facebook": @1} modelClass:nil completionBlock:^(id model, NSError *error) {
         if (completion) {
             completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
@@ -254,25 +246,72 @@
 
 
 #pragma mark - Videos
--(void)uploadVideoMetadata:(NSString *)videoLink videoLength:(NSNumber *)videoLength tag:(NSString *)tag category:(NSString *)category caption:(NSString *)caption location:(CLLocation *)location completion:(WaxAPIClientCompletionBlockTypeVideoUpload)completion{
+-(void)uploadVideoAtFileURL:(NSURL *)fileURL videoLink:(NSString *)videoLink progress:(WaxAPIClientBlockTypeProgressUpload)progress completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
+    
+    NSParameterAssert(fileURL);
+    NSParameterAssert(videoLink); 
+    
+    [self postMultiPartPath:@"videos/put_video" parameters:nil constructingBodyWithBlock:^(id <AFMultipartFormData>formData) {
+        
+        NSError *error = nil;
+        [formData appendPartWithFileURL:fileURL name:@"video" fileName:videoLink mimeType:@"video/mp4" error:&error];
+        DLog(@"error appending part with file url %@", error);
+        
+    }progress:progress completion:^(id model, NSError *error) {
+        if (completion) {
+            completion([[model objectForKeyOrNil:@"complete"] boolValue], error); 
+        }
+    }];
+
+}
+-(void)uploadThumbnailAtFileURL:(NSURL *)fileURL thumbnailLink:(NSString *)thumbnailLink progress:(WaxAPIClientBlockTypeProgressUpload)progress completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
+    
+    NSParameterAssert(fileURL);
+    NSParameterAssert(thumbnailLink);
+    
+    [self postMultiPartPath:@"videos/put_thumbnail" parameters:nil constructingBodyWithBlock:^(id <AFMultipartFormData>formData) {
+        
+        NSError *error = nil;
+        [formData appendPartWithFileURL:fileURL name:@"thumbnail" fileName:thumbnailLink mimeType:@"image/jpg" error:&error];
+        DLog(@"error appending part with file url %@", error);
+        
+    }progress:progress completion:^(id model, NSError *error) {
+        if (completion) {
+            completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
+        }
+    }];
+}
+-(void)uploadVideoMetadataWithVideoLink:(NSString *)videoLink videoLength:(NSNumber *)videoLength tag:(NSString *)tag category:(NSString *)category lat:(NSNumber *)lat lon:(NSNumber *)lon completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
     
     
     NSParameterAssert(videoLink);
     NSParameterAssert(videoLength);
     NSParameterAssert(tag);
     NSParameterAssert(category);
-//    NSParameterAssert(caption);
-//    NSParameterAssert(location);
-           
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:videoLink, @"videolink", videoLength, @"videolength", tag, @"tag", category, @"category", caption, @"caption", [NSNumber numberWithDouble:location.coordinate.latitude], @"lat", [NSNumber numberWithDouble:location.coordinate.longitude], @"lon", nil];
+    
+    
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:videoLink, @"videolink", videoLength, @"videolength", tag, @"tag", category, @"category", lat, @"lat", lon, @"lon", nil];
   
-    [self postPath:@"videos/put" parameters:params modelClass:nil completionBlock:^(id model, NSError *error) {
+    [self postPath:@"videos/put_data" parameters:params modelClass:nil completionBlock:^(id model, NSError *error) {
         if (completion) {
-            completion([model objectForKeyOrNil:@"shareid"], error);
+            completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
         }
     }];
 }
--(void)fetchMetadataForVideo:(NSString *)videoID completion:(WaxAPIClientCompletionBlockTypeVideo)completion{
+-(void)cancelVideoUploadingOperationWithVideoLink:(NSString *)videoLink{
+    
+    NSString *videoID = videoLink;
+    [self cancelAllHTTPOperationsWithMethod:@"POST" path:@"videos/put_data"];
+    [self cancelAllHTTPOperationsWithMethod:@"POST" path:@"videos/put_thumbnail"];
+    [self cancelAllHTTPOperationsWithMethod:@"POST" path:@"videos/put_video"];
+    
+    if (videoID) {
+        [self postPath:@"videos/cancel_upload" parameters:@{@"videolink": videoID} modelClass:nil completionBlock:^(id model, NSError *error) {
+            [[AIKErrorManager sharedManager] logMessageToAllServices:@"User canceled the upload of video"];
+        }];
+    }
+}
+-(void)fetchMetadataForVideo:(NSString *)videoID completion:(WaxAPIClientBlockTypeCompletionVideo)completion{
     
     NSParameterAssert(videoID);
     
@@ -282,7 +321,7 @@
         }
     }];
 }
--(void)voteUpVideo:(NSString *)videoID ofUser:(NSString *)personID completion:(WaxAPIClientCompletionBlockTypeSimple)completion{
+-(void)voteUpVideo:(NSString *)videoID ofUser:(NSString *)personID completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
     
     NSParameterAssert(videoID);
     NSParameterAssert(personID);
@@ -293,7 +332,7 @@
         }
     }];
 }
--(void)performAction:(WaxAPIClientVideoActionType)actionType onVideoID:(NSString *)videoID completion:(WaxAPIClientCompletionBlockTypeSimple)completion{
+-(void)performAction:(WaxAPIClientVideoActionType)actionType onVideoID:(NSString *)videoID completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
     
     NSParameterAssert(actionType);
     NSParameterAssert(videoID);
@@ -319,14 +358,14 @@
 }
 
 #pragma mark - Settings
--(void)fetchSettingsWithCompletion:(WaxAPIClientCompletionBlockTypeSettings)completion{
+-(void)fetchSettingsWithCompletion:(WaxAPIClientBlockTypeCompletionSettings)completion{
     [self postPath:@"settings/get" parameters:nil modelClass:[SettingsObject class] completionBlock:^(id model, NSError *error) {
         if (completion) {
             completion(model, error); 
         }
     }];
 }
--(void)updateSettings:(NSString *)email fullName:(NSString *)fullName pushSettings:(NSDictionary *)pushSettings completion:(WaxAPIClientCompletionBlockTypeSettings)completion{
+-(void)updateSettings:(NSString *)email fullName:(NSString *)fullName pushSettings:(NSDictionary *)pushSettings completion:(WaxAPIClientBlockTypeCompletionSettings)completion{
     
     NSParameterAssert(email);
     NSParameterAssert(fullName);
@@ -341,7 +380,7 @@
 
 
 #pragma mark - Internal Methods
--(void)fetchFeedFromPath:(NSString *)path tagOrPersonID:(NSString *)tagOrPersonID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
+-(void)fetchFeedFromPath:(NSString *)path tagOrPersonID:(NSString *)tagOrPersonID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
 
     NSParameterAssert(tagOrPersonID);
             
@@ -354,7 +393,7 @@
     }];
 }
 
--(void)fetchPeopleFromPath:(NSString *)path personId:(NSString *)personId infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientCompletionBlockTypeList)completion{
+-(void)fetchPeopleFromPath:(NSString *)path personId:(NSString *)personId infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     
     NSParameterAssert(personId);
     
@@ -377,36 +416,36 @@
             }
         }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        if ([error.domain isEqualToString:(NSString *)kCFErrorDomainCFNetwork] || [error.domain isEqualToString:NSURLErrorDomain] || [error.domain isEqualToString:AFNetworkingErrorDomain]) {
+        if (error.domain == NSURLErrorDomain && error.code == -999) {
+            if (completion) {
+                completion(nil, error);
+            }
+        }else{
             [[AIKErrorManager sharedManager] showAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion buttonHandler:^{
                 if (completion) {
                     completion(nil, error);
                 }
             }];
-//        }else{
-//            if (completion) {
-//                completion(nil, error);
-//            } 
-//        }
+        }
     }];
 }
--(void)postMultiPartPath:(NSString *)path parameters:(NSDictionary *)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block progress:(void (^)(CGFloat, NSUInteger, long long, long long))progress completion:(void (^)(id, NSError *))completion{
+-(void)postMultiPartPath:(NSString *)path parameters:(NSDictionary *)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block progress:(WaxAPIClientBlockTypeProgressUpload)progress completion:(void (^)(id, NSError *))completion{
     
-    NSParameterAssert(path);
+    NSParameterAssert(path);    
     NSParameterAssert(block);
     
     NSMutableURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:path parameters:parameters constructingBodyWithBlock:block];
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        
-        CGFloat proggy = (float)(totalBytesWritten/totalBytesExpectedToWrite);
-        
-        if (progress) {
+    if (progress) {
+        [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+            
+            CGFloat proggy = (float)totalBytesWritten/totalBytesExpectedToWrite;
+            
             progress(proggy, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
-        }
-        
-    }];
+            
+        }];
+    }
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self processResponseObject:responseObject forModelClass:nil withCompletionBlock:^(id model, NSError *error) {
@@ -415,11 +454,17 @@
             }
         }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[AIKErrorManager sharedManager] showAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion buttonHandler:^{
+        if (error.domain == NSURLErrorDomain && error.code == -999) {
             if (completion) {
                 completion(nil, error);
             }
-        }];
+        }else{
+            [[AIKErrorManager sharedManager] showAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion buttonHandler:^{
+                if (completion) {
+                    completion(nil, error);
+                }
+            }];
+        }
     }];
     
     [self enqueueHTTPRequestOperation:operation];

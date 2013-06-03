@@ -25,10 +25,19 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
- 
+    
+    [self setUpView];
+    
 }
 
+-(void)setUpView{
+    [self.cameraRollSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:kUserSaveToCameraRollKey] animated:NO];
+    [self.cameraRollSwitch addTarget:self action:@selector(cameraRollSwitched:) forControlEvents:UIControlEventValueChanged];
+}
 
+-(void)cameraRollSwitched:(UISwitch *)sender{
+    [[NSUserDefaults standardUserDefaults] setBool:self.cameraRollSwitch.on forKey:kUserSaveToCameraRollKey];
+}
 
 #pragma mark - Internal Methods
 -(void)sendFeedback{

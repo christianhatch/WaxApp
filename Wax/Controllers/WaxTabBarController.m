@@ -9,6 +9,7 @@
 #import "WaxTabBarController.h"
 #import "SplashViewController.h"
 #import "ProfileViewController.h"
+#import "VideoCameraViewController.h"
 
 @interface WaxTabBarController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @end
@@ -47,7 +48,7 @@
 }
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
     if ([viewController.title isEqualToString:@"Capture"]){
-        [AIKLocationManager askForAuthorizationAndStartUpdatingLocation];
+        [AIKLocationManager getAuthorizationStatusOrAskIfUndetermined];
         [self capture];
         return NO;
     }else if ([viewController.title isEqualToString:@"Me"]){
@@ -78,39 +79,14 @@
 -(void)capture{
     [[AIKErrorManager sharedManager] logMessageToAllServices:@"Tapped record on tabbar"];
     
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    picker.cameraDevice = UIImagePickerControllerCameraDeviceRear;
-    picker.videoQuality = UIImagePickerControllerQualityTypeLow;
-    picker.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;
-    picker.cameraOverlayView.alpha = 0;
-    picker.delegate = self;
-    picker.mediaTypes = @[(NSString *)kUTTypeMovie];
-    picker.allowsEditing = NO;
-    [self presentViewController:picker animated:YES completion:nil];
-}
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    [picker dismissViewControllerAnimated:YES completion:nil];
-
-    NSString *path = [[info objectForKeyOrNil:UIImagePickerControllerMediaURL] path];
-
-    [[WaxAPIClient sharedClient] uploadVideoAtPath:path progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        
-        [SVProgressHUD showProgress:percentage status:@"uploading video"]; 
-        
-    } completion:^(id responseObject, NSError *error) {
-        
-        if (error) {
-            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-        }else{
-            [SVProgressHUD showSuccessWithStatus:@"uploaded vid!"];  
+    [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithBlock:^(BOOL cancelled) {
+        if (cancelled) {
+            VideoCameraViewController *video = [[VideoCameraViewController alloc] init];
+            [self presentViewController:video animated:YES completion:nil];
         }
-        
-    }];
+    }]; 
 }
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    [picker dismissViewControllerAnimated:YES completion:nil];
-}
+
 -(void)showSplashScreen{
     UINavigationController *nav = initViewControllerWithIdentifier(@"SplashNav");
     SplashViewController *splashVC = initViewControllerWithIdentifier(@"SplashVC");
@@ -120,7 +96,6 @@
             if ([nav respondsToSelector:@selector(popToRootViewControllerAnimated:)]) {
                 [nav popToRootViewControllerAnimated:NO]; 
             }
-            
         }
         [self setSelectedIndex:0];
     }];

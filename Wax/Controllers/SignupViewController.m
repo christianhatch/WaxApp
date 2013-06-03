@@ -76,18 +76,23 @@
     if ([self verifyInputtedData]) {
         [SVProgressHUD showWithStatus:NSLocalizedString(@"Creating Account...", @"Creating Account...")];
         
-        if (!self.facebookSignup) {
-            [[WaxUser currentUser] updateProfilePictureOnServer:self.profilePictureButton.imageView.image andShowUICallbacks:NO completion:^(NSError *error) {
-                if (error) {
-                    [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture") error:error andShowAlertWithButtonHandler:^{
-                        //try again? tell user to manually go try again?
-                    }];
-                }
-            }];
-        }
         [[WaxUser currentUser] createAccountWithUsername:self.usernameField.text fullName:self.fullNameField.text email:self.emailField.text passwordOrFacebookID:self.passwordField.text completion:^(NSError *error) {
 
             if (!error) {
+                if (!self.facebookSignup) {
+                    [[WaxUser currentUser] updateProfilePictureOnServer:self.profilePictureButton.imageView.image andShowUICallbacks:NO completion:^(NSError *error) {
+                        if (error) {
+                            [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture") error:error andShowAlertWithButtonHandler:^{
+                                [[WaxUser currentUser] updateProfilePictureOnServer:self.profilePictureButton.imageView.image andShowUICallbacks:NO completion:^(NSError *error) {
+                                    if (error) {
+                                        [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture") error:error];
+                                    }
+                                }];
+
+                            }];
+                        }
+                    }];
+                }
                 [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Account Created!", @"Account Created!")];
                 [self dismissViewControllerAnimated:YES completion:nil];
             }else{
@@ -119,10 +124,12 @@
             [self.emailField becomeFirstResponder];
         }];
     }else if (!self.facebookSignup && [NSString isEmptyOrNil:self.passwordField.text]) {
+        verified = NO;
         [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"No Password", @"No Password") message:NSLocalizedString(@"Please choose a password", @"Please choose a password") buttonHandler:^{
             [self.passwordField becomeFirstResponder];
         }];
     }else if (!self.facebookSignup && !self.profilePictureButton.imageView.image) {
+        verified = NO;
         [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"No Profile Picture", @"No Profile Picture") message:NSLocalizedString(@"Please choose a profile picture", @"Please choose a profile picture") buttonHandler:^{
             [self profilePicture:self];
         }];

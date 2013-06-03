@@ -10,19 +10,14 @@
 
 @implementation NSString (WaxKit)
 
-+(NSString *)videoFilePathAfterSquaring{
-    return [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"exported.mp4"];
-}
-
-+(NSString *)s3ProfilePictureKeyFromUserid:(NSString *)userid{
-    return [[NSString stringWithFormat:@"%@/profile_picture.jpg", userid] lowercaseString];
-}
-+(NSString *)s3VideoKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink{
-    return [[NSString stringWithFormat:@"%@/%@", userid, videoLink] lowercaseString];
-}
-+(NSString *)s3ThumbnailKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink{
-    return [[NSString stringWithFormat:@"%@/%@.jpg", userid, videoLink] lowercaseString];
-}
-
+//+(NSString *)s3ProfilePictureKeyFromUserid:(NSString *)userid{
+//    return [[NSString stringWithFormat:@"%@/profile_picture.jpg", userid] lowercaseString];
+//}
+//+(NSString *)s3VideoKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink{
+//    return [[NSString stringWithFormat:@"%@/%@", userid, videoLink] lowercaseString];
+//}
+//+(NSString *)s3ThumbnailKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink{
+//    return [[NSString stringWithFormat:@"%@/%@.jpg", userid, videoLink] lowercaseString];
+//}
 
 @end

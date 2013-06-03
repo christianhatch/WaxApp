@@ -19,6 +19,15 @@
 "com.wax.api.error=1009" = "Password must be at least 6 characters";
 "com.wax.api.error=1010" = "No Account";
 
+"com.wax.api.error=3001" = "Upload Failed";
+"com.wax.api.error=3002" = "Upload Failed On Server";
+
+"com.wax.api.error=9001" = "Invalid Credentials";
+"com.wax.api.error=9002" = "Script Failed";
+"com.wax.api.error=9003" = "User Already Performed Action";
+"com.wax.api.error=9004" = "No Permission";
+"com.wax.api.error=9005" = "Missing Post Parameters";
+
 //API error suggestions
 "com.wax.api.suggestion=1001" = "Please check your typing and try again!";
 "com.wax.api.suggestion=1002" = "You must log in through Facebook";
@@ -31,7 +40,22 @@
 "com.wax.api.suggestion=1009" = "Your password is too short, it must be at least 6 characters long";
 "com.wax.api.suggestion=1010" = "It looks like you haven't yet created a Wax account. You can sign up by simply choosing a username to use on Wax";
 
+"com.wax.api.suggestion=3001" = "The file upload failed while sending data to the server. Please try again!";
+"com.wax.api.suggestion=3002" = "The file upload failed on the server. Please try again!";
+
+"com.wax.api.suggestion=9001" = "Authentication credentials are invalid or missing";
+"com.wax.api.suggestion=9002" = "Script failed";
+"com.wax.api.suggestion=9003" = "User has already performed this action";
+"com.wax.api.suggestion=9004" = "User does not have permission to perform this action";
+"com.wax.api.suggestion=9005" = "Missing post parameters";
+
 
 //misc.
 "Please try again!" = "Please try again!";
-"Unknown Error" = "Unknown Error"; 
+"Unknown Error" = "Unknown Error";
+
+
+
+
+
+

@@ -10,43 +10,66 @@
 
 @implementation NSURL (WaxKit)
 
-+(NSURL *)videoURLForSquaring{
-    NSString *outputString = [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"exported.mp4"]];
-    unlink([outputString UTF8String]); // If a file already exists, AVAssetWriter won't let you record new frames, so delete the old movie
-    return [NSURL fileURLWithPath:outputString];
++(NSURL *)currentVideoFileURL{
+    NSURL *url = [NSURL libraryFileURLWithDirectory:@"uploads" filename:@"squared" extension:@"mp4"];
+//    NSString *outputString = [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"uploads/squared.mp4"]];
+    
+//    unlink([url.path UTF8String]); // If a file already exists, AVAssetWriter won't let you record new frames, so delete the old movie
+    if ([[NSFileManager defaultManager] isDeletableFileAtPath:url.path]) {
+        [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
+    }
+    
+    return url;
+}
++(NSURL *)currentThumbnailFileURL{
+    NSURL *url = [NSURL libraryFileURLWithDirectory:@"uploads" filename:@"thumbnail" extension:@"jpg"];
+
+    if ([[NSFileManager defaultManager] isDeletableFileAtPath:url.path]) {
+        [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
+    }
+    
+    return url;
 }
 
-+(NSURL *)streamingURLFromUserid:(NSString *)userid videoLink:(NSString *)videoLink{
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@", kThirdPartyCloudFrontBaseURL, userid, videoLink]];
++(NSURL *)videoUploadsDirectoryURL{
+    return [NSURL libraryFileURLWithDirectory:@"uploads" filename:nil extension:nil]; 
 }
-+(NSURL *)profilePictureURLFromUserid:(NSString *)userid{    
-    if ([[WaxUser currentUser] userIDIsCurrentUser:userid]) {
+
+
++(NSURL *)streamingURLFromUserID:(NSString *)userID videoLink:(NSString *)videoLink{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@", kThirdPartyCloudFrontBaseURL, userID, videoLink]];
+}
++(NSURL *)profilePictureURLFromUserID:(NSString *)userID{
+    if ([[WaxUser currentUser] userIDIsCurrentUser:userID]) {
 //        double lastChange = [[NSUserDefaults standardUserDefaults] doubleForKey:KWProfilePictureChangeDateKey];
 //        double currentTime = [[NSDate date] timeIntervalSince1970];
 //        double difference = (currentTime - lastChange) / 86400;
 //
 //        if (difference < 2) {
-            return [NSURL s3ProfilePictureURLFromUserid:userid];
+            return [NSURL s3ProfilePictureURLFromUserID:userID];
 //        }else{
 //            return [NSURL cloudFrontProfilePictureURLFromUserid:userid];
 //        }
     }else{
-        return [NSURL cloudFrontProfilePictureURLFromUserid:userid];
+        return [NSURL cloudFrontProfilePictureURLFromUserID:userID];
     }
 }
-+(NSURL *)cloudFrontProfilePictureURLFromUserid:(NSString *)userid{
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/profile_picture.jpg", kThirdPartyCloudFrontBaseURL, userid]];
++(NSURL *)cloudFrontProfilePictureURLFromUserID:(NSString *)userID{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/profile_picture.jpg", kThirdPartyCloudFrontBaseURL, userID]];
 }
-+(NSURL *)s3ProfilePictureURLFromUserid:(NSString *)userid{
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.s3.amazonaws.com/%@/profile_picture.jpg", kThirdPartyAWSBucket, userid]];
++(NSURL *)s3ProfilePictureURLFromUserID:(NSString *)userID{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.s3.amazonaws.com/%@/profile_picture.jpg", kThirdPartyAWSBucket, userID]];
 }
 
-+(NSURL *)videoThumbnailURLFromUserid:(NSString *)userid videoLink:(NSString *)videoLink{
++(NSURL *)videoThumbnailURLFromUserID:(NSString *)userID videoLink:(NSString *)videoLink{
     NSString *fileName = [NSString stringWithFormat:@"%@.jpg", videoLink];
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@", kThirdPartyCloudFrontBaseURL, userid, fileName]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@", kThirdPartyCloudFrontBaseURL, userID, fileName]];
 }
-+(NSURL *)shareURLFromShareId:(NSString *)shareId{
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://wax.li/%@", shareId]];
++(NSURL *)shareURLFromShareID:(NSString *)shareID{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://wax.li/%@", shareID]];
+}
++(NSURL *)categoryImageURLWithCategoryTitle:(NSString *)categoryTitle{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"LALALALALLALALALALALLALALALLALALAAAAA%@.jpg", categoryTitle]];
 }
 
 @end
