@@ -14,6 +14,10 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
+    
+    [self enableSwipeToPopVC:YES];
+    [self enableTapToDismissKeyboard:YES];
+    
     [self setUpView];
     
     
@@ -40,13 +44,16 @@
     [self.twitterSwitch addTarget:self action:@selector(twitterSwitchToggled:) forControlEvents:UIControlEventValueChanged];
     [self.categoryButton addTarget:self action:@selector(chooseCategory:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonItemStyleDone target:self action:@selector(finish:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(finish:)];
+    
+    [self.facebookSwitch setOn:[[WaxUser currentUser] facebookAccountConnected] animated:NO];
+    [self.twitterSwitch setOn:[[WaxUser currentUser] twitterAccountConnected] animated:NO];
 }
 -(void)finish:(id)sender{
     if ([self verifyInputtedData]) {
         [[VideoUploadManager sharedManager] addMetadataWithTag:self.tagField.text category:@"cat" shareToFacebook:self.facebookSwitch.on sharetoTwitter:self.twitterSwitch.on shareLocation:self.locationSwitch.on completion:nil];
         
-        [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+        [[[self presentingViewController] presentingViewController] dismissViewControllerAnimated:YES completion:nil];
     }
 }
 -(void)facebookSwitchToggled:(UISwitch *)sender{

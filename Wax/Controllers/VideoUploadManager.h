@@ -17,6 +17,9 @@
 +(VideoUploadManager *)sharedManager;
 
 
+-(void)askToCancelAndDeleteCurrentUploadWithBlock:(void(^)(BOOL cancelled))block;
+
+
 -(void)beginUploadProcessWithVideoFileURL:(NSURL *)videoFileURL videoDuration:(NSNumber *)duration;
 
 -(void)addThumbnailImage:(UIImage *)thumbnail withOrientation:(UIInterfaceOrientation)orientation; 
@@ -30,7 +33,6 @@
 
 -(void)retryUploadWithCompletion:(void(^)(void))completion;
 
--(void)askToCancelAndDeleteCurrentUploadWithBlock:(void(^)(BOOL cancelled))block;
 
 @property (nonatomic, strong) UploadObject *currentUpload;
 

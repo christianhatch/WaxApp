@@ -12,7 +12,7 @@
 NSString *const CurrentUploadObjectUserDefaultsKey = @"currentUploadObject";
 
 @implementation UploadObject
-@synthesize status = _status, videoStatus = _videoStatus, thumbnailStatus = _thumbnailStatus, metadataStatus = _metadataStatus, shareToFacebook = _shareToFacebook, shareToTwitter = _shareToTwitter, shareLocation = _shareLocation, videoLink = _videoLink, thumbnailLink = _thumbnailLink, lat = _lat, lon = _lon, tag = _tag, category = _category, videoLength = _videoLength, videoFileURL = _videoFileURL, thumbnailFileURL = _thumbnailFileURL; 
+@synthesize status = _status, videoStatus = _videoStatus, thumbnailStatus = _thumbnailStatus, metadataStatus = _metadataStatus, shareToFacebook = _shareToFacebook, shareToTwitter = _shareToTwitter, shareLocation = _shareLocation, videoID = _videoID, lat = _lat, lon = _lon, tag = _tag, category = _category, videoLength = _videoLength, videoFileURL = _videoFileURL, thumbnailFileURL = _thumbnailFileURL;
 
 -(id)initWithVideoFileURL:(NSURL *)videoFileURL{
     
@@ -21,8 +21,7 @@ NSString *const CurrentUploadObjectUserDefaultsKey = @"currentUploadObject";
     self = [super init];
     if (self) {
         _videoFileURL = videoFileURL;
-        _videoLink = [NSString stringWithFormat:@"%@.mp4", [NSString currentTenDigitUnixTimestamp]];
-        _thumbnailLink = [NSString stringWithFormat:@"%@.jpg", self.videoLink];
+        _videoID = [[NSString stringWithFormat:@"%f%i", [[NSDate date] timeIntervalSince1970], arc4random_uniform(5000000)] MD5];
         _status = UploadStatusWaitingForData;
         _videoStatus = UploadStatusWaitingForData;
         _thumbnailStatus = UploadStatusWaitingForData;
@@ -48,15 +47,14 @@ NSString *const CurrentUploadObjectUserDefaultsKey = @"currentUploadObject";
         _shareToTwitter = [[dictionary objectForKeyOrNil:@"sharetotwitter"] boolValue];
         _shareLocation = [[dictionary objectForKeyOrNil:@"sharelocation"] boolValue];
         
-        _videoLink = [dictionary objectForKeyOrNil:@"videolink"];
-        _thumbnailLink = [dictionary objectForKeyOrNil:@"thumbnaillink"];
+        _videoID = [dictionary objectForKeyOrNil:@"videoid"];
         _lat = [dictionary objectForKeyOrNil:@"lat"];
         _lon = [dictionary objectForKeyOrNil:@"lon"];
         _tag = [dictionary objectForKeyOrNil:@"tag"];
         _category = [dictionary objectForKeyOrNil:@"category"];
         _videoLength = [dictionary objectForKeyOrNil:@"videolength"];
-        _videoFileURL = [dictionary objectForKeyOrNil:@"videofileurl"];
-        _thumbnailFileURL = [dictionary objectForKeyOrNil:@"thumbnailfileurl"];
+        _videoFileURL = [NSURL URLWithString:[dictionary objectForKeyOrNil:@"videofileurl"]];
+        _thumbnailFileURL = [NSURL URLWithString:[dictionary objectForKeyOrNil:@"thumbnailfileurl"]];
     }
     return self;
 }
@@ -67,8 +65,8 @@ NSString *const CurrentUploadObjectUserDefaultsKey = @"currentUploadObject";
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:CurrentUploadObjectUserDefaultsKey];
 }
 -(NSDictionary *)dictionaryRepresentation{
-    NSArray *objects = [NSArray arrayWithObjects:[NSNumber numberWithInteger:self.status], [NSNumber numberWithInteger:self.videoStatus], [NSNumber numberWithInteger:self.thumbnailStatus], [NSNumber numberWithInteger:self.metadataStatus], [NSNumber numberWithBool:self.shareToFacebook], [NSNumber numberWithBool:self.shareToTwitter], [NSNumber numberWithBool:self.shareLocation], self.videoLink, self.thumbnailLink, _lat, _lon, self.tag, self.category, self.videoLength, self.videoFileURL, self.thumbnailFileURL, nil];
-    NSArray *keys = [NSArray arrayWithObjects:@"status", @"videostatus", @"thumbnailstatus", @"metadatastatus", @"sharetofacebook", @"sharetotwitter", @"sharelocation", @"videolink", @"thumbnaillink", @"lat", @"lon", @"tag", @"category", @"videolength", @"videofileurl", @"thumbnailfileurl", nil];
+    NSArray *objects = [NSArray arrayWithObjects:[NSNumber numberWithInteger:self.status], [NSNumber numberWithInteger:self.videoStatus], [NSNumber numberWithInteger:self.thumbnailStatus], [NSNumber numberWithInteger:self.metadataStatus], [NSNumber numberWithBool:self.shareToFacebook], [NSNumber numberWithBool:self.shareToTwitter], [NSNumber numberWithBool:self.shareLocation], self.videoID, _lat, _lon, self.tag, self.category, self.videoLength, self.videoFileURL.path, self.thumbnailFileURL.path, nil];
+    NSArray *keys = [NSArray arrayWithObjects:@"status", @"videostatus", @"thumbnailstatus", @"metadatastatus", @"sharetofacebook", @"sharetotwitter", @"sharelocation", @"videoid", @"lat", @"lon", @"tag", @"category", @"videolength", @"videofileurl", @"thumbnailfileurl", nil];
     NSDictionary *dict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
     return dict; 
 }

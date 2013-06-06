@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-
 @interface ThumbnailChooserViewController : UIViewController
-
 
 @property (nonatomic, strong) NSURL *videoPath;
 @property (nonatomic, assign) UIInterfaceOrientation videoOrientation;

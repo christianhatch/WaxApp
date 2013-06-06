@@ -15,7 +15,6 @@ typedef void(^CategoryViewControllerCompletionBlock)(NSString *category);
 
 +(void)chooseCategoryWithCompletionBlock:(CategoryViewControllerCompletionBlock)completion sender:(UINavigationController *)sender;
 
-@property (nonatomic, assign) CategoryViewControllerCompletionBlock completionBlock; 
 
 
 @end

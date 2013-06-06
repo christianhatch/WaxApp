@@ -55,8 +55,7 @@ static inline NSString * StringFromUploadStatus(UploadStatus uStatus) {
 @property (nonatomic, assign) BOOL shareToTwitter;
 @property (nonatomic, assign) BOOL shareLocation;
 
-@property (nonatomic, copy) NSString *thumbnailLink;
-@property (nonatomic, copy) NSString *videoLink;
+@property (nonatomic, copy) NSString *videoID;
 @property (nonatomic, copy) NSString *tag;
 @property (nonatomic, copy) NSString *category;
 

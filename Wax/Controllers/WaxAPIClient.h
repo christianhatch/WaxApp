@@ -190,29 +190,29 @@ typedef NSInteger WaxAPIClientVideoActionType;
 
 #pragma mark - Videos
 -(void)uploadVideoAtFileURL:(NSURL *)fileURL
-                  videoLink:(NSString *)videoLink
+                    videoID:(NSString *)videoID
                    progress:(WaxAPIClientBlockTypeProgressUpload)progress
                  completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
 
 -(void)uploadThumbnailAtFileURL:(NSURL *)fileURL
-                  thumbnailLink:(NSString *)thumbnailLink
+                        videoID:(NSString *)videoID
                        progress:(WaxAPIClientBlockTypeProgressUpload)progress
                      completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
 
--(void)uploadVideoMetadataWithVideoLink:(NSString *)videoLink
-                            videoLength:(NSNumber *)videoLength
-                                    tag:(NSString *)tag
-                               category:(NSString *)category
-                                    lat:(NSNumber *)lat
-                                    lon:(NSNumber *)lon
-                             completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
+-(void)uploadVideoMetadataWithVideoID:(NSString *)videoID
+                          videoLength:(NSNumber *)videoLength
+                                  tag:(NSString *)tag
+                             category:(NSString *)category
+                                  lat:(NSNumber *)lat
+                                  lon:(NSNumber *)lon
+                           completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
 
--(void)cancelVideoUploadingOperationWithVideoLink:(NSString *)videoLink;
+-(void)cancelVideoUploadingOperationWithVideoID:(NSString *)videoID;
 
--(void)fetchMetadataForVideo:(NSString *)videoID
-                  completion:(WaxAPIClientBlockTypeCompletionVideo)completion;
+-(void)fetchMetadataForVideoID:(NSString *)videoID
+                    completion:(WaxAPIClientBlockTypeCompletionVideo)completion;
 
--(void)voteUpVideo:(NSString *)videoID
+-(void)voteUpVideoID:(NSString *)videoID
             ofUser:(NSString *)personID
         completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
 
@@ -220,7 +220,7 @@ typedef NSInteger WaxAPIClientVideoActionType;
            onVideoID:(NSString *)videoID
           completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
 
-
+-(void)fetchCategoriesWithCompletion:(WaxAPIClientBlockTypeCompletionList)completion; 
 
 #pragma mark - Settings
 -(void)fetchSettingsWithCompletion:(WaxAPIClientBlockTypeCompletionSettings)completion;

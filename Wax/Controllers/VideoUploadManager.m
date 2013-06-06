@@ -32,6 +32,42 @@
     }
     return self; 
 }
+-(void)askToCancelAndDeleteCurrentUploadWithBlock:(void (^)(BOOL))block{
+    [[WaxDataManager sharedManager] updateCategories]; //update categories at the beginning of each upload process
+    if ([self isUploading]) {
+        RIButtonItem *sure = [RIButtonItem item];
+        sure.label = NSLocalizedString(@"Delete", @"Delete");
+        sure.action = ^{
+            [[WaxAPIClient sharedClient] cancelVideoUploadingOperationWithVideoID:self.currentUpload.videoID];
+            [self finishUploadWithCompletion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (block) {
+                    block(YES);
+                }
+            });
+        };
+        RIButtonItem *cancel = [RIButtonItem item];
+        cancel.label = NSLocalizedString(@"Cancel", @"Cancel");
+        cancel.action = ^{
+            [[AIKErrorManager sharedManager] logMessageToAllServices:[NSString stringWithFormat:@"User attempted to capture new video while having an existing video that is %@, and decided to retry or let it finish", StringFromUploadStatus(self.currentUpload.status)]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (block) {
+                    block(NO);
+                }
+            });
+        };
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Delete Current?", @"Delete Current?") message:NSLocalizedString(@"Are you sure you want to cancel the current video upload? The video will be deleted permanently.", @"Are you sure you want to cancel this video upload? The video will be gone forever") cancelButtonItem:cancel otherButtonItems:sure, nil];
+        [alert show];
+    }else{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (block) {
+                block(YES);
+            }
+        });
+    }
+}
+
 -(void)beginUploadProcessWithVideoFileURL:(NSURL *)videoFileURL videoDuration:(NSNumber *)duration{
     
     NSParameterAssert(videoFileURL);
@@ -111,47 +147,12 @@
         [self uploadMetaDataWithCompletion:completion];
     }
 }
--(void)askToCancelAndDeleteCurrentUploadWithBlock:(void (^)(BOOL))block{
-    if ([self isUploading]) {
-        RIButtonItem *sure = [RIButtonItem item];
-        sure.label = NSLocalizedString(@"Delete", @"Delete");
-        sure.action = ^{
-            [[WaxAPIClient sharedClient] cancelVideoUploadingOperationWithVideoLink:self.currentUpload.videoLink];
-            [self finishUploadWithCompletion:nil];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (block) {
-                    block(YES);
-                }
-            });
-        };
-        RIButtonItem *cancel = [RIButtonItem item];
-        cancel.label = NSLocalizedString(@"Cancel", @"Cancel");
-        cancel.action = ^{
-            [[AIKErrorManager sharedManager] logMessageToAllServices:[NSString stringWithFormat:@"User attempted to capture new video while having an existing video that is %@, and decided to retry or let it finish", StringFromUploadStatus(self.currentUpload.status)]];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (block) {
-                    block(NO);
-                }
-            });
-        };
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Delete Current?", @"Delete Current?") message:NSLocalizedString(@"Are you sure you want to cancel the current video upload? The video will be deleted permanently.", @"Are you sure you want to cancel this video upload? The video will be gone forever") cancelButtonItem:cancel otherButtonItems:sure, nil];
-        [alert show];
-    }else{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (block) {
-                block(YES);
-            }
-        });
-    }
-}
+
 -(void)uploadVideoData{
-    [[WaxAPIClient sharedClient] uploadVideoAtFileURL:self.currentUpload.videoFileURL videoLink:self.currentUpload.videoLink progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        
+    [[WaxAPIClient sharedClient] uploadVideoAtFileURL:self.currentUpload.videoFileURL videoID:self.currentUpload.videoID progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+
         self.currentUpload.videoStatus = UploadStatusInProgress;
-        
-        DLog(@"video progress %f", percentage);
-        
+                
     } completion:^(BOOL complete, NSError *error) {
         
         if (!error) {
@@ -160,12 +161,10 @@
             
         }else if(error.domain != NSURLErrorDomain && error.code != -999){
             //retry
-            [[WaxAPIClient sharedClient] uploadVideoAtFileURL:self.currentUpload.videoFileURL videoLink:self.currentUpload.videoLink progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+            [[WaxAPIClient sharedClient] uploadVideoAtFileURL:self.currentUpload.videoFileURL videoID:self.currentUpload.videoID progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
                 
                 self.currentUpload.videoStatus = UploadStatusInProgress;
-                
-                DLog(@"video progress %f", percentage);
-                
+                                
             } completion:^(BOOL complete, NSError *error) {
                 
                 if (!error) {
@@ -186,12 +185,11 @@
     }];
 }
 -(void)uploadThumbnailData{
-    [[WaxAPIClient sharedClient] uploadThumbnailAtFileURL:self.currentUpload.thumbnailFileURL thumbnailLink:self.currentUpload.thumbnailLink progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+    
+    [[WaxAPIClient sharedClient] uploadThumbnailAtFileURL:self.currentUpload.thumbnailFileURL videoID:self.currentUpload.videoID progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
         
         self.currentUpload.thumbnailStatus = UploadStatusInProgress;
-        
-        DLog(@"thumb progress %f", percentage);
-        
+                
     } completion:^(BOOL complete, NSError *error) {
         
         if (!error) {
@@ -201,12 +199,10 @@
             
         }else if(error.domain != NSURLErrorDomain && error.code != -999){
             //retry!!
-            [[WaxAPIClient sharedClient] uploadThumbnailAtFileURL:self.currentUpload.thumbnailFileURL thumbnailLink:self.currentUpload.thumbnailLink progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+            [[WaxAPIClient sharedClient] uploadThumbnailAtFileURL:self.currentUpload.thumbnailFileURL videoID:self.currentUpload.videoID progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
                 
                 self.currentUpload.thumbnailStatus = UploadStatusInProgress;
-                
-                DLog(@"thumb progress %f", percentage);
-                
+                                
             } completion:^(BOOL complete, NSError *error) {
                 
                 if (!error) {
@@ -231,7 +227,7 @@
         
         self.currentUpload.metadataStatus = UploadStatusInProgress;
         
-        [[WaxAPIClient sharedClient] uploadVideoMetadataWithVideoLink:self.currentUpload.videoLink videoLength:self.currentUpload.videoLength tag:self.currentUpload.tag category:self.currentUpload.category lat:self.currentUpload.lat lon:self.currentUpload.lon completion:^(BOOL complete, NSError *error) {
+        [[WaxAPIClient sharedClient] uploadVideoMetadataWithVideoID:self.currentUpload.videoID videoLength:self.currentUpload.videoLength tag:self.currentUpload.tag category:self.currentUpload.tag lat:self.currentUpload.lat lon:self.currentUpload.lon completion:^(BOOL complete, NSError *error) {
             
             if (!error) {
                 
@@ -243,7 +239,7 @@
                     
                     self.currentUpload.metadataStatus = UploadStatusInProgress;
                     
-                    [[WaxAPIClient sharedClient] uploadVideoMetadataWithVideoLink:self.currentUpload.videoLink videoLength:self.currentUpload.videoLength tag:self.currentUpload.tag category:self.currentUpload.category lat:self.currentUpload.lat lon:self.currentUpload.lon completion:^(BOOL complete, NSError *error) {
+                    [[WaxAPIClient sharedClient] uploadVideoMetadataWithVideoID:self.currentUpload.videoID videoLength:self.currentUpload.videoLength tag:self.currentUpload.tag category:self.currentUpload.tag lat:self.currentUpload.lat lon:self.currentUpload.lon completion:^(BOOL complete, NSError *error) {
                         
                         if (!error) {
                             
@@ -318,10 +314,10 @@
 */
 #pragma mark - Internal methods
 -(BOOL)isUploading{
-    return (self.currentUpload || [AIKVideoProcessor sharedProcessor].exporter.status == AVAssetExportSessionStatusExporting);
+    return (self.currentUpload || [self checkUploadsDirectory] || [AIKVideoProcessor sharedProcessor].exporter.status == AVAssetExportSessionStatusExporting);
 }
-//-(BOOL)checkUploadsDirectory{
-//    return [[NSFileManager defaultManager] fileExistsAtPath:[NSURL currentVideoFileURL].path];
-//}
+-(BOOL)checkUploadsDirectory{
+    return [[NSFileManager defaultManager] fileExistsAtPath:[NSURL currentVideoFileURL].path];
+}
 
 @end

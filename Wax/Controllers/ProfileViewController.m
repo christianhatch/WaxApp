@@ -9,6 +9,8 @@
 #import "ProfileViewController.h"
 #import "SettingsViewController.h"
 
+#import "CategoryTableViewController.h"
+
 @interface ProfileViewController ()
 
 @end
@@ -23,8 +25,6 @@
         
     [self setUpView];
     
-    [self.profPicBtn addTarget:self action:@selector(chooseNewPic) forControlEvents:UIControlEventTouchUpInside];
-    [self.uploadBtn addTarget:self action:@selector(uploadPic) forControlEvents:UIControlEventTouchUpInside];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -32,19 +32,17 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    [self.imageView setImageWithURL:[NSURL URLWithString:@"http://www.executive-shaving.co.uk/shaving/wax-supplies/wax-suppies.jpg"] placeholderImage:nil animated:YES andEnableAsButtonWithButtonHandler:^(UIImageView *imageView) {
-        DLog(@"tapped!");
-    } completion:^(NSError *error) {
-        
-    }];
     
-    [self.imageView setFacebookProfilePictureWithFacebookID:[[WaxUser currentUser] facebookAccountID] placeholderImage:nil animated:YES completion:^(NSError *error) {
-        DLog(@"error setting fb %@", error);
-    }];
+}
+-(void)testerAction:(UIButton *)sender{
+    [CategoryTableViewController chooseCategoryWithCompletionBlock:^(NSString *category) {
+        DLog(@"cat %@", category);
+    } sender:self.navigationController];
 }
 
-
 -(void)setUpView{
+    [self.testerButton addTarget:self action:@selector(testerAction:) forControlEvents:UIControlEventTouchUpInside];
+    
     if (self.user) {
         
         self.navigationItem.title = [self isMe] ? NSLocalizedString(@"Me", @"Me") : self.user.username;

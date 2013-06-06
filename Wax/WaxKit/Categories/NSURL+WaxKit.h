@@ -14,10 +14,13 @@
 +(NSURL *)currentVideoFileURL; 
 +(NSURL *)currentThumbnailFileURL;
 
-+(NSURL *)streamingURLFromUserID:(NSString *)userID videoLink:(NSString *)videoLink;
-+(NSURL *)profilePictureURLFromUserID:(NSString *)userID;
-+(NSURL *)videoThumbnailURLFromUserID:(NSString *)userID videoLink:(NSString *)videoLink;
++(NSURL *)streamingURLFromUserID:(NSString *)userID andVideoID:(NSString *)videoID;
++(NSURL *)videoThumbnailURLFromUserID:(NSString *)userID andVideoID:(NSString *)videoID;
+
 +(NSURL *)shareURLFromShareID:(NSString *)shareID;
 +(NSURL *)categoryImageURLWithCategoryTitle:(NSString *)categoryTitle;
+
+
++(NSURL *)profilePictureURLFromUserID:(NSString *)userID;
     
 @end

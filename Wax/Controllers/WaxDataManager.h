@@ -15,6 +15,9 @@
 
 @property (nonatomic, strong) NSMutableArray *homeFeed; 
 @property (nonatomic, strong) NSMutableArray *myFeed;
+@property (nonatomic, readonly) NSArray *categories;
+
+-(void)updateCategories;
 
 
 @end

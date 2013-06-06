@@ -6,6 +6,10 @@
 //  Copyright (c) 2013 Acacia Interactive. All rights reserved.
 //
 
+static inline BOOL SimpleReturnFromAPIResponse(id response) {
+    return [[[response objectAtIndexOrNil:0] objectForKeyOrNil:@"complete"] boolValue];
+}
+
 #import "WaxAPIClient.h"
 
 @interface WaxAPIClient ()
@@ -173,9 +177,9 @@
         
     NSParameterAssert(personID);
 
-    [self postPath:@"users/put" parameters:@{@"personid":personID} modelClass:[PersonObject class] completionBlock:^(id model, NSError *error) {
+    [self postPath:@"users/put" parameters:@{@"personid":personID} modelClass:nil completionBlock:^(id model, NSError *error) {
         if (completion) {
-            completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
+            completion(SimpleReturnFromAPIResponse(model), error);
         }
     }];
 }
@@ -231,7 +235,7 @@
         [formData appendPartWithFileData:picData name:@"profile_picture" fileName:@"profile_picture.jpg" mimeType:@"image/jpeg"];
     } progress:progress completion:^(id model, NSError *error) {
         if (completion) {
-            completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
+            completion(SimpleReturnFromAPIResponse(model), error);
         }
     }];
 
@@ -239,79 +243,80 @@
 -(void)syncFacebookProfilePictureWithCompletion:(WaxAPIClientBlockTypeCompletionSimple)completion{
     [self postPath:@"settings/update_picture" parameters:@{@"facebook": @1} modelClass:nil completionBlock:^(id model, NSError *error) {
         if (completion) {
-            completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
+            completion(SimpleReturnFromAPIResponse(model), error);
         }
     }];
 }
 
 
 #pragma mark - Videos
--(void)uploadVideoAtFileURL:(NSURL *)fileURL videoLink:(NSString *)videoLink progress:(WaxAPIClientBlockTypeProgressUpload)progress completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
+-(void)uploadVideoAtFileURL:(NSURL *)fileURL videoID:(NSString *)videoID progress:(WaxAPIClientBlockTypeProgressUpload)progress completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
     
     NSParameterAssert(fileURL);
-    NSParameterAssert(videoLink); 
+    NSParameterAssert(videoID);
     
     [self postMultiPartPath:@"videos/put_video" parameters:nil constructingBodyWithBlock:^(id <AFMultipartFormData>formData) {
         
         NSError *error = nil;
-        [formData appendPartWithFileURL:fileURL name:@"video" fileName:videoLink mimeType:@"video/mp4" error:&error];
-        DLog(@"error appending part with file url %@", error);
+        [formData appendPartWithFileURL:fileURL name:@"video" fileName:videoID mimeType:@"video/mp4" error:&error];
         
     }progress:progress completion:^(id model, NSError *error) {
+        DLog(@"upload video response %@", model);
+
         if (completion) {
-            completion([[model objectForKeyOrNil:@"complete"] boolValue], error); 
+            completion(SimpleReturnFromAPIResponse(model), error);
         }
     }];
 
 }
--(void)uploadThumbnailAtFileURL:(NSURL *)fileURL thumbnailLink:(NSString *)thumbnailLink progress:(WaxAPIClientBlockTypeProgressUpload)progress completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
+-(void)uploadThumbnailAtFileURL:(NSURL *)fileURL videoID:(NSString *)videoID progress:(WaxAPIClientBlockTypeProgressUpload)progress completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
     
     NSParameterAssert(fileURL);
-    NSParameterAssert(thumbnailLink);
+    NSParameterAssert(videoID);
     
     [self postMultiPartPath:@"videos/put_thumbnail" parameters:nil constructingBodyWithBlock:^(id <AFMultipartFormData>formData) {
         
         NSError *error = nil;
-        [formData appendPartWithFileURL:fileURL name:@"thumbnail" fileName:thumbnailLink mimeType:@"image/jpg" error:&error];
-        DLog(@"error appending part with file url %@", error);
+        [formData appendPartWithFileURL:fileURL name:@"thumbnail" fileName:videoID mimeType:@"image/jpg" error:&error];
         
     }progress:progress completion:^(id model, NSError *error) {
+        DLog(@"upload thumbnail response %@", model);
+
         if (completion) {
-            completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
+            completion(SimpleReturnFromAPIResponse(model), error);
         }
+        
     }];
 }
--(void)uploadVideoMetadataWithVideoLink:(NSString *)videoLink videoLength:(NSNumber *)videoLength tag:(NSString *)tag category:(NSString *)category lat:(NSNumber *)lat lon:(NSNumber *)lon completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
+-(void)uploadVideoMetadataWithVideoID:(NSString *)videoID videoLength:(NSNumber *)videoLength tag:(NSString *)tag category:(NSString *)category lat:(NSNumber *)lat lon:(NSNumber *)lon completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
     
-    
-    NSParameterAssert(videoLink);
+    NSParameterAssert(videoID);
     NSParameterAssert(videoLength);
     NSParameterAssert(tag);
     NSParameterAssert(category);
     
-    
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:videoLink, @"videolink", videoLength, @"videolength", tag, @"tag", category, @"category", lat, @"lat", lon, @"lon", nil];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:videoID, @"videoid", videoLength, @"videolength", tag, @"tag", category, @"category", lat, @"lat", lon, @"lon", nil];
   
     [self postPath:@"videos/put_data" parameters:params modelClass:nil completionBlock:^(id model, NSError *error) {
+        DLog(@"upload meta response %@", model);
         if (completion) {
-            completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
+            completion(SimpleReturnFromAPIResponse(model), error);
         }
     }];
 }
--(void)cancelVideoUploadingOperationWithVideoLink:(NSString *)videoLink{
+-(void)cancelVideoUploadingOperationWithVideoID:(NSString *)videoID{
     
-    NSString *videoID = videoLink;
     [self cancelAllHTTPOperationsWithMethod:@"POST" path:@"videos/put_data"];
     [self cancelAllHTTPOperationsWithMethod:@"POST" path:@"videos/put_thumbnail"];
     [self cancelAllHTTPOperationsWithMethod:@"POST" path:@"videos/put_video"];
     
     if (videoID) {
-        [self postPath:@"videos/cancel_upload" parameters:@{@"videolink": videoID} modelClass:nil completionBlock:^(id model, NSError *error) {
+        [self postPath:@"videos/cancel_upload" parameters:@{@"videoid": videoID} modelClass:nil completionBlock:^(id model, NSError *error) {
             [[AIKErrorManager sharedManager] logMessageToAllServices:@"User canceled the upload of video"];
         }];
     }
 }
--(void)fetchMetadataForVideo:(NSString *)videoID completion:(WaxAPIClientBlockTypeCompletionVideo)completion{
+-(void)fetchMetadataForVideoID:(NSString *)videoID completion:(WaxAPIClientBlockTypeCompletionVideo)completion{
     
     NSParameterAssert(videoID);
     
@@ -321,14 +326,14 @@
         }
     }];
 }
--(void)voteUpVideo:(NSString *)videoID ofUser:(NSString *)personID completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
+-(void)voteUpVideoID:(NSString *)videoID ofUser:(NSString *)personID completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
     
     NSParameterAssert(videoID);
     NSParameterAssert(personID);
         
     [self postPath:@"videos/vote" parameters:@{@"videoid":videoID, @"personid":personID} modelClass:nil completionBlock:^(id model, NSError *error) {
         if (completion) {
-            completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
+            completion(SimpleReturnFromAPIResponse(model), error);
         }
     }];
 }
@@ -352,11 +357,17 @@
     }
     [self postPath:path parameters:@{@"videoid": videoID} modelClass:nil completionBlock:^(id model, NSError *error) {
         if (completion) {
-            completion([[model objectForKeyOrNil:@"complete"] boolValue], error);
+            completion(SimpleReturnFromAPIResponse(model), error);
         }
     }];
 }
-
+-(void)fetchCategoriesWithCompletion:(WaxAPIClientBlockTypeCompletionList)completion{
+    [self postPath:@"categories/get" parameters:nil modelClass:nil completionBlock:^(id model, NSError *error) {
+        if (completion) {
+            completion(model, error); 
+        }
+    }];
+}
 #pragma mark - Settings
 -(void)fetchSettingsWithCompletion:(WaxAPIClientBlockTypeCompletionSettings)completion{
     [self postPath:@"settings/get" parameters:nil modelClass:[SettingsObject class] completionBlock:^(id model, NSError *error) {
@@ -416,6 +427,7 @@
             }
         }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        DLog(@"standard post request failure %@", error);
         if (error.domain == NSURLErrorDomain && error.code == -999) {
             if (completion) {
                 completion(nil, error);
@@ -436,7 +448,7 @@
     
     NSMutableURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:path parameters:parameters constructingBodyWithBlock:block];
     
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    AFJSONRequestOperation *operation = [[AFJSONRequestOperation alloc] initWithRequest:request];
     if (progress) {
         [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
             
@@ -454,6 +466,7 @@
             }
         }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        DLog(@"multipart form request failure %@", error);
         if (error.domain == NSURLErrorDomain && error.code == -999) {
             if (completion) {
                 completion(nil, error);
@@ -471,8 +484,7 @@
 }
 -(void)processResponseObject:(id)responseObject forModelClass:(Class)modelClass withCompletionBlock:(void (^)(id model, NSError *error))completion{
 
-        [self validateResponseObject:responseObject completion:^(id response) {
-            id validated = response;
+        [self validateResponseObject:responseObject completion:^(id validated) {
             
             if ([validated isKindOfClass:[NSError class]]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -482,7 +494,7 @@
                 });
             }else{
                 id returnModel = validated;
-                if (modelClass) {
+                if (modelClass) { //if there's no model class, we simply return the entire 'validated' object! 
                     if ([validated respondsToSelector:@selector(objectAtIndexOrNil:)] && [validated respondsToSelector:@selector(count)]) {
                         if ([validated count] > 1) {
                             NSArray *rawDictionaries = validated;
@@ -504,9 +516,9 @@
                     }
                 });
             }
-        }]; 
+        }];
 }
--(void)validateResponseObject:(id)responseObject completion:(void (^)(id response))completion{
+-(void)validateResponseObject:(id)responseObject completion:(void (^)(id validated))completion{
     
 //    DLog(@"response %@", responseObject);
     
@@ -519,11 +531,14 @@
                 if ([[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectForKeyOrNil:@"complete"] boolValue]) {
                     returnObject = [[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectForKeyOrNil:@"data"];
                 }else{
+                    DLog(@"error on api %@", responseObject);
                     NSError *error = [NSError waxAPIErrorFromResponse:[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectForKeyOrNil:@"error"]];
                     if (error.code == 9001) {
                         [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Logged out for security", @"Logged out for security") error:error andShowAlertWithButtonHandler:^{
                             [[WaxUser currentUser] logOut];
                         }];
+                    }else if (error.code > 9001){
+                        returnObject = error; //perhaps handle these differently! 
                     }else{
                         returnObject = error;
                     }

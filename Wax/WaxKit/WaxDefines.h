@@ -14,11 +14,9 @@ extern NSString *const kWaxAPIErrorDomain;
 extern NSString *const kWaxAPIJSONKey; 
 
 #pragma mark - Third Party
-//extern NSString *const kThirdPartyAWSAccessKey;
-//extern NSString *const kThirdPartyAWSSecretKey;
 extern NSString *const kThirdPartyAWSBucket;
 extern NSString *const kThirdPartyCloudFrontBaseURL;
-
+extern NSString *const kThirdPartyCloudFrontImagesBaseURL; 
 
 extern NSString *const kThirdPartyUrbanAirshipAppKey;
 extern NSString *const kThirdPartyUrbanAirshipAppSecret;

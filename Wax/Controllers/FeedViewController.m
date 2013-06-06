@@ -23,18 +23,18 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    [[WaxAPIClient sharedClient] fetchHomeFeedWithInfiniteScrollingID:nil completion:^(NSMutableArray *list, NSError *error) {
-
-        if (!error) {
-            
-        }
-        
-    }];
+//    [[WaxAPIClient sharedClient] fetchHomeFeedWithInfiniteScrollingID:nil completion:^(NSMutableArray *list, NSError *error) {
+//
+//        if (!error) {
+//            
+//        }
+//        
+//    }];
 
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
 }
 
 

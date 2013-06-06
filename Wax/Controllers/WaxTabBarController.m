@@ -11,7 +11,8 @@
 #import "ProfileViewController.h"
 #import "VideoCameraViewController.h"
 
-@interface WaxTabBarController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface WaxTabBarController ()
+
 @end
 
 

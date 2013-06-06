@@ -18,7 +18,6 @@
 
 #pragma mark - info about the video itself
 @property (nonatomic, copy) NSString *videoID;
-@property (nonatomic, copy) NSString *videoLink;
 @property (nonatomic, copy) NSString *shareID;
 @property (nonatomic, copy) NSString *timeStamp;
 @property (nonatomic, copy) NSString *tag;
