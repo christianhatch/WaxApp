@@ -153,26 +153,16 @@
             </objects>
             <point key="canvasLocation" x="1580" y="2026"/>
         </scene>
-        <!--Feed View Controller-->
+        <!--View Controller-->
         <scene sceneID="7ao-43-xol">
             <objects>
-                <viewController id="6kr-WS-NmP" customClass="FeedViewController" sceneMemberID="viewController">
+                <viewController id="6kr-WS-NmP" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Y8v-8U-OAV">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="7GN-E6-idm">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="P0g-ea-L1i"/>
-                    <connections>
-                        <outlet property="tableView" destination="7GN-E6-idm" id="ySL-HL-WWf"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aJ2-b5-KNj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -708,12 +698,6 @@
         </class>
         <class className="CategoryTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CategoryTableViewController.h"/>
-        </class>
-        <class className="FeedViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
         </class>
         <class className="LoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>

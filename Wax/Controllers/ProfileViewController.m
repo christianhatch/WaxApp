@@ -51,6 +51,7 @@
             UIBarButtonItem *settingsBtn = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Settings", @"Settings") style:UIBarButtonItemStylePlain target:self action:@selector(showSettings:)];
             self.navigationItem.rightBarButtonItem = settingsBtn;
         }
+        
     }else{
         //this user does not exist!
     }

@@ -33,7 +33,6 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     [self setUpView];
-    DLog(@"cats %@", [WaxDataManager sharedManager].categories);
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

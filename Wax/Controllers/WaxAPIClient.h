@@ -155,7 +155,6 @@ typedef NSInteger WaxAPIClientVideoActionType;
 -(void)fetchMyFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID
                                completion:(WaxAPIClientBlockTypeCompletionList)completion;
 
-
 -(void)fetchFeedForTag:(NSString *)tag
               sortedBy:(WaxAPIClientTagSortType)sortedBy
    infiniteScrollingID:(NSNumber *)infiniteScrollingID

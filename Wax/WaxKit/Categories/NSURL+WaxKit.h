@@ -13,6 +13,7 @@
 +(NSURL *)videoUploadsDirectoryURL;
 +(NSURL *)currentVideoFileURL; 
 +(NSURL *)currentThumbnailFileURL;
+//+(NSURL *)currentMetaDataFileURL; 
 
 +(NSURL *)streamingURLFromUserID:(NSString *)userID andVideoID:(NSString *)videoID;
 +(NSURL *)videoThumbnailURLFromUserID:(NSString *)userID andVideoID:(NSString *)videoID;

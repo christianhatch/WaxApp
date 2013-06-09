@@ -139,10 +139,22 @@
 		454BBDC5174049C4005F48ED /* ModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC4174049C4005F48ED /* ModelObject.m */; };
 		454BBDC917404A2E005F48ED /* WaxUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC817404A2D005F48ED /* WaxUser.m */; };
 		454BBDCD17404A39005F48ED /* PersonObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDCC17404A39005F48ED /* PersonObject.m */; };
+		4589E9B3176299E200ED4A6F /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4589E9B2176299E200ED4A6F /* FeedCell.xib */; };
+		4589E9BA1762A6FC00ED4A6F /* WaxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4589E9B91762A6FC00ED4A6F /* WaxTableViewCell.m */; };
+		4589E9BB1762A6FC00ED4A6F /* WaxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4589E9B91762A6FC00ED4A6F /* WaxTableViewCell.m */; };
+		4589E9BE1762A73500ED4A6F /* FeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4589E9BD1762A73500ED4A6F /* FeedCell.m */; };
+		4589E9BF1762A73500ED4A6F /* FeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4589E9BD1762A73500ED4A6F /* FeedCell.m */; };
 		4591002A1755979E000D8BCD /* AppledocSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 459100291755979E000D8BCD /* AppledocSettings.plist */; };
 		459C28251725EC82009C5487 /* UIButton+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C281E1725EC82009C5487 /* UIButton+WaxKit.m */; };
 		459C28271725EC82009C5487 /* UIFont+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C28201725EC82009C5487 /* UIFont+WaxKit.m */; };
 		459C28291725EC82009C5487 /* UIImage+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C28221725EC82009C5487 /* UIImage+WaxKit.m */; };
+		45AC7C301762BEBE0086D980 /* FeedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AC7C2F1762BEBE0086D980 /* FeedTableView.m */; };
+		45AC7C311762BEBE0086D980 /* FeedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AC7C2F1762BEBE0086D980 /* FeedTableView.m */; };
+		45AC7C361762DD500086D980 /* ProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AC7C351762DD500086D980 /* ProfileHeaderView.m */; };
+		45AC7C371762DD500086D980 /* ProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AC7C351762DD500086D980 /* ProfileHeaderView.m */; };
+		45AC7CC317637F6D0086D980 /* AcaciaKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45AC7CC217637E050086D980 /* AcaciaKitResources.bundle */; };
+		45AC7CC61763B8E30086D980 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AC7CC51763B8E20086D980 /* HomeViewController.m */; };
+		45AC7CC71763B8E30086D980 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AC7CC51763B8E20086D980 /* HomeViewController.m */; };
 		45AF70271741C8C2008399D3 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF70261741C8C2008399D3 /* SignupViewController.m */; };
 		45AF70281741C8C2008399D3 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF70261741C8C2008399D3 /* SignupViewController.m */; };
 		45AF702C1741C8F0008399D3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF702B1741C8F0008399D3 /* LoginViewController.m */; };
@@ -151,8 +163,6 @@
 		45AF70311741C97E008399D3 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF702F1741C97E008399D3 /* SplashViewController.m */; };
 		45AF70381741CBA7008399D3 /* WaxTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF70371741CBA7008399D3 /* WaxTabBarController.m */; };
 		45AF70391741CBA7008399D3 /* WaxTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF70371741CBA7008399D3 /* WaxTabBarController.m */; };
-		45B1E5FA175437E9008C0DF8 /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B1E5F9175437E9008C0DF8 /* FeedViewController.m */; };
-		45B1E5FB175437E9008C0DF8 /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B1E5F9175437E9008C0DF8 /* FeedViewController.m */; };
 		45B1E5FF17545073008C0DF8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B1E5FE17545073008C0DF8 /* CFNetwork.framework */; };
 		45B8AAEA17515858009450EA /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B8AAE917515858009450EA /* ProfileViewController.m */; };
 		45B8AAEB17515858009450EA /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B8AAE917515858009450EA /* ProfileViewController.m */; };
@@ -219,6 +229,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 452FAE2B1741637E0091F8D4;
 			remoteInfo = AcaciaKit;
+		};
+		45AC7CC117637E050086D980 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 452FAFD2174182D00091F8D4 /* AcaciaKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 45AC7CA317637D8A0086D980;
+			remoteInfo = AcaciaKitResources;
 		};
 		45F71644171F163D009097F3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -337,6 +354,11 @@
 		454BBDC817404A2D005F48ED /* WaxUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxUser.m; sourceTree = "<group>"; };
 		454BBDCB17404A39005F48ED /* PersonObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonObject.h; sourceTree = "<group>"; };
 		454BBDCC17404A39005F48ED /* PersonObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonObject.m; sourceTree = "<group>"; };
+		4589E9B2176299E200ED4A6F /* FeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FeedCell.xib; path = Nibs/FeedCell.xib; sourceTree = "<group>"; };
+		4589E9B81762A6FC00ED4A6F /* WaxTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaxTableViewCell.h; path = Controllers/WaxTableViewCell.h; sourceTree = "<group>"; };
+		4589E9B91762A6FC00ED4A6F /* WaxTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaxTableViewCell.m; path = Controllers/WaxTableViewCell.m; sourceTree = "<group>"; };
+		4589E9BC1762A73500ED4A6F /* FeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedCell.h; path = Controllers/FeedCell.h; sourceTree = "<group>"; };
+		4589E9BD1762A73500ED4A6F /* FeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedCell.m; path = Controllers/FeedCell.m; sourceTree = "<group>"; };
 		459100291755979E000D8BCD /* AppledocSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppledocSettings.plist; sourceTree = "<group>"; };
 		459C281D1725EC82009C5487 /* UIButton+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+WaxKit.h"; sourceTree = "<group>"; };
 		459C281E1725EC82009C5487 /* UIButton+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WaxKit.m"; sourceTree = "<group>"; };
@@ -346,6 +368,12 @@
 		459C28221725EC82009C5487 /* UIImage+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+WaxKit.m"; sourceTree = "<group>"; };
 		459C28841725F1F3009C5487 /* WaxDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaxDefines.h; path = WaxKit/WaxDefines.h; sourceTree = "<group>"; };
 		459C28851725F29C009C5487 /* WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxKit.h; sourceTree = "<group>"; };
+		45AC7C2E1762BEBE0086D980 /* FeedTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableView.h; path = Controllers/FeedTableView.h; sourceTree = "<group>"; };
+		45AC7C2F1762BEBE0086D980 /* FeedTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedTableView.m; path = Controllers/FeedTableView.m; sourceTree = "<group>"; };
+		45AC7C341762DD500086D980 /* ProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileHeaderView.h; path = Controllers/ProfileHeaderView.h; sourceTree = "<group>"; };
+		45AC7C351762DD500086D980 /* ProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileHeaderView.m; path = Controllers/ProfileHeaderView.m; sourceTree = "<group>"; };
+		45AC7CC41763B8E20086D980 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = Controllers/HomeViewController.h; sourceTree = "<group>"; };
+		45AC7CC51763B8E20086D980 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = Controllers/HomeViewController.m; sourceTree = "<group>"; };
 		45AF70251741C8C2008399D3 /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
 		45AF70261741C8C2008399D3 /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
 		45AF702A1741C8F0008399D3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -354,8 +382,6 @@
 		45AF702F1741C97E008399D3 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
 		45AF70361741CBA7008399D3 /* WaxTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaxTabBarController.h; path = Controllers/WaxTabBarController.h; sourceTree = "<group>"; };
 		45AF70371741CBA7008399D3 /* WaxTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaxTabBarController.m; path = Controllers/WaxTabBarController.m; sourceTree = "<group>"; };
-		45B1E5F8175437E9008C0DF8 /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedViewController.h; path = Controllers/FeedViewController.h; sourceTree = "<group>"; };
-		45B1E5F9175437E9008C0DF8 /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedViewController.m; path = Controllers/FeedViewController.m; sourceTree = "<group>"; };
 		45B1E5FE17545073008C0DF8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		45B8AAE817515858009450EA /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		45B8AAE917515858009450EA /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
@@ -640,6 +666,7 @@
 			children = (
 				452FAFD8174182D10091F8D4 /* libAcaciaKit.a */,
 				452FAFDA174182D10091F8D4 /* AcaciaKitTests.octest */,
+				45AC7CC217637E050086D980 /* AcaciaKitResources.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -696,6 +723,22 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		45AC7C381762DD700086D980 /* TableViewStuff */ = {
+			isa = PBXGroup;
+			children = (
+				45AC7C2E1762BEBE0086D980 /* FeedTableView.h */,
+				45AC7C2F1762BEBE0086D980 /* FeedTableView.m */,
+				45AC7C341762DD500086D980 /* ProfileHeaderView.h */,
+				45AC7C351762DD500086D980 /* ProfileHeaderView.m */,
+				4589E9B81762A6FC00ED4A6F /* WaxTableViewCell.h */,
+				4589E9B91762A6FC00ED4A6F /* WaxTableViewCell.m */,
+				4589E9BC1762A73500ED4A6F /* FeedCell.h */,
+				4589E9BD1762A73500ED4A6F /* FeedCell.m */,
+				4589E9B2176299E200ED4A6F /* FeedCell.xib */,
+			);
+			name = TableViewStuff;
+			sourceTree = "<group>";
+		};
 		45B8AB001751803D009450EA /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -713,8 +756,9 @@
 			children = (
 				45AF70361741CBA7008399D3 /* WaxTabBarController.h */,
 				45AF70371741CBA7008399D3 /* WaxTabBarController.m */,
-				45B1E5F8175437E9008C0DF8 /* FeedViewController.h */,
-				45B1E5F9175437E9008C0DF8 /* FeedViewController.m */,
+				45AC7CC41763B8E20086D980 /* HomeViewController.h */,
+				45AC7CC51763B8E20086D980 /* HomeViewController.m */,
+				45AC7C381762DD700086D980 /* TableViewStuff */,
 				45009A55174EBF1600EE0B5C /* Login/Signup */,
 				4518AD4217584FDE00D5D95C /* Video */,
 				45B8AB001751803D009450EA /* Profile */,
@@ -960,6 +1004,13 @@
 			remoteRef = 452FAFD9174182D10091F8D4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		45AC7CC217637E050086D980 /* AcaciaKitResources.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AcaciaKitResources.bundle;
+			remoteRef = 45AC7CC117637E050086D980 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -967,6 +1018,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45AC7CC317637F6D0086D980 /* AcaciaKitResources.bundle in Resources */,
 				45F71627171F163C009097F3 /* InfoPlist.strings in Resources */,
 				45F7162F171F163D009097F3 /* Default.png in Resources */,
 				45F71631171F163D009097F3 /* Default@2x.png in Resources */,
@@ -1029,6 +1081,7 @@
 				4518ADDB175AA6D000D5D95C /* record_on@2x.png in Resources */,
 				4518ADDC175AA6D000D5D95C /* record_reg.png in Resources */,
 				4518ADDD175AA6D000D5D95C /* record_reg@2x.png in Resources */,
+				4589E9B3176299E200ED4A6F /* FeedCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1161,13 +1214,17 @@
 				45B8AAEA17515858009450EA /* ProfileViewController.m in Sources */,
 				45B8AAEE17515F49009450EA /* SettingsViewController.m in Sources */,
 				45B8AAF917517ABD009450EA /* UploadObject.m in Sources */,
-				45B1E5FA175437E9008C0DF8 /* FeedViewController.m in Sources */,
 				4518AD4017584FD800D5D95C /* VideoCameraViewController.m in Sources */,
 				4518AD5C17590CA400D5D95C /* VideoUploadManager.m in Sources */,
 				4518AD69175A8B8600D5D95C /* CameraOverlay.m in Sources */,
 				4518AD6D175A8B8600D5D95C /* ThumbnailChooserViewController.m in Sources */,
 				45CA0B62175D108300C84A22 /* ShareViewController.m in Sources */,
 				45CA0B6B175D1D6100C84A22 /* CategoryTableViewController.m in Sources */,
+				4589E9BA1762A6FC00ED4A6F /* WaxTableViewCell.m in Sources */,
+				4589E9BE1762A73500ED4A6F /* FeedCell.m in Sources */,
+				45AC7C301762BEBE0086D980 /* FeedTableView.m in Sources */,
+				45AC7C361762DD500086D980 /* ProfileHeaderView.m in Sources */,
+				45AC7CC61763B8E30086D980 /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1201,13 +1258,17 @@
 				45B8AAEB17515858009450EA /* ProfileViewController.m in Sources */,
 				45B8AAEF17515F49009450EA /* SettingsViewController.m in Sources */,
 				45B8AAFA17517ABD009450EA /* UploadObject.m in Sources */,
-				45B1E5FB175437E9008C0DF8 /* FeedViewController.m in Sources */,
 				4518AD4117584FD800D5D95C /* VideoCameraViewController.m in Sources */,
 				4518AD5D17590CA400D5D95C /* VideoUploadManager.m in Sources */,
 				4518AD6A175A8B8600D5D95C /* CameraOverlay.m in Sources */,
 				4518AD6E175A8B8600D5D95C /* ThumbnailChooserViewController.m in Sources */,
 				45CA0B63175D108300C84A22 /* ShareViewController.m in Sources */,
 				45CA0B6C175D1D6100C84A22 /* CategoryTableViewController.m in Sources */,
+				4589E9BB1762A6FC00ED4A6F /* WaxTableViewCell.m in Sources */,
+				4589E9BF1762A73500ED4A6F /* FeedCell.m in Sources */,
+				45AC7C311762BEBE0086D980 /* FeedTableView.m in Sources */,
+				45AC7C371762DD500086D980 /* ProfileHeaderView.m in Sources */,
+				45AC7CC71763B8E30086D980 /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

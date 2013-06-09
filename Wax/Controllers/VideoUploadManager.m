@@ -227,7 +227,7 @@
         
         self.currentUpload.metadataStatus = UploadStatusInProgress;
         
-        [[WaxAPIClient sharedClient] uploadVideoMetadataWithVideoID:self.currentUpload.videoID videoLength:self.currentUpload.videoLength tag:self.currentUpload.tag category:self.currentUpload.tag lat:self.currentUpload.lat lon:self.currentUpload.lon completion:^(BOOL complete, NSError *error) {
+        [[WaxAPIClient sharedClient] uploadVideoMetadataWithVideoID:self.currentUpload.videoID videoLength:self.currentUpload.videoLength tag:self.currentUpload.tag category:self.currentUpload.category lat:self.currentUpload.lat lon:self.currentUpload.lon completion:^(BOOL complete, NSError *error) {
             
             if (!error) {
                 
@@ -235,11 +235,12 @@
                 [self finishUploadWithCompletion:completion];
                 
             }else if(error.domain != NSURLErrorDomain && error.code != -999){
+                //retry
                 if (self.currentUpload.videoStatus == UploadStatusCompleted && self.currentUpload.thumbnailStatus == UploadStatusCompleted) {
                     
                     self.currentUpload.metadataStatus = UploadStatusInProgress;
                     
-                    [[WaxAPIClient sharedClient] uploadVideoMetadataWithVideoID:self.currentUpload.videoID videoLength:self.currentUpload.videoLength tag:self.currentUpload.tag category:self.currentUpload.tag lat:self.currentUpload.lat lon:self.currentUpload.lon completion:^(BOOL complete, NSError *error) {
+                    [[WaxAPIClient sharedClient] uploadVideoMetadataWithVideoID:self.currentUpload.videoID videoLength:self.currentUpload.videoLength tag:self.currentUpload.tag category:self.currentUpload.category lat:self.currentUpload.lat lon:self.currentUpload.lon completion:^(BOOL complete, NSError *error) {
                         
                         if (!error) {
                             
@@ -265,59 +266,14 @@
         [self retryUploadWithCompletion:completion];
     }
 }
-/*
--(UIAlertView *)alertViewToConfirmOverwritingCurrentUploadWithOverwriteBlock:(void (^)(void))overwriteBlock{
- 
-    RIButtonItem *cancelCapture = [RIButtonItem item];
-    NSString *titleString = nil;
-    NSString *messageString = nil;
-    NSString *buttonTitle = nil;
- 
-    if (self.currentUpload.status == UploadStatusInProgress) {
-        titleString = NSLocalizedString(@"Currently Uploading Video", @"Currently Uploading Video");
-        messageString = NSLocalizedString(@"You have a video that is currently uploading. \nYou can either let that video finish the upload and go back, or cancel the upload and record a new video.", @"You have a video that is currently uploading. \nYou can either let that video finish the upload and go back, or cancel the upload and record a new video.");
-        buttonTitle = NSLocalizedString(@"Let Finish", @"Let Finish");
-    }else if (self.currentUpload.status == UploadStatusFailed){
-        titleString = NSLocalizedString(@"Failed Upload", @"Failed Upload");
-        messageString = NSLocalizedString(@"You have a video that failed to upload. \nYou can either retry the upload and go back, or cancel the upload and record a new video.", "You have a video that failed to upload. \nYou can either retry the upload and go back, or cancel the upload and record a new video.");
-        buttonTitle = NSLocalizedString(@"Retry", @"Retry");
-    }else{
-        titleString = NSLocalizedString(@"Uploading?", @"dunno");
-        messageString = NSLocalizedString(@"You have a video that is currently uploading. \nYou can either let that video finish the upload and go back, or cancel the upload and record a new video.", @"You have a video that is currently uploading. \nYou can either let that video finish the upload and go back, or cancel the upload and record a new video.");
-        buttonTitle = NSLocalizedString(@"Let Finish", @"Let Finish");
-    }
-    
-    cancelCapture.label = buttonTitle;
-    cancelCapture.action = ^{
-        [[AIKErrorManager sharedManager] logMessageToAllServices:[NSString stringWithFormat:@"User attempted to capture new video while having an existing video that is %@, and decided to retry or let it finish", StringFromUploadStatus(self.currentUpload.status)]];
-    };
-    
-    RIButtonItem *continueCapture = [RIButtonItem item];
-    continueCapture.label = NSLocalizedString(@"Cancel Current", @"Cancel Current");
-    continueCapture.action = ^{
 
-        [self askToCancelAndDeleteCurrentUploadWithBlock:^(BOOL cancelled) {
-            if (cancelled) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (overwriteBlock) {
-                        overwriteBlock();
-                    }
-                });
-            }
-        }];
-    };
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:titleString message:messageString cancelButtonItem:cancelCapture otherButtonItems:continueCapture, nil];
 
-    return alert; 
-}
-*/
 #pragma mark - Internal methods
 -(BOOL)isUploading{
-    return (self.currentUpload || [self checkUploadsDirectory] || [AIKVideoProcessor sharedProcessor].exporter.status == AVAssetExportSessionStatusExporting);
+    return (self.currentUpload || /*[self checkUploadsDirectory] ||*/ [AIKVideoProcessor sharedProcessor].exporter.status == AVAssetExportSessionStatusExporting);
 }
--(BOOL)checkUploadsDirectory{
-    return [[NSFileManager defaultManager] fileExistsAtPath:[NSURL currentVideoFileURL].path];
-}
+//-(BOOL)checkUploadsDirectory{
+//    return [[NSFileManager defaultManager] fileExistsAtPath:[NSURL currentVideoFileURL].path];
+//}
 
 @end

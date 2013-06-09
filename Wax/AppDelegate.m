@@ -20,6 +20,9 @@
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"initialLaunch"]) {
         [self initialLaunch];
     }
+    if ([[WaxUser currentUser] isLoggedIn]) {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound |UIRemoteNotificationTypeAlert)];
+    }
     [self customizeAppearance];
     [self bootupThirdPartySDKs];
     return YES;
