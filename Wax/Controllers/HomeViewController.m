@@ -18,7 +18,13 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    [self.view addSubview:[FeedTableView feedTableViewForHomeWithFrame:self.view.frame]]; 
+    [self setUpView];
+}
+
+-(void)setUpView{
+    self.navigationItem.title = NSLocalizedString(@"Home", @"Home");
+    [self.view addSubview:[FeedTableView feedTableViewForHomeWithFrame:self.view.bounds]];
+
 }
 
 - (void)didReceiveMemoryWarning{

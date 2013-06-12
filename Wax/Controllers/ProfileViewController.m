@@ -8,15 +8,14 @@
 
 #import "ProfileViewController.h"
 #import "SettingsViewController.h"
-
-#import "CategoryTableViewController.h"
+#import "FeedTableView.h"
 
 @interface ProfileViewController ()
 
 @end
 
 @implementation ProfileViewController
-@synthesize user = _user;
+@synthesize person = _user;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
@@ -24,33 +23,26 @@
     [self enableSwipeToPopVC:YES];
         
     [self setUpView];
-    
 }
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    
-}
--(void)testerAction:(UIButton *)sender{
-    [CategoryTableViewController chooseCategoryWithCompletionBlock:^(NSString *category) {
-        DLog(@"cat %@", category);
-    } sender:self.navigationController];
 }
 
--(void)setUpView{
-    [self.testerButton addTarget:self action:@selector(testerAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    if (self.user) {
+-(void)setUpView{    
+    if (self.person) {
         
-        self.navigationItem.title = [self isMe] ? NSLocalizedString(@"Me", @"Me") : self.user.username;
+        self.navigationItem.title = self.person.isMe ? NSLocalizedString(@"Me", @"Me") : self.person.username;
         
-        if ([self isMe]) {
+        if (self.person.isMe) {
             UIBarButtonItem *settingsBtn = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Settings", @"Settings") style:UIBarButtonItemStylePlain target:self action:@selector(showSettings:)];
             self.navigationItem.rightBarButtonItem = settingsBtn;
         }
+        [self.view addSubview:[FeedTableView feedTableViewForMeWithFrame:self.view.bounds]];
         
     }else{
         //this user does not exist!
@@ -67,12 +59,6 @@
 
 
 
-
-
-#pragma mark - Convenience Methods
--(BOOL)isMe{
-    return [[WaxUser currentUser] userIDIsCurrentUser:self.user.userID];
-}
 
 
 

@@ -20,10 +20,10 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    self.tabBar.layer.masksToBounds = NO;
-    self.tabBar.layer.shadowOffset = CGSizeMake(0, 0);
-    self.tabBar.layer.shadowOpacity = 0.5;
-    self.tabBar.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.tabBar.bounds].CGPath;
+//    self.tabBar.layer.masksToBounds = NO;
+//    self.tabBar.layer.shadowOffset = CGSizeMake(0, 0);
+//    self.tabBar.layer.shadowOpacity = 0.5;
+//    self.tabBar.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.tabBar.bounds].CGPath;
     self.delegate = self;
     [self setupTabBarIcons];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSplashScreen) name:WaxUserDidLogOutNotification object:nil];
@@ -56,7 +56,7 @@
         UINavigationController *nav = (UINavigationController *)viewController;
         if ([[nav.viewControllers objectAtIndexOrNil:0] isKindOfClass:[ProfileViewController class]]) {
             ProfileViewController *profile = [nav.viewControllers objectAtIndexOrNil:0];
-            profile.user = [[WaxUser currentUser] personObject];
+            profile.person = [[WaxUser currentUser] personObject];
         }
         return YES;
     }else{
@@ -83,7 +83,7 @@
     [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithBlock:^(BOOL cancelled) {
         if (cancelled) {
             VideoCameraViewController *video = [[VideoCameraViewController alloc] init];
-            [self presentViewController:video animated:YES completion:nil];
+            [[self.viewControllers objectAtIndex:0] presentViewController:video animated:YES completion:nil];
         }
     }]; 
 }

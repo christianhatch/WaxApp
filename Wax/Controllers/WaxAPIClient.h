@@ -78,18 +78,17 @@ typedef void(^WaxAPIClientBlockTypeCompletionSimple)(BOOL complete, NSError *err
 typedef void (^WaxAPIClientBlockTypeProgressUpload)(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite);
 
 
-enum{
-    WaxAPIClientTagSortTypeRank,
+
+typedef NS_ENUM(NSInteger, WaxAPIClientTagSortType){
+    WaxAPIClientTagSortTypeRank = 1,
     WaxAPIClientTagSortTypeRecent,
 };
-typedef NSInteger WaxAPIClientTagSortType;
 
-enum{
-    WaxAPIClientVideoActionTypeView,
+typedef NS_ENUM(NSInteger, WaxAPIClientVideoActionType){
+    WaxAPIClientVideoActionTypeView = 1,
     WaxAPIClientVideoActionTypeReport,
     WaxAPIClientVideoActionTypeDelete,
 };
-typedef NSInteger WaxAPIClientVideoActionType;
 
 
 @interface WaxAPIClient : AFHTTPClient
@@ -162,7 +161,7 @@ typedef NSInteger WaxAPIClientVideoActionType;
 
 
 #pragma mark - Users
--(void)toggleFollowUser:(NSString *)personID
+-(void)toggleFollowUserID:(NSString *)personID
              completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
 
 -(void)fetchProfileInformationForUser:(NSString *)personID

@@ -10,22 +10,22 @@
 
 @interface UIImage (WaxKit)
 
-+(UIImage *)greenButton;
-+(UIImage *)greenButtonOn;
-+(UIImage *)whiteButton;
-+(UIImage *)whiteButtonOn;
+//+(UIImage *)greenButton;
+//+(UIImage *)greenButtonOn;
+//+(UIImage *)whiteButton;
+//+(UIImage *)whiteButtonOn;
 
-+(UIImage *)oneCell;
-+(UIImage *)twoCells;
-+(UIImage *)threeCells;
-+(UIImage *)fourCells;
-+(UIImage *)fiveCells;
+//+(UIImage *)oneCell;
+//+(UIImage *)twoCells;
+//+(UIImage *)threeCells;
+//+(UIImage *)fourCells;
+//+(UIImage *)fiveCells;
 +(UIImage *)selectionGradient;
 +(UIImage *)splashImageForDevice;
-+(UIImage *)personErrorImage;
-+(UIImage *)kiwiBirdErrorImage;
+//+(UIImage *)personErrorImage;
+//+(UIImage *)kiwiBirdErrorImage;
 +(UIImage *)profilePicturePlaceholder;
-+(UIImage *)logoBWPlaceholder;
+//+(UIImage *)logoBWPlaceholder;
 
 
 @end

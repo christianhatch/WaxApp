@@ -41,7 +41,7 @@
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@", kThirdPartyCloudFrontBaseURL, userID, videoID]];
 }
 +(NSURL *)profilePictureURLFromUserID:(NSString *)userID{
-    if ([[WaxUser currentUser] userIDIsCurrentUser:userID]) {
+    if ([WaxUser userIDIsCurrentUser:userID]) {
 //        double lastChange = [[NSUserDefaults standardUserDefaults] doubleForKey:KWProfilePictureChangeDateKey];
 //        double currentTime = [[NSDate date] timeIntervalSince1970];
 //        double difference = (currentTime - lastChange) / 86400;

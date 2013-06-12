@@ -88,14 +88,16 @@ NSString *const kCategoriesKey = @"waxDataManager_categories";
 }
 +(NSNumber *)infiniteScrollingIDFromArray:(NSMutableArray *)feed{
     
-    NSParameterAssert(feed);
+    //NSParameterAssert(feed);
     
-    NSNumber *infinite = nil; 
-    if ([[feed lastObject] isKindOfClass:[ModelObject class]]) {
-        ModelObject *model = [feed lastObject];
-        infinite = model.infiniteScrollingID;
+    NSNumber *infinite = nil;
+    if (feed) {
+        if ([[feed lastObject] isKindOfClass:[ModelObject class]]) {
+            ModelObject *model = [feed lastObject];
+            infinite = model.infiniteScrollingID;
+        }
     }
-    return infinite; 
+    return infinite;
 }
 -(NSNumber *)infiniteIDFromUserID:(NSString *)userID refresh:(BOOL)refresh{
     if ((![self.lastUserID isEqualToString:userID]) || refresh) {
@@ -135,6 +137,8 @@ NSString *const kCategoriesKey = @"waxDataManager_categories";
 #pragma mark - Private/Helper/Convenience Methods
 -(void)handleUpdatingArray:(NSMutableArray *)array withCompletionBlock:(WaxDataManagerCompletionBlockTypeSimple)completion infiniteScrollingID:(NSNumber *)infiniteID APIResponseData:(NSMutableArray *)responseData APIResponseError:(NSError *)error{
     
+//    VLog(@"response %@", responseData);
+    
     if (!error) {
         if (infiniteID) {
             [array addObjectsFromArray:responseData];
@@ -142,7 +146,7 @@ NSString *const kCategoriesKey = @"waxDataManager_categories";
             array = responseData;
         }
     }else{
-        DLog(@"error %@", error);
+        VLog(@"error %@", error);
     }
     
     if (completion) {

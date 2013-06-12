@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger, WaxFeedTableViewType){
 +(FeedTableView *)feedTableViewForUserID:(NSString *)userID frame:(CGRect)frame;
 +(FeedTableView *)feedTableViewForTag:(NSString *)tag frame:(CGRect)frame;
 
-
+-(instancetype)initWithWaxFeedTableViewType:(WaxFeedTableViewType)feedtype tagOrUserID:(NSString *)tagOrUserID frame:(CGRect)frame;
 
 
 @property (nonatomic) WaxFeedTableViewType feedType;

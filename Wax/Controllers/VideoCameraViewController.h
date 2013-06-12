@@ -11,7 +11,6 @@
 @interface VideoCameraViewController : UIImagePickerController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 
-
 @property (nonatomic, getter = isRecording) BOOL recording;
 
 -(void)dismissCamera;

@@ -155,6 +155,8 @@
 		45AC7CC317637F6D0086D980 /* AcaciaKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45AC7CC217637E050086D980 /* AcaciaKitResources.bundle */; };
 		45AC7CC61763B8E30086D980 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AC7CC51763B8E20086D980 /* HomeViewController.m */; };
 		45AC7CC71763B8E30086D980 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AC7CC51763B8E20086D980 /* HomeViewController.m */; };
+		45AD35941768D44F0051BBE2 /* ProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45AD35931768D44F0051BBE2 /* ProfileHeaderView.xib */; };
+		45AD35951768D44F0051BBE2 /* ProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45AD35931768D44F0051BBE2 /* ProfileHeaderView.xib */; };
 		45AF70271741C8C2008399D3 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF70261741C8C2008399D3 /* SignupViewController.m */; };
 		45AF70281741C8C2008399D3 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF70261741C8C2008399D3 /* SignupViewController.m */; };
 		45AF702C1741C8F0008399D3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AF702B1741C8F0008399D3 /* LoginViewController.m */; };
@@ -374,6 +376,7 @@
 		45AC7C351762DD500086D980 /* ProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileHeaderView.m; path = Controllers/ProfileHeaderView.m; sourceTree = "<group>"; };
 		45AC7CC41763B8E20086D980 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = Controllers/HomeViewController.h; sourceTree = "<group>"; };
 		45AC7CC51763B8E20086D980 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = Controllers/HomeViewController.m; sourceTree = "<group>"; };
+		45AD35931768D44F0051BBE2 /* ProfileHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProfileHeaderView.xib; path = Nibs/ProfileHeaderView.xib; sourceTree = "<group>"; };
 		45AF70251741C8C2008399D3 /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
 		45AF70261741C8C2008399D3 /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
 		45AF702A1741C8F0008399D3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -730,6 +733,7 @@
 				45AC7C2F1762BEBE0086D980 /* FeedTableView.m */,
 				45AC7C341762DD500086D980 /* ProfileHeaderView.h */,
 				45AC7C351762DD500086D980 /* ProfileHeaderView.m */,
+				45AD35931768D44F0051BBE2 /* ProfileHeaderView.xib */,
 				4589E9B81762A6FC00ED4A6F /* WaxTableViewCell.h */,
 				4589E9B91762A6FC00ED4A6F /* WaxTableViewCell.m */,
 				4589E9BC1762A73500ED4A6F /* FeedCell.h */,
@@ -962,6 +966,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Christian Hatch";
+				TargetAttributes = {
+					45F71618171F163C009097F3 = {
+						DevelopmentTeam = Z4M8HTC8XC;
+					};
+				};
 			};
 			buildConfigurationList = 45F71614171F163C009097F3 /* Build configuration list for PBXProject "Wax" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1082,6 +1091,7 @@
 				4518ADDC175AA6D000D5D95C /* record_reg.png in Resources */,
 				4518ADDD175AA6D000D5D95C /* record_reg@2x.png in Resources */,
 				4589E9B3176299E200ED4A6F /* FeedCell.xib in Resources */,
+				45AD35941768D44F0051BBE2 /* ProfileHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1092,6 +1102,7 @@
 				45F7164B171F163D009097F3 /* InfoPlist.strings in Resources */,
 				452FAE1C1740AC030091F8D4 /* persons.json in Resources */,
 				452FAE1E1740AE2F0091F8D4 /* videos.json in Resources */,
+				45AD35951768D44F0051BBE2 /* ProfileHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1417,7 +1428,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1455,7 +1466,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1594,7 +1605,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

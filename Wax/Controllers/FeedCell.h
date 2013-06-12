@@ -8,8 +8,8 @@
 
 #import "WaxTableViewCell.h"
 
-
 #define kFeedCellHeight 467
+#define kFeedCellID @"FeedCellID"
 
 @class AIKMoviePlayer;
 

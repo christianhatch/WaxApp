@@ -350,8 +350,8 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 -(BOOL)facebookAccountConnected{
     return (![[self facebookAccountID] isEqualToString:kFalseString]);
 }
--(BOOL)userIDIsCurrentUser:(NSString *)userID{
-    return [[self userID] isEqualToString:userID];
++(BOOL)userIDIsCurrentUser:(NSString *)userID{
+    return [[[WaxUser currentUser] userID] isEqualToString:userID];
 }
 -(void)chooseTwitterAccountWithCompletion:(WaxUserCompletionBlockTypeSimple)completion{
     ACAccountStore *accountStore = [[ACAccountStore alloc] init];

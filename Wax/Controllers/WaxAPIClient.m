@@ -9,6 +9,13 @@
 static inline BOOL SimpleReturnFromAPIResponse(id response) {
     return [[[response objectAtIndexOrNil:0] objectForKeyOrNil:@"complete"] boolValue];
 }
+static inline BOOL PathRequiresArray(NSString *path){
+    BOOL forceArray = NO;
+    if ([path containsString:@"feeds"] || [path isEqualToString:@"users/following"] || [path isEqualToString:@"users/followers"] || [path isEqualToString:@"users/search"] || [path containsString:@"find_friends"]) {
+        forceArray = YES; 
+    }
+    return forceArray;
+}
 
 #import "WaxAPIClient.h"
 
@@ -173,7 +180,7 @@ static inline BOOL SimpleReturnFromAPIResponse(id response) {
 }
 
 #pragma mark - Users
--(void)toggleFollowUser:(NSString *)personID completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
+-(void)toggleFollowUserID:(NSString *)personID completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
         
     NSParameterAssert(personID);
 
@@ -421,7 +428,7 @@ static inline BOOL SimpleReturnFromAPIResponse(id response) {
     NSParameterAssert(path);
     
     [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self processResponseObject:responseObject forModelClass:modelClass withCompletionBlock:^(id model, NSError *error) {
+        [self processResponseObject:responseObject forModelClass:modelClass forceArray:PathRequiresArray(path) withCompletionBlock:^(id model, NSError *error) {
             if (completion) {
                 completion(model, error);
             }
@@ -460,7 +467,7 @@ static inline BOOL SimpleReturnFromAPIResponse(id response) {
     }
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self processResponseObject:responseObject forModelClass:nil withCompletionBlock:^(id model, NSError *error) {
+        [self processResponseObject:responseObject forModelClass:nil forceArray:NO withCompletionBlock:^(id model, NSError *error) {
             if (completion) {
                 completion(model, error);
             }
@@ -482,7 +489,7 @@ static inline BOOL SimpleReturnFromAPIResponse(id response) {
     
     [self enqueueHTTPRequestOperation:operation];
 }
--(void)processResponseObject:(id)responseObject forModelClass:(Class)modelClass withCompletionBlock:(void (^)(id model, NSError *error))completion{
+-(void)processResponseObject:(id)responseObject forModelClass:(Class)modelClass forceArray:(BOOL)forceArray withCompletionBlock:(void (^)(id model, NSError *error))completion{
 
         [self validateResponseObject:responseObject completion:^(id validated) {
             
@@ -496,7 +503,7 @@ static inline BOOL SimpleReturnFromAPIResponse(id response) {
                 id returnModel = validated;
                 if (modelClass) { //if there's no model class, we simply return the entire 'validated' object! 
                     if ([validated respondsToSelector:@selector(objectAtIndexOrNil:)] && [validated respondsToSelector:@selector(count)]) {
-                        if ([validated count] > 1) {
+                        if ([validated count] > 1 || forceArray) {
                             NSArray *rawDictionaries = validated;
                             NSMutableArray *modelObjectArray = [NSMutableArray arrayWithCapacity:rawDictionaries.count];
                             

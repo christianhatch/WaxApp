@@ -12,6 +12,7 @@
 #import <UIScrollView+SVInfiniteScrolling.h>
 #import <UIScrollView+SVPullToRefresh.h>
 #import "FeedCell.h"
+#import "ProfileHeaderView.h"
 
 @interface FeedTableView () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSString *dataSourceID; 
@@ -20,34 +21,38 @@
 @implementation FeedTableView
 @synthesize dataSourceID; 
 
+
+#pragma mark - Alloc & Init
 +(FeedTableView *)feedTableViewForTag:(NSString *)tag frame:(CGRect)frame{
-    FeedTableView *feedy = [[FeedTableView alloc] initWithFrame:frame];
-    feedy.feedType = WaxFeedTableViewTypeTagFeed;
-    feedy.dataSourceID = tag; 
+    FeedTableView *feedy = [[FeedTableView alloc] initWithWaxFeedTableViewType:WaxFeedTableViewTypeTagFeed tagOrUserID:tag frame:frame];
     return feedy; 
 }
 +(FeedTableView *)feedTableViewForUserID:(NSString *)userID frame:(CGRect)frame{
-    FeedTableView *feedy = [[FeedTableView alloc] initWithFrame:frame];
-    feedy.feedType = WaxFeedTableViewTypeUserFeed;
-    feedy.dataSourceID = userID;
+    FeedTableView *feedy = [[FeedTableView alloc] initWithWaxFeedTableViewType:WaxFeedTableViewTypeUserFeed tagOrUserID:userID frame:frame];
     return feedy;
 }
 +(FeedTableView *)feedTableViewForHomeWithFrame:(CGRect)frame{
-    FeedTableView *feedy = [[FeedTableView alloc] initWithFrame:frame];
-    feedy.feedType = WaxFeedTableViewTypeHomeFeed;
+    FeedTableView *feedy = [[FeedTableView alloc] initWithWaxFeedTableViewType:WaxFeedTableViewTypeHomeFeed tagOrUserID:nil frame:frame];
     return feedy;
 }
 +(FeedTableView *)feedTableViewForMeWithFrame:(CGRect)frame{
-    FeedTableView *feedy = [[FeedTableView alloc] initWithFrame:frame];
-    feedy.feedType = WaxFeedTableViewTypeMyFeed;
+    FeedTableView *feedy = [[FeedTableView alloc] initWithWaxFeedTableViewType:WaxFeedTableViewTypeMyFeed tagOrUserID:[[WaxUser currentUser] userID] frame:frame];
     return feedy;
 }
-- (id)initWithFrame:(CGRect)frame{
+-(instancetype)initWithWaxFeedTableViewType:(WaxFeedTableViewType)feedtype tagOrUserID:(NSString *)tagOrUserID frame:(CGRect)frame{
     self = [super initWithFrame:frame style:UITableViewStylePlain];
     if (self) {
+        self.feedType = feedtype;
+        self.dataSourceID = tagOrUserID;
+        
+        self.autoresizesSubviews = YES;
+        self.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight); 
+        
         self.delegate = self;
         self.dataSource = self;
-        self.rowHeight = kFeedCellHeight; 
+        self.rowHeight = kFeedCellHeight;
+        
+        [self registerNib:[UINib nibWithNibName:@"FeedCell" bundle:nil] forCellReuseIdentifier:kFeedCellID];
         
         __block FeedTableView *blockSelf = self;
         [self addPullToRefreshWithActionHandler:^{
@@ -56,30 +61,38 @@
         [self addInfiniteScrollingWithActionHandler:^{
             [blockSelf refreshDataWithInfiniteScroll:YES];
         }];
+        
+        if (feedtype == WaxFeedTableViewTypeMyFeed || feedtype == WaxFeedTableViewTypeUserFeed) {
+            self.tableHeaderView = [ProfileHeaderView profileHeaderViewForUserID:self.dataSourceID];
+        }
     }
-    return self;
+    return self; 
+}
+-(void)didMoveToSuperview{
+    [super didMoveToSuperview];
+    [self triggerPullToRefresh]; 
 }
 #pragma mark - Internal Methods
 -(void)refreshDataWithInfiniteScroll:(BOOL)infiniteScroll{
     switch (self.feedType) {
         case WaxFeedTableViewTypeMyFeed:{
             [[WaxDataManager sharedManager] updateMyFeedWithInfiniteScroll:infiniteScroll completion:^(NSError *error) {
-                [self handleUpdatingFeed:error]; 
+                [self handleUpdatingFeedWithError:error]; 
             }];
         }break;
         case WaxFeedTableViewTypeHomeFeed:{
             [[WaxDataManager sharedManager] updateHomeFeedWithInfiniteScroll:infiniteScroll completion:^(NSError *error) {
-                [self handleUpdatingFeed:error];
+                [self handleUpdatingFeedWithError:error];
             }];
         }break;
         case WaxFeedTableViewTypeUserFeed:{
             [[WaxDataManager sharedManager] updateProfileFeedForUserID:self.dataSourceID withInfiniteScroll:infiniteScroll completion:^(NSError *error) {
-                [self handleUpdatingFeed:error];
+                [self handleUpdatingFeedWithError:error];
             }];
         }break;
         case WaxFeedTableViewTypeTagFeed:{
             [[WaxDataManager sharedManager] updateFeedForTag:self.dataSourceID withInfiniteScroll:infiniteScroll completion:^(NSError *error) {
-                [self handleUpdatingFeed:error];
+                [self handleUpdatingFeedWithError:error];
             }];
         }break;
     }
@@ -92,20 +105,14 @@
     return [self proxyDataSourceArray].count; 
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
- 
-    static NSString *CellID = @"FeedCellID";
-    FeedCell *cell = [self dequeueReusableCellWithIdentifier:CellID];
-    if (cell == nil) {
-        NSArray *topObjects = [[NSBundle mainBundle] loadNibNamed:@"FeedCell" owner:self options:nil];
-        cell = [topObjects objectAtIndexOrNil:0];
-    }
-    cell.videoObject = [[self proxyDataSourceArray] objectAtIndexOrNil:indexPath.row]; 
+    FeedCell *cell = [self dequeueReusableCellWithIdentifier:kFeedCellID];
+    cell.videoObject = [[self proxyDataSourceArray] objectAtIndexOrNil:indexPath.row];
     return cell;
+}
+-(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
+    return NO; 
+}
 
-}
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return kFeedCellHeight;
-}
 #pragma mark - TableView Delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -133,7 +140,7 @@
     }
     return array; 
 }
--(void)handleUpdatingFeed:(NSError *)error{
+-(void)handleUpdatingFeedWithError:(NSError *)error{
     if (!error) {
         [self reloadData];
         [self stopAnimatingReloaderViews];
@@ -142,7 +149,7 @@
         }
     }else{
         [self stopAnimatingReloaderViews];
-        
+        DLog(@"error updating feed %@", error);
         //handle error?
         switch (self.feedType) {
             case WaxFeedTableViewTypeMyFeed:{

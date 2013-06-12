@@ -12,8 +12,7 @@
 
 @interface ProfileViewController : UIViewController
 
-@property (nonatomic, strong) PersonObject *user;
+@property (nonatomic, strong) PersonObject *person;
 
-@property (strong, nonatomic) IBOutlet UIButton *testerButton;
 
 @end

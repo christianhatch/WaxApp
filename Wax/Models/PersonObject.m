@@ -33,30 +33,24 @@
 
 @synthesize infiniteScrollingID = _infiniteScrollingID;
 
+#pragma mark - Alloc & Init
 -(id)initWithDictionary:(NSDictionary *)dictionary{
     self = [super init];
     if (self) {
-//        @try {
-            self.userID = [dictionary objectForKey:@"userid" orDefaultValue:@""];
-            self.username = [dictionary objectForKey:@"username" orDefaultValue:NSLocalizedString(@"a user", @"a user")];
-            self.fullName = [dictionary objectForKey:@"name"  orDefaultValue:NSLocalizedString(@"a user", @"a user")];
-            
-            self.following = [[dictionary objectForKey:@"isfollowing" orDefaultValue:NO] boolValue];
-            
-            self.followersCount = [dictionary objectForKey:@"followers" orDefaultValue:@0];
-            self.followingCount = [dictionary objectForKey:@"following" orDefaultValue:@0];
-            self.titlesCount = [dictionary objectForKey:@"titles" orDefaultValue:@0];
-            
-            self.infiniteScrollingID = [dictionary objectForKey:@"item_number" orDefaultValue:nil];
+        self.userID = [dictionary objectForKey:@"userid" orDefaultValue:@""];
+        self.username = [dictionary objectForKey:@"username" orDefaultValue:NSLocalizedString(@"a user", @"a user")];
+        self.fullName = [dictionary objectForKey:@"name"  orDefaultValue:NSLocalizedString(@"a user", @"a user")];
         
-//        }
-//        @catch (NSException *exception) {
-//            [[AIKErrorUtilities sharedUtilities] logExceptionWithMessage:@"Tried to init person object with a nil persondictionary!" exception:exception];
-//        }
+        self.following = [[dictionary objectForKey:@"isfollowing" orDefaultValue:NO] boolValue];
+        
+        self.followersCount = [dictionary objectForKey:@"followers" orDefaultValue:@0];
+        self.followingCount = [dictionary objectForKey:@"following" orDefaultValue:@0];
+        self.titlesCount = [dictionary objectForKey:@"titles" orDefaultValue:@0];
+        
+        self.infiniteScrollingID = [dictionary objectForKey:@"item_number" orDefaultValue:nil];
     }
     return self;
 }
-
 -(id)initWithFBGraphUser:(id<FBGraphUser>)graphuser{
     self = [super init];
     if (self) {
@@ -70,12 +64,16 @@
     }
     return self;
 }
-
 -(NSString *)description{
     NSString *descrippy = [NSString stringWithFormat:@"PersonObject Description: UserID=%@ Username=%@ Fullname=%@ Following=%i FollowersCount=%@ FollowingCount=%@ TitlesCount=%@ InfiniteScrollingID=%@", self.userID, self.username, self.fullName, self.following, self.followersCount, self.followingCount, self.titlesCount, self.infiniteScrollingID];
     return descrippy;
 }
+#pragma mark - Public API
+-(BOOL)isMe{
+    return [WaxUser userIDIsCurrentUser:self.userID]; 
+}
 
+#pragma mark - NSCoding 
 - (id)initWithCoder:(NSCoder *)acoder {
     self = [super init];
     if (self) {
