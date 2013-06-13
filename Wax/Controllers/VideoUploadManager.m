@@ -98,7 +98,10 @@
     NSParameterAssert(thumbnail);
     NSParameterAssert(orientation);
     
-    [UIImage asyncSaveImage:[UIImage squareCropThumbnail:thumbnail withVideoOrientation:orientation] toFileURL:[NSURL currentThumbnailFileURL] quality:0.8 completion:^(NSURL *filePath) {
+    UIImage *square = [UIImage squareCropThumbnail:thumbnail withVideoOrientation:orientation];
+    UIImage *small = [UIImage resizeImage:square toSize:CGSizeMake(300, 300)];
+    
+    [UIImage asyncSaveImage:small toFileURL:[NSURL currentThumbnailFileURL] quality:0.8 completion:^(NSURL *filePath) {
         self.currentUpload.thumbnailFileURL = filePath;
         self.currentUpload.thumbnailStatus = UploadStatusWaiting;
         [self uploadThumbnailData];

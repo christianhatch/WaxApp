@@ -20,10 +20,20 @@
         
         self.delegate = self;
         self.dataSource = self;
+        self.automaticallyHideInfiniteScrolling = YES;
+        self.automaticallyDeselectRow = YES; 
     }
     return self; 
 }
 
+#pragma mark - TableView DataSource
+
+#pragma mark - TableView Delegate
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.automaticallyDeselectRow) {
+        [self deselectRowAtIndexPath:indexPath animated:YES]; 
+    }
+}
 
 -(void)handleUpdatingFeedWithError:(NSError *)error{
     [self finishLoading]; 
@@ -37,7 +47,7 @@
         [self.pullToRefreshView stopAnimating];
     }
     if (self.automaticallyHideInfiniteScrolling) {
-        BOOL dataSourceIsEmptyOrNotABatchOfTen = ([[self proxyDataSourceArray] countIsNotDivisibleBy10] || [[self proxyDataSourceArray] count]); 
+        BOOL dataSourceIsEmptyOrNotABatchOfTen = ([[self proxyDataSourceArray] countIsNotDivisibleBy10] || ([[self proxyDataSourceArray] count] == 0));
         self.showsInfiniteScrolling = !dataSourceIsEmptyOrNotABatchOfTen;
     }
 }

@@ -25,9 +25,8 @@
     NSParameterAssert(userID);
     NSParameterAssert(!following || following == YES);
     
-    self = [UIButton buttonWithType:UIButtonTypeCustom];
+    self = [super initWithFrame:frame];
     if (self) {
-        self.frame = frame; 
         [self addTarget:self action:@selector(toggleFollow:) forControlEvents:UIControlEventTouchUpInside];
         self.userID = userID;
         self.following = following;

@@ -14,21 +14,22 @@
 @end
 
 @implementation PersonTableView
-@synthesize userID = _userID; 
+@synthesize userID = _userID, didSelectBlock = _didSelectBlock; 
 
-+(PersonTableView *)personTableViewForFollowingWithUserID:(NSString *)userID frame:(CGRect)frame{
-    PersonTableView *persony = [[PersonTableView alloc] initWithPersonTableViewType:PersonTableViewTypeFollowing userID:userID frame:frame];
++(PersonTableView *)personTableViewForFollowingWithUserID:(NSString *)userID didSelectBlock:(PersonTableViewDidSelectPersonBlock)selectBlock frame:(CGRect)frame{
+    PersonTableView *persony = [[PersonTableView alloc] initWithPersonTableViewType:PersonTableViewTypeFollowing userID:userID didSelectBlock:selectBlock frame:frame];
     return persony;
 }
-+(PersonTableView *)personTableViewForFollowwersWithUserID:(NSString *)userID frame:(CGRect)frame{
-    PersonTableView *persony = [[PersonTableView alloc] initWithPersonTableViewType:PersonTableViewTypeFollowers userID:userID frame:frame];
++(PersonTableView *)personTableViewForFollowwersWithUserID:(NSString *)userID didSelectBlock:(PersonTableViewDidSelectPersonBlock)selectBlock frame:(CGRect)frame{
+    PersonTableView *persony = [[PersonTableView alloc] initWithPersonTableViewType:PersonTableViewTypeFollowers userID:userID didSelectBlock:selectBlock frame:frame];
     return persony;
 }
--(instancetype)initWithPersonTableViewType:(PersonTableViewType)tableViewType userID:(NSString *)userID frame:(CGRect)frame{
+-(instancetype)initWithPersonTableViewType:(PersonTableViewType)tableViewType userID:(NSString *)userID didSelectBlock:(PersonTableViewDidSelectPersonBlock)selectBlock frame:(CGRect)frame{
     self = [super initWithFrame:frame style:UITableViewStylePlain];
     if (self) {
         self.tableViewType = tableViewType;
         self.userID = userID;
+        self.didSelectBlock = selectBlock; 
         
         [self registerNib:[UINib nibWithNibName:@"PersonCell" bundle:nil] forCellReuseIdentifier:kPersonCellID];
         
@@ -79,7 +80,11 @@
 
 #pragma mark - TableView Delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    if (self.didSelectBlock) {
+        PersonObject *person = [[self proxyDataSourceArray] objectAtIndexOrNil:indexPath.row];
+        self.didSelectBlock(person); 
+    }
 }
 
 

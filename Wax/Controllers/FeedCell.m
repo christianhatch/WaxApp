@@ -18,13 +18,13 @@
     __block FeedCell *blockSelf = self;
     [self.profilePictureView setImageWithURL:[NSURL profilePictureURLFromUserID:video.userID] placeholderImage:nil animated:YES andEnableAsButtonWithButtonHandler:^(UIImageView *imageView) {
         
-        ProfileViewController *pvc = [ProfileViewController profileViewControllerFromUserID:blockSelf.videoObject.userID];
+        ProfileViewController *pvc = [ProfileViewController profileViewControllerFromUserID:blockSelf.videoObject.userID username:blockSelf.videoObject.username];
         UIViewController *vc = [blockSelf nearestViewController];
         [vc.navigationController pushViewController:pvc animated:YES];
         
     } completion:nil];
     
-    [self addSubview:self.moviePlayer];
+    [self.contentView addSubview:self.moviePlayer];
 
     self.usernameLabel.text = video.username;
     self.timestampLabel.text = video.timeStamp;
@@ -49,7 +49,7 @@
     if (!_moviePlayer) {
         CGFloat bottomPlus8 = (self.profilePictureView.bounds.size.height + self.profilePictureView.frame.origin.y + 8);
         CGRect movieFrame = CGRectMake(self.profilePictureView.frame.origin.x, bottomPlus8, 300, 300);
-        _moviePlayer = [AIKMoviePlayer moviePlayerWithFrame:movieFrame thumbnailURL:[NSURL videoThumbnailURLFromUserID:self.videoObject.userID andVideoID:self.videoObject.videoID] videoStreamingURL:[NSURL streamingURLFromUserID:self.videoObject.userID andVideoID:self.videoObject.videoID] playbackBeginBlock:^{
+        _moviePlayer = [AIKMoviePlayer moviePlayerWithFrame:movieFrame thumbnailURL:[NSURL thumbnailURLFromUserID:self.videoObject.userID andVideoID:self.videoObject.videoID] videoStreamingURL:[NSURL streamingURLFromUserID:self.videoObject.userID andVideoID:self.videoObject.videoID] playbackBeginBlock:^{
             [[WaxAPIClient sharedClient] performAction:WaxAPIClientVideoActionTypeView onVideoID:self.videoObject.videoID completion:nil]; 
         }];
     }

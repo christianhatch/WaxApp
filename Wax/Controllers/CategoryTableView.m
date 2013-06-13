@@ -87,11 +87,10 @@
 
 #pragma mark - TableView Delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    
     if (self.didSelectBlock) {
         NSString *cat = [[self proxyDataSourceArray] objectAtIndexOrNil:indexPath.row];
-        if (self.automaticallyDeselectRow) {
-            [self deselectRowAtIndexPath:indexPath animated:YES];
-        }
         self.didSelectBlock(cat);
     }
 }

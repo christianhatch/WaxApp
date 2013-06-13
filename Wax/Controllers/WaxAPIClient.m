@@ -241,8 +241,8 @@ static inline BOOL PathRequiresArray(NSString *path){
     NSParameterAssert(profilePicture);
     
     UIImage *square = [UIImage cropImageToSquare:profilePicture];
-    //resize photo!
-    NSData *picData = UIImageJPEGRepresentation(square, 0.01);
+    UIImage *small = [UIImage resizeImage:square toSize:CGSizeMake(100, 100)]; 
+    NSData *picData = UIImageJPEGRepresentation(small, 0.5);
     
     [self postMultiPartPath:@"settings/update_picture" parameters:@{@"facebook": @0} constructingBodyWithBlock:^(id <AFMultipartFormData>formData) {
         [formData appendPartWithFileData:picData name:@"profile_picture" fileName:@"profile_picture.jpg" mimeType:@"image/jpeg"];

@@ -15,13 +15,15 @@
 +(NSURL *)currentThumbnailFileURL;
 //+(NSURL *)currentMetaDataFileURL; 
 
++(NSURL *)thumbnailURLFromUserID:(NSString *)userID andVideoID:(NSString *)videoID;
 +(NSURL *)streamingURLFromUserID:(NSString *)userID andVideoID:(NSString *)videoID;
-+(NSURL *)videoThumbnailURLFromUserID:(NSString *)userID andVideoID:(NSString *)videoID;
 
 +(NSURL *)shareURLFromShareID:(NSString *)shareID;
+
++(NSURL *)profilePictureURLFromUserID:(NSString *)userID;
+
 +(NSURL *)categoryImageURLWithCategoryTitle:(NSString *)categoryTitle;
 
 
-+(NSURL *)profilePictureURLFromUserID:(NSString *)userID;
     
 @end

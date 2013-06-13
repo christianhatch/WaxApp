@@ -12,21 +12,20 @@ typedef NS_ENUM(NSInteger, PersonTableViewType){
     PersonTableViewTypeFollowers,
 };
 
-//typedef void(^CategoryTableViewDidSelectCategoryBlock)(NSString *category);
+typedef void(^PersonTableViewDidSelectPersonBlock)(PersonObject *person);
 
 
 #import "WaxTableView.h"
 
 @interface PersonTableView : WaxTableView
 
-+(PersonTableView *)personTableViewForFollowingWithUserID:(NSString *)userID frame:(CGRect)frame;
-+(PersonTableView *)personTableViewForFollowwersWithUserID:(NSString *)userID frame:(CGRect)frame;
++(PersonTableView *)personTableViewForFollowingWithUserID:(NSString *)userID didSelectBlock:(PersonTableViewDidSelectPersonBlock)selectBlock frame:(CGRect)frame;
++(PersonTableView *)personTableViewForFollowwersWithUserID:(NSString *)userID didSelectBlock:(PersonTableViewDidSelectPersonBlock)selectBlock frame:(CGRect)frame;
 
--(instancetype)initWithPersonTableViewType:(PersonTableViewType)tableViewType userID:(NSString *)userID frame:(CGRect)frame;
-
+-(instancetype)initWithPersonTableViewType:(PersonTableViewType)tableViewType userID:(NSString *)userID didSelectBlock:(PersonTableViewDidSelectPersonBlock)selectBlock frame:(CGRect)frame;
 
 @property (nonatomic) PersonTableViewType tableViewType;
-
+@property (nonatomic, strong) PersonTableViewDidSelectPersonBlock didSelectBlock; 
 
 
 @end

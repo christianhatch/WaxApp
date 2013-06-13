@@ -11,28 +11,31 @@
 #import "FeedTableView.h"
 
 @interface ProfileViewController ()
-@property (nonatomic, strong) NSString *userID; 
+@property (nonatomic, strong) NSString *userID;
+@property (nonatomic, strong) NSString *username; 
 @end
 
 @implementation ProfileViewController
-@synthesize person = _user, userID = _userID;
+@synthesize person = _user, userID = _userID, username = _username; 
 
 #pragma mark - Alloc & Init
-+(ProfileViewController *)profileViewControllerFromUserID:(NSString *)userID{
-    ProfileViewController *pvc = [[ProfileViewController alloc] initWithUserID:userID];
++(ProfileViewController *)profileViewControllerFromUserID:(NSString *)userID username:(NSString *)username{
+    ProfileViewController *pvc = [[ProfileViewController alloc] initWithUserID:userID username:username];
     return pvc; 
 }
 +(ProfileViewController *)profileViewControllerFromPersonObject:(PersonObject *)person{
     ProfileViewController *pvc = [[ProfileViewController alloc] initWithPerson:person];
     return pvc; 
 }
--(instancetype)initWithUserID:(NSString *)userID{
+-(instancetype)initWithUserID:(NSString *)userID username:(NSString *)username{
     
     NSParameterAssert(userID);
+    NSParameterAssert(username);
     
     self = [super init];
     if (self) {
-        self.userID = userID; 
+        self.userID = userID;
+        self.username = username; 
     }
     return self;
 }
@@ -70,7 +73,7 @@
             [self.view addSubview:[FeedTableView feedTableViewForMeWithFrame:self.view.bounds]];
         }
     }else{
-        self.navigationItem.title = self.person.username;
+        self.navigationItem.title = self.username;
         [self.view addSubview:[FeedTableView feedTableViewForUserID:self.userID frame:self.view.bounds]];
     }
 }

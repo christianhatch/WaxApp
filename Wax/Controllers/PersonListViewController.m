@@ -8,6 +8,7 @@
 
 #import "PersonListViewController.h"
 #import "PersonTableView.h"
+#import "ProfileViewController.h"
 
 @interface PersonListViewController ()
 @property (nonatomic, strong) NSString *userID;
@@ -47,12 +48,17 @@
 }
 
 -(void)setUpView{
+    PersonTableViewDidSelectPersonBlock selectBlock = ^(PersonObject *person) {
+        ProfileViewController *pvc = [ProfileViewController profileViewControllerFromPersonObject:person];
+        [self.navigationController pushViewController:pvc animated:YES];
+    };
+    
     if (self.tableViewType == PersonTableViewTypeFollowing) {
         self.navigationItem.title = NSLocalizedString(@"Following", @"Following");
-        [self.view addSubview:[PersonTableView personTableViewForFollowingWithUserID:self.userID frame:self.view.bounds]];
+        [self.view addSubview:[PersonTableView personTableViewForFollowingWithUserID:self.userID didSelectBlock:selectBlock frame:self.view.bounds]];
     }else if (self.tableViewType == PersonTableViewTypeFollowers){
         self.navigationItem.title = NSLocalizedString(@"Followers", @"Followers");
-        [self.view addSubview:[PersonTableView personTableViewForFollowwersWithUserID:self.userID frame:self.view.bounds]];
+        [self.view addSubview:[PersonTableView personTableViewForFollowwersWithUserID:self.userID didSelectBlock:selectBlock frame:self.view.bounds]];
     }
 }
 
