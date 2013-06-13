@@ -7,7 +7,7 @@
 //
 
 #import "ShareViewController.h"
-#import "CategoryTableViewController.h"
+#import "CategoryChooserViewController.h"
 
 @implementation ShareViewController
 @synthesize tagField, facebookLabel, twitterLabel, locationLabel, facebookSwitch, twitterSwitch, locationSwitch, instructionsLabel, categoryButton;
@@ -68,9 +68,9 @@
     }];
 }
 -(void)chooseCategory:(UIButton *)sender{
-    [CategoryTableViewController chooseCategoryWithCompletionBlock:^(NSString *category) {
+    [CategoryChooserViewController chooseCategoryWithCompletionBlock:^(NSString *category) {
         [self.categoryButton setTitle:category forState:UIControlStateNormal]; 
-    } sender:self.navigationController]; 
+    } navigationController:self.navigationController]; 
 }
 -(BOOL)verifyInputtedData{
     BOOL verified = YES;

@@ -11,7 +11,7 @@ static inline BOOL SimpleReturnFromAPIResponse(id response) {
 }
 static inline BOOL PathRequiresArray(NSString *path){
     BOOL forceArray = NO;
-    if ([path containsString:@"feeds"] || [path isEqualToString:@"users/following"] || [path isEqualToString:@"users/followers"] || [path isEqualToString:@"users/search"] || [path containsString:@"find_friends"]) {
+    if ([path containsString:@"feeds"] || [path isEqualToString:@"users/following"] || [path isEqualToString:@"users/followers"] || [path isEqualToString:@"users/search"] || [path containsString:@"find_friends"] || [path containsString:@"categories"]) {
         forceArray = YES; 
     }
     return forceArray;
@@ -118,7 +118,7 @@ static inline BOOL PathRequiresArray(NSString *path){
 }
 
 #pragma mark - Feeds
--(void)fetchFeedForUser:(NSString *)personID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
+-(void)fetchFeedForUserID:(NSString *)personID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     
     NSParameterAssert(personID);
     
@@ -144,7 +144,7 @@ static inline BOOL PathRequiresArray(NSString *path){
 }
 -(void)fetchMyFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     if ([[WaxUser currentUser] isLoggedIn]) {
-        [self fetchFeedForUser:[[WaxUser currentUser] userID] infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
+        [self fetchFeedForUserID:[[WaxUser currentUser] userID] infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
             
             if (!error) {
                 [WaxDataManager sharedManager].myFeed = list;
@@ -178,7 +178,13 @@ static inline BOOL PathRequiresArray(NSString *path){
         }break;
     }
 }
-
+-(void)fetchFeedForCategory:(NSString *)category infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
+    [self fetchFeedFromPath:@"feeds/discover" tagOrPersonID:category infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
+        if (completion) {
+            completion(list, error); 
+        }
+    }];
+}
 #pragma mark - Users
 -(void)toggleFollowUserID:(NSString *)personID completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
         
@@ -375,6 +381,13 @@ static inline BOOL PathRequiresArray(NSString *path){
         }
     }];
 }
+-(void)fetchDiscoverWithCompletion:(WaxAPIClientBlockTypeCompletionList)completion{
+    [self postPath:@"categories/discover" parameters:nil modelClass:nil completionBlock:^(id model, NSError *error) {
+        if (completion) {
+            completion(model, error);
+        }
+    }];
+}
 #pragma mark - Settings
 -(void)fetchSettingsWithCompletion:(WaxAPIClientBlockTypeCompletionSettings)completion{
     [self postPath:@"settings/get" parameters:nil modelClass:[SettingsObject class] completionBlock:^(id model, NSError *error) {
@@ -527,7 +540,7 @@ static inline BOOL PathRequiresArray(NSString *path){
 }
 -(void)validateResponseObject:(id)responseObject completion:(void (^)(id validated))completion{
     
-//    DLog(@"response %@", responseObject);
+//    VLog(@"response %@", responseObject);
     
     dispatch_async(self.jsonProcessingQueue, ^{
 

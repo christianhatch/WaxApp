@@ -10,6 +10,8 @@
 #import "SettingsViewController.h"
 #import "FeedTableView.h"
 
+#import "CategoryChooserViewController.h"
+
 @interface ProfileViewController ()
 
 @end
@@ -51,6 +53,9 @@
 -(void)showSettings:(UIBarButtonItem *)sender{
     SettingsViewController *settings = initViewControllerWithIdentifier(@"SettingsVC");
     [self.navigationController pushViewController:settings animated:YES];
+//    [CategoryChooserViewController chooseCategoryWithCompletionBlock:^(NSString *category) {
+//        [SVProgressHUD showSuccessWithStatus:category];
+//    } navigationController:self.navigationController];
 }
 
 

@@ -10,6 +10,7 @@
 
 @implementation WaxTableViewCell
 
+/*
 -(void)awakeFromNib{
 //    UIImageView *bg = [[UIImageView alloc] initWithFrame:self.bounds];
 //    bg.image = [UIImage selectionGradient];
@@ -32,5 +33,5 @@
 //        }
 //    }
 }
-
+*/
 @end

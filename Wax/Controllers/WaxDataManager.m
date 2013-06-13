@@ -52,33 +52,57 @@ NSString *const kCategoriesKey = @"waxDataManager_categories";
     DLog(@"notes not implemented in api client yet"); 
 }
 
--(void)updateCategories{
+-(void)updateCategoriesWithCompletion:(WaxDataManagerCompletionBlockTypeSimple)completion{
     [[WaxAPIClient sharedClient] fetchCategoriesWithCompletion:^(NSMutableArray *list, NSError *error) {
         if (!error) {
             self.categories = list;
+        }else{
+//            VLog(@"error updating categories %@", error);
+        }
+        if (completion) {
+            completion(error);
         }
     }];
 }
 -(void)updateDiscoverWithCompletion:(WaxDataManagerCompletionBlockTypeSimple)completion{
-    DLog(@"discover not implemented in api client yet");
-
+    [[WaxAPIClient sharedClient] fetchDiscoverWithCompletion:^(NSMutableArray *list, NSError *error) {
+        if (!error) {
+            self.discoverArray = list;
+        }else{
+            VLog(@"error updating discover %@", error);
+        }
+        if (completion) {
+            completion(error); 
+        }
+    }];
 }
 
 -(void)updateProfileFeedForUserID:(NSString *)personID withInfiniteScroll:(BOOL)infiniteScroll completion:(WaxDataManagerCompletionBlockTypeSimple)completion{
     
     NSParameterAssert(personID);
-    NSParameterAssert(infiniteScroll);
+    NSParameterAssert(!infiniteScroll || infiniteScroll == YES);
     
     NSNumber *infiniteID = [self infiniteIDFromTag:personID refresh:!infiniteScroll];
     
-    [[WaxAPIClient sharedClient] fetchFeedForUser:personID infiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
+    [[WaxAPIClient sharedClient] fetchFeedForUserID:personID infiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
         [self handleUpdatingArray:self.profileFeed withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
+    }];
+}
+-(void)updateFeedForCategory:(NSString *)category withInfiniteScroll:(BOOL)infiniteScroll completion:(WaxDataManagerCompletionBlockTypeSimple)completion{
+    
+    NSParameterAssert(category);
+    NSParameterAssert(!infiniteScroll || infiniteScroll == YES);
+    
+    NSNumber *infiniteID = [self infiniteIDFromTag:category refresh:!infiniteScroll];
+
+    [[WaxAPIClient sharedClient] fetchFeedForCategory:category infiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
+        [self handleUpdatingArray:self.tagFeed withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
     }];
 }
 -(void)updateFeedForTag:(NSString *)tag withInfiniteScroll:(BOOL)infiniteScroll completion:(WaxDataManagerCompletionBlockTypeSimple)completion{
 
     NSParameterAssert(tag);
-    NSParameterAssert(infiniteScroll);
+    NSParameterAssert(!infiniteScroll || infiniteScroll == YES);
         
     NSNumber *infiniteID = [self infiniteIDFromTag:tag refresh:!infiniteScroll];
 
@@ -86,10 +110,9 @@ NSString *const kCategoriesKey = @"waxDataManager_categories";
         [self handleUpdatingArray:self.tagFeed withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
     }]; 
 }
+
 +(NSNumber *)infiniteScrollingIDFromArray:(NSMutableArray *)feed{
-    
-    //NSParameterAssert(feed);
-    
+        
     NSNumber *infinite = nil;
     if (feed) {
         if ([[feed lastObject] isKindOfClass:[ModelObject class]]) {
@@ -118,7 +141,7 @@ NSString *const kCategoriesKey = @"waxDataManager_categories";
 
 
 #pragma mark - Setters
--(void)setCategories:(NSArray *)categories{
+-(void)setCategories:(NSMutableArray *)categories{
     if (categories.count > 0) {
         _categories = categories;
         [[NSUserDefaults standardUserDefaults] setObject:categories forKey:kCategoriesKey];
@@ -148,6 +171,9 @@ NSString *const kCategoriesKey = @"waxDataManager_categories";
     }else{
         VLog(@"error %@", error);
     }
+    
+    DLog(@"array %@", array);
+    DLog(@"tagfeed %@", self.tagFeed);
     
     if (completion) {
         completion(error);

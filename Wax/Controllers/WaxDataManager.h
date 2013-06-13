@@ -38,13 +38,16 @@ typedef void(^WaxDataManagerCompletionBlockTypeSimple)(NSError *error);
                        completion:(WaxDataManagerCompletionBlockTypeSimple)completion;
 
 @property (nonatomic, strong) NSMutableArray *tagFeed;
+-(void)updateFeedForCategory:(NSString *)category
+          withInfiniteScroll:(BOOL)infiniteScroll
+                  completion:(WaxDataManagerCompletionBlockTypeSimple)completion;
 -(void)updateFeedForTag:(NSString *)tag
-    withInfiniteScroll:(BOOL)infiniteScroll
+     withInfiniteScroll:(BOOL)infiniteScroll
              completion:(WaxDataManagerCompletionBlockTypeSimple)completion;
 
 //data and stuff
-@property (nonatomic, readonly) NSArray *categories;
--(void)updateCategories;
+@property (nonatomic, readonly) NSMutableArray *categories;
+-(void)updateCategoriesWithCompletion:(WaxDataManagerCompletionBlockTypeSimple)completion;
 
 
 

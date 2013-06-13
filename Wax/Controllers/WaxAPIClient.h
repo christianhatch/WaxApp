@@ -144,7 +144,7 @@ typedef NS_ENUM(NSInteger, WaxAPIClientVideoActionType){
 
 
 #pragma mark - Feeds
--(void)fetchFeedForUser:(NSString *)personID
+-(void)fetchFeedForUserID:(NSString *)personID
     infiniteScrollingID:(NSNumber *)infiniteScrollingID
              completion:(WaxAPIClientBlockTypeCompletionList)completion;
 
@@ -158,6 +158,10 @@ typedef NS_ENUM(NSInteger, WaxAPIClientVideoActionType){
               sortedBy:(WaxAPIClientTagSortType)sortedBy
    infiniteScrollingID:(NSNumber *)infiniteScrollingID
             completion:(WaxAPIClientBlockTypeCompletionList)completion;
+
+-(void)fetchFeedForCategory:(NSString *)category
+        infiniteScrollingID:(NSNumber *)infiniteScrollingID
+                 completion:(WaxAPIClientBlockTypeCompletionList)completion;
 
 
 #pragma mark - Users
@@ -219,6 +223,8 @@ typedef NS_ENUM(NSInteger, WaxAPIClientVideoActionType){
           completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
 
 -(void)fetchCategoriesWithCompletion:(WaxAPIClientBlockTypeCompletionList)completion; 
+
+-(void)fetchDiscoverWithCompletion:(WaxAPIClientBlockTypeCompletionList)completion;
 
 #pragma mark - Settings
 -(void)fetchSettingsWithCompletion:(WaxAPIClientBlockTypeCompletionSettings)completion;

@@ -85,13 +85,12 @@
     
     self.usernameField.placeholder = NSLocalizedString(@"Username", @"Username");
     self.passwordField.placeholder = NSLocalizedString(@"Password", @"Password");
+    self.passwordField.secureTextEntry = YES;
     
-    [self.forgotPasswordButton setTitle:NSLocalizedString(@"forgot password?", @"forgot password?") forState:UIControlStateNormal];
-    [self.forgotPasswordButton setTitle:NSLocalizedString(@"forgot password?", @"forgot password?") forState:UIControlStateHighlighted];
+    [self.forgotPasswordButton setTitleForAllControlStates:NSLocalizedString(@"forgot password?", @"forgot password?")]; 
     [self.forgotPasswordButton setTitleColor:[UIColor darkTextColor] forState:UIControlStateHighlighted];
     
-    [self.loginFacebookButton setTitle:NSLocalizedString(@"Connect With Facebook", @"Connect With Facebook") forState:UIControlStateNormal];
-    [self.loginFacebookButton setTitle:NSLocalizedString(@"Connect With Facebook", @"Connect With Facebook") forState:UIControlStateHighlighted];
+    [self.loginFacebookButton setTitleForAllControlStates:NSLocalizedString(@"Connect With Facebook", @"Connect With Facebook")]; 
     [self.loginFacebookButton sizeToFit];
     self.loginFacebookButton.center = CGPointMake(self.view.center.x, self.loginFacebookButton.center.y);
     

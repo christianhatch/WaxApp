@@ -33,7 +33,7 @@
     return self; 
 }
 -(void)askToCancelAndDeleteCurrentUploadWithBlock:(void (^)(BOOL))block{
-    [[WaxDataManager sharedManager] updateCategories]; //update categories at the beginning of each upload process
+    [[WaxDataManager sharedManager] updateCategoriesWithCompletion:nil]; //update categories at the beginning of each upload process
     if ([self isUploading]) {
         RIButtonItem *sure = [RIButtonItem item];
         sure.label = NSLocalizedString(@"Delete", @"Delete");

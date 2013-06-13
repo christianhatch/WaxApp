@@ -141,14 +141,12 @@
     self.navigationItem.title = NSLocalizedString(@"Sign Up", @"Sign Up");
     
     self.goButton.title = NSLocalizedString(@"Sign Up", @"Sign Up");
-    
-    self.profilePictureButton.adjustsImageWhenDisabled = NO;
-    self.profilePictureButton.layer.cornerRadius = kCornerRadiusDefault;
-    
+        
     self.fullNameField.placeholder = NSLocalizedString(@"Full Name", @"Full Name");
     self.emailField.placeholder = NSLocalizedString(@"Email", @"Email");
     self.usernameField.placeholder = NSLocalizedString(@"choose a username", @"choose a username");
     self.passwordField.placeholder = NSLocalizedString(@"Password", @"Password");
+    self.passwordField.secureTextEntry = YES;
     
     self.disclaimerLabel.textAlignment = NSTextAlignmentCenter;
     self.disclaimerLabel.text = NSLocalizedString(@"by signing up you agree to the Wax terms of service and privacy policy", @"by signing up you agree to the Wax terms of service and privacy policy");

@@ -23,9 +23,13 @@
 
 
 #pragma mark - Alloc & Init
++(FeedTableView *)feedTableViewForCategory:(NSString *)tag frame:(CGRect)frame{
+    FeedTableView *feedy = [[FeedTableView alloc] initWithWaxFeedTableViewType:WaxFeedTableViewTypeCategoryFeed tagOrUserID:tag frame:frame];
+    return feedy; 
+}
 +(FeedTableView *)feedTableViewForTag:(NSString *)tag frame:(CGRect)frame{
     FeedTableView *feedy = [[FeedTableView alloc] initWithWaxFeedTableViewType:WaxFeedTableViewTypeTagFeed tagOrUserID:tag frame:frame];
-    return feedy; 
+    return feedy;
 }
 +(FeedTableView *)feedTableViewForUserID:(NSString *)userID frame:(CGRect)frame{
     FeedTableView *feedy = [[FeedTableView alloc] initWithWaxFeedTableViewType:WaxFeedTableViewTypeUserFeed tagOrUserID:userID frame:frame];
@@ -45,11 +49,6 @@
         self.feedType = feedtype;
         self.dataSourceID = tagOrUserID;
         
-        self.autoresizesSubviews = YES;
-        self.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight); 
-        
-        self.delegate = self;
-        self.dataSource = self;
         self.rowHeight = kFeedCellHeight;
         
         [self registerNib:[UINib nibWithNibName:@"FeedCell" bundle:nil] forCellReuseIdentifier:kFeedCellID];
@@ -95,6 +94,11 @@
                 [self handleUpdatingFeedWithError:error];
             }];
         }break;
+        case WaxFeedTableViewTypeCategoryFeed:{
+            [[WaxDataManager sharedManager] updateFeedForCategory:self.dataSourceID withInfiniteScroll:infiniteScroll completion:^(NSError *error) {
+                [self handleUpdatingFeedWithError:error];
+            }];
+        }break;
     }
 }
 #pragma mark - TableView DataSource
@@ -134,6 +138,9 @@
         case WaxFeedTableViewTypeUserFeed:{
             array = [WaxDataManager sharedManager].profileFeed;
         }break;
+        case WaxFeedTableViewTypeCategoryFeed:{
+            array = [WaxDataManager sharedManager].tagFeed;
+        }break;
         case WaxFeedTableViewTypeTagFeed:{
             array = [WaxDataManager sharedManager].tagFeed;
         }break;
@@ -141,16 +148,16 @@
     return array; 
 }
 -(void)handleUpdatingFeedWithError:(NSError *)error{
+    [self stopAnimatingReloaderViews];
+    [self reloadData];
+    
+//    VLog(@"proxy data %@", [self proxyDataSourceArray]);
+    
     if (!error) {
-        [self reloadData];
-        [self stopAnimatingReloaderViews];
-        if ([[self proxyDataSourceArray] countIsNotDivisibleBy10]) {
-            self.showsInfiniteScrolling = NO;
-        }
+        self.showsInfiniteScrolling = !([[self proxyDataSourceArray] countIsNotDivisibleBy10] || ![[self proxyDataSourceArray] count]);
     }else{
-        [self stopAnimatingReloaderViews];
-        DLog(@"error updating feed %@", error);
-        //handle error?
+        VLog(@"error updating feed %@", error);
+
         switch (self.feedType) {
             case WaxFeedTableViewTypeMyFeed:{
                 
@@ -164,15 +171,10 @@
             case WaxFeedTableViewTypeTagFeed:{
                 
             }break;
+            case WaxFeedTableViewTypeCategoryFeed:{
+                
+            }break; 
         }
-    }
-}
--(void)stopAnimatingReloaderViews{
-    if (self.pullToRefreshView.state == SVPullToRefreshStateLoading) {
-        [self.pullToRefreshView stopAnimating];
-    }
-    if (self.infiniteScrollingView.state == SVPullToRefreshStateLoading) {
-        [self.pullToRefreshView stopAnimating]; 
     }
 }
 

@@ -174,8 +174,16 @@
 		45B8AAFA17517ABD009450EA /* UploadObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B8AAF817517ABD009450EA /* UploadObject.m */; };
 		45CA0B62175D108300C84A22 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CA0B61175D108300C84A22 /* ShareViewController.m */; };
 		45CA0B63175D108300C84A22 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CA0B61175D108300C84A22 /* ShareViewController.m */; };
-		45CA0B6B175D1D6100C84A22 /* CategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CA0B6A175D1D6000C84A22 /* CategoryTableViewController.m */; };
-		45CA0B6C175D1D6100C84A22 /* CategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CA0B6A175D1D6000C84A22 /* CategoryTableViewController.m */; };
+		45CA0B6B175D1D6100C84A22 /* CategoryChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CA0B6A175D1D6000C84A22 /* CategoryChooserViewController.m */; };
+		45CA0B6C175D1D6100C84A22 /* CategoryChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CA0B6A175D1D6000C84A22 /* CategoryChooserViewController.m */; };
+		45E27F05176932CD00E75F34 /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E27F04176932CD00E75F34 /* DiscoverViewController.m */; };
+		45E27F06176932CD00E75F34 /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E27F04176932CD00E75F34 /* DiscoverViewController.m */; };
+		45E27F10176933BA00E75F34 /* CategoryTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E27F0F176933BA00E75F34 /* CategoryTableView.m */; };
+		45E27F11176933BA00E75F34 /* CategoryTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E27F0F176933BA00E75F34 /* CategoryTableView.m */; };
+		45E27F141769354A00E75F34 /* WaxTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E27F131769354A00E75F34 /* WaxTableView.m */; };
+		45E27F151769354A00E75F34 /* WaxTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E27F131769354A00E75F34 /* WaxTableView.m */; };
+		45E27F181769439F00E75F34 /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E27F171769439E00E75F34 /* FeedViewController.m */; };
+		45E27F191769439F00E75F34 /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E27F171769439E00E75F34 /* FeedViewController.m */; };
 		45EA31AE1725FADB00980320 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA31AD1725FADB00980320 /* MessageUI.framework */; };
 		45EA320D1726025300980320 /* NSURL+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA320C1726025300980320 /* NSURL+WaxKit.m */; };
 		45EA3210172602A700980320 /* NSString+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA320F172602A700980320 /* NSString+WaxKit.m */; };
@@ -266,8 +274,8 @@
 		4518AD3F17584FD800D5D95C /* VideoCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VideoCameraViewController.m; path = Controllers/VideoCameraViewController.m; sourceTree = "<group>"; };
 		4518AD541758FC5300D5D95C /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		4518AD581758FCE700D5D95C /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		4518AD5A17590CA300D5D95C /* VideoUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoUploadManager.h; sourceTree = "<group>"; };
-		4518AD5B17590CA400D5D95C /* VideoUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoUploadManager.m; sourceTree = "<group>"; };
+		4518AD5A17590CA300D5D95C /* VideoUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoUploadManager.h; path = ../../Controllers/VideoUploadManager.h; sourceTree = "<group>"; };
+		4518AD5B17590CA400D5D95C /* VideoUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VideoUploadManager.m; path = ../../Controllers/VideoUploadManager.m; sourceTree = "<group>"; };
 		4518AD63175A8B8600D5D95C /* CameraOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraOverlay.h; path = Controllers/CameraOverlay.h; sourceTree = "<group>"; };
 		4518AD64175A8B8600D5D95C /* CameraOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CameraOverlay.m; path = Controllers/CameraOverlay.m; sourceTree = "<group>"; };
 		4518AD67175A8B8600D5D95C /* ThumbnailChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThumbnailChooserViewController.h; path = Controllers/ThumbnailChooserViewController.h; sourceTree = "<group>"; };
@@ -348,17 +356,17 @@
 		452FAFE21741860D0091F8D4 /* WaxAutoCompleter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxAutoCompleter.m; sourceTree = "<group>"; };
 		452FAFE31741860D0091F8D4 /* WaxEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxEmptyView.h; sourceTree = "<group>"; };
 		452FAFE41741860D0091F8D4 /* WaxEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxEmptyView.m; sourceTree = "<group>"; };
-		454BBDBF17403888005F48ED /* WaxDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxDataManager.h; sourceTree = "<group>"; };
-		454BBDC017403888005F48ED /* WaxDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxDataManager.m; sourceTree = "<group>"; };
+		454BBDBF17403888005F48ED /* WaxDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaxDataManager.h; path = ../../Controllers/WaxDataManager.h; sourceTree = "<group>"; };
+		454BBDC017403888005F48ED /* WaxDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaxDataManager.m; path = ../../Controllers/WaxDataManager.m; sourceTree = "<group>"; };
 		454BBDC3174049C4005F48ED /* ModelObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelObject.h; sourceTree = "<group>"; };
 		454BBDC4174049C4005F48ED /* ModelObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelObject.m; sourceTree = "<group>"; };
-		454BBDC717404A2D005F48ED /* WaxUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxUser.h; sourceTree = "<group>"; };
-		454BBDC817404A2D005F48ED /* WaxUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxUser.m; sourceTree = "<group>"; };
+		454BBDC717404A2D005F48ED /* WaxUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaxUser.h; path = ../../Controllers/WaxUser.h; sourceTree = "<group>"; };
+		454BBDC817404A2D005F48ED /* WaxUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaxUser.m; path = ../../Controllers/WaxUser.m; sourceTree = "<group>"; };
 		454BBDCB17404A39005F48ED /* PersonObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonObject.h; sourceTree = "<group>"; };
 		454BBDCC17404A39005F48ED /* PersonObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonObject.m; sourceTree = "<group>"; };
 		4589E9B2176299E200ED4A6F /* FeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FeedCell.xib; path = Nibs/FeedCell.xib; sourceTree = "<group>"; };
-		4589E9B81762A6FC00ED4A6F /* WaxTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaxTableViewCell.h; path = Controllers/WaxTableViewCell.h; sourceTree = "<group>"; };
-		4589E9B91762A6FC00ED4A6F /* WaxTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaxTableViewCell.m; path = Controllers/WaxTableViewCell.m; sourceTree = "<group>"; };
+		4589E9B81762A6FC00ED4A6F /* WaxTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaxTableViewCell.h; path = ../../Controllers/WaxTableViewCell.h; sourceTree = "<group>"; };
+		4589E9B91762A6FC00ED4A6F /* WaxTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaxTableViewCell.m; path = ../../Controllers/WaxTableViewCell.m; sourceTree = "<group>"; };
 		4589E9BC1762A73500ED4A6F /* FeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedCell.h; path = Controllers/FeedCell.h; sourceTree = "<group>"; };
 		4589E9BD1762A73500ED4A6F /* FeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedCell.m; path = Controllers/FeedCell.m; sourceTree = "<group>"; };
 		459100291755979E000D8BCD /* AppledocSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppledocSettings.plist; sourceTree = "<group>"; };
@@ -394,16 +402,24 @@
 		45B8AAF817517ABD009450EA /* UploadObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadObject.m; sourceTree = "<group>"; };
 		45CA0B60175D108300C84A22 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareViewController.h; path = Controllers/ShareViewController.h; sourceTree = "<group>"; };
 		45CA0B61175D108300C84A22 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareViewController.m; path = Controllers/ShareViewController.m; sourceTree = "<group>"; };
-		45CA0B69175D1D6000C84A22 /* CategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryTableViewController.h; path = Controllers/CategoryTableViewController.h; sourceTree = "<group>"; };
-		45CA0B6A175D1D6000C84A22 /* CategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryTableViewController.m; path = Controllers/CategoryTableViewController.m; sourceTree = "<group>"; };
+		45CA0B69175D1D6000C84A22 /* CategoryChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryChooserViewController.h; path = Controllers/CategoryChooserViewController.h; sourceTree = "<group>"; };
+		45CA0B6A175D1D6000C84A22 /* CategoryChooserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryChooserViewController.m; path = Controllers/CategoryChooserViewController.m; sourceTree = "<group>"; };
+		45E27F03176932CD00E75F34 /* DiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DiscoverViewController.h; path = Controllers/DiscoverViewController.h; sourceTree = "<group>"; };
+		45E27F04176932CD00E75F34 /* DiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DiscoverViewController.m; path = Controllers/DiscoverViewController.m; sourceTree = "<group>"; };
+		45E27F0E176933BA00E75F34 /* CategoryTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryTableView.h; path = Controllers/CategoryTableView.h; sourceTree = "<group>"; };
+		45E27F0F176933BA00E75F34 /* CategoryTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryTableView.m; path = Controllers/CategoryTableView.m; sourceTree = "<group>"; };
+		45E27F121769354A00E75F34 /* WaxTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaxTableView.h; path = ../../Controllers/WaxTableView.h; sourceTree = "<group>"; };
+		45E27F131769354A00E75F34 /* WaxTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaxTableView.m; path = ../../Controllers/WaxTableView.m; sourceTree = "<group>"; };
+		45E27F161769439E00E75F34 /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedViewController.h; path = Controllers/FeedViewController.h; sourceTree = "<group>"; };
+		45E27F171769439E00E75F34 /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedViewController.m; path = Controllers/FeedViewController.m; sourceTree = "<group>"; };
 		45EA31AD1725FADB00980320 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		45EA31AF1725FB0000980320 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		45EA320B1726025300980320 /* NSURL+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+WaxKit.h"; sourceTree = "<group>"; };
 		45EA320C1726025300980320 /* NSURL+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WaxKit.m"; sourceTree = "<group>"; };
 		45EA320E172602A700980320 /* NSString+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WaxKit.h"; sourceTree = "<group>"; };
 		45EA320F172602A700980320 /* NSString+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WaxKit.m"; sourceTree = "<group>"; };
-		45EA32121726063C00980320 /* WaxAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxAPIClient.h; sourceTree = "<group>"; };
-		45EA32131726063C00980320 /* WaxAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxAPIClient.m; sourceTree = "<group>"; };
+		45EA32121726063C00980320 /* WaxAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaxAPIClient.h; path = ../../Controllers/WaxAPIClient.h; sourceTree = "<group>"; };
+		45EA32131726063C00980320 /* WaxAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaxAPIClient.m; path = ../../Controllers/WaxAPIClient.m; sourceTree = "<group>"; };
 		45EA321C17260D8000980320 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		45EA321E17260DA000980320 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		45EA322017260E8100980320 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -541,8 +557,8 @@
 				4518AD68175A8B8600D5D95C /* ThumbnailChooserViewController.m */,
 				45CA0B60175D108300C84A22 /* ShareViewController.h */,
 				45CA0B61175D108300C84A22 /* ShareViewController.m */,
-				45CA0B69175D1D6000C84A22 /* CategoryTableViewController.h */,
-				45CA0B6A175D1D6000C84A22 /* CategoryTableViewController.m */,
+				45CA0B69175D1D6000C84A22 /* CategoryChooserViewController.h */,
+				45CA0B6A175D1D6000C84A22 /* CategoryChooserViewController.m */,
 			);
 			name = Video;
 			sourceTree = "<group>";
@@ -679,9 +695,9 @@
 			children = (
 				459C28851725F29C009C5487 /* WaxKit.h */,
 				45EA32151726093600980320 /* Models */,
-				459C281C1725EC82009C5487 /* Categories */,
 				459C28231725EC82009C5487 /* Controllers */,
 				459C28241725EC82009C5487 /* Views */,
+				459C281C1725EC82009C5487 /* Categories */,
 			);
 			name = WaxKit;
 			path = Wax/WaxKit;
@@ -711,6 +727,14 @@
 		459C28231725EC82009C5487 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				454BBDC717404A2D005F48ED /* WaxUser.h */,
+				454BBDC817404A2D005F48ED /* WaxUser.m */,
+				45EA32121726063C00980320 /* WaxAPIClient.h */,
+				45EA32131726063C00980320 /* WaxAPIClient.m */,
+				4518AD5A17590CA300D5D95C /* VideoUploadManager.h */,
+				4518AD5B17590CA400D5D95C /* VideoUploadManager.m */,
+				454BBDBF17403888005F48ED /* WaxDataManager.h */,
+				454BBDC017403888005F48ED /* WaxDataManager.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -718,6 +742,7 @@
 		459C28241725EC82009C5487 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				45AC7C381762DD700086D980 /* TableViewStuff */,
 				452FAFE11741860D0091F8D4 /* WaxAutoCompleter.h */,
 				452FAFE21741860D0091F8D4 /* WaxAutoCompleter.m */,
 				452FAFE31741860D0091F8D4 /* WaxEmptyView.h */,
@@ -729,18 +754,20 @@
 		45AC7C381762DD700086D980 /* TableViewStuff */ = {
 			isa = PBXGroup;
 			children = (
+				45E27F1A17694A8200E75F34 /* Base Classes */,
 				45AC7C2E1762BEBE0086D980 /* FeedTableView.h */,
 				45AC7C2F1762BEBE0086D980 /* FeedTableView.m */,
+				45E27F0E176933BA00E75F34 /* CategoryTableView.h */,
+				45E27F0F176933BA00E75F34 /* CategoryTableView.m */,
 				45AC7C341762DD500086D980 /* ProfileHeaderView.h */,
 				45AC7C351762DD500086D980 /* ProfileHeaderView.m */,
 				45AD35931768D44F0051BBE2 /* ProfileHeaderView.xib */,
-				4589E9B81762A6FC00ED4A6F /* WaxTableViewCell.h */,
-				4589E9B91762A6FC00ED4A6F /* WaxTableViewCell.m */,
 				4589E9BC1762A73500ED4A6F /* FeedCell.h */,
 				4589E9BD1762A73500ED4A6F /* FeedCell.m */,
 				4589E9B2176299E200ED4A6F /* FeedCell.xib */,
 			);
 			name = TableViewStuff;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		45B8AB001751803D009450EA /* Profile */ = {
@@ -762,7 +789,10 @@
 				45AF70371741CBA7008399D3 /* WaxTabBarController.m */,
 				45AC7CC41763B8E20086D980 /* HomeViewController.h */,
 				45AC7CC51763B8E20086D980 /* HomeViewController.m */,
-				45AC7C381762DD700086D980 /* TableViewStuff */,
+				45E27F03176932CD00E75F34 /* DiscoverViewController.h */,
+				45E27F04176932CD00E75F34 /* DiscoverViewController.m */,
+				45E27F161769439E00E75F34 /* FeedViewController.h */,
+				45E27F171769439E00E75F34 /* FeedViewController.m */,
 				45009A55174EBF1600EE0B5C /* Login/Signup */,
 				4518AD4217584FDE00D5D95C /* Video */,
 				45B8AB001751803D009450EA /* Profile */,
@@ -770,19 +800,16 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
-		45EA32111726063C00980320 /* Controllers */ = {
+		45E27F1A17694A8200E75F34 /* Base Classes */ = {
 			isa = PBXGroup;
 			children = (
-				454BBDC717404A2D005F48ED /* WaxUser.h */,
-				454BBDC817404A2D005F48ED /* WaxUser.m */,
-				45EA32121726063C00980320 /* WaxAPIClient.h */,
-				45EA32131726063C00980320 /* WaxAPIClient.m */,
-				4518AD5A17590CA300D5D95C /* VideoUploadManager.h */,
-				4518AD5B17590CA400D5D95C /* VideoUploadManager.m */,
-				454BBDBF17403888005F48ED /* WaxDataManager.h */,
-				454BBDC017403888005F48ED /* WaxDataManager.m */,
+				45E27F121769354A00E75F34 /* WaxTableView.h */,
+				45E27F131769354A00E75F34 /* WaxTableView.m */,
+				4589E9B81762A6FC00ED4A6F /* WaxTableViewCell.h */,
+				4589E9B91762A6FC00ED4A6F /* WaxTableViewCell.m */,
 			);
-			path = Controllers;
+			name = "Base Classes";
+			path = WaxKit/Views;
 			sourceTree = "<group>";
 		};
 		45EA32151726093600980320 /* Models */ = {
@@ -867,7 +894,6 @@
 				45F7162C171F163D009097F3 /* AppDelegate.m */,
 				45F71634171F163D009097F3 /* MainStoryboard.storyboard */,
 				45B8AB0117518055009450EA /* ViewControllers */,
-				45EA32111726063C00980320 /* Controllers */,
 				45F71623171F163C009097F3 /* Supporting Files */,
 			);
 			path = Wax;
@@ -1230,12 +1256,16 @@
 				4518AD69175A8B8600D5D95C /* CameraOverlay.m in Sources */,
 				4518AD6D175A8B8600D5D95C /* ThumbnailChooserViewController.m in Sources */,
 				45CA0B62175D108300C84A22 /* ShareViewController.m in Sources */,
-				45CA0B6B175D1D6100C84A22 /* CategoryTableViewController.m in Sources */,
+				45CA0B6B175D1D6100C84A22 /* CategoryChooserViewController.m in Sources */,
 				4589E9BA1762A6FC00ED4A6F /* WaxTableViewCell.m in Sources */,
 				4589E9BE1762A73500ED4A6F /* FeedCell.m in Sources */,
 				45AC7C301762BEBE0086D980 /* FeedTableView.m in Sources */,
 				45AC7C361762DD500086D980 /* ProfileHeaderView.m in Sources */,
 				45AC7CC61763B8E30086D980 /* HomeViewController.m in Sources */,
+				45E27F05176932CD00E75F34 /* DiscoverViewController.m in Sources */,
+				45E27F10176933BA00E75F34 /* CategoryTableView.m in Sources */,
+				45E27F141769354A00E75F34 /* WaxTableView.m in Sources */,
+				45E27F181769439F00E75F34 /* FeedViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1274,12 +1304,16 @@
 				4518AD6A175A8B8600D5D95C /* CameraOverlay.m in Sources */,
 				4518AD6E175A8B8600D5D95C /* ThumbnailChooserViewController.m in Sources */,
 				45CA0B63175D108300C84A22 /* ShareViewController.m in Sources */,
-				45CA0B6C175D1D6100C84A22 /* CategoryTableViewController.m in Sources */,
+				45CA0B6C175D1D6100C84A22 /* CategoryChooserViewController.m in Sources */,
 				4589E9BB1762A6FC00ED4A6F /* WaxTableViewCell.m in Sources */,
 				4589E9BF1762A73500ED4A6F /* FeedCell.m in Sources */,
 				45AC7C311762BEBE0086D980 /* FeedTableView.m in Sources */,
 				45AC7C371762DD500086D980 /* ProfileHeaderView.m in Sources */,
 				45AC7CC71763B8E30086D980 /* HomeViewController.m in Sources */,
+				45E27F06176932CD00E75F34 /* DiscoverViewController.m in Sources */,
+				45E27F11176933BA00E75F34 /* CategoryTableView.m in Sources */,
+				45E27F151769354A00E75F34 /* WaxTableView.m in Sources */,
+				45E27F191769439F00E75F34 /* FeedViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
