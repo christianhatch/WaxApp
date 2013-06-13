@@ -7,8 +7,12 @@
 //
 
 
-NSString *const kCategoriesKey = @"waxDataManager_categories";
+NSString *const kCategoriesKey = @"waxDataManager.categories";
 
+#define kHomeFeedKey        @"homeFeed"
+#define kMyFeedKey          @"myFeed"
+#define kProfileFeedKey     @"profileFeed"
+#define kTagFeedKey         @"tagFeed"
 
 #import "WaxDataManager.h"
 
@@ -38,14 +42,14 @@ NSString *const kCategoriesKey = @"waxDataManager_categories";
     
     NSNumber *infiniteID = infiniteScroll ? [WaxDataManager infiniteScrollingIDFromArray:self.homeFeed] : nil; 
     [[WaxAPIClient sharedClient] fetchHomeFeedWithInfiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
-        [self handleUpdatingArray:self.homeFeed withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
+        [self handleUpdatingValueForKey:kHomeFeedKey withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
     }];
 }
 -(void)updateMyFeedWithInfiniteScroll:(BOOL)infiniteScroll completion:(WaxDataManagerCompletionBlockTypeSimple)completion{
     
     NSNumber *infiniteID = infiniteScroll ? [WaxDataManager infiniteScrollingIDFromArray:self.myFeed] : nil;
     [[WaxAPIClient sharedClient] fetchMyFeedWithInfiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
-        [self handleUpdatingArray:self.myFeed withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
+        [self handleUpdatingValueForKey:kMyFeedKey withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
     }];
 }
 -(void)updateNotificationsWithInfiniteScroll:(BOOL)infiniteScroll completion:(WaxDataManagerCompletionBlockTypeSimple)completion{
@@ -85,7 +89,7 @@ NSString *const kCategoriesKey = @"waxDataManager_categories";
     NSNumber *infiniteID = [self infiniteIDFromTag:personID refresh:!infiniteScroll];
     
     [[WaxAPIClient sharedClient] fetchFeedForUserID:personID infiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
-        [self handleUpdatingArray:self.profileFeed withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
+        [self handleUpdatingValueForKey:kProfileFeedKey withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
     }];
 }
 -(void)updateFeedForCategory:(NSString *)category withInfiniteScroll:(BOOL)infiniteScroll completion:(WaxDataManagerCompletionBlockTypeSimple)completion{
@@ -96,18 +100,18 @@ NSString *const kCategoriesKey = @"waxDataManager_categories";
     NSNumber *infiniteID = [self infiniteIDFromTag:category refresh:!infiniteScroll];
 
     [[WaxAPIClient sharedClient] fetchFeedForCategory:category infiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
-        [self handleUpdatingArray:self.tagFeed withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
+        [self handleUpdatingValueForKey:kTagFeedKey withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
     }];
 }
 -(void)updateFeedForTag:(NSString *)tag withInfiniteScroll:(BOOL)infiniteScroll completion:(WaxDataManagerCompletionBlockTypeSimple)completion{
 
     NSParameterAssert(tag);
     NSParameterAssert(!infiniteScroll || infiniteScroll == YES);
-        
+    
     NSNumber *infiniteID = [self infiniteIDFromTag:tag refresh:!infiniteScroll];
 
     [[WaxAPIClient sharedClient] fetchFeedForTag:tag sortedBy:WaxAPIClientTagSortTypeRank infiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
-        [self handleUpdatingArray:self.tagFeed withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
+        [self handleUpdatingValueForKey:kTagFeedKey withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
     }]; 
 }
 
@@ -123,16 +127,16 @@ NSString *const kCategoriesKey = @"waxDataManager_categories";
     return infinite;
 }
 -(NSNumber *)infiniteIDFromUserID:(NSString *)userID refresh:(BOOL)refresh{
+    self.lastUserID = userID;
     if ((![self.lastUserID isEqualToString:userID]) || refresh) {
-        self.lastUserID = userID;
         return nil;
     }else{
         return [WaxDataManager infiniteScrollingIDFromArray:self.profileFeed];
     }
 }
 -(NSNumber *)infiniteIDFromTag:(NSString *)tag refresh:(BOOL)refresh{
+    self.lastTagID = tag;
     if ((![self.lastTagID isEqualToString:tag]) || refresh) {
-        self.lastTagID = tag; 
         return nil;
     }else{
         return [WaxDataManager infiniteScrollingIDFromArray:self.tagFeed]; 
@@ -158,9 +162,11 @@ NSString *const kCategoriesKey = @"waxDataManager_categories";
 
 
 #pragma mark - Private/Helper/Convenience Methods
--(void)handleUpdatingArray:(NSMutableArray *)array withCompletionBlock:(WaxDataManagerCompletionBlockTypeSimple)completion infiniteScrollingID:(NSNumber *)infiniteID APIResponseData:(NSMutableArray *)responseData APIResponseError:(NSError *)error{
+-(void)handleUpdatingValueForKey:(NSString *)key withCompletionBlock:(WaxDataManagerCompletionBlockTypeSimple)completion infiniteScrollingID:(NSNumber *)infiniteID APIResponseData:(NSMutableArray *)responseData APIResponseError:(NSError *)error{
     
 //    VLog(@"response %@", responseData);
+    
+    NSMutableArray *array = [self valueForKeyPath:key];
     
     if (!error) {
         if (infiniteID) {
@@ -168,19 +174,17 @@ NSString *const kCategoriesKey = @"waxDataManager_categories";
         }else{
             array = responseData;
         }
+        
+        [self setValue:array forKeyPath:key];
+        
     }else{
         VLog(@"error %@", error);
     }
-    
-    DLog(@"array %@", array);
-    DLog(@"tagfeed %@", self.tagFeed);
-    
+        
     if (completion) {
         completion(error);
     }
-
 }
-
 
 
 

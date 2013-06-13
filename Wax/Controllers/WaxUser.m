@@ -91,7 +91,6 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 #pragma mark - User Information Setters
 -(void)saveToken:(NSString *)token{
     if ([NSString isEmptyOrNil:token]){
-//        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING Token isEmptyOrNull. Token = %@", token]];
         [self logOut];
     }else{
         [Lockbox setString:token forKey:kUserTokenKey];
@@ -99,7 +98,6 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 }
 -(void)saveUserID:(NSString *)userID{
     if ([NSString isEmptyOrNil:userID]){
-//        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING Userid isEmptyOrNull. Userid = %@", userid]];
         [self logOut];
     }else{
         [Lockbox setString:userID forKey:kUserIDKey];
@@ -118,14 +116,12 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 
 -(void)saveFacebookAccountID:(NSString *)facebookAccountID{
     if ([NSString isEmptyOrNil:facebookAccountID]){
-//        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING facebook account isEmptyOrNull. facebook accountID = %@", facebookAccountId]];
     }else{
         [Lockbox setString:facebookAccountID forKey:kUserFacebookAccountIDKey];
     }
 }
 -(void)saveTwitterAccountID:(NSString *)twitterAccountID{
     if ([NSString isEmptyOrNil:twitterAccountID]){
-//        [[AIKErrorUtilities sharedUtilities] didEncounterError:[NSString stringWithFormat:@"SETTING twitter account isEmptyOrNull. twitter accountID = %@", twitterAccountId]];
     }else{
         [Lockbox setString:twitterAccountID forKey:kUserTwitterAccountIDKey];
         [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationTwitterAccountDidChange object:self];
