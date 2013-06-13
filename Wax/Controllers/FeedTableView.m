@@ -9,12 +9,10 @@
 
 
 #import "FeedTableView.h"
-#import <UIScrollView+SVInfiniteScrolling.h>
-#import <UIScrollView+SVPullToRefresh.h>
 #import "FeedCell.h"
 #import "ProfileHeaderView.h"
 
-@interface FeedTableView () <UITableViewDataSource, UITableViewDelegate>
+@interface FeedTableView ()
 @property (nonatomic, strong) NSString *dataSourceID; 
 @end
 
@@ -24,30 +22,31 @@
 
 #pragma mark - Alloc & Init
 +(FeedTableView *)feedTableViewForCategory:(NSString *)tag frame:(CGRect)frame{
-    FeedTableView *feedy = [[FeedTableView alloc] initWithWaxFeedTableViewType:WaxFeedTableViewTypeCategoryFeed tagOrUserID:tag frame:frame];
+    FeedTableView *feedy = [[FeedTableView alloc] initWithFeedTableViewType:FeedTableViewTypeCategoryFeed tagOrUserID:tag frame:frame];
     return feedy; 
 }
 +(FeedTableView *)feedTableViewForTag:(NSString *)tag frame:(CGRect)frame{
-    FeedTableView *feedy = [[FeedTableView alloc] initWithWaxFeedTableViewType:WaxFeedTableViewTypeTagFeed tagOrUserID:tag frame:frame];
+    FeedTableView *feedy = [[FeedTableView alloc] initWithFeedTableViewType:FeedTableViewTypeTagFeed tagOrUserID:tag frame:frame];
     return feedy;
 }
 +(FeedTableView *)feedTableViewForUserID:(NSString *)userID frame:(CGRect)frame{
-    FeedTableView *feedy = [[FeedTableView alloc] initWithWaxFeedTableViewType:WaxFeedTableViewTypeUserFeed tagOrUserID:userID frame:frame];
+    FeedTableView *feedy = [[FeedTableView alloc] initWithFeedTableViewType:FeedTableViewTypeUserFeed tagOrUserID:userID frame:frame];
     return feedy;
 }
 +(FeedTableView *)feedTableViewForHomeWithFrame:(CGRect)frame{
-    FeedTableView *feedy = [[FeedTableView alloc] initWithWaxFeedTableViewType:WaxFeedTableViewTypeHomeFeed tagOrUserID:nil frame:frame];
+    FeedTableView *feedy = [[FeedTableView alloc] initWithFeedTableViewType:FeedTableViewTypeHomeFeed tagOrUserID:nil frame:frame];
     return feedy;
 }
 +(FeedTableView *)feedTableViewForMeWithFrame:(CGRect)frame{
-    FeedTableView *feedy = [[FeedTableView alloc] initWithWaxFeedTableViewType:WaxFeedTableViewTypeMyFeed tagOrUserID:[[WaxUser currentUser] userID] frame:frame];
+    FeedTableView *feedy = [[FeedTableView alloc] initWithFeedTableViewType:FeedTableViewTypeMyFeed tagOrUserID:[[WaxUser currentUser] userID] frame:frame];
     return feedy;
 }
--(instancetype)initWithWaxFeedTableViewType:(WaxFeedTableViewType)feedtype tagOrUserID:(NSString *)tagOrUserID frame:(CGRect)frame{
+-(instancetype)initWithFeedTableViewType:(FeedTableViewType)feedtype tagOrUserID:(NSString *)tagOrUserID frame:(CGRect)frame{
     self = [super initWithFrame:frame style:UITableViewStylePlain];
     if (self) {
-        self.feedType = feedtype;
+        self.tableViewType = feedtype;
         self.dataSourceID = tagOrUserID;
+        self.automaticallyHideInfiniteScrolling = YES;
         
         self.rowHeight = kFeedCellHeight;
         
@@ -61,7 +60,7 @@
             [blockSelf refreshDataWithInfiniteScroll:YES];
         }];
         
-        if (feedtype == WaxFeedTableViewTypeMyFeed || feedtype == WaxFeedTableViewTypeUserFeed) {
+        if (feedtype == FeedTableViewTypeMyFeed || feedtype == FeedTableViewTypeUserFeed) {
             self.tableHeaderView = [ProfileHeaderView profileHeaderViewForUserID:self.dataSourceID];
         }
     }
@@ -73,28 +72,28 @@
 }
 #pragma mark - Internal Methods
 -(void)refreshDataWithInfiniteScroll:(BOOL)infiniteScroll{
-    switch (self.feedType) {
-        case WaxFeedTableViewTypeMyFeed:{
+    switch (self.tableViewType) {
+        case FeedTableViewTypeMyFeed:{
             [[WaxDataManager sharedManager] updateMyFeedWithInfiniteScroll:infiniteScroll completion:^(NSError *error) {
                 [self handleUpdatingFeedWithError:error]; 
             }];
         }break;
-        case WaxFeedTableViewTypeHomeFeed:{
+        case FeedTableViewTypeHomeFeed:{
             [[WaxDataManager sharedManager] updateHomeFeedWithInfiniteScroll:infiniteScroll completion:^(NSError *error) {
                 [self handleUpdatingFeedWithError:error];
             }];
         }break;
-        case WaxFeedTableViewTypeUserFeed:{
+        case FeedTableViewTypeUserFeed:{
             [[WaxDataManager sharedManager] updateProfileFeedForUserID:self.dataSourceID withInfiniteScroll:infiniteScroll completion:^(NSError *error) {
                 [self handleUpdatingFeedWithError:error];
             }];
         }break;
-        case WaxFeedTableViewTypeTagFeed:{
+        case FeedTableViewTypeTagFeed:{
             [[WaxDataManager sharedManager] updateFeedForTag:self.dataSourceID withInfiniteScroll:infiniteScroll completion:^(NSError *error) {
                 [self handleUpdatingFeedWithError:error];
             }];
         }break;
-        case WaxFeedTableViewTypeCategoryFeed:{
+        case FeedTableViewTypeCategoryFeed:{
             [[WaxDataManager sharedManager] updateFeedForCategory:self.dataSourceID withInfiniteScroll:infiniteScroll completion:^(NSError *error) {
                 [self handleUpdatingFeedWithError:error];
             }];
@@ -127,51 +126,46 @@
 
 #pragma mark - Convenience Methods
 -(NSMutableArray *)proxyDataSourceArray{
-    NSMutableArray *array = nil; 
-    switch (self.feedType) {
-        case WaxFeedTableViewTypeMyFeed:{
-            array = [WaxDataManager sharedManager].myFeed;
+    switch (self.tableViewType) {
+        case FeedTableViewTypeMyFeed:{
+            return [WaxDataManager sharedManager].myFeed;
         }break;
-        case WaxFeedTableViewTypeHomeFeed:{
-            array = [WaxDataManager sharedManager].homeFeed;
+        case FeedTableViewTypeHomeFeed:{
+            return [WaxDataManager sharedManager].homeFeed;
         }break;
-        case WaxFeedTableViewTypeUserFeed:{
-            array = [WaxDataManager sharedManager].profileFeed;
+        case FeedTableViewTypeUserFeed:{
+            return [WaxDataManager sharedManager].profileFeed;
         }break;
-        case WaxFeedTableViewTypeCategoryFeed:{
-            array = [WaxDataManager sharedManager].tagFeed;
+        case FeedTableViewTypeCategoryFeed:{
+            return [WaxDataManager sharedManager].tagFeed;
         }break;
-        case WaxFeedTableViewTypeTagFeed:{
-            array = [WaxDataManager sharedManager].tagFeed;
+        case FeedTableViewTypeTagFeed:{
+            return [WaxDataManager sharedManager].tagFeed;
         }break;
     }
-    return array; 
 }
 -(void)handleUpdatingFeedWithError:(NSError *)error{
-    [self stopAnimatingReloaderViews];
-    [self reloadData];
-    
-//    VLog(@"proxy data %@", [self proxyDataSourceArray]);
-    
+    [super handleUpdatingFeedWithError:error];
+        
     if (!error) {
-        self.showsInfiniteScrolling = !([[self proxyDataSourceArray] countIsNotDivisibleBy10] || ![[self proxyDataSourceArray] count]);
+        
     }else{
         VLog(@"error updating feed %@", error);
 
-        switch (self.feedType) {
-            case WaxFeedTableViewTypeMyFeed:{
+        switch (self.tableViewType) {
+            case FeedTableViewTypeMyFeed:{
                 
             }break;
-            case WaxFeedTableViewTypeHomeFeed:{
+            case FeedTableViewTypeHomeFeed:{
                 
             }break;
-            case WaxFeedTableViewTypeUserFeed:{
+            case FeedTableViewTypeUserFeed:{
                 
             }break;
-            case WaxFeedTableViewTypeTagFeed:{
+            case FeedTableViewTypeTagFeed:{
                 
             }break;
-            case WaxFeedTableViewTypeCategoryFeed:{
+            case FeedTableViewTypeCategoryFeed:{
                 
             }break; 
         }

@@ -7,12 +7,12 @@
 //
 
 
-typedef NS_ENUM(NSInteger, WaxFeedTableViewType){
-    WaxFeedTableViewTypeMyFeed = 1,
-    WaxFeedTableViewTypeHomeFeed,
-    WaxFeedTableViewTypeUserFeed,
-    WaxFeedTableViewTypeCategoryFeed,
-    WaxFeedTableViewTypeTagFeed,
+typedef NS_ENUM(NSInteger, FeedTableViewType){
+    FeedTableViewTypeMyFeed = 1,
+    FeedTableViewTypeHomeFeed,
+    FeedTableViewTypeUserFeed,
+    FeedTableViewTypeCategoryFeed,
+    FeedTableViewTypeTagFeed,
 };
 
 
@@ -27,10 +27,10 @@ typedef NS_ENUM(NSInteger, WaxFeedTableViewType){
 +(FeedTableView *)feedTableViewForTag:(NSString *)tag frame:(CGRect)frame;
 +(FeedTableView *)feedTableViewForCategory:(NSString *)tag frame:(CGRect)frame;
 
--(instancetype)initWithWaxFeedTableViewType:(WaxFeedTableViewType)feedtype tagOrUserID:(NSString *)tagOrUserID frame:(CGRect)frame;
+-(instancetype)initWithFeedTableViewType:(FeedTableViewType)feedtype tagOrUserID:(NSString *)tagOrUserID frame:(CGRect)frame;
 
 
-@property (nonatomic) WaxFeedTableViewType feedType;
+@property (nonatomic) FeedTableViewType tableViewType;
 
 
 @end

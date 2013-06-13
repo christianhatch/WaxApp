@@ -7,16 +7,14 @@
 //
 
 #import "CategoryTableView.h"
-#import <UIScrollView+SVInfiniteScrolling.h>
-#import <UIScrollView+SVPullToRefresh.h>
 #import "WaxTableViewCell.h"
 
-@interface CategoryTableView () <UITableViewDataSource, UITableViewDelegate>
+@interface CategoryTableView ()
 
 @end
 
 @implementation CategoryTableView
-@synthesize categoryType = _categoryType, didSelectBlock = _didSelectBlock;
+@synthesize tableViewType = _categoryType, didSelectBlock = _didSelectBlock;
 
 +(CategoryTableView *)categoryTableViewForCategoriesWithFrame:(CGRect)frame didSelectCategoryBlock:(CategoryTableViewDidSelectCategoryBlock)selectBlock{
     CategoryTableView *cats = [[CategoryTableView alloc] initWithCategoryTableViewType:CategoryTableViewTypeCategories frame:frame didSelectCategoryBlock:selectBlock];
@@ -29,7 +27,7 @@
 -(instancetype)initWithCategoryTableViewType:(CategoryTableViewType)categoryType frame:(CGRect)frame didSelectCategoryBlock:(CategoryTableViewDidSelectCategoryBlock)selectBlock{
     self = [super initWithFrame:frame style:UITableViewStylePlain];
     if (self) {
-        self.categoryType = categoryType;
+        self.tableViewType = categoryType;
         self.didSelectBlock = selectBlock;
                 
         __block CategoryTableView *blockSelf = self;
@@ -41,7 +39,7 @@
 }
 -(void)didMoveToSuperview{
     [super didMoveToSuperview];
-    switch (self.categoryType) {
+    switch (self.tableViewType) {
         case CategoryTableViewTypeCategories:{
             [self reloadData];
         }break;
@@ -52,7 +50,7 @@
 }
 #pragma mark - Internal Methods
 -(void)refreshData{
-    switch (self.categoryType) {
+    switch (self.tableViewType) {
         case CategoryTableViewTypeCategories:{
             [[WaxDataManager sharedManager] updateCategoriesWithCompletion:^(NSError *error) {
                 [self handleUpdatingFeedWithError:error];
@@ -102,25 +100,24 @@
 
 #pragma mark - Convenience Methods
 -(NSMutableArray *)proxyDataSourceArray{
-    NSMutableArray *array = nil;
-    switch (self.categoryType) {
+    switch (self.tableViewType) {
         case CategoryTableViewTypeCategories:{
-            array = [WaxDataManager sharedManager].categories;
+            return [WaxDataManager sharedManager].categories;
         }break;
         case CategoryTableViewTypeDiscover:{
-            array = [WaxDataManager sharedManager].discoverArray;
+            return [WaxDataManager sharedManager].discoverArray;
         }break;
     }
-    return array;
 }
 -(void)handleUpdatingFeedWithError:(NSError *)error{
-    [self stopAnimatingReloaderViews];
+    [super handleUpdatingFeedWithError:error];
+    
     if (!error) {
-        [self reloadData];
+
     }else{
         DLog(@"error updating category %@", error);
         
-        switch (self.categoryType) {
+        switch (self.tableViewType) {
             case CategoryTableViewTypeCategories:{
                 
             }break;

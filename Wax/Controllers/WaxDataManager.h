@@ -45,14 +45,20 @@ typedef void(^WaxDataManagerCompletionBlockTypeSimple)(NSError *error);
      withInfiniteScroll:(BOOL)infiniteScroll
              completion:(WaxDataManagerCompletionBlockTypeSimple)completion;
 
+@property (nonatomic, strong) NSMutableArray *personList;
+-(void)updatePersonListForFollowingWithUserID:(NSString *)userID
+                           withInfiniteScroll:(BOOL)infiniteScroll
+                                   completion:(WaxDataManagerCompletionBlockTypeSimple)completion;
+-(void)updatePersonListForFollowersWithUserID:(NSString *)userID
+                           withInfiniteScroll:(BOOL)infiniteScroll
+                                   completion:(WaxDataManagerCompletionBlockTypeSimple)completion;
+
+
 //data and stuff
 @property (nonatomic, readonly) NSMutableArray *categories;
 -(void)updateCategoriesWithCompletion:(WaxDataManagerCompletionBlockTypeSimple)completion;
 
 
-
-#pragma mark - Convenience Methods
-+(NSNumber *)infiniteScrollingIDFromArray:(NSMutableArray *)feed;
 
 
 

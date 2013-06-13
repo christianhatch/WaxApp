@@ -184,6 +184,16 @@
 		45E27F151769354A00E75F34 /* WaxTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E27F131769354A00E75F34 /* WaxTableView.m */; };
 		45E27F181769439F00E75F34 /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E27F171769439E00E75F34 /* FeedViewController.m */; };
 		45E27F191769439F00E75F34 /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E27F171769439E00E75F34 /* FeedViewController.m */; };
+		45E27F1D17697A7D00E75F34 /* PersonTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E27F1C17697A7C00E75F34 /* PersonTableView.m */; };
+		45E27F1E17697A7D00E75F34 /* PersonTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E27F1C17697A7C00E75F34 /* PersonTableView.m */; };
+		45E27F211769879A00E75F34 /* PersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E27F201769879A00E75F34 /* PersonCell.m */; };
+		45E27F221769879A00E75F34 /* PersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E27F201769879A00E75F34 /* PersonCell.m */; };
+		45E27F25176987EB00E75F34 /* PersonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45E27F24176987EB00E75F34 /* PersonCell.xib */; };
+		45E27F26176987EB00E75F34 /* PersonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45E27F24176987EB00E75F34 /* PersonCell.xib */; };
+		45E27F291769895800E75F34 /* WaxFollowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E27F281769895700E75F34 /* WaxFollowButton.m */; };
+		45E27F2A1769895800E75F34 /* WaxFollowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E27F281769895700E75F34 /* WaxFollowButton.m */; };
+		45E27F2D1769993B00E75F34 /* PersonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E27F2C1769993B00E75F34 /* PersonListViewController.m */; };
+		45E27F2E1769993B00E75F34 /* PersonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E27F2C1769993B00E75F34 /* PersonListViewController.m */; };
 		45EA31AE1725FADB00980320 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA31AD1725FADB00980320 /* MessageUI.framework */; };
 		45EA320D1726025300980320 /* NSURL+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA320C1726025300980320 /* NSURL+WaxKit.m */; };
 		45EA3210172602A700980320 /* NSString+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EA320F172602A700980320 /* NSString+WaxKit.m */; };
@@ -412,6 +422,15 @@
 		45E27F131769354A00E75F34 /* WaxTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaxTableView.m; path = ../../Controllers/WaxTableView.m; sourceTree = "<group>"; };
 		45E27F161769439E00E75F34 /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedViewController.h; path = Controllers/FeedViewController.h; sourceTree = "<group>"; };
 		45E27F171769439E00E75F34 /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedViewController.m; path = Controllers/FeedViewController.m; sourceTree = "<group>"; };
+		45E27F1B17697A7C00E75F34 /* PersonTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonTableView.h; path = Controllers/PersonTableView.h; sourceTree = "<group>"; };
+		45E27F1C17697A7C00E75F34 /* PersonTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonTableView.m; path = Controllers/PersonTableView.m; sourceTree = "<group>"; };
+		45E27F1F1769879900E75F34 /* PersonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonCell.h; path = Controllers/PersonCell.h; sourceTree = "<group>"; };
+		45E27F201769879A00E75F34 /* PersonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonCell.m; path = Controllers/PersonCell.m; sourceTree = "<group>"; };
+		45E27F24176987EB00E75F34 /* PersonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PersonCell.xib; path = Nibs/PersonCell.xib; sourceTree = "<group>"; };
+		45E27F271769895600E75F34 /* WaxFollowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxFollowButton.h; sourceTree = "<group>"; };
+		45E27F281769895700E75F34 /* WaxFollowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxFollowButton.m; sourceTree = "<group>"; };
+		45E27F2B1769993B00E75F34 /* PersonListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonListViewController.h; sourceTree = "<group>"; };
+		45E27F2C1769993B00E75F34 /* PersonListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonListViewController.m; sourceTree = "<group>"; };
 		45EA31AD1725FADB00980320 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		45EA31AF1725FB0000980320 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		45EA320B1726025300980320 /* NSURL+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+WaxKit.h"; sourceTree = "<group>"; };
@@ -742,6 +761,8 @@
 		459C28241725EC82009C5487 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				45E27F271769895600E75F34 /* WaxFollowButton.h */,
+				45E27F281769895700E75F34 /* WaxFollowButton.m */,
 				45AC7C381762DD700086D980 /* TableViewStuff */,
 				452FAFE11741860D0091F8D4 /* WaxAutoCompleter.h */,
 				452FAFE21741860D0091F8D4 /* WaxAutoCompleter.m */,
@@ -755,16 +776,14 @@
 			isa = PBXGroup;
 			children = (
 				45E27F1A17694A8200E75F34 /* Base Classes */,
-				45AC7C2E1762BEBE0086D980 /* FeedTableView.h */,
-				45AC7C2F1762BEBE0086D980 /* FeedTableView.m */,
 				45E27F0E176933BA00E75F34 /* CategoryTableView.h */,
 				45E27F0F176933BA00E75F34 /* CategoryTableView.m */,
-				45AC7C341762DD500086D980 /* ProfileHeaderView.h */,
-				45AC7C351762DD500086D980 /* ProfileHeaderView.m */,
-				45AD35931768D44F0051BBE2 /* ProfileHeaderView.xib */,
+				45AC7C2E1762BEBE0086D980 /* FeedTableView.h */,
+				45AC7C2F1762BEBE0086D980 /* FeedTableView.m */,
 				4589E9BC1762A73500ED4A6F /* FeedCell.h */,
 				4589E9BD1762A73500ED4A6F /* FeedCell.m */,
 				4589E9B2176299E200ED4A6F /* FeedCell.xib */,
+				45E27F23176987AD00E75F34 /* PersonStuff */,
 			);
 			name = TableViewStuff;
 			path = ../..;
@@ -775,6 +794,8 @@
 			children = (
 				45B8AAE817515858009450EA /* ProfileViewController.h */,
 				45B8AAE917515858009450EA /* ProfileViewController.m */,
+				45E27F2B1769993B00E75F34 /* PersonListViewController.h */,
+				45E27F2C1769993B00E75F34 /* PersonListViewController.m */,
 				45B8AAEC17515F49009450EA /* SettingsViewController.h */,
 				45B8AAED17515F49009450EA /* SettingsViewController.m */,
 			);
@@ -810,6 +831,21 @@
 			);
 			name = "Base Classes";
 			path = WaxKit/Views;
+			sourceTree = "<group>";
+		};
+		45E27F23176987AD00E75F34 /* PersonStuff */ = {
+			isa = PBXGroup;
+			children = (
+				45E27F1B17697A7C00E75F34 /* PersonTableView.h */,
+				45E27F1C17697A7C00E75F34 /* PersonTableView.m */,
+				45E27F1F1769879900E75F34 /* PersonCell.h */,
+				45E27F201769879A00E75F34 /* PersonCell.m */,
+				45E27F24176987EB00E75F34 /* PersonCell.xib */,
+				45AC7C341762DD500086D980 /* ProfileHeaderView.h */,
+				45AC7C351762DD500086D980 /* ProfileHeaderView.m */,
+				45AD35931768D44F0051BBE2 /* ProfileHeaderView.xib */,
+			);
+			name = PersonStuff;
 			sourceTree = "<group>";
 		};
 		45EA32151726093600980320 /* Models */ = {
@@ -1118,6 +1154,7 @@
 				4518ADDD175AA6D000D5D95C /* record_reg@2x.png in Resources */,
 				4589E9B3176299E200ED4A6F /* FeedCell.xib in Resources */,
 				45AD35941768D44F0051BBE2 /* ProfileHeaderView.xib in Resources */,
+				45E27F25176987EB00E75F34 /* PersonCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1129,6 +1166,7 @@
 				452FAE1C1740AC030091F8D4 /* persons.json in Resources */,
 				452FAE1E1740AE2F0091F8D4 /* videos.json in Resources */,
 				45AD35951768D44F0051BBE2 /* ProfileHeaderView.xib in Resources */,
+				45E27F26176987EB00E75F34 /* PersonCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1266,6 +1304,10 @@
 				45E27F10176933BA00E75F34 /* CategoryTableView.m in Sources */,
 				45E27F141769354A00E75F34 /* WaxTableView.m in Sources */,
 				45E27F181769439F00E75F34 /* FeedViewController.m in Sources */,
+				45E27F1D17697A7D00E75F34 /* PersonTableView.m in Sources */,
+				45E27F211769879A00E75F34 /* PersonCell.m in Sources */,
+				45E27F291769895800E75F34 /* WaxFollowButton.m in Sources */,
+				45E27F2D1769993B00E75F34 /* PersonListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1314,6 +1356,10 @@
 				45E27F11176933BA00E75F34 /* CategoryTableView.m in Sources */,
 				45E27F151769354A00E75F34 /* WaxTableView.m in Sources */,
 				45E27F191769439F00E75F34 /* FeedViewController.m in Sources */,
+				45E27F1E17697A7D00E75F34 /* PersonTableView.m in Sources */,
+				45E27F221769879A00E75F34 /* PersonCell.m in Sources */,
+				45E27F2A1769895800E75F34 /* WaxFollowButton.m in Sources */,
+				45E27F2E1769993B00E75F34 /* PersonListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

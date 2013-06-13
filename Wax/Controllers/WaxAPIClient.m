@@ -196,7 +196,7 @@ static inline BOOL PathRequiresArray(NSString *path){
         }
     }];
 }
--(void)fetchProfileInformationForUser:(NSString *)personID completion:(WaxAPIClientBlockTypeCompletionUser)completion{
+-(void)fetchProfileInformationForUserID:(NSString *)personID completion:(WaxAPIClientBlockTypeCompletionUser)completion{
     
     NSParameterAssert(personID);
     
@@ -206,7 +206,7 @@ static inline BOOL PathRequiresArray(NSString *path){
         }
     }];
 }
--(void)fetchFollowersForUser:(NSString *)personID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
+-(void)fetchFollowersForUserID:(NSString *)personID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     
     NSParameterAssert(personID);
     
@@ -216,7 +216,7 @@ static inline BOOL PathRequiresArray(NSString *path){
         }
     }];
 }
--(void)fetchFollowingForUser:(NSString *)personID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
+-(void)fetchFollowingForUserID:(NSString *)personID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     
     NSParameterAssert(personID);
     
@@ -226,7 +226,7 @@ static inline BOOL PathRequiresArray(NSString *path){
         }
     }];
 }
--(void)searchForUser:(NSString *)searchTerm infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
+-(void)searchForUsersWithSearchTerm:(NSString *)searchTerm infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     
     NSParameterAssert(searchTerm);
     

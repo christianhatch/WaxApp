@@ -11,7 +11,7 @@
 
 @interface FeedViewController ()
 @property (nonatomic, strong) NSString *feedID;
-@property (nonatomic, readwrite) WaxFeedTableViewType feedType; 
+@property (nonatomic, readwrite) FeedTableViewType feedType; 
 @end
 
 @implementation FeedViewController
@@ -20,12 +20,12 @@
 #pragma mark - Alloc & Init
 +(FeedViewController *)feedViewControllerWithTag:(NSString *)tag{
     FeedViewController *feedy = [[FeedViewController alloc] initWithFeedID:tag];
-    feedy.feedType = WaxFeedTableViewTypeTagFeed; 
+    feedy.feedType = FeedTableViewTypeTagFeed; 
     return feedy; 
 }
 +(FeedViewController *)feedViewControllerWithCategory:(NSString *)category{
     FeedViewController *feedy = [[FeedViewController alloc] initWithFeedID:category];
-    feedy.feedType = WaxFeedTableViewTypeCategoryFeed; 
+    feedy.feedType = FeedTableViewTypeCategoryFeed; 
     return feedy;
 }
 -(instancetype)initWithFeedID:(NSString *)feedID{
@@ -47,9 +47,9 @@
 
 -(void)setUpView{
     self.navigationItem.title = self.feedID;
-    if (self.feedType == WaxFeedTableViewTypeCategoryFeed) {
+    if (self.feedType == FeedTableViewTypeCategoryFeed) {
         [self.view addSubview:[FeedTableView feedTableViewForCategory:self.feedID frame:self.view.bounds]];
-    }else if (self.feedType == WaxFeedTableViewTypeTagFeed){
+    }else if (self.feedType == FeedTableViewTypeTagFeed){
         [self.view addSubview:[FeedTableView feedTableViewForTag:self.feedID frame:self.view.bounds]];
     }
 }

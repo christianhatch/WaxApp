@@ -10,13 +10,15 @@
 
 @implementation WaxTableViewCell
 
-/*
+
 -(void)awakeFromNib{
 //    UIImageView *bg = [[UIImageView alloc] initWithFrame:self.bounds];
 //    bg.image = [UIImage selectionGradient];
 //    bg.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
 //    self.selectedBackgroundView = bg;
+    self.imageView.contentMode = UIViewContentModeScaleAspectFit; 
 }
+ /*
 -(void)setSelected:(BOOL)selected animated:(BOOL)animated{
     [super setSelected:selected animated:animated];
 //    for (UIButton *btn in self.contentView.subviews) {

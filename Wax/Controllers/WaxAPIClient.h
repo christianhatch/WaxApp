@@ -166,22 +166,22 @@ typedef NS_ENUM(NSInteger, WaxAPIClientVideoActionType){
 
 #pragma mark - Users
 -(void)toggleFollowUserID:(NSString *)personID
-             completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
+               completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
 
--(void)fetchProfileInformationForUser:(NSString *)personID
-                           completion:(WaxAPIClientBlockTypeCompletionUser)completion;
+-(void)fetchProfileInformationForUserID:(NSString *)personID
+                             completion:(WaxAPIClientBlockTypeCompletionUser)completion;
 
--(void)fetchFollowersForUser:(NSString *)personID
-         infiniteScrollingID:(NSNumber *)infiniteScrollingID
-                  completion:(WaxAPIClientBlockTypeCompletionList)completion;
+-(void)fetchFollowersForUserID:(NSString *)personID
+           infiniteScrollingID:(NSNumber *)infiniteScrollingID
+                    completion:(WaxAPIClientBlockTypeCompletionList)completion;
 
--(void)fetchFollowingForUser:(NSString *)personID
-         infiniteScrollingID:(NSNumber *)infiniteScrollingID
-                  completion:(WaxAPIClientBlockTypeCompletionList)completion;
+-(void)fetchFollowingForUserID:(NSString *)personID
+           infiniteScrollingID:(NSNumber *)infiniteScrollingID
+                    completion:(WaxAPIClientBlockTypeCompletionList)completion;
 
--(void)searchForUser:(NSString *)searchTerm
- infiniteScrollingID:(NSNumber *)infiniteScrollingID
-          completion:(WaxAPIClientBlockTypeCompletionList)completion;
+-(void)searchForUsersWithSearchTerm:(NSString *)searchTerm
+                infiniteScrollingID:(NSNumber *)infiniteScrollingID
+                         completion:(WaxAPIClientBlockTypeCompletionList)completion;
 
 -(void)syncFacebookProfilePictureWithCompletion:(WaxAPIClientBlockTypeCompletionSimple)completion; 
 

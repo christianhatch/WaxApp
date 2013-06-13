@@ -7,11 +7,9 @@
 //
 
 #import "WaxTableView.h"
-#import <UIScrollView+SVInfiniteScrolling.h>
-#import <UIScrollView+SVPullToRefresh.h>
 
 @implementation WaxTableView
-@synthesize automaticallyDeselectRow = _automaticallyDeselectRow; 
+@synthesize automaticallyDeselectRow = _automaticallyDeselectRow, automaticallyHideInfiniteScrolling = _automaticallyHideInfiniteScrolling; 
 
 
 -(instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style{
@@ -27,13 +25,24 @@
 }
 
 
--(void)stopAnimatingReloaderViews{
+-(void)handleUpdatingFeedWithError:(NSError *)error{
+    [self finishLoading]; 
+}
+-(void)finishLoading{
+    [self reloadData];
     if (self.pullToRefreshView.state != SVPullToRefreshStateStopped) {
         [self.pullToRefreshView stopAnimating];
     }
     if (self.infiniteScrollingView.state != SVPullToRefreshStateStopped) {
         [self.pullToRefreshView stopAnimating];
     }
+    if (self.automaticallyHideInfiniteScrolling) {
+        BOOL dataSourceIsEmptyOrNotABatchOfTen = ([[self proxyDataSourceArray] countIsNotDivisibleBy10] || [[self proxyDataSourceArray] count]); 
+        self.showsInfiniteScrolling = !dataSourceIsEmptyOrNotABatchOfTen;
+    }
+}
+-(NSMutableArray *)proxyDataSourceArray{
+    return [NSMutableArray array]; //override in subclasses!
 }
 
 

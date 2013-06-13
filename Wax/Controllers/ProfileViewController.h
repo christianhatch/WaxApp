@@ -14,5 +14,7 @@
 
 @property (nonatomic, strong) PersonObject *person;
 
++(ProfileViewController *)profileViewControllerFromUserID:(NSString *)userID; 
++(ProfileViewController *)profileViewControllerFromPersonObject:(PersonObject *)person;
 
 @end

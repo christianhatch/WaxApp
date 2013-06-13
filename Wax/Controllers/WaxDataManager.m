@@ -13,20 +13,23 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
 #define kMyFeedKey          @"myFeed"
 #define kProfileFeedKey     @"profileFeed"
 #define kTagFeedKey         @"tagFeed"
+#define kPersonListKey      @"personList"
+
 
 #import "WaxDataManager.h"
 
 
 @interface WaxDataManager ()
 @property (nonatomic, strong) NSString *lastTagID;
-@property (nonatomic, strong) NSString *lastUserID; 
+@property (nonatomic, strong) NSString *lastFeedUserID;
+@property (nonatomic, strong) NSString *lastPersonListUserID; 
 @end
 
 @implementation WaxDataManager
 @synthesize homeFeed = _homeFeed, myFeed = _myFeed, notifications = _notifications; 
 @synthesize categories = _categories, discoverArray = _discoverArray;
-@synthesize profileFeed = _profileFeed, tagFeed = _tagFeed;
-@synthesize lastTagID = _lastTagID, lastUserID = _lastUserID; 
+@synthesize profileFeed = _profileFeed, tagFeed = _tagFeed, personList = _personList; 
+@synthesize lastTagID = _lastTagID, lastFeedUserID = _lastFeedUserID, lastPersonListUserID = _lastPersonListUserID; 
 
 #pragma mark - Alloc & Init
 + (WaxDataManager *)sharedManager {
@@ -61,7 +64,7 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
         if (!error) {
             self.categories = list;
         }else{
-//            VLog(@"error updating categories %@", error);
+
         }
         if (completion) {
             completion(error);
@@ -86,7 +89,7 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
     NSParameterAssert(personID);
     NSParameterAssert(!infiniteScroll || infiniteScroll == YES);
     
-    NSNumber *infiniteID = [self infiniteIDFromTag:personID refresh:!infiniteScroll];
+    NSNumber *infiniteID = [self infiniteIDForFeedFromUserID:personID refresh:!infiniteScroll];
     
     [[WaxAPIClient sharedClient] fetchFeedForUserID:personID infiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
         [self handleUpdatingValueForKey:kProfileFeedKey withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
@@ -114,6 +117,26 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
         [self handleUpdatingValueForKey:kTagFeedKey withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
     }]; 
 }
+-(void)updatePersonListForFollowersWithUserID:(NSString *)userID withInfiniteScroll:(BOOL)infiniteScroll completion:(WaxDataManagerCompletionBlockTypeSimple)completion{
+    
+    NSParameterAssert(userID);
+    NSParameterAssert(!infiniteScroll || infiniteScroll == YES);
+
+    NSNumber *infiniteID = [self infiniteIDForPersonListFromUserID:userID refresh:!infiniteScroll];
+    [[WaxAPIClient sharedClient] fetchFollowersForUserID:userID infiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
+        [self handleUpdatingValueForKey:kPersonListKey withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error]; 
+    }];
+}
+-(void)updatePersonListForFollowingWithUserID:(NSString *)userID withInfiniteScroll:(BOOL)infiniteScroll completion:(WaxDataManagerCompletionBlockTypeSimple)completion{
+    
+    NSParameterAssert(userID);
+    NSParameterAssert(!infiniteScroll || infiniteScroll == YES);
+
+    NSNumber *infiniteID = [self infiniteIDForPersonListFromUserID:userID refresh:!infiniteScroll];
+    [[WaxAPIClient sharedClient] fetchFollowingForUserID:userID infiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
+        [self handleUpdatingValueForKey:kPersonListKey withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
+    }];
+}
 
 +(NSNumber *)infiniteScrollingIDFromArray:(NSMutableArray *)feed{
         
@@ -126,9 +149,9 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
     }
     return infinite;
 }
--(NSNumber *)infiniteIDFromUserID:(NSString *)userID refresh:(BOOL)refresh{
-    self.lastUserID = userID;
-    if ((![self.lastUserID isEqualToString:userID]) || refresh) {
+-(NSNumber *)infiniteIDForFeedFromUserID:(NSString *)userID refresh:(BOOL)refresh{
+    self.lastFeedUserID = userID;
+    if ((![self.lastFeedUserID isEqualToString:userID]) || refresh) {
         return nil;
     }else{
         return [WaxDataManager infiniteScrollingIDFromArray:self.profileFeed];
@@ -142,7 +165,14 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
         return [WaxDataManager infiniteScrollingIDFromArray:self.tagFeed]; 
     }
 }
-
+-(NSNumber *)infiniteIDForPersonListFromUserID:(NSString *)userID refresh:(BOOL)refresh{
+    self.lastPersonListUserID = userID;
+    if ((![self.lastPersonListUserID isEqualToString:userID]) || refresh) {
+        return nil;
+    }else{
+        return [WaxDataManager infiniteScrollingIDFromArray:self.personList];
+    }
+}
 
 #pragma mark - Setters
 -(void)setCategories:(NSMutableArray *)categories{

@@ -19,8 +19,9 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *profilePictureView;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *followersLabel;
-@property (strong, nonatomic) IBOutlet UILabel *followingLabel;
+
+@property (strong, nonatomic) IBOutlet UIButton *followersButton;
+@property (strong, nonatomic) IBOutlet UIButton *followingButton;
 
 @property (strong, nonatomic) IBOutlet UIButton *talentsButton;
 @property (strong, nonatomic) IBOutlet UIButton *followButton;
@@ -28,6 +29,8 @@
 
 - (IBAction)talentsButonAction:(id)sender;
 - (IBAction)followButtonAction:(id)sender;
+- (IBAction)followersButtonAction:(id)sender;
+- (IBAction)followingButtonAction:(id)sender;
 
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "FeedCell.h"
+#import "ProfileViewController.h"
 
 @implementation FeedCell
 @synthesize profilePictureView, usernameLabel, timestampLabel, moviePlayer = _moviePlayer, competitionLabel, rankLabel, actionButton, challengeButton, voteButton, videoObject = _videoObject;
@@ -14,8 +15,13 @@
 -(void)setUpView{
     VideoObject *video = self.videoObject;
 
+    __block FeedCell *blockSelf = self;
     [self.profilePictureView setImageWithURL:[NSURL profilePictureURLFromUserID:video.userID] placeholderImage:nil animated:YES andEnableAsButtonWithButtonHandler:^(UIImageView *imageView) {
-        DLog(@"show profile yay!");
+        
+        ProfileViewController *pvc = [ProfileViewController profileViewControllerFromUserID:blockSelf.videoObject.userID];
+        UIViewController *vc = [blockSelf nearestViewController];
+        [vc.navigationController pushViewController:pvc animated:YES];
+        
     } completion:nil];
     
     [self addSubview:self.moviePlayer];
@@ -32,6 +38,8 @@
     if (_videoObject != videoObject) {
         _videoObject = videoObject;
         [self setUpView];
+    }else{
+        [self.moviePlayer resetMoviePlayer];
     }
 }
 
@@ -52,11 +60,11 @@
 
 #pragma mark - IBActions
 - (IBAction)actionButtonAction:(id)sender {
-    DLog(@"present sharing actionsheet"); 
+    [SVProgressHUD showErrorWithStatus:@"feature coming soon!"]; 
 }
 
 - (IBAction)challengeButtonAction:(id)sender {
-    DLog(@"present challenge actionsheet"); 
+    [SVProgressHUD showErrorWithStatus:@"feature coming soon!"];
 }
 
 - (IBAction)voteButtonAction:(id)sender {

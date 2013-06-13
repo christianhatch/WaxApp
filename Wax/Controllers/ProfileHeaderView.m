@@ -7,14 +7,15 @@
 //
 
 #import "ProfileHeaderView.h"
+#import "PersonListViewController.h"
 
 @interface ProfileHeaderView ()
 @property (nonatomic, strong) NSString *userID; 
 @end
 
 @implementation ProfileHeaderView
-@synthesize profilePictureView = _profilePictureView, nameLabel = _nameLabel, followersLabel = _followersLabel, followingLabel = _followingLabel;
-@synthesize followButton = _followButton, talentsButton = _talentsButton;
+@synthesize profilePictureView = _profilePictureView, nameLabel = _nameLabel;
+@synthesize followButton = _followButton, talentsButton = _talentsButton, followersButton = _followersButton, followingButton = _followingButton;
 @synthesize person = _person, userID = _userID;
 
 #pragma mark - Alloc & Init
@@ -29,8 +30,9 @@
     [self.profilePictureView setImageWithURL:[NSURL profilePictureURLFromUserID:person.userID] placeholderImage:nil animated:YES completion:nil];
    
     self.nameLabel.text = person.username;
-    self.followersLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@ Followers", @"%@ Followers"), person.followersCount];
-    self.followingLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@ Following", @"%@ Following"), person.followingCount];
+    
+    [self.followersButton setTitleForAllControlStates:[NSString stringWithFormat:NSLocalizedString(@"%@ Followers", @"%@ Followers"), person.followersCount]];
+    [self.followingButton setTitleForAllControlStates:[NSString stringWithFormat:NSLocalizedString(@"%@ Following", @"%@ Following"), person.followingCount]];
    
     [self.talentsButton setTitleForAllControlStates:NSLocalizedString(@"Talents", @"Talents")];
     [self setUpFollowingLabel]; 
@@ -71,6 +73,18 @@
     }
 }
 
+- (IBAction)followersButtonAction:(id)sender {
+    PersonListViewController *plvc = [PersonListViewController personListViewControllerForFollowersFromUserID:self.person.userID];
+    UIViewController *vc = [self nearestViewController];
+    [vc.navigationController pushViewController:plvc animated:YES];
+}
+
+- (IBAction)followingButtonAction:(id)sender {
+    PersonListViewController *plvc = [PersonListViewController personListViewControllerForFollowingFromUserID:self.person.userID];
+    UIViewController *vc = [self nearestViewController];
+    [vc.navigationController pushViewController:plvc animated:YES];
+}
+
 #pragma mark - Convenience Methods
 -(void)setUpFollowingLabel{
     NSAssert(self.person, @"Must have a person object set on profile header to setup follow button!");
@@ -86,7 +100,7 @@
 }
 
 -(void)fetchProfileInfoAndUpdateUI{
-    [[WaxAPIClient sharedClient] fetchProfileInformationForUser:self.userID completion:^(PersonObject *person, NSError *error) {
+    [[WaxAPIClient sharedClient] fetchProfileInformationForUserID:self.userID completion:^(PersonObject *person, NSError *error) {
         if (!error) {
             self.person = person;
         }else{
