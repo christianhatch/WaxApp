@@ -178,9 +178,7 @@
                     DLog(@"video upload failed with error %@", error);
                     
                     if(error.domain != NSURLErrorDomain && error.code != -999){
-                        [[AIKErrorManager sharedManager] showAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion buttonHandler:^{
-                            
-                        }];
+                        [[AIKErrorManager sharedManager] showAlertWithTitle:error.localizedDescription error:error buttonHandler:nil logError:NO];
                     }
                 }
             }];
@@ -216,9 +214,7 @@
                     DLog(@"thumb upload failed with error %@", error);
                     
                     if(error.domain != NSURLErrorDomain && error.code != -999){
-                        [[AIKErrorManager sharedManager] showAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion buttonHandler:^{
-                            
-                        }];
+                        [[AIKErrorManager sharedManager] showAlertWithTitle:error.localizedDescription error:error buttonHandler:nil logError:NO]; 
                     }
                 }
             }];
@@ -254,9 +250,7 @@
                             self.currentUpload.metadataStatus = UploadStatusFailed;
                             
                             if(error.domain != NSURLErrorDomain && error.code != -999){
-                                [[AIKErrorManager sharedManager] showAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion buttonHandler:^{
-                                    
-                                }];
+                                [[AIKErrorManager sharedManager] showAlertWithTitle:error.localizedDescription error:error buttonHandler:nil logError:NO];
                             }
                         }
                     }];

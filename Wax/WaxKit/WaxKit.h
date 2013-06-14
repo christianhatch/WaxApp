@@ -22,6 +22,24 @@
 #import "WaxDataManager.h" 
 #import "VideoUploadManager.h"
 
+//views
+#import "CategoryTableView.h"
+#import "FeedTableView.h"
+#import "FeedCell.h"
+#import "PersonTableView.h"
+#import "PersonCell.h"
+#import "ProfileHeaderView.h"
+
+//viewcontrollers
+#import "WaxTabBarController.h"
+#import "HomeViewController.h"
+#import "DiscoverViewController.h"
+#import "NotificationsViewController.h"
+#import "FeedViewController.h"
+#import "ProfileViewController.h"
+#import "PersonListViewController.h"
+
+
 //Models
 #import "LoginObject.h"
 #import "SettingsObject.h"

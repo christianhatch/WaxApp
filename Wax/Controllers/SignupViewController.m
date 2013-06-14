@@ -112,27 +112,27 @@
         if ([NSString isEmptyOrNil:self.emailField.text]) {
             [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"No Username", @"No Username") message:NSLocalizedString(@"Please choose a username", @"Please choose a username") buttonHandler:^{
                 [self.usernameField becomeFirstResponder];
-            }];
+            } logError:NO];
         }else{
             [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"Username Too Short", @"Username Too Short") message:NSLocalizedString(@"Your username must be at least 2 characters long.", @"Your username must be at least 2 characters long.") buttonHandler:^{
                 [self.usernameField becomeFirstResponder];
-            }];
+            } logError:NO];
         }
     }else if ([NSString isEmptyOrNil:self.emailField.text]) {
         verified = NO;
         [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"No Email", @"No Email") message:NSLocalizedString(@"Please enter your email address", @"Please enter your email address") buttonHandler:^{
             [self.emailField becomeFirstResponder];
-        }];
+        } logError:NO];
     }else if (!self.facebookSignup && [NSString isEmptyOrNil:self.passwordField.text]) {
         verified = NO;
         [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"No Password", @"No Password") message:NSLocalizedString(@"Please choose a password", @"Please choose a password") buttonHandler:^{
             [self.passwordField becomeFirstResponder];
-        }];
+        } logError:NO];
     }else if (!self.facebookSignup && !self.profilePictureButton.imageView.image) {
         verified = NO;
         [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"No Profile Picture", @"No Profile Picture") message:NSLocalizedString(@"Please choose a profile picture", @"Please choose a profile picture") buttonHandler:^{
             [self profilePicture:self];
-        }];
+        } logError:NO];
     }
     
     return verified;

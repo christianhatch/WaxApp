@@ -82,12 +82,12 @@
         verified = NO;
         [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"No Competition", @"No Competition") message:NSLocalizedString(@"Please enter a competition tag", @"Please enter a competition tag") buttonHandler:^{
             [self.tagField becomeFirstResponder]; 
-        }];
+        } logError:NO];
     }else if ([self.categoryButton.titleLabel.text isEqualToString:NSLocalizedString(@"Choose Category", @"Choose Category")]){
         verified = NO;
         [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"No Category", @"No Category") message:NSLocalizedString(@"Please choose a category", @"Please choose a category") buttonHandler:^{
             [self.tagField becomeFirstResponder];
-        }];
+        } logError:NO];
     }
     
     return verified; 

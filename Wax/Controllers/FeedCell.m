@@ -60,7 +60,12 @@
 
 #pragma mark - IBActions
 - (IBAction)actionButtonAction:(id)sender {
-    [SVProgressHUD showErrorWithStatus:@"feature coming soon!"]; 
+    UIActionSheet *sheet =  [[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:nil destructiveButtonItem:nil otherButtonItems:[self flagButton], nil];
+    if (self.videoObject.isMine) {
+        [sheet addButtonItem:[self deleteButton]];
+    }
+    [sheet setCancelButtonIndex:[sheet addButtonItem:[RIButtonItem cancelButton]]];
+    [sheet showInView:self];
 }
 
 - (IBAction)challengeButtonAction:(id)sender {
@@ -84,6 +89,44 @@
     self.voteButton.enabled = !self.videoObject.didVote;
     [self.voteButton setTitleForAllControlStates:self.videoObject.didVote ? NSLocalizedString(@"Voted!", @"Voted!") : NSLocalizedString(@"Vote Up!", @"Vote Up!")];
 }
+-(RIButtonItem *)flagButton{
+    
+    RIButtonItem *confirmFlag = [RIButtonItem itemWithLabel:NSLocalizedString(@"Report Innapropriate", @"Feed cell report innapropriate button label")];
+    confirmFlag.action = ^{
+        RIButtonItem *flag = [RIButtonItem itemWithLabel:NSLocalizedString(@"Report", @"Report")];
+        flag.action = ^{
+            [[WaxAPIClient sharedClient] performAction:WaxAPIClientVideoActionTypeReport onVideoID:self.videoObject.videoID completion:^(BOOL complete, NSError *error) {
+                if (!error) {
+                    [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"Thank You", @"Thank You") message:NSLocalizedString(@"Thank you for reporting this video. Our team will review it right away", @"Feed cell thank you for flagging video") buttonTitle:NSLocalizedString(@"You're Welcome", @"You're Welcome") buttonHandler:nil logError:NO];
+                }else{
+                    [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"Error Reporting Video", @"Error Reporting Video") error:error buttonHandler:nil logError:NO]; 
+                }
+            }];
+        };
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Are You Sure?", @"Are You Sure?") message:NSLocalizedString(@"Are you sure you want to flag this video as innapropriate?", @"Feed cell flag confirmation label") cancelButtonItem:[RIButtonItem cancelButton] otherButtonItems:flag, nil] show];
+    };
+    return confirmFlag; 
+}
+-(RIButtonItem *)deleteButton{
+
+    RIButtonItem *confirmDelete = [RIButtonItem itemWithLabel:NSLocalizedString(@"Delete Video", @"Feed cell delete video button label")];
+    confirmDelete.action = ^{
+        RIButtonItem *delete = [RIButtonItem itemWithLabel:NSLocalizedString(@"Delete", @"Delete")];
+        delete.action = ^{
+            [[WaxAPIClient sharedClient] performAction:WaxAPIClientVideoActionTypeDelete onVideoID:self.videoObject.videoID completion:^(BOOL complete, NSError *error) {
+                FeedTableView *table = (FeedTableView *)[self superview];
+                [table deleteCellAtIndexPath:[table indexPathForCell:self]];
+            }];
+        };
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Are You Sure?", @"Are You Sure?") message:NSLocalizedString(@"Are you sure you want to delete your video?", @"Feed cell delete confirmation label") cancelButtonItem:[RIButtonItem cancelButton] otherButtonItems:delete, nil] show];
+    };
+    return confirmDelete;
+}
+
+
+
+
+
 
 
 

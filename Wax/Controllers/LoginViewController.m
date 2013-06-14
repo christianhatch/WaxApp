@@ -62,7 +62,7 @@
 }
 -(void)forgotPassword:(id)sender{
     
-    [[AIKErrorManager sharedManager] showAlertWithTitle:@"Soon!" message:@"We'll have this up and running in a jiffy, so don't forget your password just yet!" buttonHandler:nil];
+    [[AIKErrorManager sharedManager] showAlertWithTitle:@"Soon!" message:@"We'll have this up and running in a jiffy, so don't forget your password just yet!" buttonHandler:nil logError:NO];
     
 }
 -(void)login:(id)sender{

@@ -59,4 +59,13 @@
     return descrippy;
 }
 
+#pragma mark - Public API
+-(BOOL)isMine{
+    return [WaxUser userIDIsCurrentUser:self.userID];
+}
+
+
+
+
+
 @end

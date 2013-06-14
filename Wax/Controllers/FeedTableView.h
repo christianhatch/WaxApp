@@ -29,6 +29,7 @@ typedef NS_ENUM(NSInteger, FeedTableViewType){
 
 -(instancetype)initWithFeedTableViewType:(FeedTableViewType)feedtype tagOrUserID:(NSString *)tagOrUserID frame:(CGRect)frame;
 
+-(void)deleteCellAtIndexPath:(NSIndexPath *)indexPath;
 
 @property (nonatomic) FeedTableViewType tableViewType;
 

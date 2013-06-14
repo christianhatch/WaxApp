@@ -29,5 +29,6 @@
 #pragma mark - info about the current user's relationship to the video
 @property (nonatomic, assign) BOOL didVote;
 
+-(BOOL)isMine; 
 
 @end

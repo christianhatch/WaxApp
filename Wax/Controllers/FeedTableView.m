@@ -70,6 +70,10 @@
     [super didMoveToSuperview];
     [self triggerPullToRefresh]; 
 }
+-(void)deleteCellAtIndexPath:(NSIndexPath *)indexPath{
+    [[self proxyDataSourceArray] removeObjectAtIndex:indexPath.row];
+    [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft]; 
+}
 #pragma mark - Internal Methods
 -(void)refreshDataWithInfiniteScroll:(BOOL)infiniteScroll{
     switch (self.tableViewType) {

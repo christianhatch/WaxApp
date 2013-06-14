@@ -465,7 +465,7 @@ static inline BOOL PathRequiresArray(NSString *path){
                 if (completion) {
                     completion(nil, error);
                 }
-            }];
+            } logError:NO];
         }
     }];
 }
@@ -504,7 +504,7 @@ static inline BOOL PathRequiresArray(NSString *path){
                 if (completion) {
                     completion(nil, error);
                 }
-            }];
+            } logError:NO];
         }
     }];
     
