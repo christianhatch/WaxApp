@@ -408,6 +408,21 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         }
     ];
 }
+-(void)connectFacebookWithCompletion:(WaxUserCompletionBlockTypeSimple)completion{
+    [[AIKFacebookManager sharedManager] connectFacebookWithCompletion:^(id<FBGraphUser> user, NSError *error) {
+        if (!error) {
+            [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"Error logging into Facebook", @"Error logging into Facebook") error:error buttonHandler:nil];
+        }else{
+            [[WaxAPIClient sharedClient] connectFacebookAccountWithFacebookID:user.id completion:^(BOOL complete, NSError *error) {
+                if (!error) {
+                    [self saveFacebookAccountID:user.id];
+                }else{
+                    [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"Error Connecting Facebook to Wax", @"Error Connecting Facebook to Wax") error:error buttonHandler:nil];
+                }
+            }];
+        }
+    }];
+}
 +(void)resetForInitialLaunch{
     [[WaxUser currentUser] saveToken:kFalseString];
     [[WaxUser currentUser] saveUserID:kFalseString];

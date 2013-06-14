@@ -396,7 +396,7 @@ static inline BOOL PathRequiresArray(NSString *path){
         }
     }];
 }
--(void)updateSettings:(NSString *)email fullName:(NSString *)fullName pushSettings:(NSDictionary *)pushSettings completion:(WaxAPIClientBlockTypeCompletionSettings)completion{
+-(void)updateSettingsWithEmail:(NSString *)email fullName:(NSString *)fullName pushSettings:(NSDictionary *)pushSettings completion:(WaxAPIClientBlockTypeCompletionSettings)completion{
     
     NSParameterAssert(email);
     NSParameterAssert(fullName);
@@ -408,8 +408,16 @@ static inline BOOL PathRequiresArray(NSString *path){
         }
     }];
 }
+-(void)connectFacebookAccountWithFacebookID:(NSString *)facebookID completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
 
-
+    NSParameterAssert(facebookID);
+    
+    [self postPath:@"settings/facebook_connect" parameters:@{@"facebookid": facebookID} modelClass:nil completionBlock:^(id model, NSError *error) {
+        if (completion) {
+            completion(SimpleReturnFromAPIResponse(model), error); 
+        }
+    }]; 
+}
 #pragma mark - Internal Methods
 -(void)fetchFeedFromPath:(NSString *)path tagOrPersonID:(NSString *)tagOrPersonID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
 

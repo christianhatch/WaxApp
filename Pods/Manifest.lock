@@ -1,31 +1,16 @@
 PODS:
-  - InterAppCommunication (1.0)
-  - KGNoise@tonyzonghui (1.2.0)
   - Lockbox (1.4.2)
-  - OpenInChrome (0.0.1)
-  - STTweetLabel (2.2.2)
   - SVProgressHUD (0.9)
   - SVPullToRefresh (0.4.1)
-  - TSMessages (0.9.3)
 
 DEPENDENCIES:
-  - InterAppCommunication
-  - KGNoise@tonyzonghui
   - Lockbox
-  - OpenInChrome
-  - STTweetLabel
   - SVProgressHUD
   - SVPullToRefresh
-  - TSMessages
 
 SPEC CHECKSUMS:
-  InterAppCommunication: 8b5c768edf16414947f4fae4d15a86cc38ddbf8c
-  KGNoise@tonyzonghui: 632e5363cde4cbaba10876d50a68a2123a0f30e8
   Lockbox: d1be948dcf7ef9e584ee9d56787728f99336e87f
-  OpenInChrome: 4990ae561b1c8e38caa6fc6c346f4565f6c37bfb
-  STTweetLabel: 9d93c324a4ecf5b9e6d73b5ff2b4813e4a8adc91
   SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
   SVPullToRefresh: 61a0e4bd12bd6f8e3465909810b0fbeb1a28d5f2
-  TSMessages: e741d102e8291074b4ee7545b53c90ed5f220dd5
 
 COCOAPODS: 0.20.2

@@ -227,9 +227,12 @@ typedef NS_ENUM(NSInteger, WaxAPIClientVideoActionType){
 -(void)fetchDiscoverWithCompletion:(WaxAPIClientBlockTypeCompletionList)completion;
 
 #pragma mark - Settings
+-(void)connectFacebookAccountWithFacebookID:(NSString *)facebookID
+                                 completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
+
 -(void)fetchSettingsWithCompletion:(WaxAPIClientBlockTypeCompletionSettings)completion;
 
--(void)updateSettings:(NSString *)email
+-(void)updateSettingsWithEmail:(NSString *)email
              fullName:(NSString *)fullName
          pushSettings:(NSDictionary *)pushSettings
            completion:(WaxAPIClientBlockTypeCompletionSettings)completion;

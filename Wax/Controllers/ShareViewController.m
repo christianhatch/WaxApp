@@ -57,15 +57,18 @@
     }
 }
 -(void)facebookSwitchToggled:(UISwitch *)sender{
-    //authorize facebook
-
+    if (![[WaxUser currentUser] facebookAccountConnected]) {
+        [[WaxUser currentUser] connectFacebookWithCompletion:^(NSError *error) {
+            [sender setOn:(error == nil) animated:YES];
+        }];
+    }
 }
 -(void)twitterSwitchToggled:(UISwitch *)sender{
-    //authorizetwitter
-    
-    [[WaxUser currentUser] chooseTwitterAccountWithCompletion:^(NSError *error) {
-        [sender setOn:(error == nil) animated:YES];
-    }];
+    if (![[WaxUser currentUser] twitterAccountConnected]) {
+        [[WaxUser currentUser] chooseTwitterAccountWithCompletion:^(NSError *error) {
+            [sender setOn:(error == nil) animated:YES];
+        }];
+    }
 }
 -(void)chooseCategory:(UIButton *)sender{
     [CategoryChooserViewController chooseCategoryWithCompletionBlock:^(NSString *category) {

@@ -76,6 +76,7 @@ typedef void(^WaxUserCompletionBlockTypeProfilePicture)(UIImage *profilePicture,
 -(BOOL)twitterAccountConnected;
 -(BOOL)facebookAccountConnected;
 -(void)chooseTwitterAccountWithCompletion:(WaxUserCompletionBlockTypeSimple)completion;
+-(void)connectFacebookWithCompletion:(WaxUserCompletionBlockTypeSimple)completion; 
 
 +(BOOL)userIDIsCurrentUser:(NSString *)userID;
 +(void)resetForInitialLaunch;
