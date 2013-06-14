@@ -24,17 +24,20 @@
 
 //the video
 @property (strong, nonatomic) AIKMoviePlayer *moviePlayer;
-@property (strong, nonatomic) IBOutlet UILabel *competitionLabel;
+@property (strong, nonatomic) IBOutlet UIButton *competitionNameButton;
 @property (strong, nonatomic) IBOutlet UILabel *rankLabel;
 
 //action buttons
 @property (strong, nonatomic) IBOutlet UIButton *actionButton;
 @property (strong, nonatomic) IBOutlet UIButton *challengeButton;
 @property (strong, nonatomic) IBOutlet UIButton *voteButton;
+@property (strong, nonatomic) IBOutlet UIButton *shareButton;
 
 - (IBAction)actionButtonAction:(id)sender;
 - (IBAction)challengeButtonAction:(id)sender;
 - (IBAction)voteButtonAction:(id)sender;
+- (IBAction)shareButtonAction:(id)sender;
+- (IBAction)competitionNameButtonAction:(id)sender;
 
 
 

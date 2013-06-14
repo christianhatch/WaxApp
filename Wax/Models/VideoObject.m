@@ -63,7 +63,18 @@
 -(BOOL)isMine{
     return [WaxUser userIDIsCurrentUser:self.userID];
 }
-
+-(NSString *)sharingString{
+    
+    NSString *sharing = nil;
+    
+    if (self.isMine) {
+        sharing = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Check out my video on Wax!", @"String for sharing link to user's own video"), [NSURL shareURLFromShareID:self.shareID]];
+    }else{
+        sharing = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Check out this video on Wax!", @"String for sharing link to another user's video"), [NSURL shareURLFromShareID:self.shareID]];
+    }
+    
+    return sharing; 
+}
 
 
 

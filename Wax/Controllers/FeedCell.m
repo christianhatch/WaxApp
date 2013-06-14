@@ -6,12 +6,36 @@
 //  Copyright (c) 2013 Christian Hatch. All rights reserved.
 //
 
+static inline NSString *stringFromActivityType(NSString *activityType){
+    NSString *type = nil; 
+    if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
+        type = @"Copy to Clipboard";
+    }else if ([activityType isEqualToString:UIActivityTypeMail]){
+        type = @"Email";
+    }else if ([activityType isEqualToString:UIActivityTypeMessage]){
+        type = @"Text or iMessage";
+    }else if ([activityType isEqualToString:UIActivityTypePostToFacebook]){
+        type = @"Facebook";
+    }else if ([activityType isEqualToString:UIActivityTypePostToTwitter]){
+        type = @"Twitter";
+    }else{
+        type = activityType; 
+    }
+    return type;
+}
+
+
 #import "FeedCell.h"
 #import "ProfileViewController.h"
 
 @implementation FeedCell
-@synthesize profilePictureView, usernameLabel, timestampLabel, moviePlayer = _moviePlayer, competitionLabel, rankLabel, actionButton, challengeButton, voteButton, videoObject = _videoObject;
+@synthesize profilePictureView, usernameLabel, timestampLabel, moviePlayer = _moviePlayer, competitionNameButton, rankLabel, actionButton, challengeButton, voteButton, shareButton, videoObject = _videoObject;
 
+-(void)awakeFromNib{
+    [self.challengeButton setTitleForAllControlStates:NSLocalizedString(@"Challenge", @"Challenge")];
+    [self.shareButton setTitleForAllControlStates:NSLocalizedString(@"Share", @"Share")]; 
+    [self.voteButton setTitleColor:[UIColor orangeColor] forState:UIControlStateDisabled];
+}
 -(void)setUpView{
     VideoObject *video = self.videoObject;
 
@@ -28,10 +52,10 @@
 
     self.usernameLabel.text = video.username;
     self.timestampLabel.text = video.timeStamp;
-    self.competitionLabel.text = video.tag;
+    
+    [self.competitionNameButton setTitleForAllControlStates:video.tag]; 
     self.rankLabel.text = [NSString stringWithFormat:@"%@/%@", video.rank, video.tagCount];
     
-    [self.challengeButton setTitleForAllControlStates:NSLocalizedString(@"Challenge", @"Challenge")];
     [self setupVoteButton]; 
 }
 -(void)setVideoObject:(VideoObject *)videoObject{
@@ -83,12 +107,40 @@
     }];
 }
 
+- (IBAction)shareButtonAction:(id)sender {
+        
+    UIActivityViewController *share = [[UIActivityViewController alloc] initWithActivityItems:@[self.videoObject.sharingString] applicationActivities:nil];
+    share.completionHandler = ^(NSString *activityType, BOOL completed){
+                
+        if (completed) {
+            [[AIKErrorManager sharedManager] logMessageToAllServices:[NSString stringWithFormat:@"User shared video using %@", stringFromActivityType(activityType)]];
+            
+            if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Link Copied to Clipboard!", @"Copied to Clipboard!")];
+            }
+        }else{
+            [[AIKErrorManager sharedManager] logMessageToAllServices:@"User canceled sharing from feed cell"]; 
+        }
+    }; 
+    
+    [[self nearestViewController] presentViewController:share animated:YES completion:nil];
+}
+
+- (IBAction)competitionNameButtonAction:(id)sender {
+    FeedViewController *pvc = [FeedViewController feedViewControllerWithTag:self.videoObject.tag];
+    UIViewController *vc = [self nearestViewController];
+    [vc.navigationController pushViewController:pvc animated:YES];
+}
+
 
 #pragma mark - Convenience Methods
 -(void)setupVoteButton{
     self.voteButton.enabled = !self.videoObject.didVote;
     [self.voteButton setTitleForAllControlStates:self.videoObject.didVote ? NSLocalizedString(@"Voted!", @"Voted!") : NSLocalizedString(@"Vote Up!", @"Vote Up!")];
 }
+
+
+
 -(RIButtonItem *)flagButton{
     
     RIButtonItem *confirmFlag = [RIButtonItem itemWithLabel:NSLocalizedString(@"Report Innapropriate", @"Feed cell report innapropriate button label")];

@@ -30,5 +30,6 @@
 @property (nonatomic, assign) BOOL didVote;
 
 -(BOOL)isMine; 
+-(NSString *)sharingString;
 
 @end
