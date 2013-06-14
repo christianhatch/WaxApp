@@ -24,6 +24,9 @@
     
     for (UIImageView *imageView in @[self.thumbPreview1, self.thumbPreview2, self.thumbPreview3, self.thumbPreview4, self.thumbPreview5, self.thumbPreview6]) {
         imageView.clipsToBounds = YES;
+        imageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        imageView.layer.borderWidth = 0.04f;
+        
         [imageView enableAsButtonWithButtonHandler:^(UIImageView *imageView) {
             
             [[VideoUploadManager sharedManager] addThumbnailImage:imageView.image withOrientation:self.videoOrientation];
@@ -41,27 +44,24 @@
     for (int i = 1; i < 8; i++) {
         CGFloat multiplied = (float)intervalTime * i; 
         [times addObject:[NSNumber numberWithFloat:multiplied]];
-    }    
+    }
+    
     [self.player requestThumbnailImagesAtTimes:times timeOption:MPMovieTimeOptionExact];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-}
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-}
+
 -(void)setUpView{
     self.directionsLabel.text = NSLocalizedString(@"Choose a thumbnail for your video by tapping one", @"Choose a thumbnail for your video by tapping one");
-    self.navigationItem.title = NSLocalizedString(@"Choose Thumbnail", @"Choose Thumbnail");
+    self.navigationItem.title = NSLocalizedString(@"Thumbnail", @"Thumbnail");
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
 }
 -(void)cancel:(id)sender{
     [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithBlock:^(BOOL cancelled) {
         if (cancelled) {
+            [AIKErrorManager logMessageToAllServices:@"User canceled from thumbnail chooser"];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];

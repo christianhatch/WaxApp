@@ -325,7 +325,7 @@ static inline BOOL PathRequiresArray(NSString *path){
     
     if (videoID) {
         [self postPath:@"videos/cancel_upload" parameters:@{@"videoid": videoID} modelClass:nil completionBlock:^(id model, NSError *error) {
-            [[AIKErrorManager sharedManager] logMessageToAllServices:@"User canceled the upload of video"];
+            [AIKErrorManager logMessageToAllServices:@"User canceled the upload of video"];
         }];
     }
 }
@@ -461,7 +461,7 @@ static inline BOOL PathRequiresArray(NSString *path){
                 completion(nil, error);
             }
         }else{
-            [[AIKErrorManager sharedManager] showAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion buttonHandler:^{
+            [AIKErrorManager showAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion buttonHandler:^{
                 if (completion) {
                     completion(nil, error);
                 }
@@ -500,7 +500,7 @@ static inline BOOL PathRequiresArray(NSString *path){
                 completion(nil, error);
             }
         }else{
-            [[AIKErrorManager sharedManager] showAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion buttonHandler:^{
+            [AIKErrorManager showAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion buttonHandler:^{
                 if (completion) {
                     completion(nil, error);
                 }
@@ -562,7 +562,7 @@ static inline BOOL PathRequiresArray(NSString *path){
                     DLog(@"error on api %@", responseObject);
                     NSError *error = [NSError waxAPIErrorFromResponse:[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectForKeyOrNil:@"error"]];
                     if (error.code == 9001) {
-                        [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Logged out for security", @"Logged out for security") error:error andShowAlertWithButtonHandler:^{
+                        [AIKErrorManager logErrorWithMessage:NSLocalizedString(@"Logged out for security", @"Logged out for security") error:error andShowAlertWithButtonHandler:^{
                             [[WaxUser currentUser] logOut];
                         }];
                     }else if (error.code > 9001){

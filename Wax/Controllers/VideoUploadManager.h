@@ -16,9 +16,9 @@
 
 +(VideoUploadManager *)sharedManager;
 
-
 -(void)askToCancelAndDeleteCurrentUploadWithBlock:(void(^)(BOOL cancelled))block;
 
+-(void)beginUploadProcessWithVideoID:(NSString *)videoID competitionTag:(NSString *)tag;
 
 -(void)beginUploadProcessWithVideoFileURL:(NSURL *)videoFileURL videoDuration:(NSNumber *)duration;
 
@@ -36,5 +36,6 @@
 
 @property (nonatomic, strong) UploadObject *currentUpload;
 
+-(NSString *)challengeTag; 
 
 @end

@@ -25,7 +25,7 @@
     NSParameterAssert(userID);
     NSParameterAssert(!following || following == YES);
     
-    self = [super initWithFrame:frame];
+    self = [self initWithFrame:frame];
     if (self) {
         [self addTarget:self action:@selector(toggleFollow:) forControlEvents:UIControlEventTouchUpInside];
         self.userID = userID;
@@ -51,8 +51,17 @@
     NSAssert(self.userID, @"must set userid on followbutton!");
 
     self.enabled = NO;
+    
+    if (self.isFollowing) {
+        [AIKErrorManager logMessageToAllServices:@"User unfollowed another user"];
+    }else{
+        [AIKErrorManager logMessageToAllServices:@"User followed another user"];
+    }
+
+    
     [[WaxAPIClient sharedClient] toggleFollowUserID:self.userID completion:^(BOOL complete, NSError *error) {
-        self.enabled = YES; 
+        self.enabled = YES;
+        
         if (!error) {
             self.following = !self.isFollowing;
         }else{

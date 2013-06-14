@@ -50,6 +50,7 @@ NSString *const kFalseString = @"false";
 NSString *const kWaxNotificationProfilePictureDidChange = @"waxUserProfilePictureDidChangeNotification";
 NSString *const kWaxNotificationTwitterAccountDidChange = @"waxUserTwitterAccountDidChangeNotification"; 
 NSString *const kWaxNotificationFacebookAccountDidChange = @"waxUserFacebookAccountDidChangeNotification"; 
+NSString *const kWaxNotificationPresentVideoCamera = @"waxShowVideoCameraNotification"; 
 
 
 

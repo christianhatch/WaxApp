@@ -27,6 +27,7 @@
     self.delegate = self;
     [self setupTabBarIcons];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSplashScreen) name:WaxUserDidLogOutNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(capture) name:kWaxNotificationPresentVideoCamera object:nil];
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -50,7 +51,7 @@
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
     if ([viewController.title isEqualToString:@"Capture"]){
         [AIKLocationManager getAuthorizationStatusOrAskIfUndetermined];
-        [self capture];
+        [self captureFromTabBar];
         return NO;
     }else if ([viewController.title isEqualToString:@"Me"]){
         UINavigationController *nav = (UINavigationController *)viewController;
@@ -77,9 +78,11 @@
         return YES; 
     }
 }
+-(void)captureFromTabBar{
+    [AIKErrorManager logMessageToAllServices:@"Tapped Record On TabBar"];
+    [self capture]; 
+}
 -(void)capture{
-    [[AIKErrorManager sharedManager] logMessageToAllServices:@"Tapped record on tabbar"];
-    
     [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithBlock:^(BOOL cancelled) {
         if (cancelled) {
             VideoCameraViewController *video = [[VideoCameraViewController alloc] init];

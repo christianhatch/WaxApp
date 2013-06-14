@@ -155,7 +155,7 @@
         }
     }
     @catch (NSException *exception) {
-        [[AIKErrorManager sharedManager] logExceptionWithMessage:@"WaxAutoCompleter selected row and CAUGHT EXCEPTION" exception:exception]; 
+        [AIKErrorManager logExceptionWithMessage:@"WaxAutoCompleter selected row and CAUGHT EXCEPTION" exception:exception]; 
     }
     [self hideOptionsView];
 }

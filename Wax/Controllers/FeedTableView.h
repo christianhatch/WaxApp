@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Christian Hatch. All rights reserved.
 //
 
-
 typedef NS_ENUM(NSInteger, FeedTableViewType){
     FeedTableViewTypeMyFeed = 1,
     FeedTableViewTypeHomeFeed,
@@ -14,6 +13,26 @@ typedef NS_ENUM(NSInteger, FeedTableViewType){
     FeedTableViewTypeCategoryFeed,
     FeedTableViewTypeTagFeed,
 };
+
+static inline NSString * StringFromFeedTableViewType(FeedTableViewType feedtype) {
+    switch (feedtype) {
+        case FeedTableViewTypeMyFeed:
+            return @"MyFeed";
+            break;
+        case FeedTableViewTypeHomeFeed:
+            return @"HomeFeed";
+            break;
+        case FeedTableViewTypeUserFeed:
+            return @"UserFeed";
+            break;
+        case FeedTableViewTypeCategoryFeed:
+            return @"CategoryFeed";
+            break;
+        case FeedTableViewTypeTagFeed:
+            return @"TagFeed";
+            break;
+    }
+}
 
 
 #import "WaxTableView.h"

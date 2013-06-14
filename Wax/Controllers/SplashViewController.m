@@ -23,21 +23,19 @@
     
     [self enableSwipeToPopVC:YES];
         
-
     [self setUpView];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [SVProgressHUD dismiss];
 }
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-}
 -(void)signup:(UIButton *)sender{
     SignupViewController *signupVC = initViewControllerWithIdentifier(@"SignupVC");
     
     if (sender.tag == 2) {
         [SVProgressHUD showWithStatus:NSLocalizedString(@"Logging In With Facebook...", @"Logging In With Facebook...")];
+        
+        [AIKErrorManager logMessageToAllServices:@"User tapped connect with facebook button on splash page"]; 
         
         [[AIKFacebookManager sharedManager] connectFacebookWithCompletion:^(id<FBGraphUser> user, NSError *error) {
             if (!error) {
@@ -60,26 +58,29 @@
             }
         }];
     }else{
+        [AIKErrorManager logMessageToAllServices:@"User tapped signup with email button on splash page"];
+        
         [self.navigationController pushViewController:signupVC animated:YES];
     }
 }
 -(void)login:(id)sender{
+    [AIKErrorManager logMessageToAllServices:@"User tapped login button on splash page"];
+    
     LoginViewController *loginVC = initViewControllerWithIdentifier(@"LoginVC");
     [self.navigationController pushViewController:loginVC animated:YES];
 }
 
 -(void)setUpView{
+    self.navigationItem.title = NSLocalizedString(@"Wax", @"Wax");
+
     [self.signupWithFacebookButton addTarget:self action:@selector(signup:) forControlEvents:UIControlEventTouchUpInside];
     self.signupWithFacebookButton.tag = 2;
     
     [self.signupWithEmailButton addTarget:self action:@selector(signup:) forControlEvents:UIControlEventTouchUpInside];
     [self.loginButton addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
 
-    self.navigationItem.title = NSLocalizedString(@"Wax", @"Wax");
 
-    [self.signupWithFacebookButton setBackgroundImage:[UIImage imageNamed:@"FacebookSDKResources.bundle/login-button-small"] forState:UIControlStateNormal];
-    [self.signupWithFacebookButton setBackgroundImage:[UIImage imageNamed:@"FacebookSDKResources.bundle/login-button-small-pressed"] forState:UIControlStateHighlighted];
-    
+    [self.signupWithFacebookButton setTitleForAllControlStates:NSLocalizedString(@"Connect With Facebook", @"Connect With Facebook")];
     [self.signupWithEmailButton setTitleForAllControlStates:NSLocalizedString(@"Sign Up With Email", @"Sign Up With Email")]; 
     [self.loginButton setTitleForAllControlStates:NSLocalizedString(@"Login", @"Login")]; 
 }

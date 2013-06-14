@@ -59,7 +59,7 @@
             self.fullName = [NSString stringWithFormat:@"%@ %@", graphuser.first_name, graphuser.last_name];
         }
         @catch (NSException *exception) {
-            [[AIKErrorManager sharedManager] logExceptionWithMessage:@"Tried to init person object with a nil fbgraphuser!" exception:exception];
+            [AIKErrorManager logExceptionWithMessage:@"Tried to init person object with a nil fbgraphuser!" exception:exception];
         }
     }
     return self;

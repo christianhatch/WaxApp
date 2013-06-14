@@ -65,7 +65,8 @@
     }
 }
 -(void)profilePicture:(id)sender{
-    
+    [AIKErrorManager logMessageToAllServices:@"User tapped profile picture button on signup page"];
+
     [[WaxUser currentUser] chooseNewprofilePicture:self completion:^(UIImage *profilePicture, NSError *error) {
         if (profilePicture) {
             [self.profilePictureButton setImage:profilePicture forState:UIControlStateNormal animated:YES];
@@ -73,6 +74,8 @@
     }];
 }
 -(void)signup:(id)sender{
+    [AIKErrorManager logMessageToAllServices:@"User tapped signup button on signup page"];
+
     if ([self verifyInputtedData]) {
         [SVProgressHUD showWithStatus:NSLocalizedString(@"Creating Account...", @"Creating Account...")];
         
@@ -80,12 +83,15 @@
 
             if (!error) {
                 if (!self.facebookSignup) {
-                    [[WaxUser currentUser] updateProfilePictureOnServer:self.profilePictureButton.imageView.image andShowUICallbacks:NO completion:^(NSError *error) {
+                    
+                    UIImage *profPic = self.profilePictureButton.imageView.image;
+                    
+                    [[WaxUser currentUser] updateProfilePictureOnServer:profPic andShowUICallbacks:NO completion:^(NSError *error) {
                         if (error) {
-                            [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture") error:error andShowAlertWithButtonHandler:^{
-                                [[WaxUser currentUser] updateProfilePictureOnServer:self.profilePictureButton.imageView.image andShowUICallbacks:NO completion:^(NSError *error) {
+                            [AIKErrorManager logErrorWithMessage:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture") error:error andShowAlertWithButtonHandler:^{
+                                [[WaxUser currentUser] updateProfilePictureOnServer:profPic andShowUICallbacks:NO completion:^(NSError *error) {
                                     if (error) {
-                                        [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture") error:error];
+                                        [AIKErrorManager logErrorWithMessage:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture") error:error];
                                     }
                                 }];
 
@@ -97,7 +103,6 @@
                 [self dismissViewControllerAnimated:YES completion:nil];
             }else{
                 [SVProgressHUD dismiss];
-                
             }
         }];
     }
@@ -110,27 +115,27 @@
     if (self.usernameField.text.length < 3) {
         verified = NO;
         if ([NSString isEmptyOrNil:self.emailField.text]) {
-            [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"No Username", @"No Username") message:NSLocalizedString(@"Please choose a username", @"Please choose a username") buttonHandler:^{
+            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"No Username", @"No Username") message:NSLocalizedString(@"Please choose a username", @"Please choose a username") buttonHandler:^{
                 [self.usernameField becomeFirstResponder];
             } logError:NO];
         }else{
-            [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"Username Too Short", @"Username Too Short") message:NSLocalizedString(@"Your username must be at least 2 characters long.", @"Your username must be at least 2 characters long.") buttonHandler:^{
+            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Username Too Short", @"Username Too Short") message:NSLocalizedString(@"Your username must be at least 2 characters long.", @"Your username must be at least 2 characters long.") buttonHandler:^{
                 [self.usernameField becomeFirstResponder];
             } logError:NO];
         }
     }else if ([NSString isEmptyOrNil:self.emailField.text]) {
         verified = NO;
-        [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"No Email", @"No Email") message:NSLocalizedString(@"Please enter your email address", @"Please enter your email address") buttonHandler:^{
+        [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"No Email", @"No Email") message:NSLocalizedString(@"Please enter your email address", @"Please enter your email address") buttonHandler:^{
             [self.emailField becomeFirstResponder];
         } logError:NO];
     }else if (!self.facebookSignup && [NSString isEmptyOrNil:self.passwordField.text]) {
         verified = NO;
-        [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"No Password", @"No Password") message:NSLocalizedString(@"Please choose a password", @"Please choose a password") buttonHandler:^{
+        [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"No Password", @"No Password") message:NSLocalizedString(@"Please choose a password", @"Please choose a password") buttonHandler:^{
             [self.passwordField becomeFirstResponder];
         } logError:NO];
     }else if (!self.facebookSignup && !self.profilePictureButton.imageView.image) {
         verified = NO;
-        [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"No Profile Picture", @"No Profile Picture") message:NSLocalizedString(@"Please choose a profile picture", @"Please choose a profile picture") buttonHandler:^{
+        [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"No Profile Picture", @"No Profile Picture") message:NSLocalizedString(@"Please choose a profile picture", @"Please choose a profile picture") buttonHandler:^{
             [self profilePicture:self];
         } logError:NO];
     }

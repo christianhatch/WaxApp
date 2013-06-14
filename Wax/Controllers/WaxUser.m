@@ -136,7 +136,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         if (!error) {
             [self finishLoggingInAndSaveUserInformation:loginResponse completion:completion];
         }else{
-            [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Creating Account", @"Problem Creating Account") error:error andShowAlertWithButtonHandler:^{
+            [AIKErrorManager logErrorWithMessage:NSLocalizedString(@"Problem Creating Account", @"Problem Creating Account") error:error andShowAlertWithButtonHandler:^{
                 
             }];
             if (completion) {
@@ -151,7 +151,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         if (!error) {
             [self finishLoggingInAndSaveUserInformation:loginResponse completion:completion];
         }else{
-            [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Logging in via Facebook", @"Problem Logging in via Facebook") error:error andShowAlertWithButtonHandler:^{
+            [AIKErrorManager logErrorWithMessage:NSLocalizedString(@"Problem Logging in via Facebook", @"Problem Logging in via Facebook") error:error andShowAlertWithButtonHandler:^{
                 
             }];
             if (completion) {
@@ -165,7 +165,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         if (!error) {
             [self finishLoggingInAndSaveUserInformation:loginResponse completion:completion];
         }else{
-            [[AIKErrorManager sharedManager] logErrorWithMessage:NSLocalizedString(@"Problem Logging in via Email", @"Problem Logging in via Email") error:error andShowAlertWithButtonHandler:^{
+            [AIKErrorManager logErrorWithMessage:NSLocalizedString(@"Problem Logging in via Email", @"Problem Logging in via Email") error:error andShowAlertWithButtonHandler:^{
             }];
             if (completion) {
                 completion(error);
@@ -411,13 +411,13 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 -(void)connectFacebookWithCompletion:(WaxUserCompletionBlockTypeSimple)completion{
     [[AIKFacebookManager sharedManager] connectFacebookWithCompletion:^(id<FBGraphUser> user, NSError *error) {
         if (!error) {
-            [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"Error logging into Facebook", @"Error logging into Facebook") error:error buttonHandler:nil logError:NO];
+            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error logging into Facebook", @"Error logging into Facebook") error:error buttonHandler:nil logError:NO];
         }else{
             [[WaxAPIClient sharedClient] connectFacebookAccountWithFacebookID:user.id completion:^(BOOL complete, NSError *error) {
                 if (!error) {
                     [self saveFacebookAccountID:user.id];
                 }else{
-                    [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"Error Connecting Facebook to Wax", @"Error Connecting Facebook to Wax") error:error buttonHandler:nil logError:NO];
+                    [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error Connecting Facebook to Wax", @"Error Connecting Facebook to Wax") error:error buttonHandler:nil logError:NO];
                 }
             }];
         }

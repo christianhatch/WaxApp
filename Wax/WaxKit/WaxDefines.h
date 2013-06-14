@@ -44,8 +44,8 @@ extern NSString *const kFalseString;
 extern NSString *const kWaxNotificationProfilePictureDidChange;
 extern NSString *const kWaxNotificationTwitterAccountDidChange;
 extern NSString *const kWaxNotificationFacebookAccountDidChange;
+extern NSString *const kWaxNotificationPresentVideoCamera;
 
-#pragma mark - Contstants
 #define kCornerRadiusDefault                5
 
 

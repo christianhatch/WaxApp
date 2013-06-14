@@ -11,12 +11,14 @@
 
 
 @interface VideoUploadManager ()
+@property (nonatomic, strong) NSString *challengeVideoID;
+@property (nonatomic, strong) NSString *challengeCompetitionTag;
 @end
 
 @implementation VideoUploadManager
-@synthesize currentUpload = _currentUpload;
+@synthesize currentUpload = _currentUpload, challengeVideoID = _challengeVideoID, challengeCompetitionTag = _challengeCompetitionTag;
 
-
+#pragma mark - Alloc & Init
 +(VideoUploadManager *)sharedManager{
     static VideoUploadManager *sharedID = nil;
     static dispatch_once_t onceToken;
@@ -32,6 +34,8 @@
     }
     return self; 
 }
+
+#pragma mark - Public API
 -(void)askToCancelAndDeleteCurrentUploadWithBlock:(void (^)(BOOL))block{
     [[WaxDataManager sharedManager] updateCategoriesWithCompletion:nil]; //update categories at the beginning of each upload process
     if ([self isUploading]) {
@@ -49,7 +53,7 @@
         RIButtonItem *cancel = [RIButtonItem item];
         cancel.label = NSLocalizedString(@"Cancel", @"Cancel");
         cancel.action = ^{
-            [[AIKErrorManager sharedManager] logMessageToAllServices:[NSString stringWithFormat:@"User attempted to capture new video while having an existing video that is %@, and decided to retry or let it finish", StringFromUploadStatus(self.currentUpload.status)]];
+            [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"User attempted to capture new video while having an existing video that is %@, and decided to retry or let it finish", StringFromUploadStatus(self.currentUpload.status)]];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (block) {
                     block(NO);
@@ -57,8 +61,7 @@
             });
         };
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Delete Current?", @"Delete Current?") message:NSLocalizedString(@"Are you sure you want to cancel the current video upload? The video will be deleted permanently.", @"Are you sure you want to cancel this video upload? The video will be gone forever") cancelButtonItem:cancel otherButtonItems:sure, nil];
-        [alert show];
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Delete Current?", @"Delete Current?") message:NSLocalizedString(@"Are you sure you want to cancel the current video upload? The video will be deleted permanently.", @"Are you sure you want to cancel this video upload? The video will be gone forever") cancelButtonItem:cancel otherButtonItems:sure, nil] show];
     }else{
         dispatch_async(dispatch_get_main_queue(), ^{
             if (block) {
@@ -66,6 +69,14 @@
             }
         });
     }
+}
+-(void)beginUploadProcessWithVideoID:(NSString *)videoID competitionTag:(NSString *)tag{
+
+    NSParameterAssert(videoID);
+    NSParameterAssert(tag);
+    
+    self.challengeVideoID = videoID;
+    self.challengeCompetitionTag = tag;
 }
 
 -(void)beginUploadProcessWithVideoFileURL:(NSURL *)videoFileURL videoDuration:(NSNumber *)duration{
@@ -126,19 +137,11 @@
     self.currentUpload.metadataStatus = UploadStatusWaiting;
     [self uploadMetaDataWithCompletion:completion];
 }
--(void)finishUploadWithCompletion:(void(^)(void))completion{
-    
-    [[NSFileManager defaultManager] removeItemAtURL:self.currentUpload.videoFileURL error:nil];
-    [[NSFileManager defaultManager] removeItemAtURL:self.currentUpload.thumbnailFileURL error:nil];
-
-    [self.currentUpload removeFromNSUserDefaults];
-    self.currentUpload = nil; 
-    
-    if (completion) {
-        completion();
-    }
+-(NSString *)challengeTag{
+    return [self.challengeCompetitionTag copy]; 
 }
 
+#pragma mark - Internal Methods
 -(void)retryUploadWithCompletion:(void(^)(void))completion{
     if (self.currentUpload.videoStatus == UploadStatusFailed || self.currentUpload.videoStatus == UploadStatusWaiting) {
         [self uploadVideoData];
@@ -178,7 +181,7 @@
                     DLog(@"video upload failed with error %@", error);
                     
                     if(error.domain != NSURLErrorDomain && error.code != -999){
-                        [[AIKErrorManager sharedManager] showAlertWithTitle:error.localizedDescription error:error buttonHandler:nil logError:NO];
+                        [AIKErrorManager showAlertWithTitle:error.localizedDescription error:error buttonHandler:nil logError:NO];
                     }
                 }
             }];
@@ -214,7 +217,7 @@
                     DLog(@"thumb upload failed with error %@", error);
                     
                     if(error.domain != NSURLErrorDomain && error.code != -999){
-                        [[AIKErrorManager sharedManager] showAlertWithTitle:error.localizedDescription error:error buttonHandler:nil logError:NO]; 
+                        [AIKErrorManager showAlertWithTitle:error.localizedDescription error:error buttonHandler:nil logError:NO]; 
                     }
                 }
             }];
@@ -225,7 +228,7 @@
     if (self.currentUpload.videoStatus == UploadStatusCompleted && self.currentUpload.thumbnailStatus == UploadStatusCompleted) {
         
         self.currentUpload.metadataStatus = UploadStatusInProgress;
-        
+                
         [[WaxAPIClient sharedClient] uploadVideoMetadataWithVideoID:self.currentUpload.videoID videoLength:self.currentUpload.videoLength tag:self.currentUpload.tag category:self.currentUpload.category lat:self.currentUpload.lat lon:self.currentUpload.lon completion:^(BOOL complete, NSError *error) {
             
             if (!error) {
@@ -250,17 +253,39 @@
                             self.currentUpload.metadataStatus = UploadStatusFailed;
                             
                             if(error.domain != NSURLErrorDomain && error.code != -999){
-                                [[AIKErrorManager sharedManager] showAlertWithTitle:error.localizedDescription error:error buttonHandler:nil logError:NO];
+                                [AIKErrorManager showAlertWithTitle:error.localizedDescription error:error buttonHandler:nil logError:NO];
                             }
                         }
                     }];
                 }else{
-                    [self retryUploadWithCompletion:completion];
+//                    [self retryUploadWithCompletion:completion];
                 }
             }
         }];
     }else{
-        [self retryUploadWithCompletion:completion];
+//        [self retryUploadWithCompletion:completion];
+    }
+}
+-(void)finishUploadWithCompletion:(void(^)(void))completion{
+    
+    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to facebook from share page: %@", [NSString stringFromBool:self.currentUpload.shareToFacebook]]];
+    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to twitter from share page: %@", [NSString stringFromBool:self.currentUpload.shareToTwitter]]];
+    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared location with video: %@", [NSString stringFromBool:self.currentUpload.shareLocation]]];
+
+    if ([self isInChallengeMode]) {
+        [AIKErrorManager logMessageToAllServices:@"Uploaded video via challenge button"];
+    }
+    
+    [[NSFileManager defaultManager] removeItemAtURL:self.currentUpload.videoFileURL error:nil];
+    [[NSFileManager defaultManager] removeItemAtURL:self.currentUpload.thumbnailFileURL error:nil];
+    
+    [self.currentUpload removeFromNSUserDefaults];
+    self.currentUpload = nil;
+    self.challengeVideoID = nil;
+    self.challengeCompetitionTag = nil;
+    
+    if (completion) {
+        completion();
     }
 }
 
@@ -272,5 +297,8 @@
 //-(BOOL)checkUploadsDirectory{
 //    return [[NSFileManager defaultManager] fileExistsAtPath:[NSURL currentVideoFileURL].path];
 //}
+-(BOOL)isInChallengeMode{
+    return ((self.challengeCompetitionTag != nil) && (self.challengeVideoID != nil));
+}
 
 @end

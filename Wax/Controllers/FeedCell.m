@@ -32,7 +32,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 @synthesize profilePictureView, usernameLabel, timestampLabel, moviePlayer = _moviePlayer, competitionNameButton, rankLabel, actionButton, challengeButton, voteButton, videoObject = _videoObject;
 
 -(void)awakeFromNib{
-    [self.challengeButton setTitleForAllControlStates:NSLocalizedString(@"Challenge", @"Challenge")];
+    [self.challengeButton setTitleForAllControlStates:NSLocalizedString(@"Do It!", @"Do It!")];
     [self.voteButton setTitleColor:[UIColor orangeColor] forState:UIControlStateDisabled];
     [self.actionButton rotateByDegrees:180 duration:0]; 
 }
@@ -73,7 +73,11 @@ static inline NSString *stringFromActivityType(NSString *activityType){
         CGFloat bottomPlus8 = (self.profilePictureView.bounds.size.height + self.profilePictureView.frame.origin.y + 8);
         CGRect movieFrame = CGRectMake(0, bottomPlus8, self.bounds.size.width, self.bounds.size.width);
         _moviePlayer = [AIKMoviePlayer moviePlayerWithFrame:movieFrame thumbnailURL:[NSURL thumbnailURLFromUserID:self.videoObject.userID andVideoID:self.videoObject.videoID] videoStreamingURL:[NSURL streamingURLFromUserID:self.videoObject.userID andVideoID:self.videoObject.videoID] playbackBeginBlock:^{
-            [[WaxAPIClient sharedClient] performAction:WaxAPIClientVideoActionTypeView onVideoID:self.videoObject.videoID completion:nil]; 
+            
+            [[WaxAPIClient sharedClient] performAction:WaxAPIClientVideoActionTypeView onVideoID:self.videoObject.videoID completion:nil];
+            
+            FeedTableView *supe = (FeedTableView *)self.superview;
+            [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"User played video from %@ feed", StringFromFeedTableViewType(supe.tableViewType)]];
         }];
     }
     return _moviePlayer; 
@@ -96,7 +100,10 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 }
 
 - (IBAction)challengeButtonAction:(id)sender {
-    [SVProgressHUD showErrorWithStatus:@"feature coming soon!"];
+    
+    [[VideoUploadManager sharedManager] beginUploadProcessWithVideoID:self.videoObject.videoID competitionTag:self.videoObject.tag]; 
+    [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationPresentVideoCamera object:self]; 
+
 }
 
 - (IBAction)voteButtonAction:(id)sender {
@@ -132,13 +139,13 @@ static inline NSString *stringFromActivityType(NSString *activityType){
         share.completionHandler = ^(NSString *activityType, BOOL completed){
             
             if (completed) {
-                [[AIKErrorManager sharedManager] logMessageToAllServices:[NSString stringWithFormat:@"User shared video using %@", stringFromActivityType(activityType)]];
+                [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"User shared video using %@", stringFromActivityType(activityType)]];
                 
                 if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
                     [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Link Copied to Clipboard!", @"Copied to Clipboard!")];
                 }
             }else{
-                [[AIKErrorManager sharedManager] logMessageToAllServices:@"User canceled sharing from feed cell"];
+                [AIKErrorManager logMessageToAllServices:@"User canceled sharing from feed cell"];
             }
         };
         
@@ -157,9 +164,9 @@ static inline NSString *stringFromActivityType(NSString *activityType){
         flag.action = ^{
             [[WaxAPIClient sharedClient] performAction:WaxAPIClientVideoActionTypeReport onVideoID:self.videoObject.videoID completion:^(BOOL complete, NSError *error) {
                 if (!error) {
-                    [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"Thank You", @"Thank You") message:NSLocalizedString(@"Thank you for reporting this video. Our team will review it right away", @"Feed cell thank you for flagging video") buttonTitle:NSLocalizedString(@"You're Welcome", @"You're Welcome") buttonHandler:nil logError:NO];
+                    [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Thank You", @"Thank You") message:NSLocalizedString(@"Thank you for reporting this video. Our team will review it right away", @"Feed cell thank you for flagging video") buttonTitle:NSLocalizedString(@"You're Welcome", @"You're Welcome") buttonHandler:nil logError:NO];
                 }else{
-                    [[AIKErrorManager sharedManager] showAlertWithTitle:NSLocalizedString(@"Error Reporting Video", @"Error Reporting Video") error:error buttonHandler:nil logError:NO]; 
+                    [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error Reporting Video", @"Error Reporting Video") error:error buttonHandler:nil logError:NO]; 
                 }
             }];
         };
