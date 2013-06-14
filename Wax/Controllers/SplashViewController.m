@@ -23,11 +23,6 @@
     
     [self enableSwipeToPopVC:YES];
         
-    [self.signupWithFacebookButton addTarget:self action:@selector(signup:) forControlEvents:UIControlEventTouchUpInside];
-    self.signupWithFacebookButton.tag = 2;
-  
-    [self.signupWithEmailButton addTarget:self action:@selector(signup:) forControlEvents:UIControlEventTouchUpInside];
-    [self.loginButton addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
 
     [self setUpView];
 }
@@ -74,17 +69,19 @@
 }
 
 -(void)setUpView{
+    [self.signupWithFacebookButton addTarget:self action:@selector(signup:) forControlEvents:UIControlEventTouchUpInside];
+    self.signupWithFacebookButton.tag = 2;
+    
+    [self.signupWithEmailButton addTarget:self action:@selector(signup:) forControlEvents:UIControlEventTouchUpInside];
+    [self.loginButton addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
+
     self.navigationItem.title = NSLocalizedString(@"Wax", @"Wax");
 
-    [self.signupWithFacebookButton setTitle:NSLocalizedString(@"Connect With Facebook", @"Connect With Facebook") forState:UIControlStateNormal];
-    [self.signupWithFacebookButton setTitle:NSLocalizedString(@"Connect With Facebook", @"Connect With Facebook") forState:UIControlStateHighlighted];
+    [self.signupWithFacebookButton setBackgroundImage:[UIImage imageNamed:@"FacebookSDKResources.bundle/login-button-small"] forState:UIControlStateNormal];
+    [self.signupWithFacebookButton setBackgroundImage:[UIImage imageNamed:@"FacebookSDKResources.bundle/login-button-small-pressed"] forState:UIControlStateHighlighted];
     
-    [self.signupWithEmailButton setTitle:NSLocalizedString(@"Sign Up With Email", @"Sign Up With Email") forState:UIControlStateNormal];
-    [self.signupWithEmailButton setTitle:NSLocalizedString(@"Sign Up With Email", @"Sign Up With Email") forState:UIControlStateHighlighted];
-
-    [self.loginButton setTitle:NSLocalizedString(@"Login", @"Login") forState:UIControlStateNormal];
-    [self.loginButton setTitle:NSLocalizedString(@"Login", @"Login") forState:UIControlStateHighlighted];
-
+    [self.signupWithEmailButton setTitleForAllControlStates:NSLocalizedString(@"Sign Up With Email", @"Sign Up With Email")]; 
+    [self.loginButton setTitleForAllControlStates:NSLocalizedString(@"Login", @"Login")]; 
 }
 
 

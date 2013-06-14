@@ -12,6 +12,7 @@
 #import "NSString+WaxKit.h"
 #import "NSURL+WaxKit.h"
 #import "UIButton+WaxKit.h"
+#import "UIImageView+WaxKit.h"
 #import "UIFont+WaxKit.h"
 #import "UIImage+WaxKit.h"
 #import "NSError+WaxKit.h"

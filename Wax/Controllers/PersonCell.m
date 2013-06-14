@@ -18,13 +18,13 @@
     PersonObject *person = self.person;
     
     __block PersonCell *blockSelf = self;
-    [self.profilePictureView setImageWithURL:[NSURL profilePictureURLFromUserID:person.userID] placeholderImage:nil animated:YES andEnableAsButtonWithButtonHandler:^(UIImageView *imageView) {
-        
+    [self.profilePictureView setImageForProfilePictureWithUserID:person.userID buttonHandler:^(UIImageView *imageView) {
+       
         ProfileViewController *pvc = [ProfileViewController profileViewControllerFromPersonObject:blockSelf.person];
         UIViewController *vc = [blockSelf nearestViewController];
-        [vc.navigationController pushViewController:pvc animated:YES]; 
+        [vc.navigationController pushViewController:pvc animated:YES];
         
-    } completion:nil];
+    }];
     
     self.fullNameLabel.text = person.fullName;
     self.usernameLabel.text = person.username;

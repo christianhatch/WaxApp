@@ -15,7 +15,7 @@
 
 @implementation ProfileHeaderView
 @synthesize profilePictureView = _profilePictureView, nameLabel = _nameLabel;
-@synthesize followButton = _followButton, talentsButton = _talentsButton, followersButton = _followersButton, followingButton = _followingButton;
+@synthesize followButton = _followButton, followersButton = _followersButton, followingButton = _followingButton;
 @synthesize person = _person, userID = _userID;
 
 #pragma mark - Alloc & Init
@@ -27,14 +27,13 @@
 -(void)setUpView{
     PersonObject *person = self.person;
    
-    [self.profilePictureView setImageWithURL:[NSURL profilePictureURLFromUserID:person.userID] placeholderImage:nil animated:YES completion:nil];
+    [self.profilePictureView setImageForProfilePictureWithUserID:person.userID buttonHandler:nil];
    
     self.nameLabel.text = person.username;
     
     [self.followersButton setTitleForAllControlStates:[NSString stringWithFormat:NSLocalizedString(@"%@ Followers", @"%@ Followers"), person.followersCount]];
     [self.followingButton setTitleForAllControlStates:[NSString stringWithFormat:NSLocalizedString(@"%@ Following", @"%@ Following"), person.followingCount]];
    
-    [self.talentsButton setTitleForAllControlStates:NSLocalizedString(@"Talents", @"Talents")];
     [self setUpFollowingLabel]; 
 }
 -(void)setPerson:(PersonObject *)person{
@@ -54,9 +53,6 @@
 }
 
 #pragma mark - IBActions
--(IBAction)talentsButonAction:(id)sender {
-    [SVProgressHUD showErrorWithStatus:@"implemented later!"]; 
-}
 
 -(IBAction)followButtonAction:(id)sender {
     if (self.person.isMe) {

@@ -29,6 +29,8 @@
 		45009A4D174EBD0200EE0B5C /* SettingsObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45009A4C174EBD0200EE0B5C /* SettingsObjectTests.m */; };
 		45009A50174EBD0A00EE0B5C /* PersonObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45009A4F174EBD0A00EE0B5C /* PersonObjectTests.m */; };
 		45009A53174EBD1200EE0B5C /* VideoObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45009A52174EBD1200EE0B5C /* VideoObjectTests.m */; };
+		4508A89B176AC54B001E024A /* UIImageView+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4508A89A176AC54B001E024A /* UIImageView+WaxKit.m */; };
+		4508A89C176AC54B001E024A /* UIImageView+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4508A89A176AC54B001E024A /* UIImageView+WaxKit.m */; };
 		4518AD4017584FD800D5D95C /* VideoCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4518AD3F17584FD800D5D95C /* VideoCameraViewController.m */; };
 		4518AD4117584FD800D5D95C /* VideoCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4518AD3F17584FD800D5D95C /* VideoCameraViewController.m */; };
 		4518AD551758FC5300D5D95C /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518AD541758FC5300D5D95C /* AssetsLibrary.framework */; };
@@ -282,6 +284,8 @@
 		45009A4F174EBD0A00EE0B5C /* PersonObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonObjectTests.m; sourceTree = "<group>"; };
 		45009A51174EBD1200EE0B5C /* VideoObjectTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoObjectTests.h; sourceTree = "<group>"; };
 		45009A52174EBD1200EE0B5C /* VideoObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoObjectTests.m; sourceTree = "<group>"; };
+		4508A899176AC54B001E024A /* UIImageView+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WaxKit.h"; sourceTree = "<group>"; };
+		4508A89A176AC54B001E024A /* UIImageView+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WaxKit.m"; sourceTree = "<group>"; };
 		4518AD3E17584FD800D5D95C /* VideoCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoCameraViewController.h; path = Controllers/VideoCameraViewController.h; sourceTree = "<group>"; };
 		4518AD3F17584FD800D5D95C /* VideoCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VideoCameraViewController.m; path = Controllers/VideoCameraViewController.m; sourceTree = "<group>"; };
 		4518AD541758FC5300D5D95C /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -737,6 +741,8 @@
 				45EA320C1726025300980320 /* NSURL+WaxKit.m */,
 				459C281D1725EC82009C5487 /* UIButton+WaxKit.h */,
 				459C281E1725EC82009C5487 /* UIButton+WaxKit.m */,
+				4508A899176AC54B001E024A /* UIImageView+WaxKit.h */,
+				4508A89A176AC54B001E024A /* UIImageView+WaxKit.m */,
 				459C281F1725EC82009C5487 /* UIFont+WaxKit.h */,
 				459C28201725EC82009C5487 /* UIFont+WaxKit.m */,
 				459C28211725EC82009C5487 /* UIImage+WaxKit.h */,
@@ -1315,6 +1321,7 @@
 				45E27F291769895800E75F34 /* WaxFollowButton.m in Sources */,
 				45E27F2D1769993B00E75F34 /* PersonListViewController.m in Sources */,
 				45B33EF4176A7525000D79B2 /* NotificationsViewController.m in Sources */,
+				4508A89B176AC54B001E024A /* UIImageView+WaxKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1368,6 +1375,7 @@
 				45E27F2A1769895800E75F34 /* WaxFollowButton.m in Sources */,
 				45E27F2E1769993B00E75F34 /* PersonListViewController.m in Sources */,
 				45B33EF5176A7525000D79B2 /* NotificationsViewController.m in Sources */,
+				4508A89C176AC54B001E024A /* UIImageView+WaxKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

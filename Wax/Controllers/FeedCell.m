@@ -29,24 +29,23 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 #import "ProfileViewController.h"
 
 @implementation FeedCell
-@synthesize profilePictureView, usernameLabel, timestampLabel, moviePlayer = _moviePlayer, competitionNameButton, rankLabel, actionButton, challengeButton, voteButton, shareButton, videoObject = _videoObject;
+@synthesize profilePictureView, usernameLabel, timestampLabel, moviePlayer = _moviePlayer, competitionNameButton, rankLabel, actionButton, challengeButton, voteButton, videoObject = _videoObject;
 
 -(void)awakeFromNib{
     [self.challengeButton setTitleForAllControlStates:NSLocalizedString(@"Challenge", @"Challenge")];
-    [self.shareButton setTitleForAllControlStates:NSLocalizedString(@"Share", @"Share")]; 
     [self.voteButton setTitleColor:[UIColor orangeColor] forState:UIControlStateDisabled];
+    [self.actionButton rotateByDegrees:180 duration:0]; 
 }
 -(void)setUpView{
     VideoObject *video = self.videoObject;
 
     __block FeedCell *blockSelf = self;
-    [self.profilePictureView setImageWithURL:[NSURL profilePictureURLFromUserID:video.userID] placeholderImage:nil animated:YES andEnableAsButtonWithButtonHandler:^(UIImageView *imageView) {
-        
+    
+    [self.profilePictureView setImageForProfilePictureWithUserID:video.userID buttonHandler:^(UIImageView *imageView) {
         ProfileViewController *pvc = [ProfileViewController profileViewControllerFromUserID:blockSelf.videoObject.userID username:blockSelf.videoObject.username];
         UIViewController *vc = [blockSelf nearestViewController];
         [vc.navigationController pushViewController:pvc animated:YES];
-        
-    } completion:nil];
+    }];
     
     [self.contentView addSubview:self.moviePlayer];
 
@@ -72,7 +71,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 -(AIKMoviePlayer *)moviePlayer{
     if (!_moviePlayer) {
         CGFloat bottomPlus8 = (self.profilePictureView.bounds.size.height + self.profilePictureView.frame.origin.y + 8);
-        CGRect movieFrame = CGRectMake(self.profilePictureView.frame.origin.x, bottomPlus8, 300, 300);
+        CGRect movieFrame = CGRectMake(0, bottomPlus8, self.bounds.size.width, self.bounds.size.width);
         _moviePlayer = [AIKMoviePlayer moviePlayerWithFrame:movieFrame thumbnailURL:[NSURL thumbnailURLFromUserID:self.videoObject.userID andVideoID:self.videoObject.videoID] videoStreamingURL:[NSURL streamingURLFromUserID:self.videoObject.userID andVideoID:self.videoObject.videoID] playbackBeginBlock:^{
             [[WaxAPIClient sharedClient] performAction:WaxAPIClientVideoActionTypeView onVideoID:self.videoObject.videoID completion:nil]; 
         }];
@@ -84,11 +83,15 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 
 #pragma mark - IBActions
 - (IBAction)actionButtonAction:(id)sender {
-    UIActionSheet *sheet =  [[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:nil destructiveButtonItem:nil otherButtonItems:[self flagButton], nil];
+
+    UIActionSheet *sheet = nil; 
+    
     if (self.videoObject.isMine) {
-        [sheet addButtonItem:[self deleteButton]];
+        sheet = [[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:[RIButtonItem cancelButton] destructiveButtonItem:[self deleteButton] otherButtonItems:[self shareButton], nil];
+    }else{
+        sheet = [[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:[RIButtonItem cancelButton] destructiveButtonItem:[self flagButton] otherButtonItems:[self shareButton], nil];
     }
-    [sheet setCancelButtonIndex:[sheet addButtonItem:[RIButtonItem cancelButton]]];
+    
     [sheet showInView:self];
 }
 
@@ -107,24 +110,6 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     }];
 }
 
-- (IBAction)shareButtonAction:(id)sender {
-        
-    UIActivityViewController *share = [[UIActivityViewController alloc] initWithActivityItems:@[self.videoObject.sharingString] applicationActivities:nil];
-    share.completionHandler = ^(NSString *activityType, BOOL completed){
-                
-        if (completed) {
-            [[AIKErrorManager sharedManager] logMessageToAllServices:[NSString stringWithFormat:@"User shared video using %@", stringFromActivityType(activityType)]];
-            
-            if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
-                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Link Copied to Clipboard!", @"Copied to Clipboard!")];
-            }
-        }else{
-            [[AIKErrorManager sharedManager] logMessageToAllServices:@"User canceled sharing from feed cell"]; 
-        }
-    }; 
-    
-    [[self nearestViewController] presentViewController:share animated:YES completion:nil];
-}
 
 - (IBAction)competitionNameButtonAction:(id)sender {
     FeedViewController *pvc = [FeedViewController feedViewControllerWithTag:self.videoObject.tag];
@@ -137,6 +122,29 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 -(void)setupVoteButton{
     self.voteButton.enabled = !self.videoObject.didVote;
     [self.voteButton setTitleForAllControlStates:self.videoObject.didVote ? NSLocalizedString(@"Voted!", @"Voted!") : NSLocalizedString(@"Vote Up!", @"Vote Up!")];
+}
+
+
+-(RIButtonItem *)shareButton{
+    RIButtonItem *share = [RIButtonItem itemWithLabel:NSLocalizedString(@"Share", @"Share")];
+    [share setAction:^{
+        UIActivityViewController *share = [[UIActivityViewController alloc] initWithActivityItems:@[self.videoObject.sharingString] applicationActivities:nil];
+        share.completionHandler = ^(NSString *activityType, BOOL completed){
+            
+            if (completed) {
+                [[AIKErrorManager sharedManager] logMessageToAllServices:[NSString stringWithFormat:@"User shared video using %@", stringFromActivityType(activityType)]];
+                
+                if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
+                    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Link Copied to Clipboard!", @"Copied to Clipboard!")];
+                }
+            }else{
+                [[AIKErrorManager sharedManager] logMessageToAllServices:@"User canceled sharing from feed cell"];
+            }
+        };
+        
+        [[self nearestViewController] presentViewController:share animated:YES completion:nil];
+    }];
+    return share; 
 }
 
 
