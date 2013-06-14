@@ -136,9 +136,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         if (!error) {
             [self finishLoggingInAndSaveUserInformation:loginResponse completion:completion];
         }else{
-            [AIKErrorManager logErrorWithMessage:NSLocalizedString(@"Problem Creating Account", @"Problem Creating Account") error:error andShowAlertWithButtonHandler:^{
-                
-            }];
+            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Problem Creating Account", @"Problem Creating Account") error:error buttonHandler:nil logError:YES]; 
             if (completion) {
                 completion(error); 
             }
@@ -151,9 +149,8 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         if (!error) {
             [self finishLoggingInAndSaveUserInformation:loginResponse completion:completion];
         }else{
-            [AIKErrorManager logErrorWithMessage:NSLocalizedString(@"Problem Logging in via Facebook", @"Problem Logging in via Facebook") error:error andShowAlertWithButtonHandler:^{
-                
-            }];
+            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Problem Logging in via Facebook", @"Problem Logging in via Facebook") error:error buttonHandler:nil logError:YES];
+
             if (completion) {
                 completion(error);
             }
@@ -165,8 +162,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         if (!error) {
             [self finishLoggingInAndSaveUserInformation:loginResponse completion:completion];
         }else{
-            [AIKErrorManager logErrorWithMessage:NSLocalizedString(@"Problem Logging in via Email", @"Problem Logging in via Email") error:error andShowAlertWithButtonHandler:^{
-            }];
+            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Problem Logging in via Email", @"Problem Logging in via Email") error:error buttonHandler:nil logError:YES];
             if (completion) {
                 completion(error);
             }

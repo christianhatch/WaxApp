@@ -43,11 +43,11 @@
     [ship registerDeviceToken:deviceToken withAlias:[[WaxUser currentUser] userID] success:^{
         //yay!
     } failure:^(NSError *error) {
-        [AIKErrorManager logErrorWithMessage:@"error registering device token with urban airship" error:error];
+        [AIKErrorManager logMessage:@"error registering device token with urban airship" withError:error];
     }];
 }
 -(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    [AIKErrorManager logErrorWithMessage:@"Did Fail To Register For Remote Notifications" error:error];
+    [AIKErrorManager logMessage:@"Did Fail To Register For Remote Notifications" withError:error];
 }
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
     //do lots of fun things here!

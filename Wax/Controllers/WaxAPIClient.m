@@ -562,9 +562,9 @@ static inline BOOL PathRequiresArray(NSString *path){
                     DLog(@"error on api %@", responseObject);
                     NSError *error = [NSError waxAPIErrorFromResponse:[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectForKeyOrNil:@"error"]];
                     if (error.code == 9001) {
-                        [AIKErrorManager logErrorWithMessage:NSLocalizedString(@"Logged out for security", @"Logged out for security") error:error andShowAlertWithButtonHandler:^{
+                        [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Logged out for security", @"Logged out for security") error:error buttonHandler:^{
                             [[WaxUser currentUser] logOut];
-                        }];
+                        } logError:YES];
                     }else if (error.code > 9001){
                         returnObject = error; //perhaps handle these differently! 
                     }else{

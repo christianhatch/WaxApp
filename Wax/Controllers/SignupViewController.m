@@ -88,14 +88,13 @@
                     
                     [[WaxUser currentUser] updateProfilePictureOnServer:profPic andShowUICallbacks:NO completion:^(NSError *error) {
                         if (error) {
-                            [AIKErrorManager logErrorWithMessage:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture") error:error andShowAlertWithButtonHandler:^{
+                            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture") error:error buttonHandler:^{
                                 [[WaxUser currentUser] updateProfilePictureOnServer:profPic andShowUICallbacks:NO completion:^(NSError *error) {
                                     if (error) {
-                                        [AIKErrorManager logErrorWithMessage:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture") error:error];
+                                        [AIKErrorManager logMessage:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture") withError:error];
                                     }
                                 }];
-
-                            }];
+                            } logError:YES];
                         }
                     }];
                 }
