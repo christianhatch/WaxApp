@@ -43,7 +43,7 @@
 #pragma mark - Getters
 -(WaxFollowButton *)followButton{
     if (!_followButton) {
-        _followButton = [WaxFollowButton followButtonWithUserID:self.person.userID following:self.person.isFollowing frame:CGRectMake(0, (self.bounds.size.width - 90), 90, self.bounds.size.height)];
+        _followButton = [WaxFollowButton followButtonWithUserID:self.person.userID following:self.person.isFollowing frame:CGRectMake((self.contentView.bounds.size.width - 90), 0, 90, self.contentView.bounds.size.height)];
     }
     return _followButton; 
 }

@@ -10,11 +10,12 @@
 
 @interface WaxFollowButton ()
 @property (nonatomic, strong) NSString *userID;
-@property (nonatomic, readwrite, getter = isFollowing) BOOL following; 
+@property (nonatomic, readwrite, getter = isFollowing) BOOL following;
+@property (nonatomic, strong) UILabel *titleLabel; 
 @end
 
 @implementation WaxFollowButton
-@synthesize userID = _userID, following = _following; 
+@synthesize userID = _userID, following = _following, titleLabel = _titleLabel;
 
 +(WaxFollowButton *)followButtonWithUserID:(NSString *)userID following:(BOOL)following frame:(CGRect)frame{
     WaxFollowButton *btny = [[WaxFollowButton alloc] initWithUserID:userID following:following frame:frame];
@@ -25,28 +26,31 @@
     NSParameterAssert(userID);
     NSParameterAssert(!following || following == YES);
     
-    self = [self initWithFrame:frame];
+    self = [super initWithFrame:frame];
     if (self) {
-        [self addTarget:self action:@selector(toggleFollow:) forControlEvents:UIControlEventTouchUpInside];
+        [super addTarget:self action:@selector(toggleFollow:) forControlEvents:UIControlEventTouchUpInside];
         self.userID = userID;
         self.following = following;
+        [self addSubview:self.titleLabel]; 
     }
     return self;
 }
+-(void)didMoveToSuperview{
+    [self setUpView]; 
+}
 -(void)setUpView{
-    NSAssert(self.isFollowing, @"must set isfollowing on followbutton!");
     
     if (self.enabled) {
         if (self.isFollowing) {
-            [self setTitleForAllControlStates:NSLocalizedString(@"Unfollow", @"Unfollow")];
+            self.titleLabel.text = NSLocalizedString(@"Unfollow", @"Unfollow");
         }else{
-            [self setTitleForAllControlStates:NSLocalizedString(@"Follow", @"Follow")];
+            self.titleLabel.text = NSLocalizedString(@"Follow", @"Follow");
         }
     }else{
-        [self setTitleForAllControlStates:NSLocalizedString(@"......", @"......")];
+        self.titleLabel.text = NSLocalizedString(@"......", @"......");
     }
 }
--(void)toggleFollow:(UIButton *)sender{
+-(void)toggleFollow:(id)sender{
 
     NSAssert(self.userID, @"must set userid on followbutton!");
 
@@ -70,6 +74,14 @@
     }]; 
 }
 
+#pragma mark - Getters
+-(UILabel *)titleLabel{
+    if (!_titleLabel) {
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectInset(self.bounds, 4, 4)];
+    }
+    return _titleLabel;
+}
+
 #pragma mark - Setters
 -(void)setFollowing:(BOOL)following{
     if (_following != following) {
@@ -82,7 +94,8 @@
     NSParameterAssert(userID);
     
     if (_userID != userID) {
-        _userID = userID; 
+        _userID = userID;
+        [self setUpView];
     }
 }
 -(void)setEnabled:(BOOL)enabled{

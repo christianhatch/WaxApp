@@ -65,7 +65,9 @@ static inline NSString *stringFromActivityType(NSString *activityType){
         [self.moviePlayer resetMoviePlayer];
     }
 }
-
+-(void)prepareForReuse{
+    self.videoObject = nil; 
+}
 
 #pragma mark - Getters
 -(AIKMoviePlayer *)moviePlayer{
@@ -134,8 +136,8 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 
 -(RIButtonItem *)shareButton{
     RIButtonItem *share = [RIButtonItem itemWithLabel:NSLocalizedString(@"Share", @"Share")];
-    [share setAction:^{
-        UIActivityViewController *share = [[UIActivityViewController alloc] initWithActivityItems:@[self.videoObject.sharingString] applicationActivities:nil];
+    share.action = ^{
+        UIActivityViewController *share = [[UIActivityViewController alloc] initWithActivityItems:self.videoObject.sharingActivityItems applicationActivities:nil];
         share.completionHandler = ^(NSString *activityType, BOOL completed){
             
             if (completed) {
@@ -150,7 +152,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
         };
         
         [[self nearestViewController] presentViewController:share animated:YES completion:nil];
-    }];
+    };
     return share; 
 }
 

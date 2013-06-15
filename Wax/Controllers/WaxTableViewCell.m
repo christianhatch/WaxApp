@@ -16,7 +16,13 @@
 //    bg.image = [UIImage selectionGradient];
 //    bg.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
 //    self.selectedBackgroundView = bg;
-    self.imageView.contentMode = UIViewContentModeScaleAspectFit; 
+}
+-(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return self;
 }
  /*
 -(void)setSelected:(BOOL)selected animated:(BOOL)animated{

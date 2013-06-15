@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WaxFollowButton : UIButton
+@interface WaxFollowButton : UIControl
 
 +(WaxFollowButton *)followButtonWithUserID:(NSString *)userID following:(BOOL)following frame:(CGRect)frame;
 -(instancetype)initWithUserID:(NSString *)userID following:(BOOL)following frame:(CGRect)frame;

@@ -268,9 +268,9 @@
 }
 -(void)finishUploadWithCompletion:(void(^)(void))completion{
     
-    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to facebook from share page: %@", [NSString stringFromBool:self.currentUpload.shareToFacebook]]];
-    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to twitter from share page: %@", [NSString stringFromBool:self.currentUpload.shareToTwitter]]];
-    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared location with video: %@", [NSString stringFromBool:self.currentUpload.shareLocation]]];
+    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to facebook from share page: %@", [NSString localizedStringFromBool:self.currentUpload.shareToFacebook]]];
+    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to twitter from share page: %@", [NSString localizedStringFromBool:self.currentUpload.shareToTwitter]]];
+    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared location with video: %@", [NSString localizedStringFromBool:self.currentUpload.shareLocation]]];
 
     if ([self isInChallengeMode]) {
         [AIKErrorManager logMessageToAllServices:@"Uploaded video via challenge button"];
