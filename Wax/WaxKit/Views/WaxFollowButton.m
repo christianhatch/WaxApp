@@ -31,7 +31,8 @@
         [super addTarget:self action:@selector(toggleFollow:) forControlEvents:UIControlEventTouchUpInside];
         self.userID = userID;
         self.following = following;
-        [self addSubview:self.titleLabel]; 
+        [self addSubview:self.titleLabel];
+        self.backgroundColor = [UIColor orangeColor]; 
     }
     return self;
 }
@@ -74,10 +75,29 @@
     }]; 
 }
 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self handleTouchesForDimming:touches withTouchesEnded:NO];
+    [super touchesBegan:touches withEvent:event];
+}
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self handleTouchesForDimming:touches withTouchesEnded:NO];
+    [super touchesMoved:touches withEvent:event];
+}
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self handleTouchesForDimming:touches withTouchesEnded:YES];
+    [super touchesEnded:touches withEvent:event];
+}
+-(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self handleTouchesForDimming:touches withTouchesEnded:YES];
+    [super touchesEnded:touches withEvent:event];
+}
+
 #pragma mark - Getters
 -(UILabel *)titleLabel{
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectInset(self.bounds, 4, 4)];
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
+        _titleLabel.backgroundColor = [UIColor clearColor]; 
     }
     return _titleLabel;
 }
@@ -89,6 +109,7 @@
         [self setUpView]; 
     }
 }
+
 -(void)setUserID:(NSString *)userID{
 
     NSParameterAssert(userID);
@@ -98,6 +119,7 @@
         [self setUpView];
     }
 }
+
 -(void)setEnabled:(BOOL)enabled{
     [super setEnabled:enabled];
     [self setUpView]; 
