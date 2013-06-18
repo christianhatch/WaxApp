@@ -29,7 +29,7 @@
     FeedTableView *feedy = [[FeedTableView alloc] initWithFeedTableViewType:FeedTableViewTypeTagFeed tagOrUserID:tag frame:frame];
     return feedy;
 }
-+(FeedTableView *)feedTableViewForUserID:(NSString *)userID frame:(CGRect)frame{
++(FeedTableView *)feedTableViewForProfileWithUserID:(NSString *)userID frame:(CGRect)frame{
     FeedTableView *feedy = [[FeedTableView alloc] initWithFeedTableViewType:FeedTableViewTypeUserFeed tagOrUserID:userID frame:frame];
     return feedy;
 }
@@ -37,9 +37,13 @@
     FeedTableView *feedy = [[FeedTableView alloc] initWithFeedTableViewType:FeedTableViewTypeHomeFeed tagOrUserID:nil frame:frame];
     return feedy;
 }
-+(FeedTableView *)feedTableViewForMeWithFrame:(CGRect)frame{
++(FeedTableView *)feedTableViewForMyProfileWithFrame:(CGRect)frame{
     FeedTableView *feedy = [[FeedTableView alloc] initWithFeedTableViewType:FeedTableViewTypeMyFeed tagOrUserID:[[WaxUser currentUser] userID] frame:frame];
     return feedy;
+}
++(FeedTableView *)feedTableViewForSingleVideoWithVideoID:(NSString *)videoID frame:(CGRect)frame{
+    FeedTableView *feedy = [[FeedTableView alloc] initWithFeedTableViewType:FeedTableViewTypeSingleVideo tagOrUserID:videoID frame:frame];
+    return feedy; 
 }
 -(instancetype)initWithFeedTableViewType:(FeedTableViewType)feedtype tagOrUserID:(NSString *)tagOrUserID frame:(CGRect)frame{
     self = [super initWithFrame:frame style:UITableViewStylePlain];
@@ -102,6 +106,11 @@
                 [self handleUpdatingFeedWithError:error];
             }];
         }break;
+        case FeedTableViewTypeSingleVideo:{
+            [[WaxDataManager sharedManager] updateFeedForVideoID:self.dataSourceID completion:^(NSError *error) {
+                [self handleUpdatingFeedWithError:error]; 
+            }];
+        }break;
     }
 }
 #pragma mark - TableView DataSource
@@ -146,6 +155,9 @@
         case FeedTableViewTypeTagFeed:{
             return [WaxDataManager sharedManager].tagFeed;
         }break;
+        case FeedTableViewTypeSingleVideo:{
+            return [WaxDataManager sharedManager].tagFeed;
+        }break;
     }
 }
 -(void)handleUpdatingFeedWithError:(NSError *)error{
@@ -170,6 +182,9 @@
                 
             }break;
             case FeedTableViewTypeCategoryFeed:{
+                
+            }break;
+            case FeedTableViewTypeSingleVideo:{
                 
             }break; 
         }

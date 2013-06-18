@@ -418,6 +418,13 @@ static inline BOOL PathRequiresArray(NSString *path){
         }
     }]; 
 }
+-(void)fetchNotificationsWithCompletion:(WaxAPIClientBlockTypeCompletionList)completion{
+    [self postPath:@"settings/nofications" parameters:nil modelClass:[NotificationObject class] completionBlock:^(id model, NSError *error) {
+        if (completion) {
+            completion(model, error);
+        }
+    }];
+}
 #pragma mark - Internal Methods
 -(void)fetchFeedFromPath:(NSString *)path tagOrPersonID:(NSString *)tagOrPersonID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
 

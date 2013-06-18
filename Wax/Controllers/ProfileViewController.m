@@ -64,17 +64,17 @@
     if (self.person) {
         
         self.navigationItem.title = self.person.username;
-        [self.view addSubview:[FeedTableView feedTableViewForUserID:self.person.userID frame:self.view.bounds]];
+        [self.view addSubview:[FeedTableView feedTableViewForProfileWithUserID:self.person.userID frame:self.view.bounds]];
         
         if (self.person.isMe) {
             self.navigationItem.title = NSLocalizedString(@"Me", @"Me"); 
             UIBarButtonItem *settingsBtn = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Settings", @"Settings") style:UIBarButtonItemStylePlain target:self action:@selector(showSettings:)];
             self.navigationItem.rightBarButtonItem = settingsBtn;
-            [self.view addSubview:[FeedTableView feedTableViewForMeWithFrame:self.view.bounds]];
+            [self.view addSubview:[FeedTableView feedTableViewForMyProfileWithFrame:self.view.bounds]];
         }
     }else{
         self.navigationItem.title = self.username;
-        [self.view addSubview:[FeedTableView feedTableViewForUserID:self.userID frame:self.view.bounds]];
+        [self.view addSubview:[FeedTableView feedTableViewForProfileWithUserID:self.userID frame:self.view.bounds]];
     }
 }
 -(void)showSettings:(UIBarButtonItem *)sender{

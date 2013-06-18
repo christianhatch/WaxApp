@@ -29,7 +29,9 @@
     if (self) {
         self.tableViewType = categoryType;
         self.didSelectBlock = selectBlock;
-                
+        
+        [self registerNib:[UINib nibWithNibName:@"CategoryCell" bundle:nil] forCellReuseIdentifier:kCategoryCellID];
+        
         __block CategoryTableView *blockSelf = self;
         [self addPullToRefreshWithActionHandler:^{
             [blockSelf refreshData];
@@ -71,17 +73,10 @@
     return [self proxyDataSourceArray].count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    static NSString *cellID = @"CategoryCell";
     
-    WaxTableViewCell *cell = [self dequeueReusableCellWithIdentifier:cellID];
-    if (!cell) {
-        cell = [[WaxTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-    }
+    CategoryCell *cell = [self dequeueReusableCellWithIdentifier:kCategoryCellID];
     
-    NSString *cat = [[self proxyDataSourceArray] objectAtIndexOrNil:indexPath.row];
-    cell.textLabel.text = cat;
-    [cell.imageView setImageWithURL:[NSURL categoryImageURLWithCategoryTitle:cat] placeholderImage:[UIImage imageNamed:@"record_flash"] animated:YES completion:nil];
+    cell.category = [[self proxyDataSourceArray] objectAtIndexOrNil:indexPath.row]; 
     return cell;
 }
 

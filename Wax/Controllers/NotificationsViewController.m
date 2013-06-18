@@ -9,9 +9,11 @@
 #import "NotificationsViewController.h"
 
 @interface NotificationsViewController ()
+@property (nonatomic, strong) NotificationsTableView *noteTableView;
 @end
 
 @implementation NotificationsViewController
+@synthesize noteTableView = _noteTableView;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
@@ -21,11 +23,16 @@
 
 -(void)setUpView{
     self.navigationItem.title = NSLocalizedString(@"Notifications", @"Notifications");
-
+    [self.view addSubview:self.noteTableView]; 
 }
 
 #pragma mark - Getters
-
+-(NotificationsTableView *)noteTableView{
+    if (!_noteTableView) {
+        _noteTableView = [NotificationsTableView notificationsTableViewWithFrame:self.view.bounds];
+    }
+    return _noteTableView; 
+}
 
 
 

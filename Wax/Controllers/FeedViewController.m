@@ -11,11 +11,12 @@
 
 @interface FeedViewController ()
 @property (nonatomic, strong) NSString *feedID;
+@property (nonatomic, strong) NSString *tag; 
 @property (nonatomic, readwrite) FeedTableViewType feedType; 
 @end
 
 @implementation FeedViewController
-@synthesize feedID = _feedID, feedType = _feedType;
+@synthesize feedID = _feedID, feedType = _feedType, tag = _tag;
 
 #pragma mark - Alloc & Init
 +(FeedViewController *)feedViewControllerWithTag:(NSString *)tag{
@@ -27,6 +28,12 @@
     FeedViewController *feedy = [[FeedViewController alloc] initWithFeedID:category];
     feedy.feedType = FeedTableViewTypeCategoryFeed; 
     return feedy;
+}
++(FeedViewController *)feedViewControllerForSingleVideoWithVideoID:(NSString *)videoID tag:(NSString *)tag{
+    FeedViewController *feedy = [[FeedViewController alloc] initWithFeedID:videoID];
+    feedy.tag = tag; 
+    feedy.feedType = FeedTableViewTypeSingleVideo;
+    return feedy; 
 }
 -(instancetype)initWithFeedID:(NSString *)feedID{
     self = [super init];
@@ -46,11 +53,22 @@
 }
 
 -(void)setUpView{
-    self.navigationItem.title = self.feedID;
-    if (self.feedType == FeedTableViewTypeCategoryFeed) {
-        [self.view addSubview:[FeedTableView feedTableViewForCategory:self.feedID frame:self.view.bounds]];
-    }else if (self.feedType == FeedTableViewTypeTagFeed){
-        [self.view addSubview:[FeedTableView feedTableViewForTag:self.feedID frame:self.view.bounds]];
+    switch (self.feedType) {
+        case FeedTableViewTypeCategoryFeed:{
+            self.navigationItem.title = self.feedID;
+            [self.view addSubview:[FeedTableView feedTableViewForCategory:self.feedID frame:self.view.bounds]];
+        }break;
+        case FeedTableViewTypeTagFeed:{
+            self.navigationItem.title = self.feedID;
+            [self.view addSubview:[FeedTableView feedTableViewForTag:self.feedID frame:self.view.bounds]];
+        }break;
+        case FeedTableViewTypeSingleVideo:{
+            self.navigationItem.title = self.tag;
+            [self.view addSubview:[FeedTableView feedTableViewForSingleVideoWithVideoID:self.feedID frame:self.view.bounds]];
+        }break;
+        default:{
+            
+        }break; 
     }
 }
 

@@ -12,6 +12,6 @@
 
 +(FeedViewController *)feedViewControllerWithCategory:(NSString *)category;
 +(FeedViewController *)feedViewControllerWithTag:(NSString *)tag;
-
++(FeedViewController *)feedViewControllerForSingleVideoWithVideoID:(NSString *)videoID tag:(NSString *)tag;
 
 @end

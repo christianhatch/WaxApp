@@ -25,11 +25,18 @@
 
 //views
 #import "CategoryTableView.h"
+#import "CategoryCell.h"
+
 #import "FeedTableView.h"
 #import "FeedCell.h"
+
 #import "PersonTableView.h"
-#import "PersonCell.h"
 #import "ProfileHeaderView.h"
+#import "PersonCell.h"
+
+#import "NotificationsTableView.h"
+#import "NotificationCell.h"
+
 
 //viewcontrollers
 #import "WaxTabBarController.h"
@@ -47,7 +54,21 @@
 #import "PersonObject.h"
 #import "VideoObject.h"
 #import "UploadObject.h"
+#import "NotificationObject.h"
+
 
 //third party
 #import "SVProgressHUD.h"
 #import <AcaciaKit/AcaciaKit.h>
+
+
+
+
+
+
+
+
+
+
+
+

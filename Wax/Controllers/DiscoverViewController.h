@@ -10,4 +10,8 @@
 
 @interface DiscoverViewController : UIViewController
 
+
+@property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
+
+
 @end

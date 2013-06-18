@@ -176,6 +176,18 @@
 		45B8AAEF17515F49009450EA /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B8AAED17515F49009450EA /* SettingsViewController.m */; };
 		45B8AAF917517ABD009450EA /* UploadObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B8AAF817517ABD009450EA /* UploadObject.m */; };
 		45B8AAFA17517ABD009450EA /* UploadObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B8AAF817517ABD009450EA /* UploadObject.m */; };
+		45C4C37B176FE6A500AEC587 /* CategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C4C37A176FE6A500AEC587 /* CategoryCell.m */; };
+		45C4C37C176FE6A500AEC587 /* CategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C4C37A176FE6A500AEC587 /* CategoryCell.m */; };
+		45C4C381176FE6F400AEC587 /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45C4C380176FE6F400AEC587 /* CategoryCell.xib */; };
+		45C4C382176FE6F400AEC587 /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45C4C380176FE6F400AEC587 /* CategoryCell.xib */; };
+		45C4C389176FE79900AEC587 /* NotificationObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C4C388176FE79900AEC587 /* NotificationObject.m */; };
+		45C4C38A176FE79900AEC587 /* NotificationObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C4C388176FE79900AEC587 /* NotificationObject.m */; };
+		45C4C38F176FE7E300AEC587 /* NotificationsTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C4C38E176FE7E300AEC587 /* NotificationsTableView.m */; };
+		45C4C390176FE7E300AEC587 /* NotificationsTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C4C38E176FE7E300AEC587 /* NotificationsTableView.m */; };
+		45C4C396176FE89100AEC587 /* NotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45C4C395176FE89100AEC587 /* NotificationCell.xib */; };
+		45C4C397176FE89100AEC587 /* NotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45C4C395176FE89100AEC587 /* NotificationCell.xib */; };
+		45C4C39A176FE8AF00AEC587 /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C4C399176FE8AF00AEC587 /* NotificationCell.m */; };
+		45C4C39B176FE8AF00AEC587 /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C4C399176FE8AF00AEC587 /* NotificationCell.m */; };
 		45CA0B62175D108300C84A22 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CA0B61175D108300C84A22 /* ShareViewController.m */; };
 		45CA0B63175D108300C84A22 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CA0B61175D108300C84A22 /* ShareViewController.m */; };
 		45CA0B6B175D1D6100C84A22 /* CategoryChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CA0B6A175D1D6000C84A22 /* CategoryChooserViewController.m */; };
@@ -418,6 +430,16 @@
 		45B8AAED17515F49009450EA /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		45B8AAF717517ABD009450EA /* UploadObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadObject.h; sourceTree = "<group>"; };
 		45B8AAF817517ABD009450EA /* UploadObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadObject.m; sourceTree = "<group>"; };
+		45C4C379176FE6A500AEC587 /* CategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryCell.h; sourceTree = "<group>"; };
+		45C4C37A176FE6A500AEC587 /* CategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryCell.m; sourceTree = "<group>"; };
+		45C4C380176FE6F400AEC587 /* CategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CategoryCell.xib; path = Nibs/CategoryCell.xib; sourceTree = "<group>"; };
+		45C4C387176FE79900AEC587 /* NotificationObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationObject.h; sourceTree = "<group>"; };
+		45C4C388176FE79900AEC587 /* NotificationObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationObject.m; sourceTree = "<group>"; };
+		45C4C38D176FE7E300AEC587 /* NotificationsTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificationsTableView.h; path = Controllers/NotificationsTableView.h; sourceTree = "<group>"; };
+		45C4C38E176FE7E300AEC587 /* NotificationsTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NotificationsTableView.m; path = Controllers/NotificationsTableView.m; sourceTree = "<group>"; };
+		45C4C395176FE89100AEC587 /* NotificationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NotificationCell.xib; path = Nibs/NotificationCell.xib; sourceTree = "<group>"; };
+		45C4C398176FE8AF00AEC587 /* NotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificationCell.h; path = Controllers/NotificationCell.h; sourceTree = "<group>"; };
+		45C4C399176FE8AF00AEC587 /* NotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NotificationCell.m; path = Controllers/NotificationCell.m; sourceTree = "<group>"; };
 		45CA0B60175D108300C84A22 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareViewController.h; path = Controllers/ShareViewController.h; sourceTree = "<group>"; };
 		45CA0B61175D108300C84A22 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareViewController.m; path = Controllers/ShareViewController.m; sourceTree = "<group>"; };
 		45CA0B69175D1D6000C84A22 /* CategoryChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryChooserViewController.h; path = Controllers/CategoryChooserViewController.h; sourceTree = "<group>"; };
@@ -786,14 +808,10 @@
 			isa = PBXGroup;
 			children = (
 				45E27F1A17694A8200E75F34 /* Base Classes */,
-				45E27F0E176933BA00E75F34 /* CategoryTableView.h */,
-				45E27F0F176933BA00E75F34 /* CategoryTableView.m */,
-				45AC7C2E1762BEBE0086D980 /* FeedTableView.h */,
-				45AC7C2F1762BEBE0086D980 /* FeedTableView.m */,
-				4589E9BC1762A73500ED4A6F /* FeedCell.h */,
-				4589E9BD1762A73500ED4A6F /* FeedCell.m */,
-				4589E9B2176299E200ED4A6F /* FeedCell.xib */,
-				45E27F23176987AD00E75F34 /* PersonStuff */,
+				45C4C39C176FE9DC00AEC587 /* Notifications */,
+				45C4C38B176FE7A900AEC587 /* Categories */,
+				45C4C38C176FE7B100AEC587 /* Feeds/Videos */,
+				45E27F23176987AD00E75F34 /* Persons */,
 			);
 			name = TableViewStuff;
 			path = ../..;
@@ -833,6 +851,42 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
+		45C4C38B176FE7A900AEC587 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				45E27F0E176933BA00E75F34 /* CategoryTableView.h */,
+				45E27F0F176933BA00E75F34 /* CategoryTableView.m */,
+				45C4C379176FE6A500AEC587 /* CategoryCell.h */,
+				45C4C37A176FE6A500AEC587 /* CategoryCell.m */,
+				45C4C380176FE6F400AEC587 /* CategoryCell.xib */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		45C4C38C176FE7B100AEC587 /* Feeds/Videos */ = {
+			isa = PBXGroup;
+			children = (
+				45AC7C2E1762BEBE0086D980 /* FeedTableView.h */,
+				45AC7C2F1762BEBE0086D980 /* FeedTableView.m */,
+				4589E9BC1762A73500ED4A6F /* FeedCell.h */,
+				4589E9BD1762A73500ED4A6F /* FeedCell.m */,
+				4589E9B2176299E200ED4A6F /* FeedCell.xib */,
+			);
+			name = Feeds/Videos;
+			sourceTree = "<group>";
+		};
+		45C4C39C176FE9DC00AEC587 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				45C4C38D176FE7E300AEC587 /* NotificationsTableView.h */,
+				45C4C38E176FE7E300AEC587 /* NotificationsTableView.m */,
+				45C4C398176FE8AF00AEC587 /* NotificationCell.h */,
+				45C4C399176FE8AF00AEC587 /* NotificationCell.m */,
+				45C4C395176FE89100AEC587 /* NotificationCell.xib */,
+			);
+			name = Notifications;
+			sourceTree = "<group>";
+		};
 		45E27F1A17694A8200E75F34 /* Base Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -845,7 +899,7 @@
 			path = WaxKit/Views;
 			sourceTree = "<group>";
 		};
-		45E27F23176987AD00E75F34 /* PersonStuff */ = {
+		45E27F23176987AD00E75F34 /* Persons */ = {
 			isa = PBXGroup;
 			children = (
 				45E27F1B17697A7C00E75F34 /* PersonTableView.h */,
@@ -857,7 +911,7 @@
 				45AC7C351762DD500086D980 /* ProfileHeaderView.m */,
 				45AD35931768D44F0051BBE2 /* ProfileHeaderView.xib */,
 			);
-			name = PersonStuff;
+			name = Persons;
 			sourceTree = "<group>";
 		};
 		45EA32151726093600980320 /* Models */ = {
@@ -873,6 +927,8 @@
 				454BBDCC17404A39005F48ED /* PersonObject.m */,
 				452FADAE17404D450091F8D4 /* VideoObject.h */,
 				452FADAF17404D450091F8D4 /* VideoObject.m */,
+				45C4C387176FE79900AEC587 /* NotificationObject.h */,
+				45C4C388176FE79900AEC587 /* NotificationObject.m */,
 				45B8AAF717517ABD009450EA /* UploadObject.h */,
 				45B8AAF817517ABD009450EA /* UploadObject.m */,
 			);
@@ -1167,6 +1223,8 @@
 				4589E9B3176299E200ED4A6F /* FeedCell.xib in Resources */,
 				45AD35941768D44F0051BBE2 /* ProfileHeaderView.xib in Resources */,
 				45E27F25176987EB00E75F34 /* PersonCell.xib in Resources */,
+				45C4C381176FE6F400AEC587 /* CategoryCell.xib in Resources */,
+				45C4C396176FE89100AEC587 /* NotificationCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1179,6 +1237,8 @@
 				452FAE1E1740AE2F0091F8D4 /* videos.json in Resources */,
 				45AD35951768D44F0051BBE2 /* ProfileHeaderView.xib in Resources */,
 				45E27F26176987EB00E75F34 /* PersonCell.xib in Resources */,
+				45C4C382176FE6F400AEC587 /* CategoryCell.xib in Resources */,
+				45C4C397176FE89100AEC587 /* NotificationCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1322,6 +1382,10 @@
 				45E27F2D1769993B00E75F34 /* PersonListViewController.m in Sources */,
 				45B33EF4176A7525000D79B2 /* NotificationsViewController.m in Sources */,
 				4508A89B176AC54B001E024A /* UIImageView+WaxKit.m in Sources */,
+				45C4C37B176FE6A500AEC587 /* CategoryCell.m in Sources */,
+				45C4C389176FE79900AEC587 /* NotificationObject.m in Sources */,
+				45C4C38F176FE7E300AEC587 /* NotificationsTableView.m in Sources */,
+				45C4C39A176FE8AF00AEC587 /* NotificationCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1376,6 +1440,10 @@
 				45E27F2E1769993B00E75F34 /* PersonListViewController.m in Sources */,
 				45B33EF5176A7525000D79B2 /* NotificationsViewController.m in Sources */,
 				4508A89C176AC54B001E024A /* UIImageView+WaxKit.m in Sources */,
+				45C4C37C176FE6A500AEC587 /* CategoryCell.m in Sources */,
+				45C4C38A176FE79900AEC587 /* NotificationObject.m in Sources */,
+				45C4C390176FE7E300AEC587 /* NotificationsTableView.m in Sources */,
+				45C4C39B176FE8AF00AEC587 /* NotificationCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

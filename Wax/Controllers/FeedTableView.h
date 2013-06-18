@@ -12,6 +12,7 @@ typedef NS_ENUM(NSInteger, FeedTableViewType){
     FeedTableViewTypeUserFeed,
     FeedTableViewTypeCategoryFeed,
     FeedTableViewTypeTagFeed,
+    FeedTableViewTypeSingleVideo,
 };
 
 static inline NSString * StringFromFeedTableViewType(FeedTableViewType feedtype) {
@@ -31,6 +32,9 @@ static inline NSString * StringFromFeedTableViewType(FeedTableViewType feedtype)
         case FeedTableViewTypeTagFeed:
             return @"TagFeed";
             break;
+        case FeedTableViewTypeSingleVideo:
+            return @"SingleVideoFeed";
+            break; 
     }
 }
 
@@ -39,12 +43,13 @@ static inline NSString * StringFromFeedTableViewType(FeedTableViewType feedtype)
 
 @interface FeedTableView : WaxTableView
 
-+(FeedTableView *)feedTableViewForMeWithFrame:(CGRect)frame;
++(FeedTableView *)feedTableViewForMyProfileWithFrame:(CGRect)frame;
 +(FeedTableView *)feedTableViewForHomeWithFrame:(CGRect)frame;
 
-+(FeedTableView *)feedTableViewForUserID:(NSString *)userID frame:(CGRect)frame;
++(FeedTableView *)feedTableViewForProfileWithUserID:(NSString *)userID frame:(CGRect)frame;
 +(FeedTableView *)feedTableViewForTag:(NSString *)tag frame:(CGRect)frame;
 +(FeedTableView *)feedTableViewForCategory:(NSString *)tag frame:(CGRect)frame;
++(FeedTableView *)feedTableViewForSingleVideoWithVideoID:(NSString *)videoID frame:(CGRect)frame; 
 
 -(instancetype)initWithFeedTableViewType:(FeedTableViewType)feedtype tagOrUserID:(NSString *)tagOrUserID frame:(CGRect)frame;
 

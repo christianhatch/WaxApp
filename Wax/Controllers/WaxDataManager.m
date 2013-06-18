@@ -14,7 +14,7 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
 #define kProfileFeedKey     @"profileFeed"
 #define kTagFeedKey         @"tagFeed"
 #define kPersonListKey      @"personList"
-
+#define kNotificationsKey   @"notifications"
 
 #import "WaxDataManager.h"
 
@@ -56,7 +56,12 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
     }];
 }
 -(void)updateNotificationsWithInfiniteScroll:(BOOL)infiniteScroll completion:(WaxDataManagerCompletionBlockTypeSimple)completion{
-    DLog(@"notes not implemented in api client yet"); 
+
+    NSNumber *infiniteID = infiniteScroll ? [WaxDataManager infiniteScrollingIDFromArray:self.notifications] : nil;
+    [[WaxAPIClient sharedClient] fetchNotificationsWithCompletion:^(NSMutableArray *list, NSError *error) {
+        [self handleUpdatingValueForKey:kNotificationsKey withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error]; 
+    }];
+
 }
 
 -(void)updateCategoriesWithCompletion:(WaxDataManagerCompletionBlockTypeSimple)completion{
@@ -116,6 +121,12 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
     [[WaxAPIClient sharedClient] fetchFeedForTag:tag sortedBy:WaxAPIClientTagSortTypeRank infiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
         [self handleUpdatingValueForKey:kTagFeedKey withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
     }]; 
+}
+-(void)updateFeedForVideoID:(NSString *)videoID completion:(WaxDataManagerCompletionBlockTypeSimple)completion{
+    NSParameterAssert(videoID);
+    [[WaxAPIClient sharedClient] fetchMetadataForVideoID:videoID completion:^(VideoObject *video, NSError *error) {
+        [self handleUpdatingValueForKey:kTagFeedKey withCompletionBlock:completion infiniteScrollingID:nil APIResponseData:[NSMutableArray arrayWithObject:video] APIResponseError:error];
+    }];
 }
 -(void)updatePersonListForFollowersWithUserID:(NSString *)userID withInfiniteScroll:(BOOL)infiniteScroll completion:(WaxDataManagerCompletionBlockTypeSimple)completion{
     

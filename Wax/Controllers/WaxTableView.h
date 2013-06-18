@@ -14,13 +14,14 @@
 
 @interface WaxTableView : UITableView <UITableViewDataSource, UITableViewDelegate> 
 
+-(instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style; //designated initalizer, required to properly initalize the class
 
--(void)handleUpdatingFeedWithError:(NSError *)error; 
--(void)finishLoading;
--(NSMutableArray *)proxyDataSourceArray; 
+-(void)handleUpdatingFeedWithError:(NSError *)error; //must implement this and call super when loading is finished
 
-@property (nonatomic, readwrite) BOOL automaticallyDeselectRow;
-@property (nonatomic, readwrite) BOOL automaticallyHideInfiniteScrolling; 
+-(NSMutableArray *)proxyDataSourceArray; //must implement this and ovveride 
+
+@property (nonatomic, readwrite) BOOL automaticallyDeselectRow; //default is YES
+@property (nonatomic, readwrite) BOOL automaticallyHideInfiniteScrolling; //default is YES
 
 
 @end

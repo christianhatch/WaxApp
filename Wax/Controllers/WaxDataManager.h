@@ -15,7 +15,7 @@ typedef void(^WaxDataManagerCompletionBlockTypeSimple)(NSError *error);
 
 + (WaxDataManager *)sharedManager;
 
-//universal feeds
+//universal
 @property (nonatomic, strong) NSMutableArray *homeFeed;
 -(void)updateHomeFeedWithInfiniteScroll:(BOOL)infiniteScroll
                              completion:(WaxDataManagerCompletionBlockTypeSimple)completion;
@@ -31,6 +31,9 @@ typedef void(^WaxDataManagerCompletionBlockTypeSimple)(NSError *error);
 -(void)updateNotificationsWithInfiniteScroll:(BOOL)infiniteScroll
                                        completion:(WaxDataManagerCompletionBlockTypeSimple)completion;
 
+@property (nonatomic, readonly) NSMutableArray *categories;
+-(void)updateCategoriesWithCompletion:(WaxDataManagerCompletionBlockTypeSimple)completion;
+
 //overwriteable
 @property (nonatomic, strong) NSMutableArray *profileFeed;
 -(void)updateProfileFeedForUserID:(NSString *)personID
@@ -44,6 +47,8 @@ typedef void(^WaxDataManagerCompletionBlockTypeSimple)(NSError *error);
 -(void)updateFeedForTag:(NSString *)tag
      withInfiniteScroll:(BOOL)infiniteScroll
              completion:(WaxDataManagerCompletionBlockTypeSimple)completion;
+-(void)updateFeedForVideoID:(NSString *)videoID
+                 completion:(WaxDataManagerCompletionBlockTypeSimple)completion;
 
 @property (nonatomic, strong) NSMutableArray *personList;
 -(void)updatePersonListForFollowingWithUserID:(NSString *)userID
@@ -53,10 +58,6 @@ typedef void(^WaxDataManagerCompletionBlockTypeSimple)(NSError *error);
                            withInfiniteScroll:(BOOL)infiniteScroll
                                    completion:(WaxDataManagerCompletionBlockTypeSimple)completion;
 
-
-//data and stuff
-@property (nonatomic, readonly) NSMutableArray *categories;
--(void)updateCategoriesWithCompletion:(WaxDataManagerCompletionBlockTypeSimple)completion;
 
 
 

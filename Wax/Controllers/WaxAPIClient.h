@@ -42,7 +42,7 @@ typedef void(^WaxAPIClientBlockTypeCompletionUser)(PersonObject *person, NSError
  @abstract Completion block type used when returning the results of a request for the metadata of a particular video.
  @discussion This completion block type returns a valid video object and a nil error object if successful, or a nil video object and a valid error object if unsuccessful.
  */
-typedef void(^WaxAPIClientBlockTypeCompletionVideo)(VideoObject *person, NSError *error);
+typedef void(^WaxAPIClientBlockTypeCompletionVideo)(VideoObject *video, NSError *error);
 
 /**
  @typedef
@@ -237,13 +237,12 @@ typedef NS_ENUM(NSInteger, WaxAPIClientVideoActionType){
          pushSettings:(NSDictionary *)pushSettings
            completion:(WaxAPIClientBlockTypeCompletionSettings)completion;
 
+-(void)fetchNotificationsWithCompletion:(WaxAPIClientBlockTypeCompletionList)completion;
 
-
-#pragma mark - Internal Methods
-
--(void)postPath:(NSString *)path parameters:(NSDictionary *)parameters modelClass:(Class)modelClass completionBlock:(void (^)(id model, NSError *error))completion;
-
--(void)postMultiPartPath:(NSString *)path parameters:(NSDictionary *)parameters constructingBodyWithBlock:(void (^)(id <AFMultipartFormData>formData))block progress:(WaxAPIClientBlockTypeProgressUpload)progress completion:(void (^)(id model, NSError *error))completion;
+//#pragma mark - Internal Methods
+//-(void)postPath:(NSString *)path parameters:(NSDictionary *)parameters modelClass:(Class)modelClass completionBlock:(void (^)(id model, NSError *error))completion;
+//
+//-(void)postMultiPartPath:(NSString *)path parameters:(NSDictionary *)parameters constructingBodyWithBlock:(void (^)(id <AFMultipartFormData>formData))block progress:(WaxAPIClientBlockTypeProgressUpload)progress completion:(void (^)(id model, NSError *error))completion;
 
 
 

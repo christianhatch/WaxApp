@@ -10,16 +10,13 @@
 
 extern NSString *const CurrentUploadObjectUserDefaultsKey;
 
-@class CLLocation;
-
-enum{
+typedef NS_ENUM(NSInteger, UploadStatus){
     UploadStatusWaitingForData = 0,
     UploadStatusWaiting,
     UploadStatusInProgress,
     UploadStatusCompleted,
     UploadStatusFailed,
 };
-typedef NSInteger UploadStatus;
 
 static inline NSString * StringFromUploadStatus(UploadStatus uStatus) {
     switch (uStatus) {
