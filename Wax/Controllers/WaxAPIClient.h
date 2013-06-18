@@ -237,7 +237,10 @@ typedef NS_ENUM(NSInteger, WaxAPIClientVideoActionType){
          pushSettings:(NSDictionary *)pushSettings
            completion:(WaxAPIClientBlockTypeCompletionSettings)completion;
 
--(void)fetchNotificationsWithCompletion:(WaxAPIClientBlockTypeCompletionList)completion;
+-(void)fetchNotificationsWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID
+                                      completion:(WaxAPIClientBlockTypeCompletionList)completion;
+
+-(void)fetchNoteCountWithCompletion:(void(^)(NSNumber *noteCount, NSError *error))completion;
 
 //#pragma mark - Internal Methods
 //-(void)postPath:(NSString *)path parameters:(NSDictionary *)parameters modelClass:(Class)modelClass completionBlock:(void (^)(id model, NSError *error))completion;

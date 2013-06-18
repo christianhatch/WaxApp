@@ -34,6 +34,11 @@
     if (![[WaxUser currentUser] isLoggedIn]) {
         [self showSplashScreen];
     }
+    [[WaxDataManager sharedManager] updateNotificationCountWithCompletion:^(NSError *error) {
+        if (!error) {
+            [self updateNoteCountBadge];
+        }
+    }]; 
 }
 -(void)setupTabBarIcons{
     /*
@@ -60,6 +65,9 @@
             profile.person = [[WaxUser currentUser] personObject];
         }
         return YES;
+    }else if([viewController.title isEqualToString:@"Notifications"]){
+        [self eraseNoteCountBadge];
+        return YES; 
     }else{
         /*
         UINavigationController *nav = (UINavigationController *)self.selectedViewController;
@@ -90,7 +98,13 @@
         }
     }]; 
 }
-
+-(void)updateNoteCountBadge{
+    NSString *count = [WaxDataManager sharedManager].notificationCount.intValue == 0 ? nil : [NSString stringWithFormat:@"%@", [WaxDataManager sharedManager].notificationCount]; 
+    [[self.tabBar.items objectAtIndexOrNil:3] setBadgeValue:count];
+}
+-(void)eraseNoteCountBadge{
+    [[self.tabBar.items objectAtIndexOrNil:3] setBadgeValue:nil];
+}
 -(void)showSplashScreen{
     UINavigationController *nav = initViewControllerWithIdentifier(@"SplashNav");
     SplashViewController *splashVC = initViewControllerWithIdentifier(@"SplashVC");

@@ -23,5 +23,4 @@
 @property (nonatomic, readwrite) BOOL automaticallyDeselectRow; //default is YES
 @property (nonatomic, readwrite) BOOL automaticallyHideInfiniteScrolling; //default is YES
 
-
 @end

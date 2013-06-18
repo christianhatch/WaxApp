@@ -418,12 +418,25 @@ static inline BOOL PathRequiresArray(NSString *path){
         }
     }]; 
 }
--(void)fetchNotificationsWithCompletion:(WaxAPIClientBlockTypeCompletionList)completion{
-    [self postPath:@"settings/nofications" parameters:nil modelClass:[NotificationObject class] completionBlock:^(id model, NSError *error) {
+-(void)fetchNotificationsWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
+
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:infiniteScrollingID, @"lastitem", nil]; 
+    
+    [self postPath:@"notes/get" parameters:params modelClass:[NotificationObject class] completionBlock:^(id model, NSError *error) {
         if (completion) {
             completion(model, error);
         }
     }];
+}
+-(void)fetchNoteCountWithCompletion:(void (^)(NSNumber *, NSError *))completion{
+    [self postPath:@"notes/unread" parameters:nil modelClass:nil completionBlock:^(id model, NSError *error) {
+        
+        NSNumber *count = [[model objectAtIndexOrNil:0] objectForKeyOrNil:@"unread"];
+        
+        if (completion) {
+            completion(count, error);
+        }
+   }]; 
 }
 #pragma mark - Internal Methods
 -(void)fetchFeedFromPath:(NSString *)path tagOrPersonID:(NSString *)tagOrPersonID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{

@@ -43,8 +43,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     
     [self.profilePictureView setImageForProfilePictureWithUserID:video.userID buttonHandler:^(UIImageView *imageView) {
         ProfileViewController *pvc = [ProfileViewController profileViewControllerFromUserID:blockSelf.videoObject.userID username:blockSelf.videoObject.username];
-        UIViewController *vc = [blockSelf nearestViewController];
-        [vc.navigationController pushViewController:pvc animated:YES];
+        [[blockSelf nearestNavigationController] pushViewController:pvc animated:YES]; 
     }];
     
     [self.contentView addSubview:self.moviePlayer];
@@ -66,7 +65,8 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     }
 }
 -(void)prepareForReuse{
-    self.videoObject = nil; 
+    self.videoObject = nil;
+    self.moviePlayer = nil; 
 }
 
 #pragma mark - Getters

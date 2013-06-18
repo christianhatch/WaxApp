@@ -29,7 +29,10 @@ typedef void(^WaxDataManagerCompletionBlockTypeSimple)(NSError *error);
 
 @property (nonatomic, strong) NSMutableArray *notifications;
 -(void)updateNotificationsWithInfiniteScroll:(BOOL)infiniteScroll
-                                       completion:(WaxDataManagerCompletionBlockTypeSimple)completion;
+                                  completion:(WaxDataManagerCompletionBlockTypeSimple)completion;
+
+@property (nonatomic, strong) NSNumber *notificationCount;
+-(void)updateNotificationCountWithCompletion:(WaxDataManagerCompletionBlockTypeSimple)completion; 
 
 @property (nonatomic, readonly) NSMutableArray *categories;
 -(void)updateCategoriesWithCompletion:(WaxDataManagerCompletionBlockTypeSimple)completion;

@@ -531,10 +531,10 @@
             </objects>
             <point key="canvasLocation" x="2171" y="624"/>
         </scene>
-        <!--Navigation Controller - Notes-->
+        <!--Navigation Controller - Notifications-->
         <scene sceneID="qZd-cK-nWg">
             <objects>
-                <navigationController id="M45-q1-70n" sceneMemberID="viewController">
+                <navigationController title="Notifications" id="M45-q1-70n" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Notes" id="Mv2-fN-MOi"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YIr-mh-gIs">
@@ -685,6 +685,93 @@
             <point key="canvasLocation" x="1143" y="624"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="AIKTabBarController" superclassName="UITabBarController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AIKTabBarController.h"/>
+        </class>
+        <class className="DiscoverViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DiscoverViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="HomeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
+        </class>
+        <class className="LoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="disclaimerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="forgotPasswordButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="loginFacebookButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="loginWithEmailLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="passwordField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="usernameField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="NotificationsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationsViewController.h"/>
+        </class>
+        <class className="ProfileViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileViewController.h"/>
+        </class>
+        <class className="SettingsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="cameraRollSwitch" candidateClass="UISwitch"/>
+            </relationships>
+        </class>
+        <class className="ShareViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShareViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="categoryButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="facebookLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="facebookSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="instructionsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="locationSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="tagField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="twitterLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="twitterSwitch" candidateClass="UISwitch"/>
+            </relationships>
+        </class>
+        <class className="SignupViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SignupViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="disclaimerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="emailField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="fullNameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="goButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="passwordField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="profilePictureButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="usernameField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="SplashViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SplashViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="signupWithEmailButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="signupWithFacebookButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="ThumbnailChooserViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ThumbnailChooserViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="directionsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="thumbPreview1" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="thumbPreview2" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="thumbPreview3" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="thumbPreview4" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="thumbPreview5" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="thumbPreview6" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="WaxTabBarController" superclassName="AIKTabBarController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WaxTabBarController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

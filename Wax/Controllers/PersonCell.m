@@ -17,12 +17,12 @@
 -(void)setUpView{
     PersonObject *person = self.person;
     
-    __block PersonCell *blockSelf = self;
+//    __block PersonCell *blockSelf = self;
     [self.profilePictureView setImageForProfilePictureWithUserID:person.userID buttonHandler:^(UIImageView *imageView) {
        
-        ProfileViewController *pvc = [ProfileViewController profileViewControllerFromPersonObject:blockSelf.person];
-        UIViewController *vc = [blockSelf nearestViewController];
-        [vc.navigationController pushViewController:pvc animated:YES];
+//        ProfileViewController *pvc = [ProfileViewController profileViewControllerFromPersonObject:blockSelf.person];
+//        UIViewController *vc = [blockSelf nearestViewController];
+//        [vc.navigationController pushViewController:pvc animated:YES];
         
     }];
     

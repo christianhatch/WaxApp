@@ -31,17 +31,46 @@
     self.searchBar.showsScopeBar = YES;
     self.searchBar.scopeButtonTitles = @[NSLocalizedString(@"@users", @"@users"), NSLocalizedString(@"#tags", @"#tags")];
     self.tableView.tableHeaderView = self.searchBar;
-
-    [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"PersonCell" bundle:nil] forCellReuseIdentifier:kPersonCellID];
-    [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"CategoryCell" bundle:nil] forCellReuseIdentifier:kCategoryCellID];
 }
 
 #pragma mark - UISearchBar Delegate
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    
+    if (searchBar.text.length > 1) {
+        [[WaxAPIClient sharedClient] searchForUsersWithSearchTerm:searchBar.text infiniteScrollingID:nil completion:^(NSMutableArray *list, NSError *error) {
+            if (!error) {
+                self.personSearchResults = list;
+            }else{
+                [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error searching", @"Error searching") error:error buttonHandler:^{
+                    
+                } logError:YES];
+            }
+        }];
+    }else{
+        [SVProgressHUD showErrorWithStatus:@"coming soon!"];
+    }
 }
 #pragma mark - UISearchDisplayController Delegate
+-(void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView{
+    [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"PersonCell" bundle:nil] forCellReuseIdentifier:kPersonCellID];
+    [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"CategoryCell" bundle:nil] forCellReuseIdentifier:kCategoryCellID];
+}
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString{
+    if (self.searchDisplayController.searchBar.selectedScopeButtonIndex == 0) {
+        if (searchString.length > 1) {
+            [[WaxAPIClient sharedClient] searchForUsersWithSearchTerm:searchString infiniteScrollingID:nil completion:^(NSMutableArray *list, NSError *error) {
+                if (!error) {
+                    self.personSearchResults = list;
+                    [self.searchDisplayController.searchResultsTableView reloadData]; 
+                }else{
+                    [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error searching", @"Error searching") error:error buttonHandler:^{
+                        
+                    } logError:YES];
+                }
+            }];
+        }
+    }else{
+        [SVProgressHUD showErrorWithStatus:@"coming soon!"]; 
+    }
     return NO;
 }
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption{

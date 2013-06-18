@@ -19,7 +19,7 @@
     bool isFrontFacing;
 }
 
-@property (nonatomic, assign) NSInteger currentTimer;
+@property (nonatomic, readwrite) NSInteger currentTimer;
 
 @property (nonatomic, weak)  VideoCameraViewController *delegate;
 

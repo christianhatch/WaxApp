@@ -51,13 +51,14 @@
     return [self proxyDataSourceArray].count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NotificationCell *cell = [self dequeueReusableCellWithIdentifier:kFeedCellID];
+    NotificationCell *cell = [self dequeueReusableCellWithIdentifier:kNotificationCellID];
     cell.noteObject = [[self proxyDataSourceArray] objectAtIndexOrNil:indexPath.row];
     return cell;
 }
 
 #pragma mark - TableView Delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     NotificationObject *note = [[self proxyDataSourceArray] objectAtIndexOrNil:indexPath.row];
     switch (note.noteType) {
         case NotificationTypeVote:
