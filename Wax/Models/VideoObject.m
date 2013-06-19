@@ -18,13 +18,15 @@
 @synthesize tagCount = _tagCount;
 
 @synthesize videoID = _videoID;
-@synthesize caption = _caption;
 @synthesize shareID = _shareID;
 @synthesize timeStamp = _timeStamp;
-@synthesize tag = _tag;
 
+
+@synthesize tag = _tag;
+@synthesize category = _category; 
 @synthesize votesCount = _votesCount;
 @synthesize viewCount = _viewCount;
+@synthesize caption = _caption;
 
 @synthesize didVote = _didVote;
 @synthesize infiniteScrollingID = _infiniteScrollingID;
@@ -42,8 +44,9 @@
         self.videoID = [dictionary objectForKey:@"videoid" orDefaultValue:nil];
         self.shareID = [dictionary objectForKey:@"shareid" orDefaultValue:nil];
         self.timeStamp = [NSString prettyTimeStamp:[dictionary objectForKey:@"timestamp" orDefaultValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]]]];
-        self.tag = [dictionary objectForKey:@"tag" orDefaultValue:NSLocalizedString(@"a competition", @"a competition")];
         
+        self.tag = [dictionary objectForKey:@"tag" orDefaultValue:NSLocalizedString(@"a competition", @"a competition")];
+        self.category = [dictionary objectForKey:@"category" orDefaultValue:NSLocalizedString(@"a category", @"a category")]; 
         self.votesCount = [dictionary objectForKey:@"votes" orDefaultValue:@0];
         self.viewCount = [dictionary objectForKey:@"views" orDefaultValue:@0];
         self.caption = [dictionary objectForKey:@"captions" orDefaultValue:NSLocalizedString(@"a caption", @"a caption")];
@@ -55,7 +58,7 @@
     return self;
 }
 -(NSString *)description{
-    NSString *descrippy = [NSString stringWithFormat:@"VideoObject Description: UserID=%@ Username=%@ Rank=%@ TagCount=%@ VideoID=%@ ShareID=%@ TimeStamp=%@ Tag=%@ VotesCount=%@ ViewsCount=%@ DidVote=%i InfiniteScrollingID=%@", self.userID, self.username, self.rank, self.tagCount, self.videoID, self.shareID, self.timeStamp, self.tag, self.votesCount, self.viewCount, self.didVote, self.infiniteScrollingID];
+    NSString *descrippy = [NSString stringWithFormat:@"VideoObject Description: UserID=%@ Username=%@ Rank=%@ TagCount=%@ VideoID=%@ ShareID=%@ TimeStamp=%@ Tag=%@ Category=%@ VotesCount=%@ ViewsCount=%@ DidVote=%@ InfiniteScrollingID=%@", self.userID, self.username, self.rank, self.tagCount, self.videoID, self.shareID, self.timeStamp, self.tag, self.category, self.votesCount, self.viewCount, [NSString localizedStringFromBool:self.didVote], self.infiniteScrollingID];
     return descrippy;
 }
 
@@ -65,6 +68,9 @@
 }
 -(NSArray *)sharingActivityItems{
     return @[[self sharingString], [NSURL shareURLFromShareID:self.shareID]];
+}
+-(NSString *)rankPositionInCompetition{
+    return [NSString stringWithFormat:@"%@/%@", self.rank, self.tagCount]; 
 }
 #pragma mark - Internal Methods
 -(NSString *)sharingString{

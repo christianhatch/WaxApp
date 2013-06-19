@@ -25,10 +25,10 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *followButton;
 
-
 - (IBAction)followButtonAction:(id)sender;
 - (IBAction)followersButtonAction:(id)sender;
 - (IBAction)followingButtonAction:(id)sender;
 
+-(void)refreshData;
 
 @end

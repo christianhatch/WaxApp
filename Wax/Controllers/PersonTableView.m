@@ -92,6 +92,8 @@
 
 #pragma mark - Convenience Methods
 -(NSMutableArray *)proxyDataSourceArray{
+    return [WaxDataManager sharedManager].personList;
+/*
     switch (self.tableViewType) {
         case PersonTableViewTypeFollowing:{
             return [WaxDataManager sharedManager].personList;
@@ -100,10 +102,12 @@
             return [WaxDataManager sharedManager].personList;
         }break;
     }
+ */
 }
 -(void)handleUpdatingFeedWithError:(NSError *)error{
     [super handleUpdatingFeedWithError:error];
     
+    /*
     if (!error) {
 
     }else{        
@@ -116,6 +120,7 @@
             }break;
         }
     }
+     */
 }
 
 

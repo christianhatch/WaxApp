@@ -18,7 +18,7 @@
 
 -(void)askToCancelAndDeleteCurrentUploadWithBlock:(void(^)(BOOL cancelled))block;
 
--(void)beginUploadProcessWithVideoID:(NSString *)videoID competitionTag:(NSString *)tag;
+-(void)beginUploadProcessWithVideoID:(NSString *)videoID competitionTag:(NSString *)tag category:(NSString *)category;
 
 -(void)beginUploadProcessWithVideoFileURL:(NSURL *)videoFileURL videoDuration:(NSNumber *)duration;
 
@@ -33,9 +33,11 @@
 
 -(void)retryUploadWithCompletion:(void(^)(void))completion;
 
-
 @property (nonatomic, strong) UploadObject *currentUpload;
 
+-(BOOL)isInChallengeMode; 
 -(NSString *)challengeTag; 
+-(NSString *)challengeCategory;
+
 
 @end

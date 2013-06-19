@@ -16,12 +16,14 @@
 @property (nonatomic, copy) NSNumber *rank;
 @property (nonatomic, copy) NSNumber *tagCount;
 
-#pragma mark - info about the video itself
+#pragma mark - Internal Info about the video itself
 @property (nonatomic, copy) NSString *videoID;
 @property (nonatomic, copy) NSString *shareID;
 @property (nonatomic, copy) NSString *timeStamp;
-@property (nonatomic, copy) NSString *tag;
 
+#pragma mark - User Facing Information about the video
+@property (nonatomic, copy) NSString *tag;
+@property (nonatomic, copy) NSString *category; 
 @property (nonatomic, copy) NSNumber *votesCount;
 @property (nonatomic, copy) NSNumber *viewCount;
 @property (nonatomic, copy) NSString *caption;
@@ -31,5 +33,6 @@
 
 -(BOOL)isMine; 
 -(NSArray *)sharingActivityItems;
+-(NSString *)rankPositionInCompetition;
 
 @end

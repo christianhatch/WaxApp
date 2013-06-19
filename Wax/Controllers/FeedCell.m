@@ -52,7 +52,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     self.timestampLabel.text = video.timeStamp;
     
     [self.competitionNameButton setTitleForAllControlStates:video.tag]; 
-    self.rankLabel.text = [NSString stringWithFormat:@"%@/%@", video.rank, video.tagCount];
+    self.rankLabel.text = video.rankPositionInCompetition;
     
     [self setupVoteButton]; 
 }
@@ -103,7 +103,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 
 - (IBAction)challengeButtonAction:(id)sender {
     
-    [[VideoUploadManager sharedManager] beginUploadProcessWithVideoID:self.videoObject.videoID competitionTag:self.videoObject.tag]; 
+    [[VideoUploadManager sharedManager] beginUploadProcessWithVideoID:self.videoObject.videoID competitionTag:self.videoObject.tag category:self.videoObject.category];
     [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationPresentVideoCamera object:self]; 
 
 }

@@ -31,7 +31,7 @@
    
     self.nameLabel.text = person.username;
     
-    [self.followersButton setTitleForAllControlStates:[NSString stringWithFormat:NSLocalizedString(@"%@ Followers", @"%@ Followers"), person.followersCount]];
+    [self updateFollowersCountLabel];
     [self.followingButton setTitleForAllControlStates:[NSString stringWithFormat:NSLocalizedString(@"%@ Following", @"%@ Following"), person.followingCount]];
    
     [self setUpFollowingLabel]; 
@@ -61,6 +61,10 @@
         [[WaxAPIClient sharedClient] toggleFollowUserID:self.person.userID completion:^(BOOL complete, NSError *error) {
             if (!error) {
                 self.person.following = !self.person.isFollowing;
+
+                self.person.followersCount = [NSNumber numberWithInteger:self.person.isFollowing ? self.person.followersCount.integerValue + 1 : self.person.followersCount.integerValue - 1];
+                [self updateFollowersCountLabel];
+                
                 [self setUpFollowingLabel];
             }else{
                 DLog(@"followed/unfollowed error %@", error);
@@ -81,20 +85,26 @@
     [vc.navigationController pushViewController:plvc animated:YES];
 }
 
+#pragma mark - Public API
+-(void)refreshData{
+    [self fetchProfileInfoAndUpdateUI]; 
+}
+
 #pragma mark - Convenience Methods
 -(void)setUpFollowingLabel{
     NSAssert(self.person, @"Must have a person object set on profile header to setup follow button!");
     
-    NSString *title = nil;
+    NSString *title = self.person.isFollowing ? NSLocalizedString(@"Unfollow", @"Unfollow") : NSLocalizedString(@"Follow", @"Follow");;
 
     if (self.person.isMe) {
         title = NSLocalizedString(@"Settings", @"Settings");
-    }else{
-        title = self.person.isFollowing ? NSLocalizedString(@"Unfollow", @"Unfollow") : NSLocalizedString(@"Follow", @"Follow");
     }
+    
     [self.followButton setTitleForAllControlStates:title];
 }
-
+-(void)updateFollowersCountLabel{
+    [self.followersButton setTitleForAllControlStates:[NSString stringWithFormat:NSLocalizedString(@"%@ Followers", @"%@ Followers"), self.person.followersCount]];
+}
 -(void)fetchProfileInfoAndUpdateUI{
     [[WaxAPIClient sharedClient] fetchProfileInformationForUserID:self.userID completion:^(PersonObject *person, NSError *error) {
         if (!error) {
@@ -104,7 +114,6 @@
         }
     }];
 }
-
 
 
 

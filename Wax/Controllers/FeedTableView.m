@@ -56,17 +56,22 @@
         
         [self registerNib:[UINib nibWithNibName:@"FeedCell" bundle:nil] forCellReuseIdentifier:kFeedCellID];
         
+        if (feedtype == FeedTableViewTypeMyFeed || feedtype == FeedTableViewTypeUserFeed) {
+            self.tableHeaderView = [ProfileHeaderView profileHeaderViewForUserID:self.dataSourceID];
+        }
+
         __block FeedTableView *blockSelf = self;
         [self addPullToRefreshWithActionHandler:^{
+            if (feedtype == FeedTableViewTypeMyFeed || feedtype == FeedTableViewTypeUserFeed) {
+                ProfileHeaderView *header = (ProfileHeaderView *)blockSelf.tableHeaderView;
+                [header refreshData]; 
+            }
             [blockSelf refreshDataWithInfiniteScroll:NO];
         }];
         [self addInfiniteScrollingWithActionHandler:^{
             [blockSelf refreshDataWithInfiniteScroll:YES];
         }];
         
-        if (feedtype == FeedTableViewTypeMyFeed || feedtype == FeedTableViewTypeUserFeed) {
-            self.tableHeaderView = [ProfileHeaderView profileHeaderViewForUserID:self.dataSourceID];
-        }
     }
     return self; 
 }

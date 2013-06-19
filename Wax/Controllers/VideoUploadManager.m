@@ -13,10 +13,11 @@
 @interface VideoUploadManager ()
 @property (nonatomic, strong) NSString *challengeVideoID;
 @property (nonatomic, strong) NSString *challengeCompetitionTag;
+@property (nonatomic, strong) NSString *challengeCategory;
 @end
 
 @implementation VideoUploadManager
-@synthesize currentUpload = _currentUpload, challengeVideoID = _challengeVideoID, challengeCompetitionTag = _challengeCompetitionTag;
+@synthesize currentUpload = _currentUpload, challengeVideoID = _challengeVideoID, challengeCompetitionTag = _challengeCompetitionTag, challengeCategory = _challengeCategory; 
 
 #pragma mark - Alloc & Init
 +(VideoUploadManager *)sharedManager{
@@ -38,6 +39,7 @@
 #pragma mark - Public API
 -(void)askToCancelAndDeleteCurrentUploadWithBlock:(void (^)(BOOL))block{
     [[WaxDataManager sharedManager] updateCategoriesWithCompletion:nil]; //update categories at the beginning of each upload process
+   
     if ([self isUploading]) {
         RIButtonItem *sure = [RIButtonItem item];
         sure.label = NSLocalizedString(@"Delete", @"Delete");
@@ -70,13 +72,13 @@
         });
     }
 }
--(void)beginUploadProcessWithVideoID:(NSString *)videoID competitionTag:(NSString *)tag{
+-(void)beginUploadProcessWithVideoID:(NSString *)videoID competitionTag:(NSString *)tag category:(NSString *)category{
 
     NSParameterAssert(videoID);
     NSParameterAssert(tag);
+    NSParameterAssert(category);
     
-    self.challengeVideoID = videoID;
-    self.challengeCompetitionTag = tag;
+    [self setchallengeVideoID:videoID challengeTag:tag challengeCategory:category]; 
 }
 
 -(void)beginUploadProcessWithVideoFileURL:(NSURL *)videoFileURL videoDuration:(NSNumber *)duration{
@@ -139,6 +141,9 @@
 }
 -(NSString *)challengeTag{
     return [self.challengeCompetitionTag copy]; 
+}
+-(NSString *)challengeCategory{
+    return [self.challengeCategory copy];
 }
 
 #pragma mark - Internal Methods
@@ -281,8 +286,8 @@
     
     [self.currentUpload removeFromNSUserDefaults];
     self.currentUpload = nil;
-    self.challengeVideoID = nil;
-    self.challengeCompetitionTag = nil;
+    
+    [self clearChallengeData];
     
     if (completion) {
         completion();
@@ -290,7 +295,7 @@
 }
 
 
-#pragma mark - Internal methods
+#pragma mark - Convenience methods
 -(BOOL)isUploading{
     return (self.currentUpload || /*[self checkUploadsDirectory] ||*/ [AIKVideoProcessor sharedProcessor].exporter.status == AVAssetExportSessionStatusExporting);
 }
@@ -298,7 +303,18 @@
 //    return [[NSFileManager defaultManager] fileExistsAtPath:[NSURL currentVideoFileURL].path];
 //}
 -(BOOL)isInChallengeMode{
-    return ((self.challengeCompetitionTag != nil) && (self.challengeVideoID != nil));
+    return ((self.challengeCompetitionTag != nil) && (self.challengeVideoID != nil) && (self.challengeCategory != nil));
 }
+-(void)setchallengeVideoID:(NSString *)videoID challengeTag:(NSString *)tag challengeCategory:(NSString *)category{
+    self.challengeVideoID = videoID;
+    self.challengeCompetitionTag = tag;
+    self.challengeCategory = category;
+}
+-(void)clearChallengeData{
+    [self setchallengeVideoID:nil challengeTag:nil challengeCategory:nil];
+}
+
+
+
 
 @end

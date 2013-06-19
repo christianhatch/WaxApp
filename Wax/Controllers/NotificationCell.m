@@ -22,8 +22,9 @@
             [[blockSelf nearestNavigationController] pushViewController:profy animated:YES];
         }];
     }else{
-        [self.profilePictureView setCircular:NO]; 
-        [self.profilePictureView setImageWithURL:[NSURL thumbnailURLFromUserID:note.userID andVideoID:note.videoID] placeholderImage:nil animated:YES completion:nil];
+//        [self.profilePictureView setCircular:NO]; 
+//        [self.profilePictureView setImageWithURL:[NSURL thumbnailURLFromUserID:note.userID andVideoID:note.videoID] placeholderImage:nil animated:YES completion:nil];
+
     }
     
     self.notificationLabel.text = note.noteText;

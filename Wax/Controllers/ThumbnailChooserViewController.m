@@ -24,8 +24,8 @@
     
     for (UIImageView *imageView in @[self.thumbPreview1, self.thumbPreview2, self.thumbPreview3, self.thumbPreview4, self.thumbPreview5, self.thumbPreview6]) {
         imageView.clipsToBounds = YES;
-        imageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        imageView.layer.borderWidth = 0.04f;
+//        imageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+//        imageView.layer.borderWidth = 0.04f;
         
         [imageView enableAsButtonWithButtonHandler:^(UIImageView *imageView) {
             
@@ -54,17 +54,19 @@
 }
 
 -(void)setUpView{
-    self.directionsLabel.text = NSLocalizedString(@"Choose a thumbnail for your video by tapping one", @"Choose a thumbnail for your video by tapping one");
+    self.directionsLabel.text = NSLocalizedString(@"Choose a thumbnail for your video by tapping one below", @"Choose a thumbnail for your video by tapping one below");
     self.navigationItem.title = NSLocalizedString(@"Thumbnail", @"Thumbnail");
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
 }
 -(void)cancel:(id)sender{
-    [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithBlock:^(BOOL cancelled) {
-        if (cancelled) {
-            [AIKErrorManager logMessageToAllServices:@"User canceled from thumbnail chooser"];
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-    }];
+    if (![VideoUploadManager sharedManager].isInChallengeMode) {
+        [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithBlock:^(BOOL cancelled) {
+            if (cancelled) {
+                [AIKErrorManager logMessageToAllServices:@"User canceled from thumbnail chooser"];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        }];
+    }
 }
 #pragma mark - Main Methods
 -(void)thumbnailAvailable:(NSNotification *)note{
@@ -77,8 +79,10 @@
 -(MPMoviePlayerController *)player{
     if (!_player) {
         _player = [[MPMoviePlayerController alloc] initWithContentURL:self.videoPath];
+        [_player stop];
+#warning test this! ^^ 
     }
-    return _player; 
+    return _player;
 }
 
 
