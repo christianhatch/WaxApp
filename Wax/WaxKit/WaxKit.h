@@ -26,6 +26,7 @@
 //views
 #import "CategoryTableView.h"
 #import "CategoryCell.h"
+#import "TagCell.h"
 
 #import "FeedTableView.h"
 #import "FeedCell.h"
@@ -55,6 +56,8 @@
 #import "VideoObject.h"
 #import "UploadObject.h"
 #import "NotificationObject.h"
+#import "TagObject.h"
+
 
 
 //third party

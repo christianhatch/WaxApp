@@ -141,6 +141,12 @@
 		454BBDC5174049C4005F48ED /* ModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC4174049C4005F48ED /* ModelObject.m */; };
 		454BBDC917404A2E005F48ED /* WaxUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDC817404A2D005F48ED /* WaxUser.m */; };
 		454BBDCD17404A39005F48ED /* PersonObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BBDCC17404A39005F48ED /* PersonObject.m */; };
+		455417511775074B0029FCB5 /* TagObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 455417501775074B0029FCB5 /* TagObject.m */; };
+		455417521775074B0029FCB5 /* TagObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 455417501775074B0029FCB5 /* TagObject.m */; };
+		4554175817750AC10029FCB5 /* TagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4554175717750AC10029FCB5 /* TagCell.m */; };
+		4554175917750AC10029FCB5 /* TagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4554175717750AC10029FCB5 /* TagCell.m */; };
+		4554175B17750AD30029FCB5 /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4554175A17750AD30029FCB5 /* TagCell.xib */; };
+		4554175C17750AD30029FCB5 /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4554175A17750AD30029FCB5 /* TagCell.xib */; };
 		4589E9B3176299E200ED4A6F /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4589E9B2176299E200ED4A6F /* FeedCell.xib */; };
 		4589E9BA1762A6FC00ED4A6F /* WaxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4589E9B91762A6FC00ED4A6F /* WaxTableViewCell.m */; };
 		4589E9BB1762A6FC00ED4A6F /* WaxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4589E9B91762A6FC00ED4A6F /* WaxTableViewCell.m */; };
@@ -392,6 +398,11 @@
 		454BBDC817404A2D005F48ED /* WaxUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaxUser.m; path = ../../Controllers/WaxUser.m; sourceTree = "<group>"; };
 		454BBDCB17404A39005F48ED /* PersonObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonObject.h; sourceTree = "<group>"; };
 		454BBDCC17404A39005F48ED /* PersonObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonObject.m; sourceTree = "<group>"; };
+		4554174F1775074B0029FCB5 /* TagObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagObject.h; sourceTree = "<group>"; };
+		455417501775074B0029FCB5 /* TagObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagObject.m; sourceTree = "<group>"; };
+		4554175617750AC10029FCB5 /* TagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagCell.h; path = Controllers/TagCell.h; sourceTree = "<group>"; };
+		4554175717750AC10029FCB5 /* TagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TagCell.m; path = Controllers/TagCell.m; sourceTree = "<group>"; };
+		4554175A17750AD30029FCB5 /* TagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TagCell.xib; path = Nibs/TagCell.xib; sourceTree = "<group>"; };
 		4589E9B2176299E200ED4A6F /* FeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FeedCell.xib; path = Nibs/FeedCell.xib; sourceTree = "<group>"; };
 		4589E9B81762A6FC00ED4A6F /* WaxTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaxTableViewCell.h; path = ../../Controllers/WaxTableViewCell.h; sourceTree = "<group>"; };
 		4589E9B91762A6FC00ED4A6F /* WaxTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaxTableViewCell.m; path = ../../Controllers/WaxTableViewCell.m; sourceTree = "<group>"; };
@@ -809,7 +820,7 @@
 			children = (
 				45E27F1A17694A8200E75F34 /* Base Classes */,
 				45C4C39C176FE9DC00AEC587 /* Notifications */,
-				45C4C38B176FE7A900AEC587 /* Categories */,
+				45C4C38B176FE7A900AEC587 /* Categories/Tags */,
 				45C4C38C176FE7B100AEC587 /* Feeds/Videos */,
 				45E27F23176987AD00E75F34 /* Persons */,
 			);
@@ -851,7 +862,7 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
-		45C4C38B176FE7A900AEC587 /* Categories */ = {
+		45C4C38B176FE7A900AEC587 /* Categories/Tags */ = {
 			isa = PBXGroup;
 			children = (
 				45E27F0E176933BA00E75F34 /* CategoryTableView.h */,
@@ -859,8 +870,11 @@
 				45C4C379176FE6A500AEC587 /* CategoryCell.h */,
 				45C4C37A176FE6A500AEC587 /* CategoryCell.m */,
 				45C4C380176FE6F400AEC587 /* CategoryCell.xib */,
+				4554175617750AC10029FCB5 /* TagCell.h */,
+				4554175717750AC10029FCB5 /* TagCell.m */,
+				4554175A17750AD30029FCB5 /* TagCell.xib */,
 			);
-			name = Categories;
+			name = Categories/Tags;
 			sourceTree = "<group>";
 		};
 		45C4C38C176FE7B100AEC587 /* Feeds/Videos */ = {
@@ -927,6 +941,8 @@
 				454BBDCC17404A39005F48ED /* PersonObject.m */,
 				452FADAE17404D450091F8D4 /* VideoObject.h */,
 				452FADAF17404D450091F8D4 /* VideoObject.m */,
+				4554174F1775074B0029FCB5 /* TagObject.h */,
+				455417501775074B0029FCB5 /* TagObject.m */,
 				45C4C387176FE79900AEC587 /* NotificationObject.h */,
 				45C4C388176FE79900AEC587 /* NotificationObject.m */,
 				45B8AAF717517ABD009450EA /* UploadObject.h */,
@@ -1225,6 +1241,7 @@
 				45E27F25176987EB00E75F34 /* PersonCell.xib in Resources */,
 				45C4C381176FE6F400AEC587 /* CategoryCell.xib in Resources */,
 				45C4C396176FE89100AEC587 /* NotificationCell.xib in Resources */,
+				4554175B17750AD30029FCB5 /* TagCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1239,6 +1256,7 @@
 				45E27F26176987EB00E75F34 /* PersonCell.xib in Resources */,
 				45C4C382176FE6F400AEC587 /* CategoryCell.xib in Resources */,
 				45C4C397176FE89100AEC587 /* NotificationCell.xib in Resources */,
+				4554175C17750AD30029FCB5 /* TagCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1386,6 +1404,8 @@
 				45C4C389176FE79900AEC587 /* NotificationObject.m in Sources */,
 				45C4C38F176FE7E300AEC587 /* NotificationsTableView.m in Sources */,
 				45C4C39A176FE8AF00AEC587 /* NotificationCell.m in Sources */,
+				455417511775074B0029FCB5 /* TagObject.m in Sources */,
+				4554175817750AC10029FCB5 /* TagCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1444,6 +1464,8 @@
 				45C4C38A176FE79900AEC587 /* NotificationObject.m in Sources */,
 				45C4C390176FE7E300AEC587 /* NotificationsTableView.m in Sources */,
 				45C4C39B176FE8AF00AEC587 /* NotificationCell.m in Sources */,
+				455417521775074B0029FCB5 /* TagObject.m in Sources */,
+				4554175917750AC10029FCB5 /* TagCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1540,7 +1562,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1553,7 +1575,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "2B073A05-386F-418C-8C6B-A8459CA1A3E8";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2B073A05-386F-418C-8C6B-A8459CA1A3E8";
 				SDKROOT = iphoneos;
 			};
@@ -1592,7 +1614,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1621,8 +1643,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "15CAA503-1801-446A-A8F3-543231A4F188";
+				PROVISIONING_PROFILE = "986DEBDA-2E39-4474-82E2-7197482099BA";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};

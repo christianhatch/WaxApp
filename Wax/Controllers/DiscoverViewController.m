@@ -52,24 +52,34 @@
 #pragma mark - UISearchDisplayController Delegate
 -(void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView{
     [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"PersonCell" bundle:nil] forCellReuseIdentifier:kPersonCellID];
-    [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"CategoryCell" bundle:nil] forCellReuseIdentifier:kCategoryCellID];
+    [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"TagCell" bundle:nil] forCellReuseIdentifier:kTagCellID];
 }
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString{
-    if (self.searchDisplayController.searchBar.selectedScopeButtonIndex == 0) {
-        if (searchString.length > 1) {
-            [[WaxAPIClient sharedClient] searchForUsersWithSearchTerm:searchString infiniteScrollingID:nil completion:^(NSMutableArray *list, NSError *error) {
+    if (searchString.length > 1) {
+        if (self.searchDisplayController.searchBar.selectedScopeButtonIndex == 0) {
+                [[WaxAPIClient sharedClient] searchForUsersWithSearchTerm:searchString infiniteScrollingID:nil completion:^(NSMutableArray *list, NSError *error) {
+                    if (!error) {
+                        self.personSearchResults = list;
+                        [self.searchDisplayController.searchResultsTableView reloadData]; 
+                    }else{
+                        [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error searching", @"Error searching") error:error buttonHandler:^{
+                            
+                        } logError:YES];
+                    }
+                }];
+        }else{
+            [[WaxAPIClient sharedClient] searchForTagsWithSearchTerm:searchString infiniteScrollingID:nil completion:^(NSMutableArray *list, NSError *error) {
                 if (!error) {
-                    self.personSearchResults = list;
-                    [self.searchDisplayController.searchResultsTableView reloadData]; 
+                    self.tagSearchResults = list;
+                    [self.searchDisplayController.searchResultsTableView reloadData];
                 }else{
                     [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error searching", @"Error searching") error:error buttonHandler:^{
                         
                     } logError:YES];
                 }
+                
             }];
         }
-    }else{
-        [SVProgressHUD showErrorWithStatus:@"coming soon!"]; 
     }
     return NO;
 }
@@ -94,8 +104,8 @@
         cell.person = [self.personSearchResults objectAtIndexOrNil:indexPath.row];
         return cell;
     }else{
-        CategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:kCategoryCellID];
-        cell.category = [self.tagSearchResults objectAtIndexOrNil:indexPath.row];
+        TagCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagCellID];
+        cell.tagObject = [self.tagSearchResults objectAtIndexOrNil:indexPath.row];
         return cell;
     }
 }
@@ -103,7 +113,8 @@
     if (self.searchDisplayController.searchBar.selectedScopeButtonIndex == 0) {
         [self.navigationController pushViewController:[ProfileViewController profileViewControllerFromPersonObject:[self.personSearchResults objectAtIndexOrNil:indexPath.row]] animated:YES];
     }else{
-        [self.navigationController pushViewController:[FeedViewController feedViewControllerWithTag:[self.tagSearchResults objectAtIndexOrNil:indexPath.row]] animated:YES];
+        TagObject *tagObject = [self.tagSearchResults objectAtIndexOrNil:indexPath.row];
+        [self.navigationController pushViewController:[FeedViewController feedViewControllerWithTag:tagObject.tag] animated:YES];
     }
 }
 

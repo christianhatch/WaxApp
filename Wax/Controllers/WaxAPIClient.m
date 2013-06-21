@@ -11,7 +11,7 @@ static inline BOOL SimpleReturnFromAPIResponse(id response) {
 }
 static inline BOOL PathRequiresArray(NSString *path){
     BOOL forceArray = NO;
-    if ([path containsString:@"feeds"] || [path isEqualToString:@"users/following"] || [path isEqualToString:@"users/followers"] || [path isEqualToString:@"users/search"] || [path containsString:@"find_friends"] || [path containsString:@"categories"]) {
+    if ([path containsString:@"feeds"] || [path isEqualToString:@"users/following"] || [path isEqualToString:@"users/followers"] || [path isEqualToString:@"users/search"] || [path isEqualToString:@"tags/search"]|| [path containsString:@"find_friends"] || [path containsString:@"categories"]) {
         forceArray = YES; 
     }
     return forceArray;
@@ -185,6 +185,7 @@ static inline BOOL PathRequiresArray(NSString *path){
         }
     }];
 }
+
 #pragma mark - Users
 -(void)toggleFollowUserID:(NSString *)personID completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
         
@@ -388,6 +389,19 @@ static inline BOOL PathRequiresArray(NSString *path){
         }
     }];
 }
+-(void)searchForTagsWithSearchTerm:(NSString *)searchTerm infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
+    
+    NSParameterAssert(searchTerm);
+    
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:searchTerm, @"tag", infiniteScrollingID, @"lastitem", nil];
+    
+    [self postPath:@"tags/search" parameters:params modelClass:[TagObject class] completionBlock:^(id model, NSError *error) {
+        if (completion) {
+            completion(model, error); 
+        }
+    }];
+}
+
 #pragma mark - Settings
 -(void)fetchSettingsWithCompletion:(WaxAPIClientBlockTypeCompletionSettings)completion{
     [self postPath:@"settings/get" parameters:nil modelClass:[SettingsObject class] completionBlock:^(id model, NSError *error) {
@@ -438,6 +452,7 @@ static inline BOOL PathRequiresArray(NSString *path){
         }
    }]; 
 }
+
 #pragma mark - Internal Methods
 -(void)fetchFeedFromPath:(NSString *)path tagOrPersonID:(NSString *)tagOrPersonID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
 
