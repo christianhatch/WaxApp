@@ -79,8 +79,16 @@
        
         table.hidesFollowButtonOnCells = YES;
         [self.view addSubview:table];
+        [self addSearchFunctionality]; 
     }
 }
+
+-(void)addSearchFunctionality{
+    
+}
+
+
+#pragma mark - Internal Methods
 -(void)sendChallengeToUser:(PersonObject *)person{
     [[WaxAPIClient sharedClient] sendChallengeTag:self.challengeTag toUserID:person.userID completion:^(BOOL complete, NSError *error) {
         if (!error) {

@@ -17,6 +17,8 @@ static inline BOOL PathRequiresArray(NSString *path){
     return forceArray;
 }
 
+
+
 #import "WaxAPIClient.h"
 
 @interface WaxAPIClient ()
@@ -302,21 +304,62 @@ static inline BOOL PathRequiresArray(NSString *path){
         
     }];
 }
--(void)uploadVideoMetadataWithVideoID:(NSString *)videoID videoLength:(NSNumber *)videoLength tag:(NSString *)tag category:(NSString *)category lat:(NSNumber *)lat lon:(NSNumber *)lon completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
+-(void)uploadVideoMetadataWithVideoID:(NSString *)videoID
+                          videoLength:(NSNumber *)videoLength
+                                  tag:(NSString *)tag
+                             category:(NSString *)category
+                                    //optional//
+                                  lat:(NSNumber *)lat
+                                  lon:(NSNumber *)lon
+                          challengeID:(NSString *)challengeID
+                      shareToFacebook:(BOOL)shareToFacebook
+                       sharetoTwitter:(BOOL)shareToTwitter
+                           completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
     
     NSParameterAssert(videoID);
     NSParameterAssert(videoLength);
     NSParameterAssert(tag);
     NSParameterAssert(category);
     
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:videoID, @"videoid", videoLength, @"videolength", tag, @"tag", category, @"category", lat, @"lat", lon, @"lon", nil];
-  
-    [self postPath:@"videos/put_data" parameters:params modelClass:nil completionBlock:^(id model, NSError *error) {
-        DLog(@"upload meta response %@", model);
-        if (completion) {
-            completion(SimpleReturnFromAPIResponse(model), error);
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:videoID, @"videoid", videoLength, @"videolength", tag, @"tag", category, @"category", nil];
+
+    if (lat && lon) {
+        [params setObject:lat forKey:@"lat"];
+        [params setObject:lon forKey:@"lon"];
+    }
+    if (challengeID) {
+        [params setObject:challengeID forKey:@"challengeid"];
+    }
+    if (shareToFacebook) {
+        if ([[WaxUser currentUser] facebookAccountConnected]) {
+            [params setObject:[[WaxUser currentUser] facebookAccountID] forKey:@"facebookid"];
+            [params setObject:[AIKFacebookManager sharedManager].accessToken forKey:@"facebook_token"];
         }
-    }];
+    }
+    if (shareToTwitter) {
+        if ([[WaxUser currentUser] twitterAccountConnected]) {
+            [[AIKTwitterManager sharedManager] reverseAuthTokenForAccountID:[[WaxUser currentUser] twitterAccountID] withCompletion:^(NSString *reverseAuthFullToken, NSString *accessToken, NSString *accessTokenSecret, NSError *error) {
+                
+                [params setObject:accessToken forKey:@"twitter_token"];
+                [params setObject:accessTokenSecret forKey:@"twitter_token_secret"];
+                
+                [self postPath:@"videos/put_data" parameters:params modelClass:nil completionBlock:^(id model, NSError *error) {
+                    DLog(@"upload meta response %@", model);
+                    if (completion) {
+                        completion(SimpleReturnFromAPIResponse(model), error);
+                    }
+                }];
+            }]; 
+        }
+    }else{
+        [self postPath:@"videos/put_data" parameters:params modelClass:nil completionBlock:^(id model, NSError *error) {
+            DLog(@"upload meta response %@", model);
+            if (completion) {
+                completion(SimpleReturnFromAPIResponse(model), error);
+            }
+        }];
+    }
 }
 -(void)cancelVideoUploadingOperationWithVideoID:(NSString *)videoID{
     

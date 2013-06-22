@@ -25,7 +25,7 @@
     }
     [self customizeAppearance];
     [self bootupThirdPartySDKs];
-        
+    
     return YES;
 }
 
