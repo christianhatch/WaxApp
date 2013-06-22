@@ -389,6 +389,8 @@ static inline BOOL PathRequiresArray(NSString *path){
         }
     }];
 }
+
+#pragma mark - Tags
 -(void)searchForTagsWithSearchTerm:(NSString *)searchTerm infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     
     NSParameterAssert(searchTerm);
@@ -398,6 +400,16 @@ static inline BOOL PathRequiresArray(NSString *path){
     [self postPath:@"tags/search" parameters:params modelClass:[TagObject class] completionBlock:^(id model, NSError *error) {
         if (completion) {
             completion(model, error); 
+        }
+    }];
+}
+-(void)sendChallengeTag:(NSString *)tag toUserID:(NSString *)userID completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
+    NSParameterAssert(tag);
+    NSParameterAssert(userID);
+    
+    [self postPath:@"tags/send" parameters:@{@"personid": userID, @"tag": tag} modelClass:nil completionBlock:^(id model, NSError *error) {
+        if (completion) {
+            completion(SimpleReturnFromAPIResponse(model), error); 
         }
     }];
 }

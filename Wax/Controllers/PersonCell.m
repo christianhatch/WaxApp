@@ -11,7 +11,7 @@
 #import "ProfileViewController.h"
 
 @implementation PersonCell
-@synthesize followButton = _followButton, fullNameLabel, usernameLabel, profilePictureView; 
+@synthesize followButton = _followButton, fullNameLabel, usernameLabel, profilePictureView, hidesFollowButton = _hidesFollowButton;
 @synthesize person = _person; 
 
 -(void)setUpView{
@@ -29,7 +29,7 @@
     self.fullNameLabel.text = person.fullName;
     self.usernameLabel.text = person.username;
     
-    if (!person.isMe) {
+    if (!person.isMe || !self.hidesFollowButton) {
         [self.contentView addSubview:self.followButton];
     }
 }

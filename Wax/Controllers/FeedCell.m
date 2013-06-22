@@ -33,6 +33,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 
 -(void)awakeFromNib{
     [self.challengeButton setTitleForAllControlStates:NSLocalizedString(@"Do It!", @"Do It!")];
+    [self.sendChallengeButton setTitleForAllControlStates:NSLocalizedString(@"Send", @"Send")]; 
     [self.voteButton setTitleColor:[UIColor orangeColor] forState:UIControlStateDisabled];
     [self.actionButton rotateByDegrees:180 duration:0]; 
 }
@@ -46,8 +47,8 @@ static inline NSString *stringFromActivityType(NSString *activityType){
         [[blockSelf nearestNavigationController] pushViewController:pvc animated:YES]; 
     }];
     
-    [self.contentView addSubview:self.moviePlayer];
-
+    [self setUpMoviePlayer];
+    
     self.usernameLabel.text = video.username;
     self.timestampLabel.text = video.timeStamp;
     
@@ -60,29 +61,20 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     if (_videoObject != videoObject) {
         _videoObject = videoObject;
         [self setUpView];
-    }else{
-        [self.moviePlayer resetMoviePlayer];
     }
 }
 -(void)prepareForReuse{
-    self.videoObject = nil;
-    self.moviePlayer = nil; 
+    [self setUpMoviePlayer];
 }
-
-#pragma mark - Getters
--(AIKMoviePlayer *)moviePlayer{
-    if (!_moviePlayer) {
+-(void)setUpMoviePlayer{
+    if (!self.moviePlayer) {
         CGFloat bottomPlus8 = (self.profilePictureView.bounds.size.height + self.profilePictureView.frame.origin.y + 8);
         CGRect movieFrame = CGRectMake(0, bottomPlus8, self.bounds.size.width, self.bounds.size.width);
-        _moviePlayer = [AIKMoviePlayer moviePlayerWithFrame:movieFrame thumbnailURL:[NSURL thumbnailURLFromUserID:self.videoObject.userID andVideoID:self.videoObject.videoID] videoStreamingURL:[NSURL streamingURLFromUserID:self.videoObject.userID andVideoID:self.videoObject.videoID] playbackBeginBlock:^{
-            
-            [[WaxAPIClient sharedClient] performAction:WaxAPIClientVideoActionTypeView onVideoID:self.videoObject.videoID completion:nil];
-            
-            FeedTableView *supe = (FeedTableView *)self.superview;
-            [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"User played video from %@ feed", StringFromFeedTableViewType(supe.tableViewType)]];
-        }];
+        self.moviePlayer = [AIKMoviePlayer moviePlayerWithFrame:movieFrame thumbnailURL:[self thumbnailURL] videoStreamingURL:[self streamingURL] playbackBeginBlock:[self beginPlayingBlock]];
+        [self.contentView addSubview:self.moviePlayer];
+    }else{
+        [self.moviePlayer resetWithNewThumbnailURL:[self thumbnailURL] andVideoURL:[self streamingURL] playbackBeginBlock:[self beginPlayingBlock]];
     }
-    return _moviePlayer; 
 }
 
 
@@ -90,15 +82,11 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 #pragma mark - IBActions
 - (IBAction)actionButtonAction:(id)sender {
 
-    UIActionSheet *sheet = nil; 
-    
     if (self.videoObject.isMine) {
-        sheet = [[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:[RIButtonItem cancelButton] destructiveButtonItem:[self deleteButton] otherButtonItems:[self shareButton], nil];
+        [[[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:[RIButtonItem cancelButton] destructiveButtonItem:[self deleteButton] otherButtonItems:[self shareButton], nil] showInView:self];
     }else{
-        sheet = [[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:[RIButtonItem cancelButton] destructiveButtonItem:[self flagButton] otherButtonItems:[self shareButton], nil];
+        [[[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:[RIButtonItem cancelButton] destructiveButtonItem:[self flagButton] otherButtonItems:[self shareButton], nil] showInView:self];
     }
-    
-    [sheet showInView:self];
 }
 
 - (IBAction)challengeButtonAction:(id)sender {
@@ -122,8 +110,13 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 
 - (IBAction)competitionNameButtonAction:(id)sender {
     FeedViewController *pvc = [FeedViewController feedViewControllerWithTag:self.videoObject.tag];
-    UIViewController *vc = [self nearestViewController];
-    [vc.navigationController pushViewController:pvc animated:YES];
+    [[self nearestNavigationController] pushViewController:pvc animated:YES];
+}
+
+- (IBAction)sendChallengeButtonAction:(id)sender {
+    [AIKErrorManager logMessageToAllServices:@"User tapped send challenge to friend button"];
+    PersonListViewController *plvc = [PersonListViewController personListViewControllerForSendingChallengeWithTag:self.videoObject.tag];
+    [[self nearestNavigationController] pushViewController:plvc animated:YES];
 }
 
 
@@ -192,7 +185,22 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     return confirmDelete;
 }
 
+-(NSURL *)thumbnailURL{
+    return [NSURL thumbnailURLFromUserID:self.videoObject.userID andVideoID:self.videoObject.videoID];
+}
+-(NSURL *)streamingURL{
+    return [NSURL streamingURLFromUserID:self.videoObject.userID andVideoID:self.videoObject.videoID];
+}
 
+-(AIKMoviePlayerBeginPlaybackBlock)beginPlayingBlock{
+    return ^{
+        [[WaxAPIClient sharedClient] performAction:WaxAPIClientVideoActionTypeView onVideoID:self.videoObject.videoID completion:nil];
+        
+        FeedTableView *supe = (FeedTableView *)self.superview;
+        [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"User played video from %@ feed", StringFromFeedTableViewType(supe.tableViewType)]];
+
+    }; 
+}
 
 
 

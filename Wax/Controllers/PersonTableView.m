@@ -14,13 +14,13 @@
 @end
 
 @implementation PersonTableView
-@synthesize userID = _userID, didSelectBlock = _didSelectBlock; 
+@synthesize userID = _userID, didSelectBlock = _didSelectBlock, hidesFollowButtonOnCells = _hidesFollowButtonOnCells;
 
 +(PersonTableView *)personTableViewForFollowingWithUserID:(NSString *)userID didSelectBlock:(PersonTableViewDidSelectPersonBlock)selectBlock frame:(CGRect)frame{
     PersonTableView *persony = [[PersonTableView alloc] initWithPersonTableViewType:PersonTableViewTypeFollowing userID:userID didSelectBlock:selectBlock frame:frame];
     return persony;
 }
-+(PersonTableView *)personTableViewForFollowwersWithUserID:(NSString *)userID didSelectBlock:(PersonTableViewDidSelectPersonBlock)selectBlock frame:(CGRect)frame{
++(PersonTableView *)personTableViewForFollowersWithUserID:(NSString *)userID didSelectBlock:(PersonTableViewDidSelectPersonBlock)selectBlock frame:(CGRect)frame{
     PersonTableView *persony = [[PersonTableView alloc] initWithPersonTableViewType:PersonTableViewTypeFollowers userID:userID didSelectBlock:selectBlock frame:frame];
     return persony;
 }
@@ -29,7 +29,7 @@
     if (self) {
         self.tableViewType = tableViewType;
         self.userID = userID;
-        self.didSelectBlock = selectBlock; 
+        self.didSelectBlock = selectBlock;
         
         [self registerNib:[UINib nibWithNibName:@"PersonCell" bundle:nil] forCellReuseIdentifier:kPersonCellID];
         
@@ -62,6 +62,7 @@
         }break;
     }
 }
+
 #pragma mark - TableView DataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -75,6 +76,8 @@
     
     PersonObject *person = [[self proxyDataSourceArray] objectAtIndexOrNil:indexPath.row];
     cell.person = person;
+    cell.hidesFollowButton = self.hidesFollowButtonOnCells;
+    
     return cell;
 }
 
@@ -123,6 +126,7 @@
      */
 }
 
+#pragma mark - Getters
 
 
 @end

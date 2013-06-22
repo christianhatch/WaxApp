@@ -20,12 +20,12 @@ typedef void(^PersonTableViewDidSelectPersonBlock)(PersonObject *person);
 @interface PersonTableView : WaxTableView
 
 +(PersonTableView *)personTableViewForFollowingWithUserID:(NSString *)userID didSelectBlock:(PersonTableViewDidSelectPersonBlock)selectBlock frame:(CGRect)frame;
-+(PersonTableView *)personTableViewForFollowwersWithUserID:(NSString *)userID didSelectBlock:(PersonTableViewDidSelectPersonBlock)selectBlock frame:(CGRect)frame;
++(PersonTableView *)personTableViewForFollowersWithUserID:(NSString *)userID didSelectBlock:(PersonTableViewDidSelectPersonBlock)selectBlock frame:(CGRect)frame;
 
 -(instancetype)initWithPersonTableViewType:(PersonTableViewType)tableViewType userID:(NSString *)userID didSelectBlock:(PersonTableViewDidSelectPersonBlock)selectBlock frame:(CGRect)frame;
 
 @property (nonatomic) PersonTableViewType tableViewType;
 @property (nonatomic, strong) PersonTableViewDidSelectPersonBlock didSelectBlock; 
-
+@property (nonatomic, readwrite) BOOL hidesFollowButtonOnCells;
 
 @end

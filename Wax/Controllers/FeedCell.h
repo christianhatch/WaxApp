@@ -31,11 +31,13 @@
 @property (strong, nonatomic) IBOutlet UIButton *actionButton;
 @property (strong, nonatomic) IBOutlet UIButton *challengeButton;
 @property (strong, nonatomic) IBOutlet UIButton *voteButton;
+@property (strong, nonatomic) IBOutlet UIButton *sendChallengeButton;
 
 - (IBAction)actionButtonAction:(id)sender;
 - (IBAction)challengeButtonAction:(id)sender;
 - (IBAction)voteButtonAction:(id)sender;
 - (IBAction)competitionNameButtonAction:(id)sender;
+- (IBAction)sendChallengeButtonAction:(id)sender;
 
 
 

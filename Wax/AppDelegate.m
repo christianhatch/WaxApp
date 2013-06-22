@@ -114,6 +114,7 @@
     [Crashlytics startWithAPIKey:kThirdPartyCrashlyticsAPIKey delegate:self];
 #endif
 }
+
 -(void)customizeAppearance{
     /*
     NSDictionary *navTitle = [NSDictionary dictionaryWithObjectsAndKeys: [UIColor blackColor], UITextAttributeTextColor, [[UIColor whiteColor] colorWithAlphaComponent:0.8], UITextAttributeTextShadowColor, [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, [UIFont kiwiLightOfSize:0.0], UITextAttributeFont, nil];

@@ -12,5 +12,6 @@
 
 +(PersonListViewController *)personListViewControllerForFollowingFromUserID:(NSString *)userID;
 +(PersonListViewController *)personListViewControllerForFollowersFromUserID:(NSString *)userID;
++(PersonListViewController *)personListViewControllerForSendingChallengeWithTag:(NSString *)tag; 
 
 @end

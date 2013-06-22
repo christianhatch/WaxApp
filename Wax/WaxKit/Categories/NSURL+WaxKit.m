@@ -38,19 +38,17 @@
 
 
 +(NSURL *)thumbnailURLFromUserID:(NSString *)userID andVideoID:(NSString *)videoID{
-    NSString *fileName = [NSString stringWithFormat:@"%@.jpg", videoID];
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@", kThirdPartyCloudFrontBaseURL, userID, fileName]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/thumbnail/%@/%@", [NSURL baseFileString], userID, videoID]];
 }
 +(NSURL *)streamingURLFromUserID:(NSString *)userID andVideoID:(NSString *)videoID{
-    NSString *fileName = [NSString stringWithFormat:@"%@.mp4", videoID];
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@", kThirdPartyCloudFrontBaseURL, userID, fileName]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/video/%@/%@", [NSURL baseFileString], userID, videoID]];
 }
 
 +(NSURL *)shareURLFromShareID:(NSString *)shareID{
     return [NSURL URLWithString:[NSString stringWithFormat:@"https://wax.li/%@", shareID]];
 }
 +(NSURL *)categoryImageURLWithCategoryTitle:(NSString *)categoryTitle{
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.jpg", kThirdPartyCloudFrontImagesBaseURL, categoryTitle]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/category_image/%@", [NSURL baseFileString], categoryTitle]];
 }
 
 +(NSURL *)profilePictureURLFromUserID:(NSString *)userID{
@@ -72,12 +70,15 @@
 
 #pragma mark - Internal Methods
 +(NSURL *)cloudFrontProfilePictureURLFromUserID:(NSString *)userID{
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/profile_picture.jpg", kThirdPartyCloudFrontBaseURL, userID]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/profile_picture/%@", [NSURL baseFileString], userID]];
 }
 +(NSURL *)s3ProfilePictureURLFromUserID:(NSString *)userID{
     return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.s3.amazonaws.com/%@/profile_picture.jpg", kThirdPartyAWSBucket, userID]];
 }
 
++(NSString *)baseFileString{
+    return [NSString stringWithFormat:@"%@/files", kWaxAPIBaseURL];
+}
 
 
 
