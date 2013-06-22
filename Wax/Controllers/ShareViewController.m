@@ -81,6 +81,7 @@
     }
 }
 -(void)chooseCategory:(UIButton *)sender{
+    [self.view endEditing:YES]; 
     [CategoryChooserViewController chooseCategoryWithCompletionBlock:^(NSString *category) {
         [self.categoryButton setTitle:category forState:UIControlStateNormal]; 
     } navigationController:self.navigationController]; 

@@ -40,11 +40,14 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 -(void)setUpView{
     VideoObject *video = self.videoObject;
 
-    __block FeedCell *blockSelf = self;
+    
+    NSString *userID = self.videoObject.userID;
+    NSString *username = self.videoObject.username;
+    UINavigationController *nav = [self nearestNavigationController];
     
     [self.profilePictureView setImageForProfilePictureWithUserID:video.userID buttonHandler:^(UIImageView *imageView) {
-        ProfileViewController *pvc = [ProfileViewController profileViewControllerFromUserID:blockSelf.videoObject.userID username:blockSelf.videoObject.username];
-        [[blockSelf nearestNavigationController] pushViewController:pvc animated:YES]; 
+        ProfileViewController *pvc = [ProfileViewController profileViewControllerFromUserID:userID username:username];
+        [nav pushViewController:pvc animated:YES];
     }];
     
     [self setUpMoviePlayer];
@@ -58,9 +61,13 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     [self setupVoteButton]; 
 }
 -(void)setVideoObject:(VideoObject *)videoObject{
-    if (_videoObject != videoObject) {
-        _videoObject = videoObject;
-        [self setUpView];
+    if ([videoObject isKindOfClass:[videoObject class]]) {
+        if (_videoObject != videoObject) {
+            _videoObject = videoObject;
+            [self setUpView];
+        }
+    }else{
+        [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Setting video object on feedcell is not a video object. Object attempted to set %@", videoObject]];
     }
 }
 -(void)prepareForReuse{
