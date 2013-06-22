@@ -25,8 +25,10 @@
     }
     [self customizeAppearance];
     [self bootupThirdPartySDKs];
+        
     return YES;
 }
+
 #pragma mark - Interapp Communication
 -(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
     return [[AIKFacebookManager sharedManager] handleOpenURL:url];
@@ -100,6 +102,9 @@
     
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     [AIKFacebookManager setFacebookAppID:kThirdPartyFacebookAppID];
+    [AIKTwitterManager setTwitterConsumerKey:kThirdPartyTwitterConsumerKey];
+    [AIKTwitterManager setTwitterConsumerSecret:kThirdPartyTwitterConsumerSecret];
+    
 #ifndef DEBUG
 #ifdef TESTFLIGHT
     [TestFlight setDeviceIdentifier:[(id<UIDeviceHack>)[UIDevice currentDevice] uniqueIdentifier]];

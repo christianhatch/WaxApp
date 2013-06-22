@@ -28,11 +28,14 @@ NSString *const kThirdPartyUrbanAirshipAppSecret = @"Zx33iHAvRgm-4MhIS5qjFg";
 NSString *const kThirdPartyUrbanAirshipAppKey = @"KuL5-1QcTKupwNmaUmsnFA";
 NSString *const kThirdPartyUrbanAirshipAppSecret = @"R5R1VnxeSuug8r_wfK_0IQ";
 #endif
+
 NSString *const kThirdPartyFlurryAPIKey = @"TQYDF7654QX3TSKCPZ7T";
 NSString *const kThirdPartyTestFlightAPIKey = @"cd37aa62-2d60-4e23-9c49-33561a1f3f3b";
 NSString *const kThirdPartyCrashlyticsAPIKey = @"50bd7200ec2054f6ac2b747cc51ca6ae08298664";
+
 NSString *const kThirdPartyFacebookAppID = @"181035102046368";
 NSString *const kThirdPartyTwitterConsumerKey = @"CVR0lzKnwcyobFkt5X8xg"; 
+NSString *const kThirdPartyTwitterConsumerSecret = @"JvJAvPfvEUFDTRXpHv3Iq1yABERa4naCrWo2vJfZQDw"; 
 
 #pragma mark - User Defaults Keys
 NSString *const kUserSaveToCameraRollKey = @"saveToCameraRoll";

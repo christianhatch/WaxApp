@@ -24,9 +24,10 @@ extern NSString *const kThirdPartyUrbanAirshipAppSecret;
 extern NSString *const kThirdPartyFlurryAPIKey;
 extern NSString *const kThirdPartyTestFlightAPIKey;
 extern NSString *const kThirdPartyCrashlyticsAPIKey;
-extern NSString *const kThirdPartyUrbanAirshipAppSecret;
+
 extern NSString *const kThirdPartyFacebookAppID;
 extern NSString *const kThirdPartyTwitterConsumerKey;
+extern NSString *const kThirdPartyTwitterConsumerSecret;
 
 #pragma mark - User Defaults Keys
 extern NSString *const kUserSaveToCameraRollKey;

@@ -93,8 +93,10 @@
 -(void)capture{
     [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithBlock:^(BOOL cancelled) {
         if (cancelled) {
-            VideoCameraViewController *video = [[VideoCameraViewController alloc] init];
-            [[self.viewControllers objectAtIndex:0] presentViewController:video animated:YES completion:nil];
+            if (!SYSTEM_VERSION_IS_IOS_7) {
+                VideoCameraViewController *video = [[VideoCameraViewController alloc] init];
+                [[self.viewControllers objectAtIndex:0] presentViewController:video animated:YES completion:nil];
+            }
         }
     }]; 
 }
@@ -109,6 +111,7 @@
     UINavigationController *nav = initViewControllerWithIdentifier(@"SplashNav");
     SplashViewController *splashVC = initViewControllerWithIdentifier(@"SplashVC");
     nav.viewControllers = @[splashVC];
+    
     [self presentViewController:nav animated:YES completion:^{
         for (UINavigationController *nav in self.viewControllers) {
             if ([nav respondsToSelector:@selector(popToRootViewControllerAnimated:)]) {

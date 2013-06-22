@@ -8,7 +8,6 @@
 
 #import "WaxUser.h"
 #import "Lockbox.h"
-#import <Accounts/Accounts.h>
 #import <Crashlytics/Crashlytics.h>
 #import <AcaciaKit/Flurry.h>
 
@@ -81,8 +80,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 -(NSString *)twitterAccountName{
     NSString *name = @"none";
     if ([self twitterAccountConnected]) {
-        ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-        ACAccount *twitter = [accountStore accountWithIdentifier:[self twitterAccountID]];
+        ACAccount *twitter = [[AIKTwitterManager sharedManager] accountForIdentifier:[self twitterAccountID]];
         name = [NSString stringWithFormat:@"@%@",twitter.username];
     }
     return name;
@@ -346,63 +344,19 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     return [[[WaxUser currentUser] userID] isEqualToString:userID];
 }
 -(void)chooseTwitterAccountWithCompletion:(WaxUserCompletionBlockTypeSimple)completion{
-    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-	ACAccountType *twitterAccountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    
-    [accountStore requestAccessToAccountsWithType:twitterAccountType options:nil completion:^(BOOL granted, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if(granted) {
-                NSArray *twitterAccounts = [accountStore accountsWithAccountType:twitterAccountType];
-                switch(twitterAccounts.count) {
-                    case 0:{
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Twitter Accounts", @"No Twitter Accounts") message:NSLocalizedString(@"You haven't setup a Twitter account yet. Please add one by going through the Settings App > Twitter", @"You haven't setup a Twitter account yet. Please add one by going through the Settings App > Twitter") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"Dismiss") otherButtonTitles:nil];
-                        [alertView show];
-                    }break;
-                    case 1:{
-                        ACAccount *account = [twitterAccounts objectAtIndexOrNil:0];
-                        RIButtonItem *delete = [RIButtonItem item];
-                        delete.label = @"Disconnect Twitter";
-                        delete.action = ^{
-                            [self saveTwitterAccountID:kFalseString];
-                        };
-                        RIButtonItem *actbtn = [RIButtonItem item];
-                        actbtn.label = account.username;
-                        actbtn.action = ^{
-                            [self saveTwitterAccountID:account.identifier];
-                        };
-                        UIActionSheet *chooser = [[UIActionSheet alloc] initWithTitle:@"Which Twitter account would you like to use with Wax?" cancelButtonItem:[RIButtonItem cancelButton] destructiveButtonItem:delete otherButtonItems:actbtn, nil];
-                        [chooser showInView:mainWindowView];
-                    }break;
-                    default:{
-                        UIActionSheet *chooser = nil;
-                        if ([self twitterAccountConnected]) {
-                            RIButtonItem *delete = [RIButtonItem item];
-                            delete.label = @"Disconnect Twitter";
-                            delete.action = ^{
-                                [self saveTwitterAccountID:kFalseString];
-                            };
-                            chooser = [[UIActionSheet alloc] initWithTitle:@"Which Twitter account would you like to use with Wax?" cancelButtonItem:nil destructiveButtonItem:delete otherButtonItems:nil, nil];
-                        }else{
-                            chooser = [[UIActionSheet alloc] initWithTitle:@"Which Twitter account would you like to use with Wax?" cancelButtonItem:nil destructiveButtonItem:nil otherButtonItems:nil, nil];
-                        }
-                        for (ACAccount *account in twitterAccounts) {
-                            RIButtonItem *button = [RIButtonItem item];
-                            button.label = [NSString stringWithFormat:@"@%@", account.username];
-                            button.action = ^{
-                                [self saveTwitterAccountID:account.identifier];
-                            };
-                            [chooser addButtonItem:button];
-                        }
-                        [chooser setCancelButtonIndex:[chooser addButtonItem:[RIButtonItem cancelButton]]];
-                        [chooser showInView:mainWindowView];
-                        }break;
-                    }
-                } else {
-                    [self showNoTwitterAccessAlert];
-                }
-            });
+    [[AIKTwitterManager sharedManager] chooseTwitterAccountAlreadyConnected:[self twitterAccountConnected] withCompletion:^(ACAccount *twitterAccount, NSError *error) {
+        if (twitterAccount) {
+            [self saveTwitterAccountID:twitterAccount.identifier];
+            if (completion) {
+                completion(nil);
+            }
+        }else{
+            [self saveTwitterAccountID:kFalseString];
+            if (completion) {
+                completion(error); 
+            }
         }
-    ];
+    }];
 }
 -(void)connectFacebookWithCompletion:(WaxUserCompletionBlockTypeSimple)completion{
     [[AIKFacebookManager sharedManager] connectFacebookWithCompletion:^(id<FBGraphUser> user, NSError *error) {
@@ -447,90 +401,6 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 
 
 
-/*
--(void)saveUserInformation:(NSDictionary *)info{
-    [self saveToken:[info objectForKeyOrNil:@"token"]];
-    [self saveUserid:[info objectForKeyOrNil:@"userid"]];
-    [self saveUserame:[info objectForKeyOrNil:@"username"]];
-    [self saveEmail:[info objectForKeyOrNil:@"email"]];
-    [self saveFirstname:[info objectForKeyOrNil:@"firstname"]];
-    
-    [Flurry setUserID:[[WaxUser currentUser] username]];
-    [Crashlytics setUserIdentifier:[self userid]];
-    [Crashlytics setUserName:[self username]];
-    [Crashlytics setUserEmail:[self email]];
-    [Crashlytics setObjectValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"version_preference"] forKey:@"Version"];
-    [Crashlytics setObjectValue:[self userid] forKey:@"userid"];
-    [Crashlytics setObjectValue:[self username] forKey:@"username"];
-    [Crashlytics setObjectValue:[self email] forKey:@"email"];
-}
--(void)logInWithResponse:(NSDictionary *)response{
-    [self saveUserInformation:response];
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound |UIRemoteNotificationTypeAlert)];
-}
--(void)signedUpWithResponse:(NSDictionary *)response andProfilePic:(UIImage *)profilePicture{
-    [self logInWithResponse:response];
-    if (profilePicture) {
-//        [[WaxAPIClient sharedClient] uploadProfilePicture:profilePicture uploadType:KWProfilePictureRequestTypeInitialSignup];
-    }else{
-        [self fetchFacebookProfilePictureAndShowUser:NO];
-    }
-}
--(void)fetchFacebookProfilePictureAndShowUser:(BOOL)showUser{
-    if ([[AIKFacebookManager sharedManager] sessionIsActive] && [self isLoggedIn]) {
-        [FBRequestConnection startWithGraphPath:@"me?fields=picture.type(large)" completionHandler:^(FBRequestConnection *connection, id <FBGraphObject> result, NSError *error) {
-            NSURL *url = [NSURL URLWithString:[[[result objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"]];
-            AFImageRequestOperation *proPic = [AFImageRequestOperation imageRequestOperationWithRequest:[NSURLRequest requestWithURL:url] success:^(UIImage *image) {
-//                [[WaxAPIClient sharedClient] uploadProfilePicture:image uploadType:showUser ? KWProfilePictureRequestTypeChange : KWProfilePictureRequestTypeFacebook];
-            }];
-            [proPic start];
-        }];
-    }else{
-//        [[AIKFacebookManager sharedManager] loginWithFacebook];
-    }
-}
--(void)uploadNewProfilePicture:(UIImage *)profilePicture{
-//    [[WaxAPIClient sharedClient] uploadProfilePicture:profilePicture uploadType:KWProfilePictureRequestTypeChange];
-//    [[WaxAPIClient sharedClient] loadMyFeedWithLastTimeStamp:nil];
-//    [[WaxDataManager sharedManager] setFriendsFeed:[NSMutableArray array]];
-//    [[WaxDataManager sharedManager] setTrendsFeed:[NSMutableArray array]]; 
-}
--(void)logOut:(BOOL)fromTokenError{
-    [self saveToken:kFalseString];
-    [self saveUserid:kFalseString];
-    [self saveUserame:kFalseString];
-    [self saveEmail:kFalseString];
-    [self saveFirstname:kFalseString];
-    [self saveLastname:kFalseString];
-    [self saveTwitterAccountId:kFalseString];
-    [[AIKFacebookManager sharedManager] logoutFacebookWithCompletion:nil];
-    
-//#ifndef RELEASE
-//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:KWSuperUserModeEnableKey];
-//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:KWSuperUserModeEnableKey];
-//#endif
-    
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [UIImageView clearAFImageCache];
-//    [UIButton clearAFImageCache];
-    
-    [[UIApplication sharedApplication] unregisterForRemoteNotifications];
-    [[[WaxAPIClient sharedClient] operationQueue] cancelAllOperations];
-    [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:@"Logout" object:self];
-    
-    if (fromTokenError) {
-//        UIAlertView *loggedOut = [[UIAlertView alloc] initWithTitle:@"You have been logged out" message:@"For security reasons, your session has expired and you've been logged out. \n \nPlease login again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//        [loggedOut show];
-        [[AIKErrorUtilities sharedUtilities] logMessageToAllServices:@"User logged out from token error (or perhaps not, unclear..)"];
-    }
-}
-*/
-
-#pragma mark - Internal Methods
--(void)showNoTwitterAccessAlert{
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Access to Twitter", @"No Access to Twitter") message:NSLocalizedString(@"To share to Twitter, Wax requires access to your Twitter Accounts. Please grant access through the Settings App and going to Twitter", @"To sign in with Twitter the App requires access to your Twitter Accounts. Please grant access through the Settings App and going to Twitter") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"Dismiss") otherButtonTitles:nil];
-    [alertView show];
-}
 
 //#ifndef RELEASE
 //
