@@ -39,7 +39,7 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Share", @"Share") style:UIBarButtonItemStyleDone target:self action:@selector(finish:)];
     
-    [self.facebookSwitch setOn:[[WaxUser currentUser] facebookAccountConnected] animated:NO];
+    [self.facebookSwitch setOn:([[WaxUser currentUser] facebookAccountConnected] && [[AIKFacebookManager sharedManager] canPublish]) animated:NO];
     [self.twitterSwitch setOn:[[WaxUser currentUser] twitterAccountConnected] animated:NO];
     
     [self setUpTagField]; 
@@ -63,8 +63,14 @@
 -(void)facebookSwitchToggled:(UISwitch *)sender{
     if (![[WaxUser currentUser] facebookAccountConnected]) {
         [[WaxUser currentUser] connectFacebookWithCompletion:^(NSError *error) {
-            [sender setOn:(error == nil) animated:YES];
+            if (!error) {
+                [self requestFacebookPublishPermissionsWithSenderSwitch:sender];
+            }else{
+                //handle error connecting to fb 
+            }
         }];
+    }else{
+        [self requestFacebookPublishPermissionsWithSenderSwitch:sender]; 
     }
 }
 -(void)twitterSwitchToggled:(UISwitch *)sender{
@@ -80,6 +86,18 @@
     } navigationController:self.navigationController]; 
 }
 
+#pragma mark - Internal Methods
+-(void)requestFacebookPublishPermissionsWithSenderSwitch:(UISwitch *)sender{
+    if (![[AIKFacebookManager sharedManager] canPublish]) {
+        [[AIKFacebookManager sharedManager] requestPublishPermissionsWithCompletion:^(BOOL success, NSError *error) {
+            if (!error) {
+                [sender setOn:success animated:YES];
+            }else{
+                //handle error requesting permissions
+            }
+        }];
+    }
+}
 -(BOOL)verifyInputtedData{
     BOOL verified = YES;
     

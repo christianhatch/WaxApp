@@ -289,6 +289,9 @@
     
     [self clearChallengeData];
     
+    [[WaxDataManager sharedManager] updateHomeFeedWithInfiniteScroll:NO completion:nil];
+    [[WaxDataManager sharedManager] updateMyFeedWithInfiniteScroll:NO completion:nil];
+    
     if (completion) {
         completion();
     }

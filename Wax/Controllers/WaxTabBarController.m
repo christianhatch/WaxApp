@@ -33,12 +33,13 @@
     [super viewDidAppear:animated];
     if (![[WaxUser currentUser] isLoggedIn]) {
         [self showSplashScreen];
+    }else{
+        [[WaxDataManager sharedManager] updateNotificationCountWithCompletion:^(NSError *error) {
+            if (!error) {
+                [self updateNoteCountBadge];
+            }
+        }];
     }
-    [[WaxDataManager sharedManager] updateNotificationCountWithCompletion:^(NSError *error) {
-        if (!error) {
-            [self updateNoteCountBadge];
-        }
-    }]; 
 }
 -(void)setupTabBarIcons{
     /*
@@ -96,6 +97,8 @@
             if (!SYSTEM_VERSION_IS_IOS_7) {
                 VideoCameraViewController *video = [[VideoCameraViewController alloc] init];
                 [[self.viewControllers objectAtIndex:0] presentViewController:video animated:YES completion:nil];
+            }else{
+                [SVProgressHUD showErrorWithStatus:@"Not on ios 7!"]; 
             }
         }
     }]; 
@@ -125,5 +128,8 @@
 - (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
 }
+
+
+
 
 @end
