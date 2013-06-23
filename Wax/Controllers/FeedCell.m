@@ -61,7 +61,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     [self setupVoteButton]; 
 }
 -(void)setVideoObject:(VideoObject *)videoObject{
-    if ([videoObject isKindOfClass:[videoObject class]]) {
+    if ([videoObject isKindOfClass:[VideoObject class]]) {
         if (_videoObject != videoObject) {
             _videoObject = videoObject;
             [self setUpView];

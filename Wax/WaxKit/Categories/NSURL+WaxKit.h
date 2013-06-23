@@ -11,9 +11,10 @@
 @interface NSURL (WaxKit)
 
 +(NSURL *)videoUploadsDirectoryURL;
+
 +(NSURL *)currentVideoFileURL; 
 +(NSURL *)currentThumbnailFileURL;
-//+(NSURL *)currentMetaDataFileURL; 
++(NSURL *)currentMetaDataFileURL; 
 
 +(NSURL *)thumbnailURLFromUserID:(NSString *)userID andVideoID:(NSString *)videoID;
 +(NSURL *)streamingURLFromUserID:(NSString *)userID andVideoID:(NSString *)videoID;

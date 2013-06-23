@@ -14,26 +14,28 @@
     return [NSURL libraryFileURLWithDirectory:@"uploads" filename:nil extension:nil];
 }
 +(NSURL *)currentVideoFileURL{
-    NSURL *url = [NSURL libraryFileURLWithDirectory:@"uploads" filename:@"squared" extension:@"mp4"];
-//    NSString *outputString = [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"uploads/squared.mp4"]];
-    
-//    unlink([url.path UTF8String]); // If a file already exists, AVAssetWriter won't let you record new frames, so delete the old movie
+    NSURL *url = [NSURL libraryFileURLWithDirectory:@"uploads" filename:@"squared" extension:@"mp4"];    
+   /*
     if ([[NSFileManager defaultManager] isDeletableFileAtPath:url.path]) {
         [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
     }
-    
+    */
     return url;
 }
 +(NSURL *)currentThumbnailFileURL{
     NSURL *url = [NSURL libraryFileURLWithDirectory:@"uploads" filename:@"thumbnail" extension:@"jpg"];
-
+    /*
     if ([[NSFileManager defaultManager] isDeletableFileAtPath:url.path]) {
         [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
     }
-    
+    */
     return url;
 }
-
++(NSURL *)currentMetaDataFileURL{
+    NSURL *url = [NSURL libraryFileURLWithDirectory:@"uploads" filename:@"metadata" extension:@"plist"];
+    
+    return url; 
+}
 
 
 

@@ -68,26 +68,24 @@
         }];
     }
 }
-#pragma mark - Main Methods
--(void)thumbnailAvailable:(NSNotification *)note{
-    [self setNextPreviewThumbnail:[note.userInfo objectForKeyOrNil:MPMoviePlayerThumbnailImageKey]]; 
-}
 
-#pragma mark - Setters
 
 #pragma mark - Getters
 -(MPMoviePlayerController *)player{
     if (!_player) {
         _player = [[MPMoviePlayerController alloc] initWithContentURL:self.videoPath];
         [_player stop];
-#warning test this! ^^ 
     }
     return _player;
 }
 
 
 
-#pragma mark - Utility Methods
+#pragma mark - Internal Methods
+-(void)thumbnailAvailable:(NSNotification *)note{
+    [self setNextPreviewThumbnail:[note.userInfo objectForKeyOrNil:MPMoviePlayerThumbnailImageKey]];
+}
+
 -(void)setNextPreviewThumbnail:(UIImage *)image{
     if (!self.thumbPreview1.image) {
         [self.thumbPreview1 setImage:image animated:YES];

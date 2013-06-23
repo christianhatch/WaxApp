@@ -63,12 +63,11 @@ static inline NSString * StringFromUploadStatus(UploadStatus uStatus) {
 @property (nonatomic, copy) NSURL *videoFileURL;
 @property (nonatomic, copy) NSURL *thumbnailFileURL; 
 
--(void)saveToNSUserDefaults;
--(void)removeFromNSUserDefaults;
+-(void)saveToDisk;
+-(void)removeFromDisk;
 
--(id)initFromNSUserDefaults;
-
--(id)initWithVideoFileURL:(NSURL *)videoFileURL;
+-(instancetype)initFromDisk;
+-(instancetype)initWithVideoFileURL:(NSURL *)videoFileURL;
 
 
 

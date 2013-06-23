@@ -134,7 +134,7 @@
     self.currentUpload.shareToTwitter = sharetoTwitter;
     self.currentUpload.shareLocation = shareLocation; 
 
-    [self.currentUpload saveToNSUserDefaults];
+    [self.currentUpload saveToDisk];
     
     self.currentUpload.metadataStatus = UploadStatusWaiting;
     [self uploadMetaDataWithCompletion:completion];
@@ -284,15 +284,14 @@
     [[NSFileManager defaultManager] removeItemAtURL:self.currentUpload.videoFileURL error:nil];
     [[NSFileManager defaultManager] removeItemAtURL:self.currentUpload.thumbnailFileURL error:nil];
     
-    [self.currentUpload removeFromNSUserDefaults];
+    [self.currentUpload removeFromDisk];
     self.currentUpload = nil;
     
     [self clearChallengeData];
     
-    [[WaxDataManager sharedManager] updateHomeFeedWithInfiniteScroll:NO completion:nil];
-    [[WaxDataManager sharedManager] updateMyFeedWithInfiniteScroll:NO completion:nil];
-    
     if (completion) {
+        [[WaxDataManager sharedManager] updateHomeFeedWithInfiniteScroll:NO completion:nil];
+        [[WaxDataManager sharedManager] updateMyFeedWithInfiniteScroll:NO completion:nil];
         completion();
     }
 }
