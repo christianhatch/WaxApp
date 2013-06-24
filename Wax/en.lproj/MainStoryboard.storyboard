@@ -736,7 +736,7 @@
         <!--Navigation Controller-->
         <scene sceneID="WWh-a9-id9">
             <objects>
-                <navigationController id="dls-bv-y7E" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="PersonListNavC" id="dls-bv-y7E" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="b8A-7i-1V0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

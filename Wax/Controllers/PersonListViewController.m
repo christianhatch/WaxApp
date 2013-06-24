@@ -26,13 +26,17 @@
 @synthesize userID = _userID, tableViewType = _tableViewType, addSearchBar, searchBar, personSearchResults, tableView; 
 
 +(PersonListViewController *)personListViewControllerForFollowersFromUserID:(NSString *)userID{
-    PersonListViewController *plvc = [[PersonListViewController alloc] initWithUserID:userID];
+    PersonListViewController *plvc = [[PersonListViewController alloc] init];
     plvc.tableViewType = PersonTableViewTypeFollowers;
-    return plvc; 
+    plvc.addSearchBar = NO;
+    plvc.userID = userID; 
+    return plvc;
 }
 +(PersonListViewController *)personListViewControllerForFollowingFromUserID:(NSString *)userID{
-    PersonListViewController *plvc = [[PersonListViewController alloc] initWithUserID:userID];
+    PersonListViewController *plvc = [[PersonListViewController alloc] init];
     plvc.tableViewType = PersonTableViewTypeFollowing;
+    plvc.addSearchBar = NO;
+    plvc.userID = userID;
     return plvc;
 }
 +(PersonListViewController *)personListViewControllerForSendingChallengeWithTag:(NSString *)tag{
@@ -43,14 +47,10 @@
     plv.userID = [[WaxUser currentUser] userID]; 
     return plv; 
 }
-
--(instancetype)initWithUserID:(NSString *)userID{
-   
-    NSParameterAssert(userID);
-    
-    self = [super init];
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
     if (self) {
-        self.userID = userID; 
+        
     }
     return self;
 }
