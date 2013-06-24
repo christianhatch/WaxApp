@@ -166,7 +166,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
         flag.action = ^{
             [[WaxAPIClient sharedClient] performAction:WaxAPIClientVideoActionTypeReport onVideoID:self.videoObject.videoID completion:^(BOOL complete, NSError *error) {
                 if (!error) {
-                    [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Thank You", @"Thank You") message:NSLocalizedString(@"Thank you for reporting this video. Our team will review it right away", @"Feed cell thank you for flagging video") buttonTitle:NSLocalizedString(@"You're Welcome", @"You're Welcome") buttonHandler:nil logError:NO];
+                    [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Thank You", @"Thank You") message:NSLocalizedString(@"Thank you for reporting this video. Our team will review it right away", @"Feed cell thank you for flagging video") buttonTitle:NSLocalizedString(@"You're Welcome", @"You're Welcome") showsCancelButton:NO buttonHandler:nil logError:NO];
                 }else{
                     [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error Reporting Video", @"Error Reporting Video") error:error buttonHandler:nil logError:NO]; 
                 }

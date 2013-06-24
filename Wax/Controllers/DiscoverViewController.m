@@ -35,19 +35,7 @@
 
 #pragma mark - UISearchBar Delegate
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    if (searchBar.text.length > 1) {
-        [[WaxAPIClient sharedClient] searchForUsersWithSearchTerm:searchBar.text infiniteScrollingID:nil completion:^(NSMutableArray *list, NSError *error) {
-            if (!error) {
-                self.personSearchResults = list;
-            }else{
-                [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error searching", @"Error searching") error:error buttonHandler:^{
-                    
-                } logError:YES];
-            }
-        }];
-    }else{
-        [SVProgressHUD showErrorWithStatus:@"coming soon!"];
-    }
+    [self performSearch];
 }
 #pragma mark - UISearchDisplayController Delegate
 -(void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView{
@@ -55,32 +43,7 @@
     [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"TagCell" bundle:nil] forCellReuseIdentifier:kTagCellID];
 }
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString{
-    if (searchString.length > 1) {
-        if (self.searchDisplayController.searchBar.selectedScopeButtonIndex == 0) {
-                [[WaxAPIClient sharedClient] searchForUsersWithSearchTerm:searchString infiniteScrollingID:nil completion:^(NSMutableArray *list, NSError *error) {
-                    if (!error) {
-                        self.personSearchResults = list;
-                        [self.searchDisplayController.searchResultsTableView reloadData]; 
-                    }else{
-                        [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error searching", @"Error searching") error:error buttonHandler:^{
-                            
-                        } logError:YES];
-                    }
-                }];
-        }else{
-            [[WaxAPIClient sharedClient] searchForTagsWithSearchTerm:searchString infiniteScrollingID:nil completion:^(NSMutableArray *list, NSError *error) {
-                if (!error) {
-                    self.tagSearchResults = list;
-                    [self.searchDisplayController.searchResultsTableView reloadData];
-                }else{
-                    [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error searching", @"Error searching") error:error buttonHandler:^{
-                        
-                    } logError:YES];
-                }
-                
-            }];
-        }
-    }
+    [self performSearch];
     return NO;
 }
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption{
@@ -116,6 +79,44 @@
         TagObject *tagObject = [self.tagSearchResults objectAtIndexOrNil:indexPath.row];
         [self.navigationController pushViewController:[FeedViewController feedViewControllerWithTag:tagObject.tag] animated:YES];
     }
+}
+
+#pragma mark - Internal Methods
+-(void)performSearch{
+    NSString *searchString = self.searchBar.text;
+    
+    if (searchString.length > 1) {
+        if (self.searchDisplayController.searchBar.selectedScopeButtonIndex == 0) {
+            [self searchUsersWithSearchTerm:searchString];
+        }else{
+            [self searchTagsWithSearchTerm:searchString];
+        }
+    }
+}
+-(void)searchUsersWithSearchTerm:(NSString *)searchTerm{
+    [[WaxAPIClient sharedClient] searchForUsersWithSearchTerm:searchTerm infiniteScrollingID:nil completion:^(NSMutableArray *list, NSError *error) {
+        if (!error) {
+            self.personSearchResults = list;
+            [self.searchDisplayController.searchResultsTableView reloadData];
+        }else{
+            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error searching", @"Error searching") error:error buttonHandler:^{
+                
+            } logError:YES];
+        }
+    }];
+}
+-(void)searchTagsWithSearchTerm:(NSString *)searchTerm{
+    [[WaxAPIClient sharedClient] searchForTagsWithSearchTerm:searchTerm infiniteScrollingID:nil completion:^(NSMutableArray *list, NSError *error) {
+        if (!error) {
+            self.tagSearchResults = list;
+            [self.searchDisplayController.searchResultsTableView reloadData];
+        }else{
+            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error searching", @"Error searching") error:error buttonHandler:^{
+                
+            } logError:YES];
+        }
+        
+    }];
 }
 
 

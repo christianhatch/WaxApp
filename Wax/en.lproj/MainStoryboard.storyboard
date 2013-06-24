@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="4457.6" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none" initialViewController="OTv-MU-zx9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="OTv-MU-zx9">
     <dependencies>
-        <deployment defaultVersion="1552" identifier="iOS"/>
         <development version="4600" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3682.6"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
         <!--Discover View Controller-->
@@ -30,7 +29,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="8Bk-Lq-pGx"/>
                     <connections>
                         <outlet property="searchBar" destination="bjx-LV-h2c" id="dvC-9h-w6Y"/>
@@ -59,7 +57,6 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="7dd-O4-uNy"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qm4-4s-jLc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -75,7 +72,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="dB5-Og-X2O"/>
                     <connections>
                         <segue destination="JSC-do-ygh" kind="push" identifier="MeToSettings" id="In6-TI-Utd"/>
@@ -97,7 +93,7 @@
                             <tableViewSection headerTitle="Settings label" id="JPo-iB-AkC">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="TfT-dS-GFP">
-                                        <rect key="frame" x="0.0" y="110" width="320" height="45"/>
+                                        <rect key="frame" x="0.0" y="46" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="1" width="300" height="43"/>
@@ -119,7 +115,7 @@
                                         </view>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="JKx-yR-6Uo">
-                                        <rect key="frame" x="0.0" y="155" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="91" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="0.0" width="300" height="43"/>
@@ -137,7 +133,7 @@
                                         </view>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="pbo-hG-ZMk">
-                                        <rect key="frame" x="0.0" y="199" width="320" height="45"/>
+                                        <rect key="frame" x="0.0" y="135" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="0.0" width="300" height="43"/>
@@ -162,7 +158,6 @@
                             <outlet property="delegate" destination="JSC-do-ygh" id="fzh-4U-AFa"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="O3N-vb-uXO"/>
                     <connections>
                         <outlet property="cameraRollSwitch" destination="KRT-1f-lHt" id="WdB-H5-ztX"/>
@@ -181,7 +176,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="P0g-ea-L1i"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aJ2-b5-KNj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -192,7 +186,6 @@
         <scene sceneID="Pz1-rr-wqM">
             <objects>
                 <tabBarController storyboardIdentifier="TabbarVC" definesPresentationContext="YES" id="OTv-MU-zx9" customClass="WaxTabBarController" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="ENr-tD-mce">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
@@ -267,7 +260,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="Rka-yh-LIf"/>
                     <connections>
                         <outlet property="loginButton" destination="S0h-57-ei5" id="veo-eP-jYd"/>
@@ -333,7 +325,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="nCx-iE-JrP">
                         <barButtonItem key="rightBarButtonItem" title="Sign Up label" id="YDV-jc-E6P"/>
                     </navigationItem>
@@ -356,7 +347,6 @@
         <scene sceneID="iGk-j4-wPO">
             <objects>
                 <navigationController id="TqL-gG-TWP" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Home" id="usZ-D6-JZL"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ldu-ww-XFm">
@@ -376,7 +366,6 @@
         <scene sceneID="GdS-Ul-kjg">
             <objects>
                 <navigationController id="ZKr-di-raM" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Discover" id="Dj1-YB-Si4"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FhS-gs-VtZ">
@@ -396,7 +385,6 @@
         <scene sceneID="sPy-du-884">
             <objects>
                 <navigationController title="Capture" id="NZL-f8-zU8" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Capture" id="ulk-eb-wuv"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dUf-9J-tr8">
@@ -451,7 +439,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="kkz-jz-IuH"/>
                     <connections>
                         <outlet property="directionsLabel" destination="iTP-TF-XP1" id="hjR-Dk-gn2"/>
@@ -537,7 +524,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="ja5-hW-it9"/>
                     <connections>
                         <outlet property="categoryButton" destination="rYe-Jy-ihd" id="OBv-nv-4Bi"/>
@@ -555,11 +541,49 @@
             </objects>
             <point key="canvasLocation" x="2171" y="624"/>
         </scene>
+        <!--Person List View Controller-->
+        <scene sceneID="Jtb-0h-9pE">
+            <objects>
+                <viewController storyboardIdentifier="PersonListVC" id="I5l-lf-Y9e" customClass="PersonListViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9t1-WZ-mdq">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" id="qa3-o8-kBT">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="I5l-lf-Y9e" id="3iF-LD-g5x"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="XiK-Yj-XS6"/>
+                    <connections>
+                        <outlet property="searchBar" destination="qa3-o8-kBT" id="kIH-7f-QWe"/>
+                        <outlet property="searchDisplayController" destination="Kpn-3Z-Ubg" id="BWz-Cg-7fE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="urw-3c-IO6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="Kpn-3Z-Ubg">
+                    <connections>
+                        <outlet property="delegate" destination="I5l-lf-Y9e" id="Ho9-oN-VOY"/>
+                        <outlet property="searchBar" destination="qa3-o8-kBT" id="hAy-nN-wzq"/>
+                        <outlet property="searchContentsController" destination="I5l-lf-Y9e" id="oSB-5Y-K4L"/>
+                        <outlet property="searchResultsDataSource" destination="I5l-lf-Y9e" id="sxj-7e-reT"/>
+                        <outlet property="searchResultsDelegate" destination="I5l-lf-Y9e" id="YPw-HF-oxJ"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="2171" y="-62"/>
+        </scene>
         <!--Navigation Controller - Notifications-->
         <scene sceneID="qZd-cK-nWg">
             <objects>
                 <navigationController title="Notifications" id="M45-q1-70n" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Notes" id="Mv2-fN-MOi"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YIr-mh-gIs">
@@ -636,7 +660,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="tGp-Fi-NUg">
                         <barButtonItem key="rightBarButtonItem" title="Sign Up label" id="Qlj-1E-Kyq"/>
                     </navigationItem>
@@ -659,7 +682,6 @@
         <scene sceneID="WGz-v5-doa">
             <objects>
                 <navigationController title="Me" id="eiJ-Pw-kNB" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Me" id="OSU-de-Km3"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FyR-pi-baO">
@@ -679,7 +701,6 @@
         <scene sceneID="lwY-Wj-QdG">
             <objects>
                 <navigationController storyboardIdentifier="SplashNav" id="O6h-8m-kMe" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="lTw-DK-q2D">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -698,7 +719,6 @@
         <scene sceneID="X9J-iE-UTo">
             <objects>
                 <navigationController storyboardIdentifier="ThumbnailNav" id="Ssh-aE-mE7" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1UR-aV-Qm9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -712,6 +732,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N44-LV-ZgS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1143" y="624"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="WWh-a9-id9">
+            <objects>
+                <navigationController id="dls-bv-y7E" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="b8A-7i-1V0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="I5l-lf-Y9e" kind="relationship" relationship="rootViewController" id="WsC-55-1oz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="555-Wm-4ZT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1669" y="-62"/>
         </scene>
     </scenes>
     <classes>
@@ -741,6 +779,12 @@
         </class>
         <class className="NotificationsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationsViewController.h"/>
+        </class>
+        <class className="PersonListViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PersonListViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
         </class>
         <class className="ProfileViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileViewController.h"/>
