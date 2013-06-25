@@ -113,6 +113,7 @@
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [self performSearch]; 
 }
+
 #pragma mark - UISearchDisplayController Delegate
 -(void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView{
     [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"PersonCell" bundle:nil] forCellReuseIdentifier:kPersonCellID];
@@ -139,14 +140,6 @@
     [self didSelectPersonCellWithPerson:person]; 
 }
 
--(void)didSelectPersonCellWithPerson:(PersonObject *)person{
-    RIButtonItem *send = [RIButtonItem itemWithLabel:NSLocalizedString(@"Send", @"Send")];
-    [send setAction:^{
-        [self sendChallengeToUser:person];
-    }];
-    
-    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Send Challenge?", @"Send challenge alertview title")  message:[NSString stringWithFormat:NSLocalizedString(@"Challenge %@ to %@?", @"Send challenge confirmation message"), self.challengeTag, person.username] cancelButtonItem:[RIButtonItem cancelButton] otherButtonItems:send, nil] show];
-}
 
 #pragma mark - Internal Methods
 -(void)performSearch{
@@ -167,6 +160,15 @@
             } logError:YES];
         }
     }];
+}
+
+-(void)didSelectPersonCellWithPerson:(PersonObject *)person{
+    RIButtonItem *send = [RIButtonItem itemWithLabel:NSLocalizedString(@"Send", @"Send")];
+    [send setAction:^{
+        [self sendChallengeToUser:person];
+    }];
+    
+    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Send Challenge?", @"Send challenge alertview title")  message:[NSString stringWithFormat:NSLocalizedString(@"Challenge %@ to %@?", @"Send challenge confirmation message"), self.challengeTag, person.username] cancelButtonItem:[RIButtonItem cancelButton] otherButtonItems:send, nil] show];
 }
 -(void)sendChallengeToUser:(PersonObject *)person{
         

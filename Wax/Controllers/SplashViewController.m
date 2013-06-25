@@ -27,6 +27,8 @@
     [self enableSwipeToPopVC:YES];
         
     [self setUpView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewWillAppear:) name:UIApplicationWillResignActiveNotification object:nil]; 
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -34,9 +36,7 @@
     [SVProgressHUD dismiss];
 }
 - (IBAction)signup:(id)sender {
-    
-    DLog(@"signup");
-    
+        
     UIButton *sendy = (UIButton *)sender;
     
     SignupViewController *signupVC = initViewControllerWithIdentifier(@"SignupVC");

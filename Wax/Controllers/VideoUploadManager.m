@@ -100,7 +100,7 @@
     [[AIKVideoProcessor sharedProcessor] cropToSquareAndCompressVideoAtFilePath:videoFileURL andSaveToFileURL:self.currentUpload.videoFileURL andSaveToCameraRoll:[[NSUserDefaults standardUserDefaults] boolForKey:kUserSaveToCameraRollKey] withCompletionBlock:^(NSURL *exportedFileURL, NSError *error) {
         
         if (!error) {
-            [self uploadVideoData];
+            [self uploadVideoDataWithAttemptCount:@0];
         }else{
             DLog(@"error exporting! %@", error);
         }
@@ -117,7 +117,7 @@
     [UIImage asyncSaveImage:small toFileURL:[NSURL currentThumbnailFileURL] quality:0.8 completion:^(NSURL *filePath) {
         self.currentUpload.thumbnailFileURL = filePath;
         self.currentUpload.thumbnailStatus = UploadStatusWaiting;
-        [self uploadThumbnailData];
+        [self uploadThumbnailDataWithAttemptCount:@0];
     }];
 }
 -(void)addMetadataWithTag:(NSString *)tag category:(NSString *)category shareToFacebook:(BOOL)shareToFacebook sharetoTwitter:(BOOL)sharetoTwitter shareLocation:(BOOL)shareLocation completion:(void (^)(void))completion{
@@ -137,63 +137,57 @@
     [self.currentUpload saveToDisk];
     
     self.currentUpload.metadataStatus = UploadStatusWaiting;
-    [self uploadMetaDataWithCompletion:completion];
+    [self uploadMetaDataWithAttemptCount:@0 completion:completion];
 }
--(NSString *)challengeTag{
+-(NSString *)challengeVideoTag{
     return [self.challengeCompetitionTag copy]; 
 }
--(NSString *)challengeCategory{
+-(NSString *)challengeVideoCategory{
     return [self.challengeCategory copy];
 }
 
 #pragma mark - Internal Methods
 -(void)retryUploadWithCompletion:(void(^)(void))completion{
     if (self.currentUpload.videoStatus == UploadStatusFailed || self.currentUpload.videoStatus == UploadStatusWaiting) {
-        [self uploadVideoData];
+        [self uploadVideoDataWithAttemptCount:@0];
     }
     if (self.currentUpload.thumbnailStatus == UploadStatusFailed || self.currentUpload.thumbnailStatus == UploadStatusWaiting) {
-        [self uploadThumbnailData];
+        [self uploadThumbnailDataWithAttemptCount:@0];
     }
     if (self.currentUpload.metadataStatus == UploadStatusFailed || self.currentUpload.metadataStatus == UploadStatusWaiting) {
-        [self uploadMetaDataWithCompletion:completion];
+        [self uploadMetaDataWithAttemptCount:@0 completion:completion];
     }
 }
 
--(void)uploadVideoData{
-    [[WaxAPIClient sharedClient] uploadVideoAtFileURL:self.currentUpload.videoFileURL videoID:self.currentUpload.videoID progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+-(void)uploadVideoDataWithAttemptCount:(NSNumber *)attemptCount{
 
+    [[WaxAPIClient sharedClient] uploadVideoAtFileURL:self.currentUpload.videoFileURL videoID:self.currentUpload.videoID progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        
         self.currentUpload.videoStatus = UploadStatusInProgress;
-                
+        
     } completion:^(BOOL complete, NSError *error) {
         
         if (!error) {
             self.currentUpload.videoStatus = UploadStatusCompleted;
-            DLog(@"video upload completed");
             
-        }else if(error.domain != NSURLErrorDomain && error.code != -999){
-            //retry
-            [[WaxAPIClient sharedClient] uploadVideoAtFileURL:self.currentUpload.videoFileURL videoID:self.currentUpload.videoID progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-                
-                self.currentUpload.videoStatus = UploadStatusInProgress;
-                                
-            } completion:^(BOOL complete, NSError *error) {
-                
-                if (!error) {
-                    self.currentUpload.videoStatus = UploadStatusCompleted;
-                    
-                }else{
+        }else if(![NSError NSURLRequestErrorIsRequestWasCancelled:error]){
+            
+            switch (attemptCount.integerValue) {
+                case 0:
+                case 1:{
+                    [self performSelector:@selector(uploadVideoDataWithAttemptCount:) withObject:[NSNumber numberWithInteger:attemptCount.integerValue + 1] afterDelay:5]; 
+                }break;
+                default:{
                     self.currentUpload.videoStatus = UploadStatusFailed;
-                    DLog(@"video upload failed with error %@", error);
-                    
-                    if(error.domain != NSURLErrorDomain && error.code != -999){
-                        [AIKErrorManager showAlertWithTitle:error.localizedDescription error:error buttonHandler:nil logError:NO];
-                    }
-                }
-            }];
+                    [AIKErrorManager showAlertWithTitle:error.localizedDescription error:error buttonHandler:^{
+                        
+                    } logError:YES];
+                }break;
+            }
         }
     }];
 }
--(void)uploadThumbnailData{
+-(void)uploadThumbnailDataWithAttemptCount:(NSNumber *)attemptCount{
     
     [[WaxAPIClient sharedClient] uploadThumbnailAtFileURL:self.currentUpload.thumbnailFileURL videoID:self.currentUpload.videoID progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
         
@@ -203,33 +197,25 @@
         
         if (!error) {
             self.currentUpload.thumbnailStatus = UploadStatusCompleted;
+                        
+        }else if(![NSError NSURLRequestErrorIsRequestWasCancelled:error]){            
             
-            DLog(@"thumb upload completed");
-            
-        }else if(error.domain != NSURLErrorDomain && error.code != -999){
-            //retry!!
-            [[WaxAPIClient sharedClient] uploadThumbnailAtFileURL:self.currentUpload.thumbnailFileURL videoID:self.currentUpload.videoID progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-                
-                self.currentUpload.thumbnailStatus = UploadStatusInProgress;
-                                
-            } completion:^(BOOL complete, NSError *error) {
-                
-                if (!error) {
-                    self.currentUpload.thumbnailStatus = UploadStatusCompleted;
-                    
-                }else{
+            switch (attemptCount.integerValue) {
+                case 0:
+                case 1:{
+                    [self performSelector:@selector(uploadThumbnailDataWithAttemptCount:) withObject:[NSNumber numberWithInteger:attemptCount.integerValue + 1] afterDelay:5];
+                }break;
+                default:{
                     self.currentUpload.thumbnailStatus = UploadStatusFailed;
-                    DLog(@"thumb upload failed with error %@", error);
-                    
-                    if(error.domain != NSURLErrorDomain && error.code != -999){
-                        [AIKErrorManager showAlertWithTitle:error.localizedDescription error:error buttonHandler:nil logError:NO]; 
-                    }
-                }
-            }];
+                    [AIKErrorManager showAlertWithTitle:error.localizedDescription error:error buttonHandler:^{
+                        
+                    } logError:YES];
+                }break;
+            }
         }
     }];
 }
--(void)uploadMetaDataWithCompletion:(void(^)(void))completion{
+-(void)uploadMetaDataWithAttemptCount:(NSNumber *)attemptCount completion:(void(^)(void))completion{
     if (self.currentUpload.videoStatus == UploadStatusCompleted && self.currentUpload.thumbnailStatus == UploadStatusCompleted) {
         
         self.currentUpload.metadataStatus = UploadStatusInProgress;
@@ -241,29 +227,19 @@
                 self.currentUpload.metadataStatus = UploadStatusCompleted;
                 [self finishUploadWithCompletion:completion];
                 
-            }else if(error.domain != NSURLErrorDomain && error.code != -999){
-                //retry
-                if (self.currentUpload.videoStatus == UploadStatusCompleted && self.currentUpload.thumbnailStatus == UploadStatusCompleted) {
-                    
-                    self.currentUpload.metadataStatus = UploadStatusInProgress;
-                    
-                    [[WaxAPIClient sharedClient] uploadVideoMetadataWithVideoID:self.currentUpload.videoID videoLength:self.currentUpload.videoLength tag:self.currentUpload.tag category:self.currentUpload.category lat:self.currentUpload.lat lon:self.currentUpload.lon challengeID:self.challengeVideoID shareToFacebook:self.currentUpload.shareToFacebook sharetoTwitter:self.currentUpload.shareToTwitter completion:^(BOOL complete, NSError *error) {
-                        
-                        if (!error) {
+            }else if(![NSError NSURLRequestErrorIsRequestWasCancelled:error]){
+                
+                switch (attemptCount.integerValue) {
+                    case 0:
+                    case 1:{
+                        [self uploadMetaDataWithAttemptCount:[NSNumber numberWithInteger:attemptCount.integerValue + 1] completion:completion];
+                    }break;
+                    default:{
+                        self.currentUpload.thumbnailStatus = UploadStatusFailed;
+                        [AIKErrorManager showAlertWithTitle:error.localizedDescription error:error buttonHandler:^{
                             
-                            self.currentUpload.metadataStatus = UploadStatusCompleted;
-                            [self finishUploadWithCompletion:completion];
-                            
-                        }else{
-                            self.currentUpload.metadataStatus = UploadStatusFailed;
-                            
-                            if(error.domain != NSURLErrorDomain && error.code != -999){
-                                [AIKErrorManager showAlertWithTitle:error.localizedDescription error:error buttonHandler:nil logError:NO];
-                            }
-                        }
-                    }];
-                }else{
-//                    [self retryUploadWithCompletion:completion];
+                        } logError:YES];
+                    }break;
                 }
             }
         }];
@@ -295,7 +271,6 @@
         completion();
     }
 }
-
 
 #pragma mark - Convenience methods
 -(BOOL)isUploading{

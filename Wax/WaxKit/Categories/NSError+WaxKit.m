@@ -100,4 +100,11 @@
 
 }
 
++(BOOL)NSURLRequestErrorIsRequestWasCancelled:(NSError *)error{
+    return (error.domain == NSURLErrorDomain && error.code == -999);
+}
+
+
+
+
 @end

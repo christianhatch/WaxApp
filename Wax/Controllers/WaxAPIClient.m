@@ -11,7 +11,7 @@ static inline BOOL SimpleReturnFromAPIResponse(id response) {
 }
 static inline BOOL PathRequiresArray(NSString *path){
     BOOL forceArray = NO;
-    if ([path containsString:@"feeds"] || [path isEqualToString:@"users/following"] || [path isEqualToString:@"users/followers"] || [path isEqualToString:@"users/search"] || [path isEqualToString:@"tags/search"]|| [path containsString:@"find_friends"] || [path containsString:@"categories"]) {
+    if ([path containsString:@"feeds"] || [path isEqualToString:@"users/following"] || [path isEqualToString:@"users/followers"] || [path isEqualToString:@"users/search"] || [path isEqualToString:@"tags/search"]|| [path containsString:@"find_friends"] || [path containsString:@"categories"] || [path isEqualToString:@"notes/get"]) {
         forceArray = YES; 
     }
     return forceArray;

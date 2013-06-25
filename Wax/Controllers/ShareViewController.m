@@ -31,7 +31,6 @@
     self.facebookLabel.text = NSLocalizedString(@"Share to Facebook", @"Share to Facebook");
     self.twitterLabel.text = NSLocalizedString(@"Share to Twitter", @"Share to Twitter");
     self.locationLabel.text = NSLocalizedString(@"Include Location", @"Include Location");
-    [self.categoryButton setTitleForAllControlStates:NSLocalizedString(@"Choose Category", @"Choose Category")];
 
     [self.facebookSwitch addTarget:self action:@selector(facebookSwitchToggled:) forControlEvents:UIControlEventValueChanged];
     [self.twitterSwitch addTarget:self action:@selector(twitterSwitchToggled:) forControlEvents:UIControlEventValueChanged];
@@ -42,15 +41,19 @@
     [self.facebookSwitch setOn:([[WaxUser currentUser] facebookAccountConnected] && [[AIKFacebookManager sharedManager] canPublish]) animated:NO];
     [self.twitterSwitch setOn:[[WaxUser currentUser] twitterAccountConnected] animated:NO];
     
-    [self setUpTagField]; 
+    [self setUpTagAndCategoryFields];
 }
--(void)setUpTagField{
-    if ([[VideoUploadManager sharedManager] challengeTag]) {
-        self.tagField.text = [[VideoUploadManager sharedManager] challengeTag];
+-(void)setUpTagAndCategoryFields{
+    if ([[VideoUploadManager sharedManager] isInChallengeMode]) {
+        self.tagField.text = [[VideoUploadManager sharedManager] challengeVideoTag];
         self.tagField.enabled = NO;
+        [self.categoryButton setTitleForAllControlStates:[[VideoUploadManager sharedManager] challengeVideoCategory]];
+        self.categoryButton.enabled = NO; 
     }else{
         self.tagField.enabled = YES;
-        self.tagField.placeholder = NSLocalizedString(@"competition tag", @"competition tag"); 
+        self.tagField.placeholder = NSLocalizedString(@"competition tag", @"competition tag");
+        [self.categoryButton setTitleForAllControlStates:NSLocalizedString(@"Choose Category", @"Choose Category")];
+        self.categoryButton.enabled = YES; 
     }
 }
 -(void)finish:(id)sender{

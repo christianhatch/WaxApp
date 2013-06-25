@@ -166,9 +166,11 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
         
     NSNumber *infinite = nil;
     if (feed) {
-        if ([[feed lastObject] isKindOfClass:[ModelObject class]]) {
-            ModelObject *model = [feed lastObject];
-            infinite = model.infiniteScrollingID;
+        if (feed.count > 0) {
+            if ([[feed lastObject] isKindOfClass:[ModelObject class]]) {
+                ModelObject *model = [feed lastObject];
+                infinite = model.infiniteScrollingID;
+            }
         }
     }
     return infinite;
