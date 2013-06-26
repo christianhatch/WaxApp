@@ -117,40 +117,49 @@
 }
 
 -(void)customizeAppearance{
-    /*
-    NSDictionary *navTitle = [NSDictionary dictionaryWithObjectsAndKeys: [UIColor blackColor], UITextAttributeTextColor, [[UIColor whiteColor] colorWithAlphaComponent:0.8], UITextAttributeTextShadowColor, [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, [UIFont kiwiLightOfSize:0.0], UITextAttributeFont, nil];
-    [[UINavigationBar appearance] setTitleTextAttributes:navTitle];
     
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage stretchyImage:[UIImage imageNamed:@"navbar_bg.png"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO] forBarMetrics:UIBarMetricsDefault];
-    [[UIToolbar appearance] setBackgroundImage:[UIImage stretchyImage:[UIImage imageNamed:@"navbar_bg.png"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[UIImage stretchyImage:[UIImage imageNamed:@"back_arrow.png"] withCapInsets:UIEdgeInsetsMake(0, 20, 0, 0) useImageHeight:NO] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [[UIBarButtonItem appearance] setBackgroundImage:[UIImage stretchyImage:[UIImage imageNamed:@"nav_button.png"] withCapInsets:UIEdgeInsetsMake(0, 7, 0, 7) useImageHeight:NO] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [[UIBarButtonItem appearance] setBackgroundImage:[UIImage stretchyImage:[UIImage imageNamed:@"nav_buttonOn.png"] withCapInsets:UIEdgeInsetsMake(0, 7, 0, 7) useImageHeight:NO] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    [[UITabBar appearance] setBackgroundImage:[UIImage stretchyImage:[UIImage imageNamed:@"tabbar_bg.png"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO]];
+    NSDictionary *navTitleAttributes = @{UITextAttributeFont: [UIFont waxHeaderFontItalicsOfSize:20],
+                                         UITextAttributeTextColor: [UIColor whiteColor],
+                                         UITextAttributeTextShadowColor: [UIColor clearColor]};
     
-    [[UISearchBar appearance] setImage:[UIImage imageNamed:@"glass.png"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
-    [[UISearchBar appearance] setImage:[UIImage imageNamed:@"clearX.png"] forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
-    [[UISearchBar appearance] setSearchFieldBackgroundImage:[UIImage stretchyImage:[UIImage imageNamed:@"search_field.png"] withCapInsets:UIEdgeInsetsMake(0, 6, 0, 6) useImageHeight:YES] forState:UIControlStateNormal];
-    [[UISearchBar appearance] setBackgroundImage:[UIImage stretchyImage:[UIImage imageNamed:@"searchbg_stretch.png"] withCapInsets:UIEdgeInsetsMake(0, 2, 0, 6) useImageHeight:YES]];
+    [[UINavigationBar appearance] setTitleTextAttributes:navTitleAttributes];
     
+    UIImage *navBarBG = [UIImage stretchyImage:[UIImage imageNamed:@"navbar_bg"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO]; 
+    [[UINavigationBar appearance] setBackgroundImage:navBarBG forBarMetrics:UIBarMetricsDefault];
+    [[UIToolbar appearance] setBackgroundImage:navBarBG forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     
-    [[UIBarButtonItem appearance] setTintColor:[UIColor grayColor]];
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(1200, 0) forBarMetrics:UIBarMetricsDefault];
-    
-    NSDictionary *titleAttributes = [NSDictionary dictionaryWithObjectsAndKeys: [[UIColor blackColor] colorWithAlphaComponent:1.0], UITextAttributeTextColor, [[UIColor blackColor] colorWithAlphaComponent:1.0], UITextAttributeTextShadowColor, [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, [UIFont kiwiLightOfSize:0.0], UITextAttributeFont, nil];
-    
-    [[UIBarButtonItem appearance] setTitleTextAttributes:titleAttributes  forState:UIControlStateNormal];
-    [[UIBarButtonItem appearance] setTitleTextAttributes:titleAttributes forState:UIControlStateHighlighted];
+    UIImage *tabBarBG = [UIImage stretchyImage:[UIImage imageNamed:@"tabbar_bg"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO]; 
+    [[UITabBar appearance] setBackgroundImage:tabBarBG];
+    [[UITabBar appearance] setSelectionIndicatorImage:[[UIImage alloc] init]]; 
     
     
+    UIImage *backButtonDefault = [UIImage stretchyImage:[UIImage imageNamed:@"navbar_back_arrow"] withCapInsets:UIEdgeInsetsMake(0, 20, 0, 0) useImageHeight:NO];
+    UIImage *backButtonHighlighted = [UIImage stretchyImage:[UIImage imageNamed:@"navbar_back_arrowOn"] withCapInsets:UIEdgeInsetsMake(0, 20, 0, 0) useImageHeight:NO];
+    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonDefault forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonHighlighted forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault]; 
     
+    [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage alloc] init] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage alloc] init] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     
-    [[UISlider appearance] setMaximumTrackImage:[UIImage stretchyImage:[UIImage imageNamed:@"slider_maximum.png"] withCapInsets:UIEdgeInsetsMake(0, 5, 0, 0) useImageHeight:YES] forState:UIControlStateNormal];
-    [[UISlider appearance] setMinimumTrackImage:[UIImage stretchyImage:[UIImage imageNamed:@"slider_minimum.png"] withCapInsets:UIEdgeInsetsMake(0, 5, 0, 0) useImageHeight:YES] forState:UIControlStateNormal];
+    [[UISearchBar appearance] setImage:[UIImage imageNamed:@"discoverTab"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    [[UISearchBar appearance] setSearchFieldBackgroundImage:nil forState:UIControlStateNormal];
     
-    [[UISlider appearance] setThumbImage:[UIImage imageNamed:@"slider_Thumb.png"] forState:UIControlStateNormal];
-    */
+    NSDictionary *barButtonTitleNormal = @{UITextAttributeFont: [UIFont waxHeaderFontOfSize:14],
+                                           UITextAttributeTextColor: [UIColor whiteColor],
+                                           UITextAttributeTextShadowColor: [UIColor clearColor]};
+    
+    NSDictionary *barButtonTitleHighlighted = @{UITextAttributeFont: [UIFont waxHeaderFontOfSize:14],
+                                                UITextAttributeTextColor: [UIColor colorWithRed:121/255 green:16/255 blue:23/255 alpha:1],
+                                                UITextAttributeTextShadowColor: [UIColor clearColor]};
+
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -2) forBarMetrics:UIBarMetricsDefault];
+   
+    [[UIBarButtonItem appearance] setTitleTextAttributes:barButtonTitleNormal  forState:UIControlStateNormal];
+    [[UIBarButtonItem appearance] setTitleTextAttributes:barButtonTitleHighlighted forState:UIControlStateHighlighted];
+    
+    [[UISwitch appearance] setOnTintColor:[UIColor waxRedColor]];
 }
+
 -(void)initialLaunch{
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"initialLaunch"]; //set the flag so this is run only the first time the app is opened
     [WaxUser resetForInitialLaunch];
@@ -158,4 +167,9 @@
 -(void)crashlyticsDidDetectCrashDuringPreviousExecution:(Crashlytics *)crashlytics{
     [AIKErrorManager didCrash];
 }
+
+
+
+
+
 @end

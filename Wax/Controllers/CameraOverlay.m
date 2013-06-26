@@ -106,7 +106,7 @@
     self.videoTimerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
     self.videoTimerLabel.center = CGPointMake(280, 40);
     self.videoTimerLabel.textAlignment = NSTextAlignmentCenter;
-    self.videoTimerLabel.font = [UIFont waxBoldOfSize:14];
+    self.videoTimerLabel.font = [UIFont waxHeaderFontOfSize:14];
     self.videoTimerLabel.text = [NSString stringWithFormat:@"00:0%i", self.currentTimer];
     self.videoTimerLabel.textColor = [UIColor whiteColor];
     self.videoTimerLabel.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.75];

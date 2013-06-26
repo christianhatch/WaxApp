@@ -10,7 +10,21 @@
 #import "PersonListViewController.h"
 
 @interface ProfileHeaderView ()
-@property (nonatomic, strong) NSString *userID; 
+
+@property (nonatomic, strong) NSString *userID;
+
+@property (strong, nonatomic) IBOutlet UIImageView *profilePictureView;
+@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+
+@property (strong, nonatomic) IBOutlet UIButton *followersButton;
+@property (strong, nonatomic) IBOutlet UIButton *followingButton;
+
+@property (strong, nonatomic) IBOutlet UIButton *followButton;
+
+- (IBAction)followButtonAction:(id)sender;
+- (IBAction)followersButtonAction:(id)sender;
+- (IBAction)followingButtonAction:(id)sender;
+
 @end
 
 @implementation ProfileHeaderView
@@ -24,6 +38,15 @@
     header.userID = userID; 
     return header;
 }
+-(void)awakeFromNib{
+    [self.followButton styleAsWaxWhiteButtonWithTitle:NSLocalizedString(@"Follow", @"Follow")]; 
+    [self.nameLabel setWaxHeaderFontOfSize:20];
+    self.nameLabel.textColor = [UIColor whiteColor];
+    
+    [self.followingButton styleFontAsWaxHeaderFontOfSize:14 color:[UIColor waxDetailFontColor] highlightedColor:[UIColor waxDetailFontColor]];
+    [self.followersButton styleFontAsWaxHeaderFontOfSize:14 color:[UIColor waxDetailFontColor] highlightedColor:[UIColor waxDetailFontColor]];
+    
+}
 -(void)setUpView{
     PersonObject *person = self.person;
    
@@ -31,8 +54,8 @@
    
     self.nameLabel.text = person.username;
     
-    [self updateFollowersCountLabel];
     [self.followingButton setTitleForAllControlStates:[NSString stringWithFormat:NSLocalizedString(@"%@ Following", @"%@ Following"), person.followingCount]];
+    [self.followersButton setTitleForAllControlStates:[NSString stringWithFormat:NSLocalizedString(@"%@ Followers", @"%@ Followers"), person.followersCount]];
    
     [self setUpFollowingLabel]; 
 }
@@ -103,7 +126,12 @@
     [self.followButton setTitleForAllControlStates:title];
 }
 -(void)updateFollowersCountLabel{
-    [self.followersButton setTitleForAllControlStates:[NSString stringWithFormat:NSLocalizedString(@"%@ Followers", @"%@ Followers"), self.person.followersCount]];
+    
+    if (self.person.followersCount.integerValue != 1) {
+        [self.followersButton setTitleForAllControlStates:[NSString stringWithFormat:NSLocalizedString(@"%@ Followers", @"%@ Followers"), self.person.followersCount]];
+    }else{
+        [self.followersButton setTitleForAllControlStates:[NSString stringWithFormat:NSLocalizedString(@"%@ Follower", @"%@ Follower"), self.person.followersCount]];
+    }
 }
 -(void)fetchProfileInfoAndUpdateUI{
     [[WaxAPIClient sharedClient] fetchProfileInformationForUserID:self.userID completion:^(PersonObject *person, NSError *error) {

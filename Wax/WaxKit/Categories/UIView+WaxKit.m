@@ -15,7 +15,7 @@
     UILabel *header = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 23)];
     header.textColor = [UIColor darkTextColor];
     header.text = [NSString stringWithFormat:@" %@", title];
-    header.font = [UIFont waxRegularOfSize:15];
+//    header.font = [UIFont waxRegularOfSize:15];
     //    header.backgroundColor = [UIColor feedTableBGNoiseColor];
     //    header.backgroundColor = [UIColor coloredNoiseWithHex:0x393A3A opacity:0.05];
     header.autoresizingMask = UIViewAutoresizingFlexibleWidth;

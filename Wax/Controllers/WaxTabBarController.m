@@ -20,15 +20,19 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-//    self.tabBar.layer.masksToBounds = NO;
-//    self.tabBar.layer.shadowOffset = CGSizeMake(0, 0);
-//    self.tabBar.layer.shadowOpacity = 0.5;
-//    self.tabBar.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.tabBar.bounds].CGPath;
     self.delegate = self;
-    [self setupTabBarIcons];
+    [self setUpView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSplashScreen) name:WaxUserDidLogOutNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(capture) name:kWaxNotificationPresentVideoCamera object:nil];
 }
+-(void)setUpView{    
+    [[self.tabBar.items objectAtIndex:0] setFinishedSelectedImage:[UIImage imageNamed:@"homeTab_on"] withFinishedUnselectedImage:[UIImage imageNamed:@"homeTab"]];
+    [[self.tabBar.items objectAtIndex:1] setFinishedSelectedImage:[UIImage imageNamed:@"discoverTab_on"] withFinishedUnselectedImage:[UIImage imageNamed:@"discoverTab"]];
+    [[self.tabBar.items objectAtIndex:2] setFinishedSelectedImage:[UIImage imageNamed:@"camTab_on"] withFinishedUnselectedImage:[UIImage imageNamed:@"camTab"]];
+    [[self.tabBar.items objectAtIndex:3] setFinishedSelectedImage:[UIImage imageNamed:@"notesTab_on"] withFinishedUnselectedImage:[UIImage imageNamed:@"notesTab"]];
+    [[self.tabBar.items objectAtIndex:4] setFinishedSelectedImage:[UIImage imageNamed:@"profileTab_on"] withFinishedUnselectedImage:[UIImage imageNamed:@"profileTab"]];            
+}
+
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     if (![[WaxUser currentUser] isLoggedIn]) {
@@ -40,19 +44,6 @@
             }
         }];
     }
-}
--(void)setupTabBarIcons{
-    /*
-    [[self.tabBar.items objectAtIndex:0] setFinishedSelectedImage:[UIImage imageNamed:@"homeOn.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"home.png"]];
-    [[self.tabBar.items objectAtIndex:1] setFinishedSelectedImage:[UIImage imageNamed:@"discoverOn.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"discover.png"]];
-    [[self.tabBar.items objectAtIndex:2] setFinishedSelectedImage:[UIImage imageNamed:@"profileOn.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"profile.png"]];
-    [[self.tabBar.items objectAtIndex:3] setFinishedSelectedImage:[UIImage imageNamed:@"capture.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"capture.png"]];
-    [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageNamed:@"tabbar_selected.png"]];
-    
-    for (UITabBarItem *tabItem in self.tabBar.items) {
-        tabItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
-    }
-     */
 }
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
     if ([viewController.title isEqualToString:@"Capture"]){
@@ -87,6 +78,8 @@
         return YES; 
     }
 }
+
+#pragma mark - Internal Methods
 -(void)captureFromTabBar{
     [AIKErrorManager logMessageToAllServices:@"Tapped Record On TabBar"];
     [self capture]; 

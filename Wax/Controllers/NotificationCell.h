@@ -17,8 +17,4 @@
 
 @property (nonatomic, strong) NotificationObject *noteObject;
 
-
-@property (strong, nonatomic) IBOutlet UIImageView *profilePictureView;
-@property (strong, nonatomic) IBOutlet UILabel *notificationLabel;
-
 @end

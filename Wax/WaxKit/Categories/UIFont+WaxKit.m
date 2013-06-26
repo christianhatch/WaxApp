@@ -10,14 +10,29 @@
 
 @implementation UIFont (WaxKit)
 
-+(UIFont *)waxRegularOfSize:(CGFloat)size{
-    return [UIFont fontWithName:@"HelveticaNeue" size:size]; 
+
++(UIFont *)waxHeaderFont{
+    return [UIFont waxHeaderFontOfSize:16];
 }
-+(UIFont *)waxLightOfSize:(CGFloat)size{
-    return [UIFont fontWithName:@"HelveticaNeue-Light" size:size];
-}
-+(UIFont *)waxBoldOfSize:(CGFloat)size{
++(UIFont *)waxHeaderFontOfSize:(CGFloat)size{
     return [UIFont fontWithName:@"HelveticaNeue-Bold" size:size];
 }
+
++(UIFont *)waxHeaderFontItalics{
+    return [UIFont waxHeaderFontItalicsOfSize:16]; 
+}
++(UIFont *)waxHeaderFontItalicsOfSize:(CGFloat)size{
+    return [UIFont fontWithName:@"HelveticaNeue-BoldItalic" size:size]; 
+}
+
+
++(UIFont *)waxDetailFont{
+    return [UIFont waxDetailFontOfSize:10];
+}
++(UIFont *)waxDetailFontOfSize:(CGFloat)size{
+    return [UIFont fontWithName:@"HelveticaNeue-Light" size:size];
+}
+
+
 
 @end

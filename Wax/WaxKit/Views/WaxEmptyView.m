@@ -199,7 +199,7 @@
 -(UIButton *)optionalButton{
     if (self.buttonText) {
         if (!_optionalButton) {
-            _optionalButton = [UIButton whiteButtonWithTitle:nil];
+//            _optionalButton = [UIButton whiteButtonWithTitle:nil];
             _optionalButton.titleLabel.textColor = [UIColor darkGrayColor];
             _optionalButton.titleLabel.font = [UIFont systemFontOfSize:16];
             _optionalButton.hidden = NO;

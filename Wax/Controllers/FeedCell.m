@@ -28,24 +28,69 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 #import "FeedCell.h"
 #import "ProfileViewController.h"
 
+@interface FeedCell ()
+
+//the user
+@property (strong, nonatomic) IBOutlet UIImageView *profilePictureView;
+@property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *timestampLabel;
+
+//the video
+@property (strong, nonatomic) AIKMoviePlayer *moviePlayer;
+@property (strong, nonatomic) IBOutlet UIButton *competitionNameButton;
+@property (strong, nonatomic) IBOutlet UILabel *rankLabel;
+@property (strong, nonatomic) IBOutlet UILabel *rankWordLabel;
+
+//action buttons
+@property (strong, nonatomic) IBOutlet UIButton *actionButton;
+@property (strong, nonatomic) IBOutlet UIButton *challengeButton;
+@property (strong, nonatomic) IBOutlet UIButton *voteButton;
+@property (strong, nonatomic) IBOutlet UIButton *sendChallengeButton;
+
+- (IBAction)actionButtonAction:(id)sender;
+- (IBAction)challengeButtonAction:(id)sender;
+- (IBAction)voteButtonAction:(id)sender;
+- (IBAction)competitionNameButtonAction:(id)sender;
+- (IBAction)sendChallengeButtonAction:(id)sender;
+
+@end
+
 @implementation FeedCell
 @synthesize profilePictureView, usernameLabel, timestampLabel, moviePlayer = _moviePlayer, competitionNameButton, rankLabel, actionButton, challengeButton, voteButton, videoObject = _videoObject;
 
 -(void)awakeFromNib{
-    [self.challengeButton setTitleForAllControlStates:NSLocalizedString(@"Do It!", @"Do It!")];
-    [self.sendChallengeButton setTitleForAllControlStates:NSLocalizedString(@"Send", @"Send")]; 
-    [self.voteButton setTitleColor:[UIColor orangeColor] forState:UIControlStateDisabled];
-    [self.actionButton rotateByDegrees:180 duration:0]; 
+    [self.usernameLabel setWaxHeaderFont];
+    [self.timestampLabel setWaxDetailFont];
+    [self.competitionNameButton styleFontAsWaxHeaderItalics];
+    
+    [self.rankWordLabel setWaxDetailFont];
+    self.rankWordLabel.text = NSLocalizedString(@"Rank", @"Rank"); 
+    [self.rankLabel setWaxHeaderFont];
+    
+    [self.challengeButton styleAsWaxGreyButtonWithTitle:NSLocalizedString(@"Do It!", @"Do It!")];
+    [self.challengeButton setBackgroundImage:[UIImage waxButtonImageHighlightedRed] forState:UIControlStateHighlighted];
+    
+    [self.sendChallengeButton styleAsWaxGreyButtonWithTitle:NSLocalizedString(@"Send", @"Send")];
+    [self.sendChallengeButton setBackgroundImage:[UIImage waxButtonImageHighlightedChartreuse] forState:UIControlStateHighlighted];
+    
+    [self.voteButton styleAsWaxGreyButtonWithTitle:NSLocalizedString(@"Vote Up!", @"Vote Up!")];
+    [self.voteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+    
+    [self.actionButton setImage:[UIImage imageNamed:@"downarrow"] forState:UIControlStateNormal];
+    [self.actionButton setImage:[UIImage imageNamed:@"downarrow_on"] forState:UIControlStateHighlighted];
 }
+
 -(void)setUpView{
     VideoObject *video = self.videoObject;
-
     
-    NSString *userID = self.videoObject.userID;
-    NSString *username = self.videoObject.username;
-    UINavigationController *nav = [self nearestNavigationController];
+    __block FeedCell *blockSelf = self; 
     
     [self.profilePictureView setImageForProfilePictureWithUserID:video.userID buttonHandler:^(UIImageView *imageView) {
+        
+        NSString *userID = blockSelf.videoObject.userID;
+        NSString *username = blockSelf.videoObject.username;
+        UINavigationController *nav = [blockSelf nearestNavigationController];
+
         ProfileViewController *pvc = [ProfileViewController profileViewControllerFromUserID:userID username:username];
         [nav pushViewController:pvc animated:YES];
     }];
@@ -73,9 +118,10 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 -(void)prepareForReuse{
     [self setUpMoviePlayer];
 }
+
 -(void)setUpMoviePlayer{
     if (!self.moviePlayer) {
-        CGFloat bottomPlus8 = (self.profilePictureView.bounds.size.height + self.profilePictureView.frame.origin.y + 8);
+        CGFloat bottomPlus8 = (self.profilePictureView.bounds.size.height + self.profilePictureView.frame.origin.y + 5);
         CGRect movieFrame = CGRectMake(0, bottomPlus8, self.bounds.size.width, self.bounds.size.width);
         self.moviePlayer = [AIKMoviePlayer moviePlayerWithFrame:movieFrame thumbnailURL:[self thumbnailURL] videoStreamingURL:[self streamingURL] playbackBeginBlock:[self beginPlayingBlock]];
         [self.contentView addSubview:self.moviePlayer];

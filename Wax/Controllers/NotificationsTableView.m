@@ -60,6 +60,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     NotificationObject *note = [[self proxyDataSourceArray] objectAtIndexOrNil:indexPath.row];
+    
     switch (note.noteType) {
         case NotificationTypeVote:
         case NotificationTypeChallengeResponse:{

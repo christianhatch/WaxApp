@@ -10,10 +10,16 @@
 
 @interface UIButton (WaxKit)
 
-+(UIButton *)whiteButtonWithTitle:(NSString *)title;
-+(UIButton *)greenButtonWithTitle:(NSString *)title;
++(UIButton *)waxGreyButtonWithTitle:(NSString *)title frame:(CGRect)frame;
++(UIButton *)waxWhiteButtonWithTitle:(NSString *)title frame:(CGRect)frame;
++(UIButton *)waxBlueButtonWithTitle:(NSString *)title frame:(CGRect)frame;
 
--(void)setImage:(UIImage *)image forState:(UIControlState)state animated:(BOOL)animated; 
--(void)setBackgroundImage:(UIImage *)image forState:(UIControlState)state animated:(BOOL)animated;
+-(void)styleAsWaxGreyButtonWithTitle:(NSString *)title;
+-(void)styleAsWaxWhiteButtonWithTitle:(NSString *)title; 
+-(void)styleAsWaxBlueButtonWithTitle:(NSString *)title;
+
+-(void)styleFontAsWaxHeaderFontOfSize:(CGFloat)size color:(UIColor *)color highlightedColor:(UIColor *)highlightedColor;
+
+-(void)styleFontAsWaxHeaderItalics; 
 
 @end

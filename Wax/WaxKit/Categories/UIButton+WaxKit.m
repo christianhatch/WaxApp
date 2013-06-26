@@ -7,47 +7,74 @@
 //
 
 #import "UIButton+WaxKit.h"
-#import "UIFont+WaxKit.h"
 
 @implementation UIButton (WaxKit)
 
-+(UIButton *)whiteButtonWithTitle:(NSString *)title{
++(UIButton *)waxGreyButtonWithTitle:(NSString *)title frame:(CGRect)frame{
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setTitle:title forState:UIControlStateNormal];
-    [btn setTitle:title forState:UIControlStateHighlighted];
-    [btn setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor darkTextColor] forState:UIControlStateHighlighted];
-//    [btn setBackgroundImage:[UIImage whiteButton] forState:UIControlStateNormal];
-//    [btn setBackgroundImage:[UIImage whiteButtonOn] forState:UIControlStateHighlighted];
-    [btn.titleLabel setFont:[UIFont waxLightOfSize:14]];
-    [btn.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    
+    [btn styleAsWaxGreyButtonWithTitle:title];
+    btn.frame = frame;
+        
     return btn;
 }
-+(UIButton *)greenButtonWithTitle:(NSString *)title{
++(UIButton *)waxWhiteButtonWithTitle:(NSString *)title frame:(CGRect)frame{
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setTitle:title forState:UIControlStateNormal];
-    [btn setTitle:title forState:UIControlStateHighlighted];
-    [btn setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor darkTextColor] forState:UIControlStateHighlighted];
-//    [btn setBackgroundImage:[UIImage greenButton] forState:UIControlStateNormal];
-//    [btn setBackgroundImage:[UIImage greenButtonOn] forState:UIControlStateHighlighted];
-    [btn.titleLabel setFont:[UIFont waxLightOfSize:14]];
-    [btn.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    
+    [btn styleAsWaxWhiteButtonWithTitle:title];
+    btn.frame = frame;
+    
     return btn;
 }
--(void)setImage:(UIImage *)image forState:(UIControlState)state animated:(BOOL)animated{
-    if (animated) {
-        [UIView transitionWithView:self.imageView duration:AIKDefaultAnimationDuration options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-            [self setImage:image forState:state];
-        } completion:nil];
-    }
++(UIButton *)waxBlueButtonWithTitle:(NSString *)title frame:(CGRect)frame{
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [btn styleAsWaxBlueButtonWithTitle:title];
+    btn.frame = frame;
+    
+    return btn;
 }
--(void)setBackgroundImage:(UIImage *)image forState:(UIControlState)state animated:(BOOL)animated{
-    if (animated) {
-        [UIView transitionWithView:self.imageView duration:AIKDefaultAnimationDuration options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-            [self setBackgroundImage:image forState:state];
-        } completion:nil];
-    }
+-(void)styleAsWaxGreyButtonWithTitle:(NSString *)title{
+    [self setUpWaxButtonTitleStyleWithTitle:title color:nil];
+    [self setBackgroundImage:[UIImage waxButtonImageNormalGrey] forState:UIControlStateNormal];
+    [self setBackgroundImage:[UIImage waxButtonImageHighlightedGrey] forState:UIControlStateHighlighted];
+    [self setBackgroundImage:[UIImage waxButtonImageHighlightedGrey] forState:UIControlStateDisabled];
+
+}
+-(void)styleAsWaxWhiteButtonWithTitle:(NSString *)title{
+    [self setUpWaxButtonTitleStyleWithTitle:title color:[UIColor whiteColor]];
+    [self setBackgroundImage:[UIImage waxButtonImageNormalWhite] forState:UIControlStateNormal];
+    [self setBackgroundImage:[UIImage waxButtonImageHighlightedWhite] forState:UIControlStateHighlighted];
+    [self setBackgroundImage:[UIImage waxButtonImageHighlightedWhite] forState:UIControlStateDisabled];
+}
+-(void)styleAsWaxBlueButtonWithTitle:(NSString *)title{
+    [self setUpWaxButtonTitleStyleWithTitle:title color:nil];
+    [self setBackgroundImage:[UIImage waxButtonImageNormalBlue] forState:UIControlStateNormal];
+    [self setBackgroundImage:[UIImage waxButtonImageHighlightedBlue] forState:UIControlStateHighlighted];
+    [self setBackgroundImage:[UIImage waxButtonImageHighlightedBlue] forState:UIControlStateDisabled];
 }
 
+-(void)styleFontAsWaxHeaderFontOfSize:(CGFloat)size color:(UIColor *)color highlightedColor:(UIColor *)highlightedColor{
+    [self.titleLabel setWaxHeaderFontOfSize:size];
+    [self setTitleColor:color forState:UIControlStateNormal];
+    [self setTitleColor:highlightedColor forState:UIControlStateHighlighted];
+}
+
+-(void)styleFontAsWaxHeaderItalics{
+    [self.titleLabel setWaxHeaderItalicsFont];
+    [self setTitleColor:[UIColor waxRedColor] forState:UIControlStateNormal];
+    [self setTitleColor:[UIColor waxHeaderFontColor] forState:UIControlStateHighlighted];
+}
+
+#pragma mark - Internal Methods
+-(void)setUpWaxButtonTitleStyleWithTitle:(NSString *)title color:(UIColor *)color{
+    [self setTitleForAllControlStates:title titleColor:color ? color : [UIColor waxHeaderFontColor] titleFont:[UIFont waxHeaderFont] titleTextAlignment:NSTextAlignmentCenter];
+}
+
+-(void)setTitleForAllControlStates:(NSString *)title titleColor:(UIColor *)color titleFont:(UIFont *)font titleTextAlignment:(NSTextAlignment)textAlignment{
+    [self setTitleForAllControlStates:title];
+    [self setTitleColorForAllControlStates:color];
+    [self.titleLabel setTextAlignment:textAlignment];
+    [self.titleLabel setFont:font]; 
+}
 @end
