@@ -74,6 +74,8 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     [self.sendChallengeButton setBackgroundImage:[UIImage waxButtonImageHighlightedChartreuse] forState:UIControlStateHighlighted];
     
     [self.voteButton styleAsWaxGreyButtonWithTitle:NSLocalizedString(@"Vote Up!", @"Vote Up!")];
+    [self.voteButton setBackgroundImage:[UIImage waxButtonImageHighlightedBlue] forState:UIControlStateHighlighted];
+    [self.voteButton setBackgroundImage:[UIImage waxButtonImageHighlightedBlue] forState:UIControlStateDisabled];
     [self.voteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
     
     [self.actionButton setImage:[UIImage imageNamed:@"downarrow"] forState:UIControlStateNormal];
