@@ -10,14 +10,6 @@
 
 @interface UIButton (WaxKit)
 
-+(UIButton *)waxGreyButtonWithTitle:(NSString *)title frame:(CGRect)frame;
-+(UIButton *)waxWhiteButtonWithTitle:(NSString *)title frame:(CGRect)frame;
-+(UIButton *)waxBlueButtonWithTitle:(NSString *)title frame:(CGRect)frame;
-
--(void)styleAsWaxGreyButtonWithTitle:(NSString *)title;
--(void)styleAsWaxWhiteButtonWithTitle:(NSString *)title; 
--(void)styleAsWaxBlueButtonWithTitle:(NSString *)title;
-
 -(void)styleFontAsWaxHeaderFontOfSize:(CGFloat)size color:(UIColor *)color highlightedColor:(UIColor *)highlightedColor;
 
 -(void)styleFontAsWaxHeaderItalics;
