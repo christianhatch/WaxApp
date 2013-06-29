@@ -30,7 +30,8 @@
         self.tableViewType = tableViewType;
         self.userID = userID;
         self.didSelectBlock = selectBlock;
-        
+
+        self.rowHeight = kPersonCellHeight;
         [self registerNib:[UINib nibWithNibName:@"PersonCell" bundle:nil] forCellReuseIdentifier:kPersonCellID];
         
         __block PersonTableView *blockSelf = self;

@@ -39,10 +39,10 @@
     [self setBackgroundImage:[UIImage waxButtonImageNormalGrey] forState:UIControlStateNormal];
     [self setBackgroundImage:[UIImage waxButtonImageHighlightedGrey] forState:UIControlStateHighlighted];
     [self setBackgroundImage:[UIImage waxButtonImageHighlightedGrey] forState:UIControlStateDisabled];
-
 }
 -(void)styleAsWaxWhiteButtonWithTitle:(NSString *)title{
     [self setUpWaxButtonTitleStyleWithTitle:title color:[UIColor whiteColor]];
+    [self setTitleColor:[UIColor waxHeaderFontColor] forState:UIControlStateHighlighted];
     [self setBackgroundImage:[UIImage waxButtonImageNormalWhite] forState:UIControlStateNormal];
     [self setBackgroundImage:[UIImage waxButtonImageHighlightedWhite] forState:UIControlStateHighlighted];
     [self setBackgroundImage:[UIImage waxButtonImageHighlightedWhite] forState:UIControlStateDisabled];
@@ -65,6 +65,8 @@
     [self setTitleColor:[UIColor waxRedColor] forState:UIControlStateNormal];
     [self setTitleColor:[UIColor waxHeaderFontColor] forState:UIControlStateHighlighted];
 }
+
+
 
 #pragma mark - Internal Methods
 -(void)setUpWaxButtonTitleStyleWithTitle:(NSString *)title color:(UIColor *)color{

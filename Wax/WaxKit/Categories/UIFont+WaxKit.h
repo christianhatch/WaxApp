@@ -10,6 +10,8 @@
 
 @interface UIFont (WaxKit)
 
++(UIFont *)waxDefaultFont; //default size is 13
++(UIFont *)waxDefaultFontOfSize:(CGFloat)size; 
 
 +(UIFont *)waxHeaderFont; //default size is 16
 +(UIFont *)waxHeaderFontOfSize:(CGFloat)size;

@@ -26,7 +26,6 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 
 
 #import "FeedCell.h"
-#import "ProfileViewController.h"
 
 @interface FeedCell ()
 
@@ -43,9 +42,9 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 
 //action buttons
 @property (strong, nonatomic) IBOutlet UIButton *actionButton;
-@property (strong, nonatomic) IBOutlet UIButton *challengeButton;
-@property (strong, nonatomic) IBOutlet UIButton *voteButton;
-@property (strong, nonatomic) IBOutlet UIButton *sendChallengeButton;
+@property (strong, nonatomic) IBOutlet WaxRoundButton *challengeButton;
+@property (strong, nonatomic) IBOutlet WaxRoundButton *voteButton;
+@property (strong, nonatomic) IBOutlet WaxRoundButton *sendChallengeButton;
 
 - (IBAction)actionButtonAction:(id)sender;
 - (IBAction)challengeButtonAction:(id)sender;
@@ -67,16 +66,17 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     self.rankWordLabel.text = NSLocalizedString(@"Rank", @"Rank"); 
     [self.rankLabel setWaxHeaderFont];
     
-    [self.challengeButton styleAsWaxGreyButtonWithTitle:NSLocalizedString(@"Do It!", @"Do It!")];
-    [self.challengeButton setBackgroundImage:[UIImage waxButtonImageHighlightedRed] forState:UIControlStateHighlighted];
+    [self.challengeButton styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Do It!", @"Do It!")];
+    [self.challengeButton setFillColor:[UIColor waxRedColor] forState:UIControlStateHighlighted]; 
     
-    [self.sendChallengeButton styleAsWaxGreyButtonWithTitle:NSLocalizedString(@"Send", @"Send")];
-    [self.sendChallengeButton setBackgroundImage:[UIImage waxButtonImageHighlightedChartreuse] forState:UIControlStateHighlighted];
+    [self.sendChallengeButton styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Send", @"Send")];
+    [self.sendChallengeButton setFillColor:[UIColor greenColor] forState:UIControlStateHighlighted]; 
     
-    [self.voteButton styleAsWaxGreyButtonWithTitle:NSLocalizedString(@"Vote Up!", @"Vote Up!")];
-    [self.voteButton setBackgroundImage:[UIImage waxButtonImageHighlightedBlue] forState:UIControlStateHighlighted];
-    [self.voteButton setBackgroundImage:[UIImage waxButtonImageHighlightedBlue] forState:UIControlStateDisabled];
+    [self.voteButton styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Vote Up!", @"Vote Up!")];
+    [self.voteButton setFillColor:[UIColor blueColor] forState:UIControlStateHighlighted];
+    [self.voteButton setFillColor:[UIColor blueColor] forState:UIControlStateDisabled];
     [self.voteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+    [self.voteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     
     [self.actionButton setImage:[UIImage imageNamed:@"downarrow"] forState:UIControlStateNormal];
     [self.actionButton setImage:[UIImage imageNamed:@"downarrow_on"] forState:UIControlStateHighlighted];

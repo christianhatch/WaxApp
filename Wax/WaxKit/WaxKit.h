@@ -9,13 +9,13 @@
 
 //Categories
 #import "UIView+WaxKit.h"
-#import "UIButton+WaxKit.h"
 #import "UIImageView+WaxKit.h"
+#import "UIButton+WaxKit.h"
 #import "UILabel+WaxKit.h"
 
+#import "UIImage+WaxKit.h"
 #import "UIFont+WaxKit.h"
 #import "UIColor+WaxKit.h"
-#import "UIImage+WaxKit.h"
 
 #import "NSString+WaxKit.h"
 #import "NSURL+WaxKit.h"
@@ -28,7 +28,14 @@
 #import "WaxDataManager.h" 
 #import "VideoUploadManager.h"
 
-//views
+//controls
+#import "WaxRoundButton.h"
+#import "WaxFollowButton.h"
+
+//tableview views
+#import "NotificationsTableView.h"
+#import "NotificationCell.h"
+
 #import "CategoryTableView.h"
 #import "CategoryCell.h"
 #import "TagCell.h"
@@ -37,11 +44,11 @@
 #import "FeedCell.h"
 
 #import "PersonTableView.h"
-#import "ProfileHeaderView.h"
 #import "PersonCell.h"
+#import "ProfileHeaderView.h"
 
-#import "NotificationsTableView.h"
-#import "NotificationCell.h"
+//#import "WaxTableView.h" //not needed..now - but here for consistency
+//#import "WaxTableViewCell.h" //not needed..now - but here for consistency
 
 
 //viewcontrollers
@@ -52,16 +59,17 @@
 #import "FeedViewController.h"
 #import "ProfileViewController.h"
 #import "PersonListViewController.h"
-
+//#import "SettingsViewController.h" //not needed..now - but here for consistency
 
 //Models
+#import "ModelObject.h"
 #import "LoginObject.h"
+#import "NotificationObject.h"
 #import "SettingsObject.h"
 #import "PersonObject.h"
+#import "TagObject.h"
 #import "VideoObject.h"
 #import "UploadObject.h"
-#import "NotificationObject.h"
-#import "TagObject.h"
 
 
 

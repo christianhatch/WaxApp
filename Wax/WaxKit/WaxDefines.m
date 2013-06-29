@@ -10,7 +10,7 @@
 
 
 #pragma mark - API
-NSString *const kWaxAPIBaseURL = @"http://api.wax.li/v0.0.1/";
+NSString *const kWaxAPIBaseURL = @"https://api.wax.li/v0.0.1/";
 NSString *const kWaxAPISalt = @"pXOnay@E3p*#5lJC)D^t$8WBb4X_yDds0Z75t$@I";
 NSString *const kWaxAPIErrorDomain = @"com.wax.api"; 
 NSString *const kWaxAPIJSONKey = @"response";

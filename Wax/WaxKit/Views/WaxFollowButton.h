@@ -2,18 +2,19 @@
 //  WaxFollowButton.h
 //  Wax
 //
-//  Created by Christian Hatch on 6/13/13.
+//  Created by Christian Hatch on 6/28/13.
 //  Copyright (c) 2013 Christian Hatch. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WaxRoundButton.h"
 
-@interface WaxFollowButton : UIControl
+@interface WaxFollowButton : WaxRoundButton
 
-+(WaxFollowButton *)followButtonWithUserID:(NSString *)userID following:(BOOL)following frame:(CGRect)frame;
--(instancetype)initWithUserID:(NSString *)userID following:(BOOL)following frame:(CGRect)frame;
++(WaxFollowButton *)followButtonWithUserID:(NSString *)userID isFollowing:(BOOL)isFollowing frame:(CGRect)frame;
+-(instancetype)initWithUserID:(NSString *)userID isFollowing:(BOOL)isFollowing frame:(CGRect)frame;
 
--(void)setUserID:(NSString *)userID;
--(void)setFollowing:(BOOL)following;
+-(void)setUserid:(NSString *)userID isFollowing:(BOOL)isFollowing;
+
+
 
 @end

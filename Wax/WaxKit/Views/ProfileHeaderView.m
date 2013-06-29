@@ -19,7 +19,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *followersButton;
 @property (strong, nonatomic) IBOutlet UIButton *followingButton;
 
-@property (strong, nonatomic) IBOutlet UIButton *followButton;
+@property (strong, nonatomic) IBOutlet WaxRoundButton *followButton;
 
 - (IBAction)followButtonAction:(id)sender;
 - (IBAction)followersButtonAction:(id)sender;
@@ -39,14 +39,15 @@
     return header;
 }
 -(void)awakeFromNib{
-    [self.followButton styleAsWaxWhiteButtonWithTitle:NSLocalizedString(@"Follow", @"Follow")]; 
+    [self.followButton styleAsWaxRoundButtonWhiteWithTitle:NSLocalizedString(@"Follow", @"Follow")]; 
+    
     [self.nameLabel setWaxHeaderFontOfSize:20];
     self.nameLabel.textColor = [UIColor whiteColor];
     
-    [self.followingButton styleFontAsWaxHeaderFontOfSize:14 color:[UIColor waxDetailFontColor] highlightedColor:[UIColor waxDetailFontColor]];
-    [self.followersButton styleFontAsWaxHeaderFontOfSize:14 color:[UIColor waxDetailFontColor] highlightedColor:[UIColor waxDetailFontColor]];
-    
+    [self.followingButton styleFontAsWaxHeaderFontOfSize:14 color:[UIColor waxDetailFontColor] highlightedColor:[UIColor whiteColor]];
+    [self.followersButton styleFontAsWaxHeaderFontOfSize:14 color:[UIColor waxDetailFontColor] highlightedColor:[UIColor whiteColor]];
 }
+
 -(void)setUpView{
     PersonObject *person = self.person;
    

@@ -11,7 +11,9 @@
 
 @implementation UIColor (WaxKit)
 
-
++(UIColor *)waxDefaultFontColor{
+    return [UIColor colorWithHex:0x798389]; 
+}
 +(UIColor *)waxHeaderFontColor{
     return [UIColor colorWithHex:0x31373A]; 
 }
@@ -23,6 +25,8 @@
     return [UIColor colorWithHex:0xF5372D]; 
 }
 
-
++(UIColor *)waxTableViewCellSelectionColor{
+    return [UIColor colorWithHex:0xE4F0F4]; 
+}
 
 @end

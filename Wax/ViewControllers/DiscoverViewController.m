@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Christian Hatch. All rights reserved.
 //
 
+#define USER_SCOPE_SELECTED self.searchDisplayController.searchBar.selectedScopeButtonIndex == 0
+
 #import "DiscoverViewController.h"
 #import "CategoryTableView.h"
 #import "FeedViewController.h"
@@ -27,7 +29,7 @@
 -(void)setUpView{
     self.navigationItem.title = NSLocalizedString(@"Discover", @"Discover");
     [self.view addSubview:self.tableView];
-    self.searchBar.placeholder = NSLocalizedString(@"search for @users or #tags", @"search for @users or #tags");
+    [self updatePlaceholder];
     self.searchBar.showsScopeBar = YES;
     self.searchBar.scopeButtonTitles = @[NSLocalizedString(@"@users", @"@users"), NSLocalizedString(@"#tags", @"#tags")];
     self.tableView.tableHeaderView = self.searchBar;
@@ -47,15 +49,23 @@
     return NO;
 }
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption{
-    return YES; 
+    [self updatePlaceholder];
+    return YES;
 }
+-(void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller{
+    [self updatePlaceholder];
+}
+-(void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller{
+    [self updatePlaceholder];
+}
+
 
 #pragma mark - UITableView DataSource & Delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1; 
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (self.searchDisplayController.searchBar.selectedScopeButtonIndex == 0) {
+    if (USER_SCOPE_SELECTED) {
         return self.personSearchResults.count;
     }else{
         return self.tagSearchResults.count; 
@@ -73,7 +83,7 @@
     }
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.searchDisplayController.searchBar.selectedScopeButtonIndex == 0) {
+    if (USER_SCOPE_SELECTED) {
         [self.navigationController pushViewController:[ProfileViewController profileViewControllerFromPersonObject:[self.personSearchResults objectAtIndexOrNil:indexPath.row]] animated:YES];
     }else{
         TagObject *tagObject = [self.tagSearchResults objectAtIndexOrNil:indexPath.row];
@@ -82,6 +92,17 @@
 }
 
 #pragma mark - Internal Methods
+-(void)updatePlaceholder{
+    if (self.searchDisplayController.isActive) {
+        if (USER_SCOPE_SELECTED) {
+            self.searchBar.placeholder = NSLocalizedString(@"search for @users", @"search for @users");
+        }else{
+            self.searchBar.placeholder = NSLocalizedString(@"search for #tags", @"search for #tags");
+        }
+    }else{
+        self.searchBar.placeholder = NSLocalizedString(@"search for @users or #tags", @"search for @users or #tags");
+    }
+}
 -(void)performSearch{
     NSString *searchString = self.searchBar.text;
     

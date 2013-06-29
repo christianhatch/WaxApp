@@ -7,6 +7,7 @@
 //
 
 
+#define kPersonCellHeight 80
 #define kPersonCellID @"PersonCellID" 
 
 #import "WaxTableViewCell.h"
@@ -17,12 +18,7 @@
 
 @property (nonatomic, strong) PersonObject *person;
 
-@property (strong, nonatomic) WaxFollowButton *followButton;
 @property (nonatomic, readwrite) BOOL hidesFollowButton;
-
-@property (strong, nonatomic) IBOutlet UIImageView *profilePictureView;
-@property (strong, nonatomic) IBOutlet UILabel *fullNameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
 
 
 @end

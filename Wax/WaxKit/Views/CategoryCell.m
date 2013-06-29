@@ -18,7 +18,7 @@
     NSString *cat = self.category; 
     
     self.categoryLabel.text = cat;
-    [self.categoryIconView setImageWithURL:[NSURL categoryImageURLWithCategoryTitle:cat] placeholderImage:[UIImage imageNamed:@"record_flash"] animated:YES completion:nil]; 
+    [self.categoryIconView setImageWithURL:[NSURL categoryImageURLWithCategoryTitle:cat] placeholderImage:nil animated:YES completion:nil];
     
 }
 

@@ -21,28 +21,32 @@
 @synthesize noteObject = _noteObject;
 
 -(void)awakeFromNib{
-    [self.notificationLabel setWaxHeaderFont];
+    [super awakeFromNib];
+    [self.notificationLabel setWaxHeaderFontOfSize:12];
+    self.notificationLabel.minimumScaleFactor = 0.4; 
 }
 
 -(void)setUpView{
     NotificationObject *note = self.noteObject;
 
-    if (note.noteType != NotificationTypeVote || note.noteType != NotificationTypeTitleEarned) {
-        
-        self.profilePictureView.hidden = NO;
-        
-        __block NotificationCell *blockSelf = self;
-        [self.profilePictureView setImageForProfilePictureWithUserID:self.noteObject.userID buttonHandler:^(UIImageView *imageView) {
-            ProfileViewController *profy = [ProfileViewController profileViewControllerFromUserID:note.userID username:note.username];
-            [[blockSelf nearestNavigationController] pushViewController:profy animated:YES];
-        }];
-        
-    }else{
-        self.profilePictureView.hidden = YES; 
-    }
-    
     self.notificationLabel.text = note.noteText;
-    
+
+    switch (note.noteType) {
+        case NotificationTypeFollow:
+        case NotificationTypeTitleStolen:
+        case NotificationTypeChallengeResponse:{
+                                
+            [self.profilePictureView setImageForProfilePictureWithUserID:self.noteObject.userID buttonHandler:nil];
+            
+        }break;
+        case NotificationTypeVote:{
+            [self.profilePictureView setImage:[UIImage imageNamed:@"title_icon"] animated:YES]; 
+        }break;
+        case NotificationTypeTitleEarned:{
+            [self.profilePictureView setImage:[UIImage imageNamed:@"upVote_icon"] animated:YES]; 
+        }break;
+    }
+        
 }
 
 #pragma mark - Setters

@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Christian Hatch. All rights reserved.
 //
 
-
+#define kNotificationCellHeight 60
 #define kNotificationCellID @"NotificationCellID"
 
 #import "WaxTableViewCell.h"

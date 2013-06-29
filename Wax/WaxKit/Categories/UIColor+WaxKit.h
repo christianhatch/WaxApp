@@ -10,10 +10,12 @@
 
 @interface UIColor (WaxKit)
 
++(UIColor *)waxDefaultFontColor; 
 +(UIColor *)waxHeaderFontColor;
 +(UIColor *)waxDetailFontColor;
 
 +(UIColor *)waxRedColor;
 
++(UIColor *)waxTableViewCellSelectionColor; 
 
 @end

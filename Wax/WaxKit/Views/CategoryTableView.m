@@ -30,6 +30,7 @@
         self.tableViewType = categoryType;
         self.didSelectBlock = selectBlock;
         
+        self.rowHeight = kCategoryCellHeight; 
         [self registerNib:[UINib nibWithNibName:@"CategoryCell" bundle:nil] forCellReuseIdentifier:kCategoryCellID];
         
         __block CategoryTableView *blockSelf = self;

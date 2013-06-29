@@ -137,8 +137,14 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
 }
 -(void)updateFeedForVideoID:(NSString *)videoID completion:(WaxDataManagerCompletionBlockTypeSimple)completion{
     NSParameterAssert(videoID);
+    
     [[WaxAPIClient sharedClient] fetchMetadataForVideoID:videoID completion:^(VideoObject *video, NSError *error) {
-        [self handleUpdatingValueForKey:kTagFeedKey withCompletionBlock:completion infiniteScrollingID:nil APIResponseData:[NSMutableArray arrayWithObject:video] APIResponseError:error];
+        VLog(@"video data %@", video);
+        self.tagFeed = [NSMutableArray arrayWithObject:video];
+        if (completion) {
+            completion(error); 
+        }
+//        [self handleUpdatingValueForKey:kTagFeedKey withCompletionBlock:completion infiniteScrollingID:nil APIResponseData:[NSMutableArray arrayWithObject:video] APIResponseError:error];
     }];
 }
 -(void)updatePersonListForFollowersWithUserID:(NSString *)userID withInfiniteScroll:(BOOL)infiniteScroll completion:(WaxDataManagerCompletionBlockTypeSimple)completion{

@@ -19,6 +19,7 @@
     self = [super initWithFrame:frame style:UITableViewStylePlain];
     if (self) {
         
+        self.rowHeight = kNotificationCellHeight; 
         [self registerNib:[UINib nibWithNibName:@"NotificationCell" bundle:nil] forCellReuseIdentifier:kNotificationCellID];
         
         __block NotificationsTableView *blockSelf = self;
@@ -60,6 +61,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     NotificationObject *note = [[self proxyDataSourceArray] objectAtIndexOrNil:indexPath.row];
+    
+    VLog(@"selected note object %@", note);
     
     switch (note.noteType) {
         case NotificationTypeVote:

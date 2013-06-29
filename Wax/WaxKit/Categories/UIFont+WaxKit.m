@@ -10,6 +10,13 @@
 
 @implementation UIFont (WaxKit)
 
++(UIFont *)waxDefaultFont{
+    return [UIFont waxDefaultFontOfSize:13];
+}
++(UIFont *)waxDefaultFontOfSize:(CGFloat)size{
+    return [UIFont fontWithName:@"HelveticaNeue" size:size]; 
+}
+
 
 +(UIFont *)waxHeaderFont{
     return [UIFont waxHeaderFontOfSize:16];

@@ -20,6 +20,7 @@
 
 -(void)styleFontAsWaxHeaderFontOfSize:(CGFloat)size color:(UIColor *)color highlightedColor:(UIColor *)highlightedColor;
 
--(void)styleFontAsWaxHeaderItalics; 
+-(void)styleFontAsWaxHeaderItalics;
+
 
 @end

@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Christian Hatch. All rights reserved.
 //
 
-
+#define kCategoryCellHeight 60
 #define kCategoryCellID @"CategoryCellID"
 
 
