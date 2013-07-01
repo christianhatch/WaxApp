@@ -18,7 +18,7 @@
 
 @property (nonatomic, strong) PersonObject *person;
 
-@property (nonatomic, readwrite) BOOL hidesFollowButton;
+@property (nonatomic) BOOL hidesFollowButton;
 
 
 @end

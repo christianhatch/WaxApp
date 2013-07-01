@@ -551,6 +551,7 @@ static inline BOOL PathRequiresArray(NSString *path){
                 completion(nil, error);
             }
         }else{
+#warning error handling on api client, check this out so we can display more helpful errors, and not display super long html files in an alert view
             [AIKErrorManager showAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion buttonHandler:^{
                 if (completion) {
                     completion(nil, error);
@@ -611,8 +612,8 @@ static inline BOOL PathRequiresArray(NSString *path){
                     }
                 });
             }else{
-                id returnModel = validated;
-                if (modelClass) { //if there's no model class, we simply return the entire 'validated' object! 
+                id returnModel = validated; //if there's no model class, we simply return the entire 'validated' object!
+                if (modelClass) {  
                     if ([validated respondsToSelector:@selector(objectAtIndexOrNil:)] && [validated respondsToSelector:@selector(count)]) {
                         if ([validated count] > 1 || forceArray) {
                             NSArray *rawDictionaries = validated;

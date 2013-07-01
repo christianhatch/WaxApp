@@ -63,6 +63,7 @@ typedef void(^WaxDataManagerCompletionBlockTypeSimple)(NSError *error);
 
 
 
+-(void)clearAllData; 
 
 
 

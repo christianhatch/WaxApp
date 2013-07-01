@@ -169,25 +169,7 @@ static inline NSString * WaxControlStateFromUIControlState(UIControlState state)
     
     CGColorRef strokeColor = [self borderColorForControlState:self.state].CGColor;
     CGColorRef fillColor = [self fillColorForControlState:self.state].CGColor;
-    
-    /*
-    switch (self.state) {
-        case UIControlStateHighlighted:
-        case UIControlStateSelected:
-            strokeColor = [self titleColorForState:UIControlStateNormal] ? [self titleColorForState:UIControlStateNormal].CGColor : [UIColor blackColor].CGColor;
-            fillColor = [self titleColorForState:UIControlStateNormal] ? [self titleColorForState:UIControlStateNormal].CGColor : [UIColor blackColor].CGColor;
-            break;
-        case UIControlStateDisabled:
-            strokeColor = [self titleColorForState:UIControlStateDisabled] ? [self titleColorForState:UIControlStateDisabled].CGColor : [UIColor blackColor].CGColor;
-            fillColor = [self titleColorForState:UIControlStateDisabled] ? [self titleColorForState:UIControlStateDisabled].CGColor : [UIColor blackColor].CGColor;
-            break;
-        default:
-            strokeColor = [self titleColorForState:UIControlStateNormal] ? [self titleColorForState:UIControlStateNormal].CGColor : [UIColor blackColor].CGColor;
-            fillColor = [UIColor clearColor].CGColor;
-            break;
-    }
-     */
-    
+        
     CGContextSetFillColorWithColor(ctx, fillColor);
     CGContextSetStrokeColorWithColor(ctx, strokeColor);
     

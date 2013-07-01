@@ -10,6 +10,9 @@
 
 @interface VideoObject : ModelObject
 
+-(instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
+
 #pragma mark - info about the user who created the video
 @property (nonatomic, copy) NSString *userID;
 @property (nonatomic, copy) NSString *username;

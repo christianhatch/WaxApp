@@ -125,7 +125,6 @@
 								<string key="NSFrame">{{209, 22}, {104, 36}}</string>
 								<reference key="NSSuperview" ref="985610172"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -727,10 +726,18 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">WaxFollowButton</string>
-					<string key="superclassName">UIButton</string>
+					<string key="superclassName">WaxRoundButton</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/WaxFollowButton.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">WaxRoundButton</string>
+					<string key="superclassName">UIButton</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/WaxRoundButton.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

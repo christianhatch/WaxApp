@@ -51,8 +51,21 @@
 -(void)setUpView{
     PersonObject *person = self.person;
    
-    [self.profilePictureView setImageForProfilePictureWithUserID:person.userID buttonHandler:nil];
-   
+    if (!person.isMe) {
+        [self.profilePictureView setImageForProfilePictureWithUserID:person.userID buttonHandler:nil];
+    }else{
+        __block ProfileHeaderView *blockSelf = self; 
+        [self.profilePictureView setImageForProfilePictureWithUserID:person.userID buttonHandler:^(UIImageView *imageView) {
+            [[WaxUser currentUser] chooseNewprofilePicture:[blockSelf nearestViewController] completion:^(UIImage *profilePicture, NSError *error) {
+                if (!error) {
+                    [blockSelf.profilePictureView setImage:profilePicture animated:YES]; 
+                }else{
+                    VLog(@"error choosing new profile pic %@", error);
+                }
+            }];
+        }];
+    }
+    
     self.nameLabel.text = person.username;
     
     [self.followingButton setTitleForAllControlStates:[NSString stringWithFormat:NSLocalizedString(@"%@ Following", @"%@ Following"), person.followingCount]];

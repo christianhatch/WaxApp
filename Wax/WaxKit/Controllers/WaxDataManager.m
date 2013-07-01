@@ -139,12 +139,7 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
     NSParameterAssert(videoID);
     
     [[WaxAPIClient sharedClient] fetchMetadataForVideoID:videoID completion:^(VideoObject *video, NSError *error) {
-        VLog(@"video data %@", video);
-        self.tagFeed = [NSMutableArray arrayWithObject:video];
-        if (completion) {
-            completion(error); 
-        }
-//        [self handleUpdatingValueForKey:kTagFeedKey withCompletionBlock:completion infiniteScrollingID:nil APIResponseData:[NSMutableArray arrayWithObject:video] APIResponseError:error];
+        [self handleUpdatingValueForKey:kTagFeedKey withCompletionBlock:completion infiniteScrollingID:nil APIResponseData:[NSMutableArray arrayWithObject:video] APIResponseError:error];
     }];
 }
 -(void)updatePersonListForFollowersWithUserID:(NSString *)userID withInfiniteScroll:(BOOL)infiniteScroll completion:(WaxDataManagerCompletionBlockTypeSimple)completion{
@@ -167,9 +162,38 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
         [self handleUpdatingValueForKey:kPersonListKey withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
     }];
 }
+-(void)clearAllData{
+    self.homeFeed = nil;
+    self.myFeed = nil;
+    self.discoverArray = nil;
+    self.notifications = nil;
+    self.notificationCount = nil;
+    self.categories = nil;
+    self.profileFeed = nil;
+    self.tagFeed = nil;
+    self.personList = nil; 
+}
 
+#pragma mark - Setters
+-(void)setCategories:(NSMutableArray *)categories{
+    if (categories.count > 0) {
+        _categories = categories;
+        [[NSUserDefaults standardUserDefaults] setObject:categories forKey:kCategoriesKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+#pragma mark - Getters
+-(NSArray *)categories{
+    if (!_categories) {
+        _categories = [[NSUserDefaults standardUserDefaults] objectForKey:kCategoriesKey]; 
+    }
+    return _categories; 
+}
+
+
+#pragma mark - Private/Helper/Convenience Methods
 +(NSNumber *)infiniteScrollingIDFromArray:(NSMutableArray *)feed{
-        
+    
     NSNumber *infinite = nil;
     if (feed) {
         if (feed.count > 0) {
@@ -194,7 +218,7 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
     if ((![self.lastTagID isEqualToString:tag]) || refresh) {
         return nil;
     }else{
-        return [WaxDataManager infiniteScrollingIDFromArray:self.tagFeed]; 
+        return [WaxDataManager infiniteScrollingIDFromArray:self.tagFeed];
     }
 }
 -(NSNumber *)infiniteIDForPersonListFromUserID:(NSString *)userID refresh:(BOOL)refresh{
@@ -205,25 +229,6 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
         return [WaxDataManager infiniteScrollingIDFromArray:self.personList];
     }
 }
-
-#pragma mark - Setters
--(void)setCategories:(NSMutableArray *)categories{
-    if (categories.count > 0) {
-        _categories = categories;
-        [[NSUserDefaults standardUserDefaults] setObject:categories forKey:kCategoriesKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-}
-#pragma mark - Getters
--(NSArray *)categories{
-    if (!_categories) {
-        _categories = [[NSUserDefaults standardUserDefaults] objectForKey:kCategoriesKey]; 
-    }
-    return _categories; 
-}
-
-
-#pragma mark - Private/Helper/Convenience Methods
 -(void)handleUpdatingValueForKey:(NSString *)key withCompletionBlock:(WaxDataManagerCompletionBlockTypeSimple)completion infiniteScrollingID:(NSNumber *)infiniteID APIResponseData:(NSMutableArray *)responseData APIResponseError:(NSError *)error{
     
 //    VLog(@"response %@", responseData);
@@ -247,7 +252,6 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
         completion(error);
     }
 }
-
 
 
 

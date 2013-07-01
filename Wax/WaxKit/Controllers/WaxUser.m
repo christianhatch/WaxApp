@@ -311,6 +311,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     [[[WaxAPIClient sharedClient] operationQueue] cancelAllOperations];
     [[AIKFacebookManager sharedManager] logoutFacebookWithCompletion:nil];
     [WaxUser resetForInitialLaunch];
+    [[WaxDataManager sharedManager] clearAllData];
     [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:WaxUserDidLogOutNotification object:self]; 
 }
 

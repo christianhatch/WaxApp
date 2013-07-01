@@ -141,27 +141,22 @@
     [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage alloc] init] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage alloc] init] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     
-    NSDictionary *barButtonTitleNormal = @{UITextAttributeFont: [UIFont waxHeaderFontOfSize:14],
+    NSDictionary *barButtonTitleNormal = @{UITextAttributeFont: [UIFont waxDefaultFontOfSize:12],
                                            UITextAttributeTextColor: [UIColor whiteColor],
                                            UITextAttributeTextShadowColor: [UIColor clearColor]};
     
-    NSDictionary *barButtonTitleHighlighted = @{UITextAttributeFont: [UIFont waxHeaderFontOfSize:14],
-//                                                UITextAttributeTextColor: [UIColor colorWithRed:121/255 green:16/255 blue:23/255 alpha:1],
+    NSDictionary *barButtonTitleHighlighted = @{UITextAttributeFont: [UIFont waxDefaultFontOfSize:12],
                                                 UITextAttributeTextColor: [UIColor waxHeaderFontColor],
                                                 UITextAttributeTextShadowColor: [UIColor clearColor]};
-    
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -2) forBarMetrics:UIBarMetricsDefault];
-    
+        
     [[UIBarButtonItem appearance] setTitleTextAttributes:barButtonTitleNormal  forState:UIControlStateNormal];
     [[UIBarButtonItem appearance] setTitleTextAttributes:barButtonTitleHighlighted forState:UIControlStateHighlighted];
 
 
-    UIImage *searchIcon = [UIImage imageNamed:@"glass"];
     UIImage *searchBG = [UIImage stretchyImage:[UIImage imageNamed:@"waxSearchBar_bg"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO];
     UIImage *scopeBGNormal = [UIImage stretchyImage:[UIImage imageNamed:@"waxSearchScope"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO];
     UIImage *scopeBGSelected = [UIImage stretchyImage:[UIImage imageNamed:@"waxSearchScope_on"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO];
     
-    [[UISearchBar appearance] setImage:searchIcon forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
     [[UISearchBar appearance] setSearchFieldBackgroundImage:searchBG forState:UIControlStateNormal];
     [[UISearchBar appearance] setBackgroundImage:searchBG]; 
     [[UISearchBar appearance] setScopeBarButtonBackgroundImage:scopeBGNormal forState:UIControlStateNormal];
@@ -178,7 +173,6 @@
     
     [[UISearchBar appearance] setScopeBarButtonTitleTextAttributes:scopeButtonTextNormal forState:UIControlStateNormal];
     [[UISearchBar appearance] setScopeBarButtonTitleTextAttributes:scopeButtonTextSelected forState:UIControlStateSelected];
-    
     
     
     [[UISwitch appearance] setOnTintColor:[UIColor waxRedColor]];

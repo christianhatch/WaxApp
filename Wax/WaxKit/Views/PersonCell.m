@@ -47,7 +47,6 @@
 -(void)setSelected:(BOOL)selected animated:(BOOL)animated{
     [super setSelected:selected animated:animated];
     self.followButton.highlighted = NO;
-    self.followButton.selected = NO;
 }
 -(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
     [super setHighlighted:highlighted animated:animated];

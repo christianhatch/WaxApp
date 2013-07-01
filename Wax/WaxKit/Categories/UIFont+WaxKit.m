@@ -34,7 +34,7 @@
 
 
 +(UIFont *)waxDetailFont{
-    return [UIFont waxDetailFontOfSize:10];
+    return [UIFont waxDetailFontOfSize:12];
 }
 +(UIFont *)waxDetailFontOfSize:(CGFloat)size{
     return [UIFont fontWithName:@"HelveticaNeue-Light" size:size];

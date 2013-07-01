@@ -10,7 +10,5 @@
 
 @interface UIView (WaxKit)
 
-+(UIView *)sectionHeaderWithTitle:(NSString *)title width:(CGFloat)width;
-
 
 @end

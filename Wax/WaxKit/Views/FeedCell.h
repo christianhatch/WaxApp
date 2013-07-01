@@ -8,14 +8,13 @@
 
 #import "WaxTableViewCell.h"
 
-#define kFeedCellHeight 467
+#define kFeedCellHeight 472
 #define kFeedCellID @"FeedCellID"
 
 
 @interface FeedCell : WaxTableViewCell
 
 @property (nonatomic, strong) VideoObject *videoObject; 
-
 
 
 @end

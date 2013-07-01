@@ -66,13 +66,25 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     self.rankWordLabel.text = NSLocalizedString(@"Rank", @"Rank"); 
     [self.rankLabel setWaxHeaderFont];
     
-    [self.challengeButton styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Do It!", @"Do It!")];
-    [self.challengeButton setFillColor:[UIColor waxRedColor] forState:UIControlStateHighlighted]; 
+//    [self.challengeButton styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Do It!", @"Do It!")];
+    [self.challengeButton styleAsWaxRoundButtonGreyWithTitle:nil];
+    [self.challengeButton setImage:[UIImage imageNamed:@"feedCell_challenge_icon"] forState:UIControlStateNormal];
+    [self.challengeButton setImage:[UIImage imageNamed:@"feedCell_challenge_iconOn"] forState:UIControlStateHighlighted];
+    [self.challengeButton setFillColor:[UIColor waxRedColor] forState:UIControlStateHighlighted];
     
-    [self.sendChallengeButton styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Send", @"Send")];
-    [self.sendChallengeButton setFillColor:[UIColor greenColor] forState:UIControlStateHighlighted]; 
+//    [self.sendChallengeButton styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Send", @"Send")];
+    [self.sendChallengeButton styleAsWaxRoundButtonGreyWithTitle:nil];
+    [self.sendChallengeButton setImage:[UIImage imageNamed:@"feedCell_forward_icon"] forState:UIControlStateNormal];
+    [self.sendChallengeButton setImage:[UIImage imageNamed:@"feedCell_forward_iconOn"] forState:UIControlStateHighlighted];
+    [self.sendChallengeButton setFillColor:[UIColor greenColor] forState:UIControlStateHighlighted];
     
-    [self.voteButton styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Vote Up!", @"Vote Up!")];
+//    [self.voteButton styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Vote Up!", @"Vote Up!")];
+//    [self.voteButton setTitle:NSLocalizedString(@"Voted!", @"Voted!") forState:UIControlStateDisabled];
+//    [self.voteButton setTitle:NSLocalizedString(@"Vote Up!", @"Vote Up!") forState:UIControlStateNormal]; 
+    [self.voteButton styleAsWaxRoundButtonGreyWithTitle:nil];
+    [self.voteButton setImage:[UIImage imageNamed:@"feedCell_vote_icon"] forState:UIControlStateNormal];
+    [self.voteButton setImage:[UIImage imageNamed:@"feedCell_vote_iconOn"] forState:UIControlStateHighlighted];
+    [self.voteButton setImage:[UIImage imageNamed:@"feedCell_voted_icon"] forState:UIControlStateDisabled]; 
     [self.voteButton setFillColor:[UIColor blueColor] forState:UIControlStateHighlighted];
     [self.voteButton setFillColor:[UIColor blueColor] forState:UIControlStateDisabled];
     [self.voteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
@@ -113,6 +125,15 @@ static inline NSString *stringFromActivityType(NSString *activityType){
             _videoObject = videoObject;
             [self setUpView];
         }
+    }else if ([videoObject isKindOfClass:[NSDictionary class]]) {
+                    
+        VideoObject *newVideo = [[VideoObject alloc] initWithDictionary:(NSDictionary *)videoObject];
+        
+        if ([newVideo isKindOfClass:[VideoObject class]]) {
+            _videoObject = newVideo;
+            [self setUpView];
+        }
+        
     }else{
         [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Setting video object on feedcell is not a video object. Object attempted to set %@", videoObject]];
     }
@@ -178,7 +199,6 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 #pragma mark - Convenience Methods
 -(void)setupVoteButton{
     self.voteButton.enabled = !self.videoObject.didVote;
-    [self.voteButton setTitleForAllControlStates:self.videoObject.didVote ? NSLocalizedString(@"Voted!", @"Voted!") : NSLocalizedString(@"Vote Up!", @"Vote Up!")];
 }
 
 
