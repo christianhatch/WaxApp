@@ -208,7 +208,8 @@ typedef NS_ENUM(NSInteger, WaxAPIClientVideoActionType){
                                     //optional//
                                   lat:(NSNumber *)lat
                                   lon:(NSNumber *)lon
-                          challengeID:(NSString *)challengeID
+                     challengeVideoID:(NSString *)challengeVideoID
+                    challengeVideoTag:(NSString *)challengeVideoTag
                       shareToFacebook:(BOOL)shareToFacebook
                        sharetoTwitter:(BOOL)shareToTwitter
                            completion:(WaxAPIClientBlockTypeCompletionSimple)completion;

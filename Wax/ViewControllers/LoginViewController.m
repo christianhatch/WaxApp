@@ -85,6 +85,10 @@
 }
 
 -(void)setUpView{
+    for (UITextField *tf in self.view.subviews) {
+        tf.autocorrectionType = UITextAutocorrectionTypeNo;
+    }
+
     self.navigationItem.title = NSLocalizedString(@"Log In", @"Log In");
     self.loginButton.title = NSLocalizedString(@"Log In", @"Log In"); 
     

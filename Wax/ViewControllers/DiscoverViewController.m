@@ -33,6 +33,7 @@
     self.searchBar.showsScopeBar = YES;
     self.searchBar.scopeButtonTitles = @[NSLocalizedString(@"@users", @"@users"), NSLocalizedString(@"#tags", @"#tags")];
     self.tableView.tableHeaderView = self.searchBar;
+    self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo; 
 }
 
 #pragma mark - UISearchBar Delegate

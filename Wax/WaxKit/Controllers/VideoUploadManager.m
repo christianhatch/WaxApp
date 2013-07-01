@@ -12,12 +12,12 @@
 
 @interface VideoUploadManager ()
 @property (nonatomic, strong) NSString *challengeVideoID;
-@property (nonatomic, strong) NSString *challengeCompetitionTag;
-@property (nonatomic, strong) NSString *challengeCategory;
+@property (nonatomic, strong) NSString *challengeVideoTag;
+@property (nonatomic, strong) NSString *challengeVideoCategory;
 @end
 
 @implementation VideoUploadManager
-@synthesize currentUpload = _currentUpload, challengeVideoID = _challengeVideoID, challengeCompetitionTag = _challengeCompetitionTag, challengeCategory = _challengeCategory; 
+@synthesize currentUpload = _currentUpload, challengeVideoID = _challengeVideoID, challengeVideoTag = _challengeVideoTag, challengeVideoCategory = _challengeVideoCategory;
 
 #pragma mark - Alloc & Init
 +(VideoUploadManager *)sharedManager{
@@ -41,19 +41,16 @@
     [[WaxDataManager sharedManager] updateCategoriesWithCompletion:nil]; //update categories at the beginning of each upload process
    
     if ([self isUploading]) {
-        RIButtonItem *sure = [RIButtonItem item];
-        sure.label = NSLocalizedString(@"Delete", @"Delete");
+        RIButtonItem *sure = [RIButtonItem itemWithLabel:NSLocalizedString(@"Delete", @"Delete")];
         sure.action = ^{
-            [[WaxAPIClient sharedClient] cancelVideoUploadingOperationWithVideoID:self.currentUpload.videoID];
-            [self finishUploadWithCompletion:nil];
+            [self cancelAllOperations];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (block) {
                     block(YES);
                 }
             });
         };
-        RIButtonItem *cancel = [RIButtonItem item];
-        cancel.label = NSLocalizedString(@"Cancel", @"Cancel");
+        RIButtonItem *cancel = [RIButtonItem itemWithLabel:NSLocalizedString(@"Cancel", @"Cancel")];
         cancel.action = ^{
             [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"User attempted to capture new video while having an existing video that is %@, and decided to retry or let it finish", StringFromUploadStatus(self.currentUpload.status)]];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -78,7 +75,7 @@
     NSParameterAssert(tag);
     NSParameterAssert(category);
     
-    [self setchallengeVideoID:videoID challengeTag:tag challengeCategory:category]; 
+    [self setchallengeVideoID:videoID challengeTag:tag challengeVideoCategory:category]; 
 }
 
 -(void)beginUploadProcessWithVideoFileURL:(NSURL *)videoFileURL videoDuration:(NSNumber *)duration{
@@ -94,15 +91,15 @@
         self.currentUpload.lat = [NSNumber numberWithDouble:newLocation.coordinate.latitude];
         self.currentUpload.lon = [NSNumber numberWithDouble:newLocation.coordinate.longitude];
     } errorBlock:^(CLLocationManager *manager, NSError *error) {
-        DLog(@"location manager error %@", error);
+        [AIKErrorManager logMessage:@"location manager error" withError:error]; 
     }];
     
     [[AIKVideoProcessor sharedProcessor] cropToSquareAndCompressVideoAtFilePath:videoFileURL andSaveToFileURL:self.currentUpload.videoFileURL andSaveToCameraRoll:[[NSUserDefaults standardUserDefaults] boolForKey:kUserSaveToCameraRollKey] withCompletionBlock:^(NSURL *exportedFileURL, NSError *error) {
         
         if (!error) {
             [self uploadVideoDataWithAttemptCount:@0];
-        }else{
-            DLog(@"error exporting! %@", error);
+        }else if (error.code == 1337){
+            [AIKErrorManager logMessageToAllServices:@"Canceled video export"]; 
         }
     }];
 }
@@ -138,12 +135,6 @@
     
     self.currentUpload.metadataStatus = UploadStatusWaiting;
     [self uploadMetaDataWithAttemptCount:@0 completion:completion];
-}
--(NSString *)challengeVideoTag{
-    return [self.challengeCompetitionTag copy]; 
-}
--(NSString *)challengeVideoCategory{
-    return [self.challengeCategory copy];
 }
 
 #pragma mark - Internal Methods
@@ -219,9 +210,10 @@
     if (self.currentUpload.videoStatus == UploadStatusCompleted && self.currentUpload.thumbnailStatus == UploadStatusCompleted) {
         
         self.currentUpload.metadataStatus = UploadStatusInProgress;
-                
-        [[WaxAPIClient sharedClient] uploadVideoMetadataWithVideoID:self.currentUpload.videoID videoLength:self.currentUpload.videoLength tag:self.currentUpload.tag category:self.currentUpload.category lat:self.currentUpload.lat lon:self.currentUpload.lon challengeID:self.challengeVideoID shareToFacebook:self.currentUpload.shareToFacebook sharetoTwitter:self.currentUpload.shareToTwitter completion:^(BOOL complete, NSError *error) {
-            
+        
+        
+        [[WaxAPIClient sharedClient] uploadVideoMetadataWithVideoID:self.currentUpload.videoID videoLength:self.currentUpload.videoLength tag:self.currentUpload.tag category:self.currentUpload.category lat:self.currentUpload.lat lon:self.currentUpload.lon challengeVideoID:self.challengeVideoID challengeVideoTag:self.challengeVideoTag shareToFacebook:self.currentUpload.shareToFacebook sharetoTwitter:self.currentUpload.shareToTwitter completion:^(BOOL complete, NSError *error) {
+                        
             if (!error) {
                 
                 self.currentUpload.metadataStatus = UploadStatusCompleted;
@@ -247,12 +239,15 @@
 //        [self retryUploadWithCompletion:completion];
     }
 }
+-(void)cancelAllOperations{
+    [[AIKVideoProcessor sharedProcessor].exporter cancelExport]; 
+    [[WaxAPIClient sharedClient] cancelVideoUploadingOperationWithVideoID:self.currentUpload.videoID];
+    [self finishUploadWithCompletion:nil];
+}
 -(void)finishUploadWithCompletion:(void(^)(void))completion{
     
-    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to facebook from share page: %@", [NSString localizedStringFromBool:self.currentUpload.shareToFacebook]]];
-    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to twitter from share page: %@", [NSString localizedStringFromBool:self.currentUpload.shareToTwitter]]];
-    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared location with video: %@", [NSString localizedStringFromBool:self.currentUpload.shareLocation]]];
-
+    [[AIKLocationManager sharedManager] stopUpdatingLocation];
+    
     if ([self isInChallengeMode]) {
         [AIKErrorManager logMessageToAllServices:@"Uploaded video via challenge button"];
     }
@@ -266,6 +261,9 @@
     [self clearChallengeData];
     
     if (completion) {
+        [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to facebook from share page: %@", [NSString localizedStringFromBool:self.currentUpload.shareToFacebook]]];
+        [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to twitter from share page: %@", [NSString localizedStringFromBool:self.currentUpload.shareToTwitter]]];
+        [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared location with video: %@", [NSString localizedStringFromBool:self.currentUpload.shareLocation]]];
         [[WaxDataManager sharedManager] updateHomeFeedWithInfiniteScroll:NO completion:nil];
         [[WaxDataManager sharedManager] updateMyFeedWithInfiniteScroll:NO completion:nil];
         completion();
@@ -280,15 +278,15 @@
 //    return [[NSFileManager defaultManager] fileExistsAtPath:[NSURL currentVideoFileURL].path];
 //}
 -(BOOL)isInChallengeMode{
-    return ((self.challengeCompetitionTag != nil) && (self.challengeVideoID != nil) && (self.challengeCategory != nil));
+    return ((self.challengeVideoTag != nil) && (self.challengeVideoID != nil) && (self.challengeVideoCategory != nil));
 }
--(void)setchallengeVideoID:(NSString *)videoID challengeTag:(NSString *)tag challengeCategory:(NSString *)category{
+-(void)setchallengeVideoID:(NSString *)videoID challengeTag:(NSString *)tag challengeVideoCategory:(NSString *)category{
     self.challengeVideoID = videoID;
-    self.challengeCompetitionTag = tag;
-    self.challengeCategory = category;
+    self.challengeVideoTag = tag;
+    self.challengeVideoCategory = category;
 }
 -(void)clearChallengeData{
-    [self setchallengeVideoID:nil challengeTag:nil challengeCategory:nil];
+    [self setchallengeVideoID:nil challengeTag:nil challengeVideoCategory:nil];
 }
 
 

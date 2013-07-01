@@ -152,6 +152,17 @@
     [[UIBarButtonItem appearance] setTitleTextAttributes:barButtonTitleNormal  forState:UIControlStateNormal];
     [[UIBarButtonItem appearance] setTitleTextAttributes:barButtonTitleHighlighted forState:UIControlStateHighlighted];
 
+    NSDictionary *tabBarItemTitleNormal = @{UITextAttributeFont: [UIFont waxDefaultFontOfSize:12],
+                                            UITextAttributeTextColor: [UIColor colorWithHex:0x798389],
+                                            UITextAttributeTextShadowColor: [UIColor clearColor]};
+    
+    NSDictionary *tabBarItemTitleHighlighted = @{UITextAttributeFont: [UIFont waxDefaultFontOfSize:12],
+                                                 UITextAttributeTextColor: [UIColor whiteColor],
+                                                 UITextAttributeTextShadowColor: [UIColor clearColor]};
+
+    [[UITabBarItem appearance] setTitleTextAttributes:tabBarItemTitleNormal forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes:tabBarItemTitleHighlighted forState:UIControlStateSelected];
+
 
     UIImage *searchBG = [UIImage stretchyImage:[UIImage imageNamed:@"waxSearchBar_bg"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO];
     UIImage *scopeBGNormal = [UIImage stretchyImage:[UIImage imageNamed:@"waxSearchScope"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO];

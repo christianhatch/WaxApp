@@ -90,7 +90,7 @@
     }else{
         self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"Send %@", @"Send tag VC title"), self.challengeTag];
        
-        self.tableView = [PersonTableView personTableViewForFollowersWithUserID:self.userID didSelectBlock:^(PersonObject *person) {
+        self.tableView = [PersonTableView personTableViewForFollowingWithUserID:self.userID didSelectBlock:^(PersonObject *person) {
 
             [self didSelectPersonCellWithPerson:person]; 
             

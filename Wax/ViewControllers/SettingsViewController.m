@@ -27,7 +27,7 @@
     [super viewDidLoad];
     
     [self setUpView];
-    
+    self.navigationItem.title = NSLocalizedString(@"Settings", @"Settings"); 
 }
 
 -(void)setUpView{
@@ -62,7 +62,7 @@
 -(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
     BOOL should = NO;
     
-    if ((indexPath.section == SectionOtherSettings) && (indexPath.row == 1 || indexPath.row == 2)) {
+    if ((indexPath.section == SectionOtherSettings) && (indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 3)) {
         should = YES;
     }
     
@@ -75,14 +75,12 @@
             [self sendFeedback];
         }else if (indexPath.row == 2){ //logout
             
-            RIButtonItem *yes = [RIButtonItem item];
-            yes.label = NSLocalizedString(@"Log Out", @"Log Out");
+            RIButtonItem *yes = [RIButtonItem itemWithLabel:NSLocalizedString(@"Log Out", @"Log Out")];
             yes.action = ^{
                 [[WaxUser currentUser] logOut];
             };
             
-            UIAlertView *sure = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Log Out?", @"Log Out?") message:NSLocalizedString(@"Are you sure you want to log out?", @"Are you sure you want to log out?") cancelButtonItem:[RIButtonItem cancelButton] otherButtonItems:yes, nil];
-            [sure show]; 
+            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Log Out?", @"Log Out?") message:NSLocalizedString(@"Are you sure you want to log out?", @"Are you sure you want to log out?") cancelButtonItem:[RIButtonItem cancelButton] otherButtonItems:yes, nil] show];
         }
     }
 

@@ -66,27 +66,22 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     self.rankWordLabel.text = NSLocalizedString(@"Rank", @"Rank"); 
     [self.rankLabel setWaxHeaderFont];
     
-//    [self.challengeButton styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Do It!", @"Do It!")];
     [self.challengeButton styleAsWaxRoundButtonGreyWithTitle:nil];
     [self.challengeButton setImage:[UIImage imageNamed:@"feedCell_challenge_icon"] forState:UIControlStateNormal];
     [self.challengeButton setImage:[UIImage imageNamed:@"feedCell_challenge_iconOn"] forState:UIControlStateHighlighted];
     [self.challengeButton setFillColor:[UIColor waxRedColor] forState:UIControlStateHighlighted];
     
-//    [self.sendChallengeButton styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Send", @"Send")];
     [self.sendChallengeButton styleAsWaxRoundButtonGreyWithTitle:nil];
     [self.sendChallengeButton setImage:[UIImage imageNamed:@"feedCell_forward_icon"] forState:UIControlStateNormal];
     [self.sendChallengeButton setImage:[UIImage imageNamed:@"feedCell_forward_iconOn"] forState:UIControlStateHighlighted];
-    [self.sendChallengeButton setFillColor:[UIColor greenColor] forState:UIControlStateHighlighted];
+    [self.sendChallengeButton setFillColor:[UIColor colorWithHex:0xEAF746] forState:UIControlStateHighlighted];
     
-//    [self.voteButton styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Vote Up!", @"Vote Up!")];
-//    [self.voteButton setTitle:NSLocalizedString(@"Voted!", @"Voted!") forState:UIControlStateDisabled];
-//    [self.voteButton setTitle:NSLocalizedString(@"Vote Up!", @"Vote Up!") forState:UIControlStateNormal]; 
     [self.voteButton styleAsWaxRoundButtonGreyWithTitle:nil];
     [self.voteButton setImage:[UIImage imageNamed:@"feedCell_vote_icon"] forState:UIControlStateNormal];
     [self.voteButton setImage:[UIImage imageNamed:@"feedCell_vote_iconOn"] forState:UIControlStateHighlighted];
     [self.voteButton setImage:[UIImage imageNamed:@"feedCell_voted_icon"] forState:UIControlStateDisabled]; 
-    [self.voteButton setFillColor:[UIColor blueColor] forState:UIControlStateHighlighted];
-    [self.voteButton setFillColor:[UIColor blueColor] forState:UIControlStateDisabled];
+    [self.voteButton setFillColor:[UIColor colorWithHex:0x106DC2] forState:UIControlStateHighlighted];
+    [self.voteButton setFillColor:[UIColor colorWithHex:0xE4F0F4] forState:UIControlStateDisabled];
     [self.voteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
     [self.voteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     
@@ -115,7 +110,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     self.timestampLabel.text = video.timeStamp;
     
     [self.competitionNameButton setTitleForAllControlStates:video.tag]; 
-    self.rankLabel.text = video.rankPositionInCompetition;
+    self.rankLabel.text = video.rank;
     
     [self setupVoteButton]; 
 }

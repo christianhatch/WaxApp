@@ -35,9 +35,9 @@
 
 @property (nonatomic, strong) UploadObject *currentUpload;
 
--(BOOL)isInChallengeMode; 
--(NSString *)challengeVideoTag;
--(NSString *)challengeVideoCategory;
+-(BOOL)isInChallengeMode;
+@property (nonatomic, readonly) NSString *challengeVideoTag;
+@property (nonatomic, readonly) NSString *challengeVideoCategory;
 
 
 @end

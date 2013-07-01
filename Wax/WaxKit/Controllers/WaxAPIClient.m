@@ -311,11 +311,12 @@ static inline BOOL PathRequiresArray(NSString *path){
                                     //optional//
                                   lat:(NSNumber *)lat
                                   lon:(NSNumber *)lon
-                          challengeID:(NSString *)challengeID
+                     challengeVideoID:(NSString *)challengeVideoID
+                    challengeVideoTag:(NSString *)challengeVideoTag
                       shareToFacebook:(BOOL)shareToFacebook
                        sharetoTwitter:(BOOL)shareToTwitter
                            completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
-    
+
     NSParameterAssert(videoID);
     NSParameterAssert(videoLength);
     NSParameterAssert(tag);
@@ -328,8 +329,11 @@ static inline BOOL PathRequiresArray(NSString *path){
         [params setObject:lat forKey:@"lat"];
         [params setObject:lon forKey:@"lon"];
     }
-    if (challengeID) {
-        [params setObject:challengeID forKey:@"challengeid"];
+    if (challengeVideoID) {
+        [params setObject:challengeVideoID forKey:@"challenge_videoid"];
+    }
+    if (challengeVideoTag) {
+        [params setObject:challengeVideoTag forKey:@"challenge_tag"];
     }
     if (shareToFacebook) {
         if ([[WaxUser currentUser] facebookAccountConnected]) {

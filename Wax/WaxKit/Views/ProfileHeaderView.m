@@ -39,7 +39,7 @@
     return header;
 }
 -(void)awakeFromNib{
-    [self.followButton styleAsWaxRoundButtonWhiteWithTitle:NSLocalizedString(@"Follow", @"Follow")]; 
+    [self.followButton styleAsWaxRoundButtonWhiteWithTitle:nil];
     
     [self.nameLabel setWaxHeaderFontOfSize:20];
     self.nameLabel.textColor = [UIColor whiteColor];
@@ -66,7 +66,7 @@
         }];
     }
     
-    self.nameLabel.text = person.username;
+    self.nameLabel.text = person.fullName;
     
     [self.followingButton setTitleForAllControlStates:[NSString stringWithFormat:NSLocalizedString(@"%@ Following", @"%@ Following"), person.followingCount]];
     [self.followersButton setTitleForAllControlStates:[NSString stringWithFormat:NSLocalizedString(@"%@ Followers", @"%@ Followers"), person.followersCount]];
@@ -93,7 +93,8 @@
 
 -(IBAction)followButtonAction:(id)sender {
     if (self.person.isMe) {
-        [SVProgressHUD showErrorWithStatus:@"implemented later!"];
+        SettingsViewController *settings = initViewControllerWithIdentifier(@"SettingsVC");
+        [[self nearestNavigationController] pushViewController:settings animated:YES];
     }else{
         [[WaxAPIClient sharedClient] toggleFollowUserID:self.person.userID completion:^(BOOL complete, NSError *error) {
             if (!error) {

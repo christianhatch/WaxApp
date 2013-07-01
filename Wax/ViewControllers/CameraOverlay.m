@@ -48,18 +48,18 @@
     CGFloat centerX = self.center.x;
     
     self.bg = [[UIImageView alloc] initWithFrame:self.frame];
-    self.bg.image = [UIImage imageNamed:[UIDevice isRetina4Inch] ? @"captureBG-568h@2x.png" : @"captureBG.png"];
+    self.bg.image = [UIImage imageNamed:[UIDevice isRetina4Inch] ? @"captureBG-568h@2x" : @"captureBG"];
     self.bg.alpha = 1;
     [self addSubview:self.bg];
     
     //add cancel button
     self.cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.cancelButton.frame = CGRectMake(0, bottom - 156, 160, 78);
-    [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"exitbg.png"] forState:UIControlStateNormal];
-    [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"exitbgOn.png"] forState:UIControlStateHighlighted];
-    [self.cancelButton setImage:[UIImage imageNamed:@"exit.png"] forState:UIControlStateNormal];
-    [self.cancelButton setImage:[UIImage imageNamed:@"exitOn.png"] forState:UIControlStateHighlighted];
-    [self.cancelButton setImage:[UIImage imageNamed:@"exitDisabled.png"] forState:UIControlStateDisabled];
+    [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"exitbg"] forState:UIControlStateNormal];
+    [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"exitbgOn"] forState:UIControlStateHighlighted];
+    [self.cancelButton setImage:[UIImage imageNamed:@"exit"] forState:UIControlStateNormal];
+    [self.cancelButton setImage:[UIImage imageNamed:@"exitOn"] forState:UIControlStateHighlighted];
+    [self.cancelButton setImage:[UIImage imageNamed:@"exitDisabled"] forState:UIControlStateDisabled];
     [self.cancelButton setImageEdgeInsets:UIEdgeInsetsMake(-2, -52, 0, 0)];
     [self.cancelButton addTarget:self action:@selector(cancelCamera) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.cancelButton];
@@ -67,11 +67,11 @@
     //add switch button
     self.flipButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.flipButton.frame = CGRectMake(160, bottom - 78, 160, 78);
-    [self.flipButton setBackgroundImage:[UIImage imageNamed:@"switchbg.png"] forState:UIControlStateNormal];
-    [self.flipButton setBackgroundImage:[UIImage imageNamed:@"switchbgOn.png"] forState:UIControlStateHighlighted];
-    [self.flipButton setImage:[UIImage imageNamed:@"switch.png"] forState:UIControlStateNormal];
-    [self.flipButton setImage:[UIImage imageNamed:@"switchOn.png"] forState:UIControlStateHighlighted];
-    [self.flipButton setImage:[UIImage imageNamed:@"switchDisabled.png"] forState:UIControlStateDisabled];
+    [self.flipButton setBackgroundImage:[UIImage imageNamed:@"switchbg"] forState:UIControlStateNormal];
+    [self.flipButton setBackgroundImage:[UIImage imageNamed:@"switchbgOn"] forState:UIControlStateHighlighted];
+    [self.flipButton setImage:[UIImage imageNamed:@"switch"] forState:UIControlStateNormal];
+    [self.flipButton setImage:[UIImage imageNamed:@"switchOn"] forState:UIControlStateHighlighted];
+    [self.flipButton setImage:[UIImage imageNamed:@"switchDisabled"] forState:UIControlStateDisabled];
     [self.flipButton setImageEdgeInsets:UIEdgeInsetsMake(0, 52, 0, 0)];
     [self.flipButton addTarget:self action:@selector(swapCamera) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.flipButton];
@@ -80,11 +80,11 @@
     //add choose button
     self.chooseButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.chooseButton.frame = CGRectMake(0, bottom - 78, 160, 78);
-    [self.chooseButton setBackgroundImage:[UIImage imageNamed:@"choosebg.png"] forState:UIControlStateNormal];
-    [self.chooseButton setBackgroundImage:[UIImage imageNamed:@"choosebgOn.png"] forState:UIControlStateHighlighted];
-    [self.chooseButton setImage:[UIImage imageNamed:@"choose.png"] forState:UIControlStateNormal];
-    [self.chooseButton setImage:[UIImage imageNamed:@"chooseOn.png"] forState:UIControlStateHighlighted];
-    [self.chooseButton setImage:[UIImage imageNamed:@"chooseDisabled.png"] forState:UIControlStateDisabled];
+    [self.chooseButton setBackgroundImage:[UIImage imageNamed:@"choosebg"] forState:UIControlStateNormal];
+    [self.chooseButton setBackgroundImage:[UIImage imageNamed:@"choosebgOn"] forState:UIControlStateHighlighted];
+    [self.chooseButton setImage:[UIImage imageNamed:@"choose"] forState:UIControlStateNormal];
+    [self.chooseButton setImage:[UIImage imageNamed:@"chooseOn"] forState:UIControlStateHighlighted];
+    [self.chooseButton setImage:[UIImage imageNamed:@"chooseDisabled"] forState:UIControlStateDisabled];
     [self.chooseButton setImageEdgeInsets:UIEdgeInsetsMake(-2, -52, 0, 0)];
     [self.chooseButton addTarget:self action:@selector(chooseExisting) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.chooseButton];
@@ -92,11 +92,11 @@
     //add flashbutton
     self.flashButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.flashButton.frame = CGRectMake(160, bottom - 156, 160, 78);
-    [self.flashButton setBackgroundImage:[UIImage imageNamed:@"lightbg.png"] forState:UIControlStateNormal];
-    [self.flashButton setBackgroundImage:[UIImage imageNamed:@"lightbgOn.png"] forState:UIControlStateHighlighted];
-    [self.flashButton setImage:[UIImage imageNamed:@"light.png"] forState:UIControlStateNormal];
-    [self.flashButton setImage:[UIImage imageNamed:@"lightOn.png"] forState:UIControlStateHighlighted];
-    [self.flashButton setImage:[UIImage imageNamed:@"lightDisabled.png"] forState:UIControlStateDisabled];
+    [self.flashButton setBackgroundImage:[UIImage imageNamed:@"lightbg"] forState:UIControlStateNormal];
+    [self.flashButton setBackgroundImage:[UIImage imageNamed:@"lightbgOn"] forState:UIControlStateHighlighted];
+    [self.flashButton setImage:[UIImage imageNamed:@"light"] forState:UIControlStateNormal];
+    [self.flashButton setImage:[UIImage imageNamed:@"lightOn"] forState:UIControlStateHighlighted];
+    [self.flashButton setImage:[UIImage imageNamed:@"lightDisabled"] forState:UIControlStateDisabled];
     [self.flashButton setImageEdgeInsets:UIEdgeInsetsMake(0, 52, 0, 0)];
     [self.flashButton addTarget:self action:@selector(cameraFlashAction) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.flashButton];
@@ -118,8 +118,8 @@
     self.recordButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.recordButton.frame = CGRectMake(0, 0, 105, 105);
     self.recordButton.center = CGPointMake(centerX, bottom - 78);
-    [self.recordButton setBackgroundImage:[UIImage imageNamed:@"record_reg.png"] forState:UIControlStateNormal];
-    [self.recordButton setBackgroundImage:[UIImage imageNamed:@"record_on.png"] forState:UIControlStateHighlighted];
+    [self.recordButton setBackgroundImage:[UIImage imageNamed:@"record_reg"] forState:UIControlStateNormal];
+    [self.recordButton setBackgroundImage:[UIImage imageNamed:@"record_on"] forState:UIControlStateHighlighted];
     [self.recordButton addTarget:self action:@selector(beginRecording) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.recordButton];
     
@@ -178,11 +178,11 @@
     if ([UIImagePickerController isFlashAvailableForCameraDevice:self.delegate.cameraDevice]) {
         switch (self.delegate.cameraFlashMode) {
             case UIImagePickerControllerCameraFlashModeOff:{
-                [self.flashButton setImage:[UIImage imageNamed:@"lightClicked.png"] forState:UIControlStateNormal];
+                [self.flashButton setImage:[UIImage imageNamed:@"lightClicked"] forState:UIControlStateNormal];
                 self.delegate.cameraFlashMode = UIImagePickerControllerCameraFlashModeOn;
             }break;
             case UIImagePickerControllerCameraFlashModeOn:{
-                [self.flashButton setImage:[UIImage imageNamed:@"light.png"] forState:UIControlStateNormal];
+                [self.flashButton setImage:[UIImage imageNamed:@"light"] forState:UIControlStateNormal];
                 self.delegate.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;
             }break;
             case UIImagePickerControllerCameraFlashModeAuto:{
@@ -243,7 +243,7 @@
 }
 -(void)swapImage{
     [UIView transitionWithView:self.recordButton duration:0.45 options:UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionAllowUserInteraction animations:^{
-        [self.recordButton setBackgroundImage:[UIImage imageNamed:onImage ? @"record_on.png" : @"record_flash.png"] forState:UIControlStateNormal];
+        [self.recordButton setBackgroundImage:[UIImage imageNamed: onImage ? @"record_flashOn" : @"record_flash"] forState:UIControlStateNormal];
     } completion:nil];
     onImage=!onImage;
 }
@@ -258,7 +258,7 @@
         self.flipButton.enabled = NO;
         self.cancelButton.enabled = NO;
         self.chooseButton.enabled = NO;
-        [self.recordButton setBackgroundImage:[UIImage imageNamed:@"record_flash.png"] forState:UIControlStateNormal];
+        [self.recordButton setBackgroundImage:[UIImage imageNamed:@"record_flash"] forState:UIControlStateNormal];
         onImage = YES;
         [self.delegate startVideoCapture];
         [self startBlink];
@@ -330,7 +330,7 @@
     self.currentTimer = 0;
     recording = NO;
     onImage = NO; 
-    [self.recordButton setBackgroundImage:[UIImage imageNamed:@"record_reg.png"] forState:UIControlStateNormal];
+    [self.recordButton setBackgroundImage:[UIImage imageNamed:@"record_reg"] forState:UIControlStateNormal];
     self.videoTimerLabel.text = [NSString stringWithFormat:@"00:0%i", self.currentTimer];
     
     [self.loadingActivity stopAnimating];

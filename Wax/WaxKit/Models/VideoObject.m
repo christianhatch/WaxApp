@@ -38,7 +38,7 @@
 
         self.userID = [dictionary objectForKey:@"userid" orDefaultValue:nil];
         self.username = [dictionary objectForKey:@"username" orDefaultValue:NSLocalizedString(@"a user", @"a user")];
-        self.rank = [dictionary objectForKey:@"rank" orDefaultValue:@0];
+        self.rank = [dictionary objectForKey:@"rank" orDefaultValue:@"-"];
         self.tagCount = [dictionary objectForKey:@"tag_count" orDefaultValue:@0];
         
         self.videoID = [dictionary objectForKey:@"videoid" orDefaultValue:nil];

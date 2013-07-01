@@ -68,8 +68,6 @@
         
         if (self.person.isMe) {
             self.navigationItem.title = NSLocalizedString(@"Me", @"Me"); 
-            UIBarButtonItem *settingsBtn = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Settings", @"Settings") style:UIBarButtonItemStylePlain target:self action:@selector(showSettings:)];
-            self.navigationItem.rightBarButtonItem = settingsBtn;
             [self.view addSubview:[FeedTableView feedTableViewForMyProfileWithFrame:self.view.bounds]];
         }
     }else{

@@ -59,7 +59,7 @@
 #import "FeedViewController.h"
 #import "ProfileViewController.h"
 #import "PersonListViewController.h"
-//#import "SettingsViewController.h" //not needed..now - but here for consistency
+#import "SettingsViewController.h" 
 
 //Models
 #import "ModelObject.h"

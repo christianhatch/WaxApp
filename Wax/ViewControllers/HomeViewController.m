@@ -22,7 +22,7 @@
 }
 
 -(void)setUpView{
-    self.navigationItem.title = NSLocalizedString(@"Home", @"Home");
+    self.navigationItem.title = NSLocalizedString(@"Wax", @"Wax");
     [self.view addSubview:self.tableView];
     [[WaxDataManager sharedManager] addObserver:self forKeyPath:@"homeFeed" options:NSKeyValueObservingOptionNew context:nil]; 
 }

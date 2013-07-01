@@ -9,6 +9,21 @@
 #import "ShareViewController.h"
 #import "CategoryChooserViewController.h"
 
+@interface ShareViewController ()
+@property (strong, nonatomic) IBOutlet UITextField *tagField;
+@property (strong, nonatomic) IBOutlet WaxRoundButton *categoryButton;
+
+@property (strong, nonatomic) IBOutlet UISwitch *twitterSwitch;
+@property (strong, nonatomic) IBOutlet UISwitch *facebookSwitch;
+@property (strong, nonatomic) IBOutlet UISwitch *locationSwitch;
+
+@property (strong, nonatomic) IBOutlet UILabel *instructionsLabel;
+@property (strong, nonatomic) IBOutlet UILabel *twitterLabel;
+@property (strong, nonatomic) IBOutlet UILabel *facebookLabel;
+@property (strong, nonatomic) IBOutlet UILabel *locationLabel;
+
+@end
+
 @implementation ShareViewController
 @synthesize tagField, facebookLabel, twitterLabel, locationLabel, facebookSwitch, twitterSwitch, locationSwitch, instructionsLabel, categoryButton;
 
@@ -27,11 +42,12 @@
 -(void)setUpView{
     self.navigationItem.title = NSLocalizedString(@"Share", @"Share");
 
+    self.tagField.autocorrectionType = UITextAutocorrectionTypeNo; 
     self.instructionsLabel.text = NSLocalizedString(@"Choose a competition tag", @"Choose a competition tag");
     self.facebookLabel.text = NSLocalizedString(@"Share to Facebook", @"Share to Facebook");
     self.twitterLabel.text = NSLocalizedString(@"Share to Twitter", @"Share to Twitter");
     self.locationLabel.text = NSLocalizedString(@"Include Location", @"Include Location");
-
+        
     [self.facebookSwitch addTarget:self action:@selector(facebookSwitchToggled:) forControlEvents:UIControlEventValueChanged];
     [self.twitterSwitch addTarget:self action:@selector(twitterSwitchToggled:) forControlEvents:UIControlEventValueChanged];
     [self.categoryButton addTarget:self action:@selector(chooseCategory:) forControlEvents:UIControlEventTouchUpInside];
@@ -46,14 +62,14 @@
 -(void)setUpTagAndCategoryFields{
     if ([[VideoUploadManager sharedManager] isInChallengeMode]) {
         self.tagField.text = [[VideoUploadManager sharedManager] challengeVideoTag];
-        self.tagField.enabled = NO;
-        [self.categoryButton setTitleForAllControlStates:[[VideoUploadManager sharedManager] challengeVideoCategory]];
-        self.categoryButton.enabled = NO; 
+//        self.tagField.enabled = NO;
+        [self.categoryButton styleAsWaxRoundButtonBlueWithTitle:[[VideoUploadManager sharedManager] challengeVideoCategory]];
+//        self.categoryButton.enabled = NO; 
     }else{
-        self.tagField.enabled = YES;
+//        self.tagField.enabled = YES;
         self.tagField.placeholder = NSLocalizedString(@"competition tag", @"competition tag");
-        [self.categoryButton setTitleForAllControlStates:NSLocalizedString(@"Choose Category", @"Choose Category")];
-        self.categoryButton.enabled = YES; 
+        [self.categoryButton styleAsWaxRoundButtonBlueWithTitle:NSLocalizedString(@"Choose Category", @"Choose Category")];
+//        self.categoryButton.enabled = YES; 
     }
 }
 -(void)finish:(id)sender{

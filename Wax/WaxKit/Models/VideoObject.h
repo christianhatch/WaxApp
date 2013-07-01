@@ -16,7 +16,7 @@
 #pragma mark - info about the user who created the video
 @property (nonatomic, copy) NSString *userID;
 @property (nonatomic, copy) NSString *username;
-@property (nonatomic, copy) NSNumber *rank;
+@property (nonatomic, copy) NSString *rank;
 @property (nonatomic, copy) NSNumber *tagCount;
 
 #pragma mark - Internal Info about the video itself
@@ -36,6 +36,6 @@
 
 -(BOOL)isMine; 
 -(NSArray *)sharingActivityItems;
--(NSString *)rankPositionInCompetition;
+
 
 @end

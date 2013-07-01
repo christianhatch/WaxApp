@@ -144,6 +144,10 @@
 -(void)setUpView{
     self.navigationItem.title = NSLocalizedString(@"Sign Up", @"Sign Up");
     
+    for (UITextField *tf in self.view.subviews) {
+        tf.autocorrectionType = UITextAutocorrectionTypeNo; 
+    }
+    
     self.goButton.title = NSLocalizedString(@"Sign Up", @"Sign Up");
         
     self.fullNameField.placeholder = NSLocalizedString(@"Full Name", @"Full Name");
