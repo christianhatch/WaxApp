@@ -50,6 +50,8 @@ static inline NSString * StringFromNotificationType(NotificationType noteType) {
 @property (nonatomic, copy) NSString *videoID;
 @property (nonatomic, copy) NSString *tag;
 @property (nonatomic, copy) NSString *noteText;
+@property (nonatomic, assign) BOOL unread;
+@property (nonatomic, copy) NSString *timeStamp; 
 
 @property (nonatomic, readonly) NotificationType noteType; 
 

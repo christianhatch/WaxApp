@@ -13,7 +13,8 @@
 
 @interface PersonListViewController () <UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSString *userID;
-@property (nonatomic, strong) NSString *challengeTag; 
+@property (nonatomic, strong) NSString *challengeTag;
+@property (nonatomic, strong) NSString *challengeVideoID; 
 @property (nonatomic, readwrite) PersonTableViewType tableViewType;
 @property (nonatomic, readwrite) BOOL addSearchBar;
 
@@ -23,7 +24,7 @@
 @end
 
 @implementation PersonListViewController
-@synthesize userID = _userID, tableViewType = _tableViewType, addSearchBar, searchBar, personSearchResults, tableView; 
+@synthesize userID = _userID, tableViewType = _tableViewType, addSearchBar, searchBar, personSearchResults, tableView, challengeVideoID; 
 
 +(PersonListViewController *)personListViewControllerForFollowersFromUserID:(NSString *)userID{
     PersonListViewController *plvc = [[PersonListViewController alloc] init];
@@ -39,10 +40,11 @@
     plvc.userID = userID;
     return plvc;
 }
-+(PersonListViewController *)personListViewControllerForSendingChallengeWithTag:(NSString *)tag{
++(PersonListViewController *)personListViewControllerForSendingChallengeWithTag:(NSString *)tag videoID:(NSString *)videoID{
     PersonListViewController *plv = initViewControllerWithIdentifier(@"PersonListVC");
     plv.tableViewType = PersonTableViewTypeFollowing;
     plv.challengeTag = tag;
+    plv.challengeVideoID = videoID; 
     plv.addSearchBar = YES;
     plv.userID = [[WaxUser currentUser] userID]; 
     return plv; 
@@ -173,7 +175,7 @@
 }
 -(void)sendChallengeToUser:(PersonObject *)person{
         
-    [[WaxAPIClient sharedClient] sendChallengeTag:self.challengeTag toUserID:person.userID completion:^(BOOL complete, NSError *error) {
+    [[WaxAPIClient sharedClient] sendChallengeTag:self.challengeTag videoID:self.challengeVideoID toUserID:person.userID completion:^(BOOL complete, NSError *error) {
         if (!error) {
             [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:NSLocalizedString(@"Sent %@ to %@!", @"Sent tag success message"), self.challengeTag, person.username]];
             [self.navigationController popViewControllerAnimated:YES];

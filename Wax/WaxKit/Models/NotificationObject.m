@@ -13,7 +13,7 @@
 @end
 
 @implementation NotificationObject
-@synthesize tag = _tag, userID = _userID, username = _username, videoID = _videoID, noteType = _noteType, noteText = _noteText; 
+@synthesize tag = _tag, userID = _userID, username = _username, videoID = _videoID, noteType = _noteType, noteText = _noteText, unread = _unread, timeStamp = _timeStamp;
 @synthesize infiniteScrollingID = _infiniteScrollingID;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary{
@@ -28,14 +28,17 @@
         
         self.username = [dictionary objectForKey:@"username" orDefaultValue:NSLocalizedString(@"a user", @"a user")];
         self.noteText = [dictionary objectForKey:@"text" orDefaultValue:NSLocalizedString(@"something cool happened", @"something cool happened")]; 
-        
+        self.timeStamp = [NSString prettyTimeStamp:[dictionary objectForKey:@"timestamp" orDefaultValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]]]];
+
         self.infiniteScrollingID = [dictionary objectForKey:@"timestamp" orDefaultValue:nil];
+        
+        self.unread = [[dictionary objectForKey:@"unread" orDefaultValue:NO] boolValue];
     }
     return self;
 }
 
 -(NSString *)description{
-    NSString *descrippy = [NSString stringWithFormat:@"NotificationObject Description: UserID=%@ Username=%@ NoteText=%@ NoteType=%@ VideoID=%@ Tag=%@ InfiniteScrollingID=%@", self.userID, self.username, self.noteText, StringFromNotificationType(self.noteType), self.videoID, self.tag, self.infiniteScrollingID];
+    NSString *descrippy = [NSString stringWithFormat:@"NotificationObject Description: UserID=%@ Username=%@ NoteText=%@ NoteType=%@ VideoID=%@ Tag=%@ Timestamp=%@ Unread=%@ InfiniteScrollingID=%@", self.userID, self.username, self.noteText, StringFromNotificationType(self.noteType), self.videoID, self.tag, self.timeStamp, [NSString localizedStringFromBool:self.unread], self.infiniteScrollingID];
     return descrippy;
 }
 

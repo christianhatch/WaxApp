@@ -63,6 +63,10 @@
     NotificationObject *note = [[self proxyDataSourceArray] objectAtIndexOrNil:indexPath.row];
     
     VLog(@"selected note object %@", note);
+
+    note.unread = NO;
+    NotificationCell *cell = (NotificationCell *)[self cellForRowAtIndexPath:indexPath];
+    cell.noteObject = note; 
     
     switch (note.noteType) {
         case NotificationTypeVote:
@@ -80,10 +84,6 @@
             ProfileViewController *profy = [ProfileViewController profileViewControllerFromUserID:note.userID username:note.username];
             [[self nearestNavigationController] pushViewController:profy animated:YES]; 
         }break;
-//        case NotificationTypeChallenged:{
-//            [[VideoUploadManager sharedManager] beginUploadProcessWithVideoID:note.videoID competitionTag:note.tag category:note.category];
-//            [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationPresentVideoCamera object:self];
-//        }break;
     }
 }
 

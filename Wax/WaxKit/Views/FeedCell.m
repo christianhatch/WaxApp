@@ -186,7 +186,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 
 - (IBAction)sendChallengeButtonAction:(id)sender {
     [AIKErrorManager logMessageToAllServices:@"User tapped send challenge to friend button"];
-    PersonListViewController *plvc = [PersonListViewController personListViewControllerForSendingChallengeWithTag:self.videoObject.tag];
+    PersonListViewController *plvc = [PersonListViewController personListViewControllerForSendingChallengeWithTag:self.videoObject.tag videoID:self.videoObject.videoID];
     [[self nearestNavigationController] pushViewController:plvc animated:YES];
 }
 
