@@ -13,13 +13,15 @@
 
 -(void)setImageForProfilePictureWithUserID:(NSString *)userID buttonHandler:(AcaciaKitImageViewButtonHandler)handler{
 
-    [self setCircular:YES];
+    [self setCircular:YES borderColor:[UIColor waxTableViewCellSelectionColor]];
     
-    NSURL *url = [NSURL profilePictureURLFromUserID:userID]; 
-    if (handler) {
-        [self setImageWithURL:url placeholderImage:nil animated:YES andEnableAsButtonWithButtonHandler:handler completion:nil];
-    }else{
-        [self setImageWithURL:url placeholderImage:nil animated:YES completion:nil];
+    if (userID) {
+        NSURL *url = [NSURL profilePictureURLFromUserID:userID];
+        if (handler) {
+            [self setImageWithURL:url placeholderImage:nil animated:YES andEnableAsButtonWithButtonHandler:handler completion:nil];
+        }else{
+            [self setImageWithURL:url placeholderImage:nil animated:YES completion:nil];
+        }
     }
 }
 

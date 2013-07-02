@@ -18,9 +18,11 @@
 
 -(void)handleUpdatingFeedWithError:(NSError *)error; //must implement this and call super when loading is finished
 
--(NSMutableArray *)proxyDataSourceArray; //must implement this and ovveride 
 
+-(NSMutableArray *)proxyDataSourceArray; //must implement this and ovveride 
 @property (nonatomic, readwrite) BOOL automaticallyDeselectRow; //default is YES
 @property (nonatomic, readwrite) BOOL automaticallyHideInfiniteScrolling; //default is YES
+
+@property (nonatomic, strong) UIView *emptyView; 
 
 @end

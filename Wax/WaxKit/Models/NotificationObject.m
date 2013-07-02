@@ -13,7 +13,7 @@
 @end
 
 @implementation NotificationObject
-@synthesize tag = _tag, userID = _userID, username = _username, videoID = _videoID, noteType = _noteType, noteText = _noteText, unread = _unread, timeStamp = _timeStamp;
+@synthesize tag = _tag, userID = _userID, username = _username, videoID = _videoID, noteType = _noteType, noteText = _noteText, unread = _unread, timeStamp = _timeStamp, voteCount = _voteCount; 
 @synthesize infiniteScrollingID = _infiniteScrollingID;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary{
@@ -29,6 +29,7 @@
         self.username = [dictionary objectForKey:@"username" orDefaultValue:NSLocalizedString(@"a user", @"a user")];
         self.noteText = [dictionary objectForKey:@"text" orDefaultValue:NSLocalizedString(@"something cool happened", @"something cool happened")]; 
         self.timeStamp = [NSString prettyTimeStamp:[dictionary objectForKey:@"timestamp" orDefaultValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]]]];
+        self.voteCount = [dictionary objectForKey:@"vote_count" orDefaultValue:@0];
 
         self.infiniteScrollingID = [dictionary objectForKey:@"timestamp" orDefaultValue:nil];
         

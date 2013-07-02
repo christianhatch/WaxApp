@@ -11,12 +11,13 @@
 #import "FeedTableView.h"
 
 @interface ProfileViewController ()
+@property (nonatomic, strong) FeedTableView *tableView; 
 @property (nonatomic, strong) NSString *userID;
 @property (nonatomic, strong) NSString *username; 
 @end
 
 @implementation ProfileViewController
-@synthesize person = _user, userID = _userID, username = _username; 
+@synthesize person = _person, userID = _userID, username = _username, tableView = _tableView; 
 
 #pragma mark - Alloc & Init
 +(ProfileViewController *)profileViewControllerFromUserID:(NSString *)userID username:(NSString *)username{
@@ -51,7 +52,6 @@
 }
 
 #pragma mark - View LifeCycle
-
 - (void)viewDidLoad{
     [super viewDidLoad];
     
@@ -59,31 +59,58 @@
         
     [self setUpView];
 }
-
--(void)setUpView{    
-    if (self.person) {
-        
-        self.navigationItem.title = self.person.username;
-        [self.view addSubview:[FeedTableView feedTableViewForProfileWithUserID:self.person.userID frame:self.view.bounds]];
-        
-//        if (self.person.isMe) {
-//            [self.view addSubview:[FeedTableView feedTableViewForMyProfileWithFrame:self.view.bounds]];
-//        }
-         
-    }else{
-        self.navigationItem.title = self.username;
-        [self.view addSubview:[FeedTableView feedTableViewForProfileWithUserID:self.userID frame:self.view.bounds]];
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self setUpView]; 
+}
+-(void)setUpView{
+    self.navigationItem.title = self.username;
+    if (![self.view.subviews containsObject:self.tableView]) {
+        [self.view addSubview:self.tableView];
     }
 }
+
 -(void)showSettings:(UIBarButtonItem *)sender{
     SettingsViewController *settings = initViewControllerWithIdentifier(@"SettingsVC");
     [self.navigationController pushViewController:settings animated:YES];
 }
 
+#pragma mark - Setters
+-(void)setPerson:(PersonObject *)person{
+    _person = person;
+    self.userID = person.userID;
+    self.username = person.username;
+    
+    [self.tableView removeFromSuperview];
+    self.tableView = nil;
+    
+    [self setUpView]; 
+}
 
+#pragma mark - Getters
+-(FeedTableView *)tableView{
+    if (!_tableView) {
+        _tableView = [FeedTableView feedTableViewForProfileWithUserID:self.userID frame:self.view.bounds]; 
+    }
+    return _tableView; 
+}
 
-
-
+-(NSString *)userID{
+    if (!_userID) {
+        if (self.person) {
+            _userID = self.person.userID;
+        }
+    }
+    return _userID; 
+}
+-(NSString *)username{
+    if (!_username) {
+        if (self.person) {
+            _username = self.person.username;
+        }
+    }
+    return _username; 
+}
 
 
 

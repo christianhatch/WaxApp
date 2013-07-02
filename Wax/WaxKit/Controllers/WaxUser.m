@@ -89,14 +89,18 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 #pragma mark - User Information Setters
 -(void)saveToken:(NSString *)token{
     if ([NSString isEmptyOrNil:token]){
-        [self logOut];
+        [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Internal Error", @"Internal Error") message:NSLocalizedString(@"Wax has encountered and internal error, and you have been logged out. Please log in again.", @"Wax has encountered and internal error, and you have been logged out Please log in again.") buttonTitle:NSLocalizedString(@"OK", @"OK") showsCancelButton:NO buttonHandler:^{
+            [self logOut];
+        } logError:YES];
     }else{
         [Lockbox setString:token forKey:kUserTokenKey];
     }
 }
 -(void)saveUserID:(NSString *)userID{
     if ([NSString isEmptyOrNil:userID]){
-        [self logOut];
+        [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Internal Error", @"Internal Error") message:NSLocalizedString(@"Wax has encountered and internal error, and you have been logged out. Please log in again.", @"Wax has encountered and internal error, and you have been logged out Please log in again.") buttonTitle:NSLocalizedString(@"OK", @"OK") showsCancelButton:NO buttonHandler:^{
+            [self logOut];
+        } logError:YES];
     }else{
         [Lockbox setString:userID forKey:kUserIDKey];
     }
@@ -114,12 +118,14 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 
 -(void)saveFacebookAccountID:(NSString *)facebookAccountID{
     if ([NSString isEmptyOrNil:facebookAccountID]){
+        [AIKErrorManager logMessageToAllServices:@"tried to save null fb ID"]; 
     }else{
         [Lockbox setString:facebookAccountID forKey:kUserFacebookAccountIDKey];
     }
 }
 -(void)saveTwitterAccountID:(NSString *)twitterAccountID{
     if ([NSString isEmptyOrNil:twitterAccountID]){
+        [AIKErrorManager logMessageToAllServices:@"tried to save null twitter ID"];
     }else{
         [Lockbox setString:twitterAccountID forKey:kUserTwitterAccountIDKey];
         [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationTwitterAccountDidChange object:self];
@@ -177,6 +183,8 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     
     [self saveFacebookAccountID:loginResponse.facebookID];
     
+    [self saveCurrentUserToVendorSolutions];
+    
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound |UIRemoteNotificationTypeAlert)];
     
     [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:WaxUserDidLogInNotification object:self];
@@ -185,7 +193,6 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         completion(nil);
     }
 }
-
 -(void)chooseNewprofilePicture:(UIViewController *)sender completion:(WaxUserCompletionBlockTypeProfilePicture)completion{
     
     self.profilePictureCompletion = completion;
@@ -373,6 +380,16 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
             }];
         }
     }];
+}
+-(void)saveCurrentUserToVendorSolutions{
+    [Flurry setUserID:self.userID];
+    [Crashlytics setUserIdentifier:self.userID];
+    [Crashlytics setUserName:self.username];
+    [Crashlytics setUserEmail:self.email];
+    [Crashlytics setObjectValue:[NSString versionAndBuildString] forKey:@"Version"];
+    [Crashlytics setObjectValue:self.userID forKey:@"userid"];
+    [Crashlytics setObjectValue:self.username forKey:@"username"];
+    [Crashlytics setObjectValue:self.email forKey:@"email"];
 }
 +(void)resetForInitialLaunch{
     [[WaxUser currentUser] saveToken:kFalseString];

@@ -24,8 +24,8 @@
     
     for (UIImageView *imageView in @[self.thumbPreview1, self.thumbPreview2, self.thumbPreview3, self.thumbPreview4, self.thumbPreview5, self.thumbPreview6]) {
         imageView.clipsToBounds = YES;
-//        imageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-//        imageView.layer.borderWidth = 0.04f;
+        imageView.layer.borderColor = [UIColor blackColor].CGColor;
+        imageView.layer.borderWidth = (imageView.bounds.size.width/100);
         
         [imageView enableAsButtonWithButtonHandler:^(UIImageView *imageView) {
             

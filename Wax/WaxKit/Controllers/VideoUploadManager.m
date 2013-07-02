@@ -99,7 +99,7 @@
         if (!error) {
             [self uploadVideoDataWithAttemptCount:@0];
         }else if (error.code == 1337){
-            [AIKErrorManager logMessageToAllServices:@"Canceled video export"]; 
+            [AIKErrorManager logMessageToAllServices:@"Canceled or failed video export"]; 
         }
     }];
 }
@@ -240,7 +240,9 @@
     }
 }
 -(void)cancelAllOperations{
-    [[AIKVideoProcessor sharedProcessor].exporter cancelExport]; 
+    if ([AIKVideoProcessor sharedProcessor].exporter.status == AVAssetExportSessionStatusExporting) {
+        [[AIKVideoProcessor sharedProcessor].exporter cancelExport];
+    }
     [[WaxAPIClient sharedClient] cancelVideoUploadingOperationWithVideoID:self.currentUpload.videoID];
     [self finishUploadWithCompletion:nil];
 }

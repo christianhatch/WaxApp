@@ -170,7 +170,9 @@
     [super handleUpdatingFeedWithError:error];
         
     if (!error) {
-        
+        if ([[self proxyDataSourceArray] count] == 0) {
+            
+        }
     }else{
         VLog(@"error updating feed %@", error);
 

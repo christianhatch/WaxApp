@@ -9,9 +9,9 @@
 #import "WaxTableView.h"
 
 @implementation WaxTableView
-@synthesize automaticallyDeselectRow = _automaticallyDeselectRow, automaticallyHideInfiniteScrolling = _automaticallyHideInfiniteScrolling; 
+@synthesize automaticallyDeselectRow = _automaticallyDeselectRow, automaticallyHideInfiniteScrolling = _automaticallyHideInfiniteScrolling, emptyView = _emptyView; 
 
-
+#pragma mark - Alloc & Init
 -(instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style{
     self = [super initWithFrame:frame style:style];
     if (self) {
@@ -40,6 +40,7 @@
     }
 }
 
+#pragma mark - Main Methods
 -(void)handleUpdatingFeedWithError:(NSError *)error{
     [self finishLoading]; 
 }
@@ -58,7 +59,26 @@
         BOOL dataSourceIsEmptyOrNotABatchOfTen = ([[self proxyDataSourceArray] countIsNotDivisibleBy10] || ([[self proxyDataSourceArray] count] == 0));
         self.showsInfiniteScrolling = !dataSourceIsEmptyOrNotABatchOfTen;
     }
+//    if (<#condition#>) {
+//        <#statements#>
+//    }
 }
+
+#pragma mark - Setters
+-(void)setEmptyView:(UIView *)emptyView{
+    _emptyView = emptyView;
+    
+}
+
+#pragma mark - Getters
+-(UIView *)emptyView{
+    if (!_emptyView) {
+//        _emptyView = [[UIView alloc] initWithFrame:<#(CGRect)#>]
+    }
+    return _emptyView;
+}
+
+
 
 
 

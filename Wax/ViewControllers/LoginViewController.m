@@ -10,7 +10,7 @@
 #import "SplashViewController.h"
 #import "SignupViewController.h"
 
-@interface LoginViewController ()
+@interface LoginViewController () <UITextFieldDelegate>
 @property (strong, nonatomic) IBOutlet UILabel *loginWithEmailLabel;
 @property (strong, nonatomic) IBOutlet UITextField *usernameField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
@@ -39,11 +39,9 @@
 }
 
 -(void)setUpView{
-    for (UITextField *tf in self.view.subviews) {
-        if ([tf respondsToSelector:@selector(setAutocorrectionType:)]) {
-            tf.autocorrectionType = UITextAutocorrectionTypeNo;
-        }
-    }
+#ifndef DEBUG
+    self.forgotPasswordButton.hidden = YES;
+#endif
     
     self.navigationItem.title = NSLocalizedString(@"Log In", @"Log In");
     self.loginButton.title = NSLocalizedString(@"Log In", @"Log In");
@@ -55,7 +53,17 @@
     [self.forgotPasswordButton styleFontAsWaxHeaderFontOfSize:13 color:[UIColor whiteColor] highlightedColor:[UIColor waxHeaderFontColor]]; 
     [self.forgotPasswordButton setTitleForAllControlStates:NSLocalizedString(@"forgot password?", @"forgot password?")];
 
-    [self.loginFacebookButton styleAsWaxRoundButtonWhiteWithTitle:NSLocalizedString(@"Connect With Facebook", @"Connect With Facebook")]; 
+    [self.loginFacebookButton styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Login With Facebook", @"Login With Facebook")];
+    [self.loginFacebookButton.titleLabel setFont:[UIFont waxHeaderFontItalicsOfSize:16]];
+    [self.loginFacebookButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.loginFacebookButton setTitleColor:[UIColor waxDefaultFontColor] forState:UIControlStateHighlighted];
+    
+    UIImage *textFieldBG = [UIImage stretchyImage:[UIImage imageNamed:@"waxSearchBar_bg"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO];
+    for (UITextField *tf in @[self.usernameField, self.passwordField]) {
+        tf.background = textFieldBG;
+        tf.delegate = self;
+    }
+
 }
 
 - (IBAction)loginFacebookButtonAction:(id)sender {
@@ -125,6 +133,15 @@
     [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:@"https://api.wax.li/documents/privacy-policy.html"] pageTitle:NSLocalizedString(@"Privacy Policy", @"Privacy Policy") presentFromViewController:self];
 }
 
+#pragma mark - UITextField Delegate
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if (textField == self.usernameField){
+        [self.passwordField becomeFirstResponder];
+    }else if (textField == self.passwordField){
+        [self signupButtonAction:self];
+    }
+    return YES;
+}
 
 
 

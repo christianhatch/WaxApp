@@ -332,6 +332,14 @@
 		45A7CA0B1782671D00F62D4D /* wax_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A7C9FA1782671D00F62D4D /* wax_logo.png */; };
 		45A7CA0C1782671D00F62D4D /* wax_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A7C9FB1782671D00F62D4D /* wax_logo@2x.png */; };
 		45A7CA0D1782671D00F62D4D /* wax_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A7C9FB1782671D00F62D4D /* wax_logo@2x.png */; };
+		45A7CA231783742700F62D4D /* profile_picture_placeholder_On.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A7CA1F1783742600F62D4D /* profile_picture_placeholder_On.png */; };
+		45A7CA241783742700F62D4D /* profile_picture_placeholder_On.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A7CA1F1783742600F62D4D /* profile_picture_placeholder_On.png */; };
+		45A7CA251783742700F62D4D /* profile_picture_placeholder_On@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A7CA201783742600F62D4D /* profile_picture_placeholder_On@2x.png */; };
+		45A7CA261783742700F62D4D /* profile_picture_placeholder_On@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A7CA201783742600F62D4D /* profile_picture_placeholder_On@2x.png */; };
+		45A7CA271783742700F62D4D /* profile_picture_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A7CA211783742600F62D4D /* profile_picture_placeholder.png */; };
+		45A7CA281783742700F62D4D /* profile_picture_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A7CA211783742600F62D4D /* profile_picture_placeholder.png */; };
+		45A7CA291783742700F62D4D /* profile_picture_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A7CA221783742700F62D4D /* profile_picture_placeholder@2x.png */; };
+		45A7CA2A1783742700F62D4D /* profile_picture_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A7CA221783742700F62D4D /* profile_picture_placeholder@2x.png */; };
 		45AC7CC317637F6D0086D980 /* AcaciaKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45AC7CC217637E050086D980 /* AcaciaKitResources.bundle */; };
 		45B1E5FF17545073008C0DF8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B1E5FE17545073008C0DF8 /* CFNetwork.framework */; };
 		45EA31AE1725FADB00980320 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA31AD1725FADB00980320 /* MessageUI.framework */; };
@@ -656,6 +664,10 @@
 		45A7C9F91782671D00F62D4D /* upVote_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "upVote_icon@2x.png"; path = "../Misc/upVote_icon@2x.png"; sourceTree = "<group>"; };
 		45A7C9FA1782671D00F62D4D /* wax_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wax_logo.png; sourceTree = "<group>"; };
 		45A7C9FB1782671D00F62D4D /* wax_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wax_logo@2x.png"; sourceTree = "<group>"; };
+		45A7CA1F1783742600F62D4D /* profile_picture_placeholder_On.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_picture_placeholder_On.png; sourceTree = "<group>"; };
+		45A7CA201783742600F62D4D /* profile_picture_placeholder_On@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_picture_placeholder_On@2x.png"; sourceTree = "<group>"; };
+		45A7CA211783742600F62D4D /* profile_picture_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_picture_placeholder.png; sourceTree = "<group>"; };
+		45A7CA221783742700F62D4D /* profile_picture_placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_picture_placeholder@2x.png"; sourceTree = "<group>"; };
 		45B1E5FE17545073008C0DF8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		45EA31AD1725FADB00980320 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		45EA31AF1725FB0000980320 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -1128,6 +1140,10 @@
 		45A7C9F21782671C00F62D4D /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				45A7CA1F1783742600F62D4D /* profile_picture_placeholder_On.png */,
+				45A7CA201783742600F62D4D /* profile_picture_placeholder_On@2x.png */,
+				45A7CA211783742600F62D4D /* profile_picture_placeholder.png */,
+				45A7CA221783742700F62D4D /* profile_picture_placeholder@2x.png */,
 				45A7C9F31782671D00F62D4D /* splash_bg.png */,
 				45A7C9F41782671D00F62D4D /* splash_bg@2x.png */,
 				45A7C9F51782671D00F62D4D /* splash_bg_568@2x.png */,
@@ -1597,6 +1613,10 @@
 				45A7CA081782671D00F62D4D /* upVote_icon@2x.png in Resources */,
 				45A7CA0A1782671D00F62D4D /* wax_logo.png in Resources */,
 				45A7CA0C1782671D00F62D4D /* wax_logo@2x.png in Resources */,
+				45A7CA231783742700F62D4D /* profile_picture_placeholder_On.png in Resources */,
+				45A7CA251783742700F62D4D /* profile_picture_placeholder_On@2x.png in Resources */,
+				45A7CA271783742700F62D4D /* profile_picture_placeholder.png in Resources */,
+				45A7CA291783742700F62D4D /* profile_picture_placeholder@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1660,6 +1680,10 @@
 				45A7CA091782671D00F62D4D /* upVote_icon@2x.png in Resources */,
 				45A7CA0B1782671D00F62D4D /* wax_logo.png in Resources */,
 				45A7CA0D1782671D00F62D4D /* wax_logo@2x.png in Resources */,
+				45A7CA241783742700F62D4D /* profile_picture_placeholder_On.png in Resources */,
+				45A7CA261783742700F62D4D /* profile_picture_placeholder_On@2x.png in Resources */,
+				45A7CA281783742700F62D4D /* profile_picture_placeholder.png in Resources */,
+				45A7CA2A1783742700F62D4D /* profile_picture_placeholder@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

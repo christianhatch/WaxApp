@@ -52,8 +52,9 @@
         return NO;
     }else if ([viewController.title isEqualToString:@"Me"]){
         UINavigationController *nav = (UINavigationController *)viewController;
-        if ([[nav.viewControllers objectAtIndexOrNil:0] isKindOfClass:[ProfileViewController class]]) {
-            ProfileViewController *profile = [nav.viewControllers objectAtIndexOrNil:0];
+
+        ProfileViewController *profile = [nav.viewControllers objectAtIndexOrNil:0];
+        if ([profile isKindOfClass:[ProfileViewController class]]) {
             profile.person = [[WaxUser currentUser] personObject];
         }
         return YES;
@@ -105,13 +106,11 @@
 }
 -(void)showSplashScreen{
     UINavigationController *nav = initViewControllerWithIdentifier(@"SplashNav");
-    SplashViewController *splashVC = initViewControllerWithIdentifier(@"SplashVC");
-    nav.viewControllers = @[splashVC];
     
     [self presentViewController:nav animated:YES completion:^{
         for (UINavigationController *nav in self.viewControllers) {
             if ([nav respondsToSelector:@selector(popToRootViewControllerAnimated:)]) {
-                [nav popToRootViewControllerAnimated:NO]; 
+                [nav popToRootViewControllerAnimated:NO];
             }
         }
         [self setSelectedIndex:0];

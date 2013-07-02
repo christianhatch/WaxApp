@@ -108,9 +108,9 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     
     self.usernameLabel.text = video.username;
     self.timestampLabel.text = video.timeStamp;
-    
-    [self.competitionNameButton setTitleForAllControlStates:video.tag]; 
     self.rankLabel.text = video.rank;
+
+    [self.competitionNameButton setTitleForAllControlStates:video.tag];
     
     [self setupVoteButton]; 
 }

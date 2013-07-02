@@ -48,7 +48,7 @@
     self.waxLogoView.image = [UIImage imageNamed:@"wax_logo"];
     [self.sloganLabel setWaxHeaderItalicsFontOfSize:20 color:[UIColor whiteColor]];
     self.sloganLabel.text = NSLocalizedString(@"Compete in Anything!", @"Compete in Anything!");
-    self.backgroundImageView.dimmingView.alpha = 0.5;
+    self.backgroundImageView.dimmingView.alpha = 0.75;
     
     
     [self.signupWithFacebookButton styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Signup With Facebook", @"Signup With Facebook")];

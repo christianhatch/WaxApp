@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class PersonObject;
-
 @interface ProfileViewController : UIViewController
 
 @property (nonatomic, strong) PersonObject *person;
