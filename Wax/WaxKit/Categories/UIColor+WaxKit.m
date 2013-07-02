@@ -12,7 +12,7 @@
 @implementation UIColor (WaxKit)
 
 +(UIColor *)waxDefaultFontColor{
-    return [UIColor colorWithHex:0x798389]; 
+    return [UIColor colorWithHex:0x31373A]; 
 }
 +(UIColor *)waxHeaderFontColor{
     return [UIColor colorWithHex:0x31373A]; 

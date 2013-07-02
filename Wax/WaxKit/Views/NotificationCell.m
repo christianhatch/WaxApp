@@ -22,7 +22,7 @@
 
 -(void)awakeFromNib{
     [super awakeFromNib];
-    [self.notificationLabel setWaxHeaderFontOfSize:12];
+    [self.notificationLabel setWaxDefaultFont];
     self.notificationLabel.minimumScaleFactor = 0.4; 
 }
 
@@ -44,6 +44,9 @@
         }break;
         case NotificationTypeTitleEarned:{
             [self.profilePictureView setImage:[UIImage imageNamed:@"upVote_icon"] animated:YES]; 
+        }break;
+        case NotificationTypeChallenged:{
+            
         }break;
     }
         

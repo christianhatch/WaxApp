@@ -17,8 +17,15 @@
 @implementation AppDelegate
 
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+#ifdef DEBUG
+    [SBAPNSPusher start];
+#endif
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"initialLaunch"]) {
         [self initialLaunch];
+    }
+    
+    if (launchOptions) {
+        [self handleLaunchingFromRemoteNotification:[launchOptions objectForKeyOrNil:UIApplicationLaunchOptionsRemoteNotificationKey]];
     }
     if ([[WaxUser currentUser] isLoggedIn]) {
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound |UIRemoteNotificationTypeAlert)];
@@ -52,10 +59,19 @@
     [AIKErrorManager logMessage:@"Did Fail To Register For Remote Notifications" withError:error];
 }
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-    //do lots of fun things here!
+    if (application.applicationState != UIApplicationStateActive) {
+        [self handleLaunchingFromRemoteNotification:userInfo];
+    }else{
+//        [[WaxDataManager sharedManager] updateNotificationCountWithCompletion:nil];
+//        [[WaxDataManager sharedManager] updateNotificationsWithInfiniteScroll:NO completion:nil];
+    }
     [UIApplication resetBadge];
 }
-
+-(void)handleLaunchingFromRemoteNotification:(NSDictionary *)note{
+//    [AIKErrorManager showAlertWithTitle:@"Note" message:[NSString stringWithFormat:@"%@", note] buttonHandler:nil logError:NO];
+    
+    //do lots of crazy things
+}
 
 
 #pragma mark - Application State Change Callbacks

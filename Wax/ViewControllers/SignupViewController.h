@@ -11,17 +11,6 @@
 
 @interface SignupViewController : UIViewController
 
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *goButton;
-
-@property (strong, nonatomic) IBOutlet UIButton *profilePictureButton;
-@property (strong, nonatomic) IBOutlet UITextField *fullNameField;
-@property (strong, nonatomic) IBOutlet UITextField *emailField;
-
-@property (strong, nonatomic) IBOutlet UITextField *usernameField;
-@property (strong, nonatomic) IBOutlet UITextField *passwordField;
-
-@property (strong, nonatomic) IBOutlet UILabel *disclaimerLabel;
-
 @property (nonatomic, assign) BOOL facebookSignup; 
 
 @end

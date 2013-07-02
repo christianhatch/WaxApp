@@ -66,6 +66,7 @@
     
     switch (note.noteType) {
         case NotificationTypeVote:
+        case NotificationTypeChallenged:
         case NotificationTypeChallengeResponse:{
             FeedViewController *feedy = [FeedViewController feedViewControllerForSingleVideoWithVideoID:note.videoID tag:note.tag];
             [[self nearestNavigationController] pushViewController:feedy animated:YES]; 
@@ -79,6 +80,10 @@
             ProfileViewController *profy = [ProfileViewController profileViewControllerFromUserID:note.userID username:note.username];
             [[self nearestNavigationController] pushViewController:profy animated:YES]; 
         }break;
+//        case NotificationTypeChallenged:{
+//            [[VideoUploadManager sharedManager] beginUploadProcessWithVideoID:note.videoID competitionTag:note.tag category:note.category];
+//            [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationPresentVideoCamera object:self];
+//        }break;
     }
 }
 

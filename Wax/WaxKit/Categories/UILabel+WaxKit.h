@@ -10,6 +10,10 @@
 
 @interface UILabel (WaxKit)
 
+-(void)setWaxDefaultFont;
+-(void)setWaxDefaultFontOfSize:(CGFloat)size;
+-(void)setWaxDefaultFontOfSize:(CGFloat)size color:(UIColor *)color;
+
 -(void)setWaxHeaderFont;
 -(void)setWaxHeaderFontOfSize:(CGFloat)size;
 -(void)setWaxHeaderFontOfSize:(CGFloat)size color:(UIColor *)color;

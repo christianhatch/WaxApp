@@ -550,17 +550,22 @@ static inline BOOL PathRequiresArray(NSString *path){
         }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DLog(@"standard post request failure %@", error);
-        if (error.domain == NSURLErrorDomain && error.code == -999) {
+        if ([NSError NSURLRequestErrorIsRequestWasCancelled:error]) {
             if (completion) {
                 completion(nil, error);
             }
         }else{
-#warning error handling on api client, check this out so we can display more helpful errors, and not display super long html files in an alert view
+#ifdef DEBUG
             [AIKErrorManager showAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion buttonHandler:^{
                 if (completion) {
                     completion(nil, error);
                 }
             } logError:NO];
+#else
+            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error Loading Data", @"Error Loading Data") message:[NSString stringWithFormat:NSLocalizedString(@"Error Code: %i", @"Error Code"), error.code] buttonHandler:^{
+                
+            } logError:YES];
+#endif
         }
     }];
 }
@@ -590,7 +595,7 @@ static inline BOOL PathRequiresArray(NSString *path){
         }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DLog(@"multipart form request failure %@", error);
-        if (error.domain == NSURLErrorDomain && error.code == -999) {
+        if ([NSError NSURLRequestErrorIsRequestWasCancelled:error]) {
             if (completion) {
                 completion(nil, error);
             }

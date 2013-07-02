@@ -43,6 +43,9 @@
 -(void)handleUpdatingFeedWithError:(NSError *)error{
     [self finishLoading]; 
 }
+-(NSMutableArray *)proxyDataSourceArray{
+    return [NSMutableArray array]; 
+}
 -(void)finishLoading{
     [self reloadData];
     if (self.pullToRefreshView.state != SVPullToRefreshStateStopped) {
@@ -55,9 +58,6 @@
         BOOL dataSourceIsEmptyOrNotABatchOfTen = ([[self proxyDataSourceArray] countIsNotDivisibleBy10] || ([[self proxyDataSourceArray] count] == 0));
         self.showsInfiniteScrolling = !dataSourceIsEmptyOrNotABatchOfTen;
     }
-}
--(NSMutableArray *)proxyDataSourceArray{
-    return [NSMutableArray array]; //override in subclasses!
 }
 
 

@@ -66,10 +66,10 @@
         self.navigationItem.title = self.person.username;
         [self.view addSubview:[FeedTableView feedTableViewForProfileWithUserID:self.person.userID frame:self.view.bounds]];
         
-        if (self.person.isMe) {
-            self.navigationItem.title = NSLocalizedString(@"Me", @"Me"); 
-            [self.view addSubview:[FeedTableView feedTableViewForMyProfileWithFrame:self.view.bounds]];
-        }
+//        if (self.person.isMe) {
+//            [self.view addSubview:[FeedTableView feedTableViewForMyProfileWithFrame:self.view.bounds]];
+//        }
+         
     }else{
         self.navigationItem.title = self.username;
         [self.view addSubview:[FeedTableView feedTableViewForProfileWithUserID:self.userID frame:self.view.bounds]];

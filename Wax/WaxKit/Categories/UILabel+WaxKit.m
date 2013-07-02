@@ -10,6 +10,18 @@
 
 @implementation UILabel (WaxKit)
 
+
+-(void)setWaxDefaultFont{
+    [self setFont:[UIFont waxDefaultFont] andColor:[UIColor waxDefaultFontColor]];
+}
+-(void)setWaxDefaultFontOfSize:(CGFloat)size{
+    [self setWaxDefaultFontOfSize:size color:[UIColor waxDefaultFontColor]]; 
+}
+-(void)setWaxDefaultFontOfSize:(CGFloat)size color:(UIColor *)color{
+    [self setFont:[UIFont waxDefaultFontOfSize:size] andColor:color]; 
+}
+
+
 -(void)setWaxHeaderFont{
     [self setFont:[UIFont waxHeaderFont] andColor:[UIColor waxHeaderFontColor]]; 
 }

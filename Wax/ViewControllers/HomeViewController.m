@@ -19,6 +19,7 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     [self setUpView];
+    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(triggerPullToRefresh) name:WaxUserDidLogInNotification object:nil];
 }
 
 -(void)setUpView{
@@ -28,7 +29,7 @@
 }
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     if ([keyPath isEqualToString:@"homeFeed"]) {
-        [self.tableView reloadData]; 
+        [self.tableView handleUpdatingFeedWithError:nil];
     }else{
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }

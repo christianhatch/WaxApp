@@ -10,8 +10,4 @@
 
 @interface SplashViewController : UIViewController
 
-@property (strong, nonatomic) IBOutlet UIButton *signupWithFacebookButton;
-@property (strong, nonatomic) IBOutlet UIButton *signupWithEmailButton;
-@property (strong, nonatomic) IBOutlet UIButton *loginButton;
-
 @end

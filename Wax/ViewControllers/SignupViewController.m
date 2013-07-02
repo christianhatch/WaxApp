@@ -10,6 +10,19 @@
 #import "SplashViewController.h"
 
 @interface SignupViewController ()
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *goButton;
+
+@property (strong, nonatomic) IBOutlet UIButton *profilePictureButton;
+@property (strong, nonatomic) IBOutlet UITextField *fullNameField;
+@property (strong, nonatomic) IBOutlet UITextField *emailField;
+
+@property (strong, nonatomic) IBOutlet UITextField *usernameField;
+@property (strong, nonatomic) IBOutlet UITextField *passwordField;
+
+@property (strong, nonatomic) IBOutlet UILabel *disclaimerLabel;
+
+- (IBAction)tosButtonAction:(id)sender;
+- (IBAction)privacyButtonAction:(id)sender;
 
 @end
 
@@ -29,6 +42,26 @@
 
     [self setUpView];
 }
+-(void)setUpView{
+    self.navigationItem.title = NSLocalizedString(@"Sign Up", @"Sign Up");
+    
+    for (UITextField *tf in self.view.subviews) {
+        if ([tf respondsToSelector:@selector(setAutocorrectionType:)]) {
+            tf.autocorrectionType = UITextAutocorrectionTypeNo;
+        }
+    }
+    
+    self.goButton.title = NSLocalizedString(@"Sign Up", @"Sign Up");
+    
+    self.fullNameField.placeholder = NSLocalizedString(@"Full Name", @"Full Name");
+    self.emailField.placeholder = NSLocalizedString(@"Email", @"Email");
+    self.usernameField.placeholder = NSLocalizedString(@"choose a username", @"choose a username");
+    self.passwordField.placeholder = NSLocalizedString(@"Password", @"Password");
+    self.passwordField.secureTextEntry = YES;
+    
+}
+
+
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
@@ -106,8 +139,15 @@
         }];
     }
 }
+- (IBAction)tosButtonAction:(id)sender {
+    [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:@"https://api.wax.li/documents/terms_of_service.html"] pageTitle:NSLocalizedString(@"Terms of Service", @"Terms of Service") presentFromViewController:self];
+}
 
-#pragma mark - Utility Methods
+- (IBAction)privacyButtonAction:(id)sender {
+    [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:@"https://api.wax.li/documents/privacy-policy.html"] pageTitle:NSLocalizedString(@"Privacy Policy", @"Privacy Policy") presentFromViewController:self];
+}
+
+#pragma mark - Internal Methods
 -(BOOL)verifyInputtedData{
     BOOL verified = YES;
     
@@ -141,29 +181,6 @@
     
     return verified;
 }
--(void)setUpView{
-    self.navigationItem.title = NSLocalizedString(@"Sign Up", @"Sign Up");
-    
-    for (UITextField *tf in self.view.subviews) {
-        tf.autocorrectionType = UITextAutocorrectionTypeNo; 
-    }
-    
-    self.goButton.title = NSLocalizedString(@"Sign Up", @"Sign Up");
-        
-    self.fullNameField.placeholder = NSLocalizedString(@"Full Name", @"Full Name");
-    self.emailField.placeholder = NSLocalizedString(@"Email", @"Email");
-    self.usernameField.placeholder = NSLocalizedString(@"choose a username", @"choose a username");
-    self.passwordField.placeholder = NSLocalizedString(@"Password", @"Password");
-    self.passwordField.secureTextEntry = YES;
-    
-    self.disclaimerLabel.textAlignment = NSTextAlignmentCenter;
-    self.disclaimerLabel.text = NSLocalizedString(@"by signing up you agree to the Wax terms of service and privacy policy", @"by signing up you agree to the Wax terms of service and privacy policy");
-    self.disclaimerLabel.numberOfLines = 0;
-    self.disclaimerLabel.minimumScaleFactor = 0.5;
-    self.disclaimerLabel.font = [UIFont systemFontOfSize:12];
-    [self.disclaimerLabel sizeToFit];
-}
-
 
 
 

@@ -12,6 +12,7 @@ typedef NS_ENUM(NSInteger, NotificationType){
     NotificationTypeTitleEarned,
     NotificationTypeTitleStolen,
     NotificationTypeChallengeResponse,
+    NotificationTypeChallenged,
 };
 
 static inline NSString * StringFromNotificationType(NotificationType noteType) {
@@ -31,6 +32,9 @@ static inline NSString * StringFromNotificationType(NotificationType noteType) {
         case NotificationTypeChallengeResponse:
             return @"Challenge Response";
             break;
+        case NotificationTypeChallenged:
+            return @"Challenged";
+            break; 
         default:
             return @"none(!)";
             break;
