@@ -105,7 +105,6 @@
     }
 }
 -(void)handleUpdatingFeedWithError:(NSError *)error{
-    [super handleUpdatingFeedWithError:error];
     
     if (!error) {
 
@@ -114,13 +113,14 @@
         
         switch (self.tableViewType) {
             case CategoryTableViewTypeCategories:{
-                
+                [self setEmptyViewMessageText:NSLocalizedString(@"Error loading categories :(", @"Error loading categories :(")]; 
             }break;
             case CategoryTableViewTypeDiscover:{
-                
+                [self setEmptyViewMessageText:NSLocalizedString(@"Error loading categories :(", @"Error loading categories :(")];
             }break;
         }
     }
+    [super handleUpdatingFeedWithError:error];
 }
 
 

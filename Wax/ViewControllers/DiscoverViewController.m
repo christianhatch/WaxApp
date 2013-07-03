@@ -42,6 +42,7 @@
 }
 #pragma mark - UISearchDisplayController Delegate
 -(void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView{
+    self.searchDisplayController.searchResultsTableView.rowHeight = kPersonCellHeight;
     [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"PersonCell" bundle:nil] forCellReuseIdentifier:kPersonCellID];
     [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"TagCell" bundle:nil] forCellReuseIdentifier:kTagCellID];
 }

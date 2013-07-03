@@ -96,6 +96,9 @@
 }
 
 -(void)handleUpdatingFeedWithError:(NSError *)error{
+    
+    [self setEmptyViewMessageText:NSLocalizedString(@"No Notifications", @"No Notifications")]; 
+    
     [super handleUpdatingFeedWithError:error];
     
     if (!error) {

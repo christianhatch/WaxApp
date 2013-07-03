@@ -57,6 +57,7 @@
         if ([profile isKindOfClass:[ProfileViewController class]]) {
             profile.person = [[WaxUser currentUser] personObject];
         }
+        
         return YES;
     }else if([viewController.title isEqualToString:@"Notifications"]){
         [self eraseNoteCountBadge];

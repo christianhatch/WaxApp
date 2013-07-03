@@ -53,7 +53,6 @@
         self.automaticallyHideInfiniteScrolling = YES;
         
         self.rowHeight = kFeedCellHeight;
-        
         [self registerNib:[UINib nibWithNibName:@"FeedCell" bundle:nil] forCellReuseIdentifier:kFeedCellID];
         
         if (feedtype == FeedTableViewTypeMyFeed || feedtype == FeedTableViewTypeUserFeed) {
@@ -167,27 +166,43 @@
     }
 }
 -(void)handleUpdatingFeedWithError:(NSError *)error{
-    [super handleUpdatingFeedWithError:error];
         
     if (!error) {
-        if ([[self proxyDataSourceArray] count] == 0) {
-            
+        switch (self.tableViewType) {
+            case FeedTableViewTypeMyFeed:{
+                [self setEmptyViewMessageText:[NSString stringWithFormat:NSLocalizedString(@"You haven't made any videos yet", @"you have no videos")]];
+            }break;
+            case FeedTableViewTypeHomeFeed:{
+                
+            }break;
+            case FeedTableViewTypeUserFeed:{
+                [self setEmptyViewMessageText:[NSString stringWithFormat:NSLocalizedString(@"This user hasn't made any videos yet", @"user has no videos")]];
+            }break;
+            case FeedTableViewTypeTagFeed:{
+                [self setEmptyViewMessageText:[NSString stringWithFormat:NSLocalizedString(@"No Videos for %@", @"no videos for tag"), self.dataSourceID]];
+            }break;
+            case FeedTableViewTypeCategoryFeed:{
+                
+            }break;
+            case FeedTableViewTypeSingleVideo:{
+                
+            }break;
         }
     }else{
         VLog(@"error updating feed %@", error);
 
         switch (self.tableViewType) {
             case FeedTableViewTypeMyFeed:{
-                
+                [self setEmptyViewMessageText:[NSString stringWithFormat:NSLocalizedString(@"Error loading your videos", @"error loading your videos")]];
             }break;
             case FeedTableViewTypeHomeFeed:{
                 
             }break;
             case FeedTableViewTypeUserFeed:{
-                
+                [self setEmptyViewMessageText:[NSString stringWithFormat:NSLocalizedString(@"Error loading this users videos", @"error loading a users videos")]];
             }break;
             case FeedTableViewTypeTagFeed:{
-                
+                [self setEmptyViewMessageText:[NSString stringWithFormat:NSLocalizedString(@"Error loading videos for %@", @"No videos text"), self.dataSourceID]];
             }break;
             case FeedTableViewTypeCategoryFeed:{
                 
@@ -197,6 +212,8 @@
             }break; 
         }
     }
+    
+    [super handleUpdatingFeedWithError:error];
 }
 
 

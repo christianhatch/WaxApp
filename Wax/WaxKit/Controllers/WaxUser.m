@@ -325,17 +325,17 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 #pragma mark - Utility Methods
 -(PersonObject *)personObject{
     PersonObject *me = [[PersonObject alloc] init];
-    me.userID = [self userID];
-    me.username = [self username];
-    me.fullName = [self fullName];
+    me.userID = self.userID;
+    me.username = self.username;
+    me.fullName = self.fullName;
     return me; 
 }
 -(SettingsObject *)settingsObject{
     SettingsObject *settings = [[SettingsObject alloc] init];
-    settings.username = [self username];
-    settings.fullName = [self fullName];
-    settings.email = [self email];
-    settings.facebookID = [self facebookAccountID]; 
+    settings.username = self.username;
+    settings.fullName = self.fullName;
+    settings.email = self.email;
+    settings.facebookID = self.facebookAccountID;
     settings.pushSettings = [NSDictionary dictionary];
     return settings; 
 }

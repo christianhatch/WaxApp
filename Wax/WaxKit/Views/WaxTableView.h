@@ -23,6 +23,6 @@
 @property (nonatomic, readwrite) BOOL automaticallyDeselectRow; //default is YES
 @property (nonatomic, readwrite) BOOL automaticallyHideInfiniteScrolling; //default is YES
 
-@property (nonatomic, strong) UIView *emptyView; 
+-(void)setEmptyViewMessageText:(NSString *)message;
 
 @end
