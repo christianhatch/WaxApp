@@ -24,9 +24,4 @@
 +(UIImage *)waxButtonImageHighlightedBlue; 
 
 
-
-+(UIImage *)splashImageForDevice;
-+(UIImage *)cellSelectionGradient;
-
-
 @end

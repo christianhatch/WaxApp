@@ -54,14 +54,8 @@ NSString *const kWaxNotificationProfilePictureDidChange = @"waxUserProfilePictur
 NSString *const kWaxNotificationTwitterAccountDidChange = @"waxUserTwitterAccountDidChangeNotification"; 
 NSString *const kWaxNotificationFacebookAccountDidChange = @"waxUserFacebookAccountDidChangeNotification"; 
 NSString *const kWaxNotificationPresentVideoCamera = @"waxShowVideoCameraNotification"; 
+NSString *const kWaxNotificationRemoteNotificationReceived = @"waxRemoteNotificationReceivedNotification"; 
 
-
-
-
-#define kFeedCellFlagConfirmText            @"Are you sure you want to flag this Kiwi as innapropriate?"
-#define kFeedCellDeleteConfirmText          @"Are you sure you want to delete your Kiwi?"
-#define kFeedCellDefaultCaption             @"Check out my video on Kiwi!"
-#define kFeedCellFlagInnapropriate          @"Flag Innapropriate" 
 
 #define KWLaunchOptionGotoIDKey             @"pID"
 #define KWLaunchOptionGotoTypeKey           @"pType"

@@ -47,6 +47,7 @@ extern NSString *const kWaxNotificationProfilePictureDidChange;
 extern NSString *const kWaxNotificationTwitterAccountDidChange;
 extern NSString *const kWaxNotificationFacebookAccountDidChange;
 extern NSString *const kWaxNotificationPresentVideoCamera;
+extern NSString *const kWaxNotificationRemoteNotificationReceived; 
 
 #define kCornerRadiusDefault                5
 #define kAPIBatchCountDefault               10

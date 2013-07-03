@@ -27,6 +27,7 @@
     if (launchOptions) {
         [self handleLaunchingFromRemoteNotification:[launchOptions objectForKeyOrNil:UIApplicationLaunchOptionsRemoteNotificationKey]];
     }
+    
     if ([[WaxUser currentUser] isLoggedIn]) {
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound |UIRemoteNotificationTypeAlert)];
     }
@@ -62,6 +63,7 @@
     if (application.applicationState != UIApplicationStateActive) {
         [self handleLaunchingFromRemoteNotification:userInfo];
     }else{
+        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationRemoteNotificationReceived object:self userInfo:userInfo];
 //        [[WaxDataManager sharedManager] updateNotificationCountWithCompletion:nil];
 //        [[WaxDataManager sharedManager] updateNotificationsWithInfiniteScroll:NO completion:nil];
     }
@@ -69,8 +71,8 @@
 }
 -(void)handleLaunchingFromRemoteNotification:(NSDictionary *)note{
 //    [AIKErrorManager showAlertWithTitle:@"Note" message:[NSString stringWithFormat:@"%@", note] buttonHandler:nil logError:NO];
-    
-    //do lots of crazy things
+
+    [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationRemoteNotificationReceived object:self userInfo:note]; 
 }
 
 

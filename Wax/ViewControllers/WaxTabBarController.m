@@ -24,6 +24,7 @@
     [self setUpView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSplashScreen) name:WaxUserDidLogOutNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(capture) name:kWaxNotificationPresentVideoCamera object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRemoteNote:) name:kWaxNotificationRemoteNotificationReceived object:nil];
 }
 -(void)setUpView{    
     [[self.tabBar.items objectAtIndex:0] setFinishedSelectedImage:[UIImage imageNamed:@"homeTab_on"] withFinishedUnselectedImage:[UIImage imageNamed:@"homeTab"]];
@@ -32,7 +33,6 @@
     [[self.tabBar.items objectAtIndex:3] setFinishedSelectedImage:[UIImage imageNamed:@"notesTab_on"] withFinishedUnselectedImage:[UIImage imageNamed:@"notesTab"]];
     [[self.tabBar.items objectAtIndex:4] setFinishedSelectedImage:[UIImage imageNamed:@"profileTab_on"] withFinishedUnselectedImage:[UIImage imageNamed:@"profileTab"]];
 }
-
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     if (![[WaxUser currentUser] isLoggedIn]) {
@@ -63,6 +63,7 @@
         [self eraseNoteCountBadge];
         return YES; 
     }else{
+        
         /*
         UINavigationController *nav = (UINavigationController *)self.selectedViewController;
         if (viewController == self.selectedViewController && nav.visibleViewController == [nav.viewControllers objectAtIndex:0]) {
@@ -98,6 +99,14 @@
         }
     }]; 
 }
+
+-(void)handleRemoteNote:(NSNotification *)note{
+    if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive) {
+        [self setSelectedIndex:3]; 
+    }else{
+        [self updateNoteCountBadge];
+    }
+}
 -(void)updateNoteCountBadge{
     NSString *count = [WaxDataManager sharedManager].notificationCount.intValue == 0 ? nil : [NSString stringWithFormat:@"%@", [WaxDataManager sharedManager].notificationCount]; 
     [[self.tabBar.items objectAtIndexOrNil:3] setBadgeValue:count];
@@ -105,6 +114,9 @@
 -(void)eraseNoteCountBadge{
     [[self.tabBar.items objectAtIndexOrNil:3] setBadgeValue:nil];
 }
+
+
+
 -(void)showSplashScreen{
     UINavigationController *nav = initViewControllerWithIdentifier(@"SplashNav");
     

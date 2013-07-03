@@ -62,6 +62,7 @@
     for (UITextField *tf in @[self.usernameField, self.passwordField]) {
         tf.background = textFieldBG;
         tf.delegate = self;
+        tf.layer.cornerRadius = kCornerRadiusDefault;
     }
 
 }

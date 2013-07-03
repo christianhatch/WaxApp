@@ -49,14 +49,6 @@
 
 
 
-+(UIImage *)splashImageForDevice{
-    return [UIDevice isRetina4Inch] ? [UIImage imageNamed:@"Default-568h@2x"] : [UIImage imageNamed:@"Default"]; 
-}
-
-+(UIImage *)cellSelectionGradient{
-    return nil; 
-}
-
 #pragma mark - Internal Methods
 +(UIImage *)waxButtonImageStretchyFromImage:(UIImage *)image{
     CGFloat sides = ((image.size.width - 1) / 2); 

@@ -57,7 +57,8 @@
     UIImage *textFieldBG = [UIImage stretchyImage:[UIImage imageNamed:@"waxSearchBar_bg"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO];
     for (UITextField *tf in @[self.fullNameField, self.emailField, self.usernameField, self.passwordField]) {
         tf.background = textFieldBG;
-        tf.delegate = self; 
+        tf.delegate = self;
+        tf.layer.cornerRadius = kCornerRadiusDefault; 
     }
 }
 
