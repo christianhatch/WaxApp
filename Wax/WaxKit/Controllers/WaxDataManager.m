@@ -195,12 +195,10 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
 +(NSNumber *)infiniteScrollingIDFromArray:(NSMutableArray *)feed{
     
     NSNumber *infinite = nil;
-    if (feed) {
-        if (feed.count > 0) {
-            if ([[feed lastObject] isKindOfClass:[ModelObject class]]) {
-                ModelObject *model = [feed lastObject];
-                infinite = model.infiniteScrollingID;
-            }
+    if (feed && feed.count > 0) {
+        if ([[feed lastObject] isKindOfClass:[ModelObject class]]) {
+            ModelObject *model = [feed lastObject];
+            infinite = model.infiniteScrollingID;
         }
     }
     return infinite;
@@ -231,9 +229,11 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
 }
 -(void)handleUpdatingValueForKey:(NSString *)key withCompletionBlock:(WaxDataManagerCompletionBlockTypeSimple)completion infiniteScrollingID:(NSNumber *)infiniteID APIResponseData:(NSMutableArray *)responseData APIResponseError:(NSError *)error{
     
-//    VLog(@"response %@", responseData);
+//    VLog(@"\n\n response = %@ \n\n", responseData);
     
     NSMutableArray *array = [self valueForKeyPath:key];
+    
+//    VLog(@"\n\n original array = %@ \n\n", array); 
     
     if (!error) {
         if (infiniteID) {
@@ -241,6 +241,8 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
         }else{
             array = responseData;
         }
+        
+//        VLog(@"\n\n new array = %@ \n\n", array);
         
         [self setValue:array forKeyPath:key];
         

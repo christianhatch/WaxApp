@@ -167,7 +167,8 @@
         
     [[UIBarButtonItem appearance] setTitleTextAttributes:barButtonTitleNormal  forState:UIControlStateNormal];
     [[UIBarButtonItem appearance] setTitleTextAttributes:barButtonTitleHighlighted forState:UIControlStateHighlighted];
-
+    
+    
     NSDictionary *tabBarItemTitleNormal = @{UITextAttributeFont: [UIFont waxDefaultFontOfSize:12],
                                             UITextAttributeTextColor: [UIColor colorWithHex:0x798389],
                                             UITextAttributeTextShadowColor: [UIColor clearColor]};
@@ -190,6 +191,17 @@
     [[UISearchBar appearance] setScopeBarButtonBackgroundImage:scopeBGSelected forState:UIControlStateSelected];
     [[UISearchBar appearance] setScopeBarBackgroundImage:searchBG]; 
     
+    NSDictionary *searchBarButtonNormal = @{UITextAttributeFont: [UIFont waxDefaultFontOfSize:12],
+                                           UITextAttributeTextColor: [UIColor blackColor],
+                                           UITextAttributeTextShadowColor: [UIColor clearColor]};
+    
+    NSDictionary *searchBarButtonHighlighted = @{UITextAttributeFont: [UIFont waxDefaultFontOfSize:12],
+                                                UITextAttributeTextColor: [UIColor lightGrayColor],
+                                                UITextAttributeTextShadowColor: [UIColor clearColor]};
+
+    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:searchBarButtonNormal  forState:UIControlStateNormal];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:searchBarButtonHighlighted forState:UIControlStateHighlighted];
+
     NSDictionary *scopeButtonTextNormal = @{UITextAttributeFont: [UIFont waxDetailFontOfSize:12],
                                             UITextAttributeTextColor: [UIColor blackColor],
                                             UITextAttributeTextShadowColor: [UIColor clearColor]};

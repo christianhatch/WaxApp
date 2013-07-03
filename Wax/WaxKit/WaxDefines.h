@@ -49,7 +49,7 @@ extern NSString *const kWaxNotificationFacebookAccountDidChange;
 extern NSString *const kWaxNotificationPresentVideoCamera;
 
 #define kCornerRadiusDefault                5
-
+#define kAPIBatchCountDefault               10
 
 
 

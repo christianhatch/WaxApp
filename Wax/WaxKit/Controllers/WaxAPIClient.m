@@ -133,11 +133,7 @@ static inline BOOL PathRequiresArray(NSString *path){
 -(void)fetchHomeFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     if ([[WaxUser currentUser] isLoggedIn]) {
         [self fetchFeedFromPath:@"feeds/home" tagOrPersonID:[[WaxUser currentUser] userID] infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
-            
-            if (!error) {
-                [WaxDataManager sharedManager].homeFeed = list;
-            }
-            
+                        
             if (completion) {
                 completion(list, error);
             }
@@ -147,11 +143,7 @@ static inline BOOL PathRequiresArray(NSString *path){
 -(void)fetchMyFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     if ([[WaxUser currentUser] isLoggedIn]) {
         [self fetchFeedForUserID:[[WaxUser currentUser] userID] infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
-            
-            if (!error) {
-                [WaxDataManager sharedManager].myFeed = list;
-            }
-            
+
             if (completion) {
                 completion(list, error); 
             }

@@ -54,6 +54,7 @@
 }
 -(void)finishLoading{
     [self reloadData];
+    
     if (self.pullToRefreshView.state != SVPullToRefreshStateStopped) {
         [self.pullToRefreshView stopAnimating];
     }
@@ -61,8 +62,18 @@
         [self.pullToRefreshView stopAnimating];
     }
     if (self.automaticallyHideInfiniteScrolling) {
-        BOOL dataSourceIsEmptyOrNotABatchOfTen = ([[self proxyDataSourceArray] countIsNotDivisibleBy10] || ([[self proxyDataSourceArray] count] == 0));
-        self.showsInfiniteScrolling = !dataSourceIsEmptyOrNotABatchOfTen;
+        BOOL dataSourceIsEmpty = [NSArray isEmptyOrNil:[self proxyDataSourceArray]];        
+        if (dataSourceIsEmpty) {
+            self.showsInfiniteScrolling = NO; 
+        }
+        
+        BOOL dataSourceIsBatchOfTen = [[self proxyDataSourceArray] countIsDivisibleBy:kAPIBatchCountDefault];
+        if (!dataSourceIsBatchOfTen) {
+            self.showsInfiniteScrolling = NO; 
+        }
+        if (dataSourceIsBatchOfTen && !dataSourceIsEmpty) {
+            self.showsInfiniteScrolling = YES; 
+        }
     }
     [self updateEmptyView];
 }
