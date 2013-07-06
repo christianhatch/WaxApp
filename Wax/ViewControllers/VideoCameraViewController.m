@@ -40,14 +40,7 @@
         self.cameraOverlayView.alpha = 1;
     }];
 }
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
-}
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    
-}
+
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
@@ -94,22 +87,24 @@
         
     if (picker != self) {
         [picker dismissViewControllerAnimated:YES completion:^{
-            [self finishUpWithURL:videoURL];
+            AVAsset *ass = [AVAsset assetWithURL:videoURL];
+
+            Float64 dur = CMTimeGetSeconds(ass.duration);
+            
+            [self finishUpWithURL:videoURL duration:[NSNumber numberWithFloat:dur]];
         }];
     }else{
-        [self finishUpWithURL:videoURL];
+        [self finishUpWithURL:videoURL duration:[NSNumber numberWithInteger:cameraControls.currentTimer]];
     }
     
 }
 
 #pragma mark - Internal Methods
--(void)finishUpWithURL:(NSURL *)url{
-    
-    NSInteger duration = cameraControls.currentTimer;
+-(void)finishUpWithURL:(NSURL *)url duration:(NSNumber *)duration{
     
     [cameraControls resetOverlay];
     
-    [[VideoUploadManager sharedManager] beginUploadProcessWithVideoFileURL:url videoDuration:[NSNumber numberWithInteger:duration]];
+    [[VideoUploadManager sharedManager] beginUploadProcessWithVideoFileURL:url videoDuration:duration];
     
     UINavigationController *nav = initViewControllerWithIdentifier(@"ThumbnailNav");
     nav.navigationBarHidden = NO;
@@ -117,7 +112,7 @@
     ThumbnailChooserViewController *thumbVC = initViewControllerWithIdentifier(@"ThumbnailVC");
     thumbVC.videoPath = url;
     thumbVC.videoOrientation = [AVAsset orientationOfAsset:[AVAsset assetWithURL:url]];
-    thumbVC.videoDuration = duration;
+    thumbVC.videoDuration = duration.integerValue;
     nav.viewControllers = @[thumbVC];
     [self presentViewController:nav animated:YES completion:nil];
 }

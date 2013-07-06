@@ -101,6 +101,7 @@
     if (!_emptyView) {
         _emptyView = [[UIView alloc] initWithFrame:[self rectForEmptyView]];
         _emptyView.autoresizesSubviews = YES;
+        _emptyView.backgroundColor = [UIColor whiteColor];
         
     //for debugging
 //        _emptyView.backgroundColor = [UIColor greenColor]; 

@@ -82,7 +82,7 @@
     
     NSParameterAssert(videoFileURL);
     NSParameterAssert(duration); 
-    
+        
     self.currentUpload = [[UploadObject alloc] initWithVideoFileURL:[NSURL currentVideoFileURL]];
     self.currentUpload.videoLength = duration; 
     self.currentUpload.videoStatus = UploadStatusWaiting;
@@ -99,7 +99,9 @@
         if (!error) {
             [self uploadVideoDataWithAttemptCount:@0];
         }else if (error.code == 1337){
-            [AIKErrorManager logMessageToAllServices:@"Canceled or failed video export"]; 
+            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error Recording Video", @"Error Recording Video") message:NSLocalizedString(@"There was an error recording your video. Please try again.", @"There was an error recording your video. Please try again.") buttonTitle:NSLocalizedString(@"OK", @"OK") showsCancelButton:NO buttonHandler:^{
+                [AIKErrorManager logMessageToAllServices:@"Canceled or failed video export"];
+            } logError:YES];
         }
     }];
 }
@@ -121,9 +123,6 @@
     
     NSParameterAssert(tag);
     NSParameterAssert(category);
-    NSParameterAssert(shareToFacebook);
-    NSParameterAssert(sharetoTwitter);
-    NSParameterAssert(shareLocation);
     
     self.currentUpload.tag = tag;
     self.currentUpload.category = category;
@@ -243,6 +242,10 @@
     if ([AIKVideoProcessor sharedProcessor].exporter.status == AVAssetExportSessionStatusExporting) {
         [[AIKVideoProcessor sharedProcessor].exporter cancelExport];
     }
+    
+    [[NSFileManager defaultManager] removeItemAtURL:[NSURL currentVideoFileURL] error:nil];
+    [[NSFileManager defaultManager] removeItemAtURL:[NSURL currentThumbnailFileURL] error:nil];
+
     [[WaxAPIClient sharedClient] cancelVideoUploadingOperationWithVideoID:self.currentUpload.videoID];
     [self finishUploadWithCompletion:nil];
 }
@@ -274,11 +277,12 @@
 
 #pragma mark - Convenience methods
 -(BOOL)isUploading{
-    return (self.currentUpload || /*[self checkUploadsDirectory] ||*/ [AIKVideoProcessor sharedProcessor].exporter.status == AVAssetExportSessionStatusExporting);
+    return (self.currentUpload || [self checkUploadsDirectory] || [AIKVideoProcessor sharedProcessor].exporter.status == AVAssetExportSessionStatusExporting);
 }
-//-(BOOL)checkUploadsDirectory{
-//    return [[NSFileManager defaultManager] fileExistsAtPath:[NSURL currentVideoFileURL].path];
-//}
+-(BOOL)checkUploadsDirectory{
+    return [[NSFileManager defaultManager] fileExistsAtPath:[NSURL currentVideoFileURL].path];
+}
+
 -(BOOL)isInChallengeMode{
     return ((self.challengeVideoTag != nil) && (self.challengeVideoID != nil) && (self.challengeVideoCategory != nil));
 }

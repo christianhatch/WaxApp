@@ -10,6 +10,7 @@
 #import "SplashViewController.h"
 
 @interface SignupViewController () <UITextFieldDelegate>
+
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *goButton;
 
 @property (strong, nonatomic) IBOutlet UIButton *profilePictureButton;
@@ -20,7 +21,6 @@
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
 
 @property (strong, nonatomic) IBOutlet UILabel *disclaimerLabel;
-
 
 - (IBAction)profilePictureButtonAction:(id)sender;
 - (IBAction)signupButtonAction:(id)sender;
@@ -34,7 +34,7 @@
 @synthesize profilePictureButton, fullNameField, emailField, usernameField, passwordField, disclaimerLabel, goButton, facebookSignup; 
 
 
-- (void)viewDidLoad{
+-(void)viewDidLoad{
     [super viewDidLoad];
     
     [self enableSwipeToPopVC:YES];
@@ -69,6 +69,8 @@
     self.passwordField.hidden = self.facebookSignup;
 
     if (self.facebookSignup) {
+        self.usernameField.returnKeyType = UIReturnKeyGo;
+        
         [SVProgressHUD showWithStatus:NSLocalizedString(@"Loading Facebook Information", @"Loading Facebook Information")];
         
         UIActivityIndicatorView *loadingPicView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -152,16 +154,26 @@
 
 #pragma mark - UITextField Delegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    if (textField == self.fullNameField) {
-        [self.emailField becomeFirstResponder];
-    }else if (textField == self.emailField){
-        [self.usernameField becomeFirstResponder];
-    }else if (textField == self.usernameField){
-        [self.passwordField becomeFirstResponder];
-    }else if (textField == self.passwordField){
-        [self signupButtonAction:self];
+    if (!self.facebookSignup) {
+        if (textField == self.fullNameField) {
+            [self.emailField becomeFirstResponder];
+        }else if (textField == self.emailField){
+            [self.usernameField becomeFirstResponder];
+        }else if (textField == self.usernameField){
+            [self.passwordField becomeFirstResponder];
+        }else if (textField == self.passwordField){
+            [self signupButtonAction:self];
+        }
+    }else{
+        if (textField == self.fullNameField) {
+            [self.emailField becomeFirstResponder];
+        }else if (textField == self.emailField){
+            [self.usernameField becomeFirstResponder];
+        }else if (textField == self.usernameField){
+            [self signupButtonAction:self];
+        }
     }
-    return YES; 
+    return YES;
 }
 
 #pragma mark - Internal Methods

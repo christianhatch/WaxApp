@@ -150,7 +150,7 @@
     [[UITabBar appearance] setBackgroundImage:tabBarBG];
     [[UITabBar appearance] setSelectionIndicatorImage:[[UIImage alloc] init]]; 
     
-    
+        
     UIImage *backButtonDefault = [UIImage stretchyImage:[UIImage imageNamed:@"navbar_back_arrow"] withCapInsets:UIEdgeInsetsMake(0, 20, 0, 0) useImageHeight:NO];
     UIImage *backButtonHighlighted = [UIImage stretchyImage:[UIImage imageNamed:@"navbar_back_arrowOn"] withCapInsets:UIEdgeInsetsMake(0, 20, 0, 0) useImageHeight:NO];
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonDefault forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
