@@ -70,10 +70,11 @@
         return YES; 
     }else{
         
-        /*
-        UINavigationController *nav = (UINavigationController *)self.selectedViewController;
-        if (viewController == self.selectedViewController && nav.visibleViewController == [nav.viewControllers objectAtIndex:0]) {
-            for (UIView *view in nav.visibleViewController.view.subviews) {
+//        /*
+        UINavigationController *selectedNow = (UINavigationController *)self.selectedViewController;
+        
+        if (viewController == self.selectedViewController && selectedNow.visibleViewController == [selectedNow.viewControllers objectAtIndex:0]) {
+            for (UIView *view in selectedNow.visibleViewController.view.subviews) {
                 if ([view isKindOfClass:[UIScrollView class]] && [view respondsToSelector:@selector(setContentOffset:animated:)]) {
                     UIScrollView *scroller = (UIScrollView *)view;
                     [scroller setContentOffset:CGPointMake(0, 0) animated:YES];
@@ -83,7 +84,8 @@
         }else{
             return YES;
         }
-         */
+//         */
+        
         return YES; 
     }
 }

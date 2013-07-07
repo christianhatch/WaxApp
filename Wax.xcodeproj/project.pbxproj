@@ -234,6 +234,7 @@
 		457BBAC8177D445300533B57 /* waxSearchScope_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 457BBAB8177D445300533B57 /* waxSearchScope_on@2x.png */; };
 		457BBAD7177E478000533B57 /* WaxFollowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 457BBAD6177E477F00533B57 /* WaxFollowButton.m */; };
 		457BBAD8177E478000533B57 /* WaxFollowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 457BBAD6177E477F00533B57 /* WaxFollowButton.m */; };
+		458569F91788F86300D8FB83 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458569F81788F86300D8FB83 /* StoreKit.framework */; };
 		4591002A1755979E000D8BCD /* AppledocSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 459100291755979E000D8BCD /* AppledocSettings.plist */; };
 		459C28251725EC82009C5487 /* UIButton+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C281E1725EC82009C5487 /* UIButton+WaxKit.m */; };
 		459C28271725EC82009C5487 /* UIFont+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C28201725EC82009C5487 /* UIFont+WaxKit.m */; };
@@ -571,6 +572,7 @@
 		457BBAB8177D445300533B57 /* waxSearchScope_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "waxSearchScope_on@2x.png"; sourceTree = "<group>"; };
 		457BBAD5177E477F00533B57 /* WaxFollowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxFollowButton.h; sourceTree = "<group>"; };
 		457BBAD6177E477F00533B57 /* WaxFollowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxFollowButton.m; sourceTree = "<group>"; };
+		458569F81788F86300D8FB83 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		459100291755979E000D8BCD /* AppledocSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppledocSettings.plist; sourceTree = "<group>"; };
 		459C281D1725EC82009C5487 /* UIButton+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+WaxKit.h"; sourceTree = "<group>"; };
 		459C281E1725EC82009C5487 /* UIButton+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WaxKit.m"; sourceTree = "<group>"; };
@@ -712,6 +714,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				458569F91788F86300D8FB83 /* StoreKit.framework in Frameworks */,
 				4518ADE0175AC3FA00D5D95C /* MediaPlayer.framework in Frameworks */,
 				4518AD591758FCE700D5D95C /* CoreMedia.framework in Frameworks */,
 				45EA321F17260DA100980320 /* AVFoundation.framework in Frameworks */,
@@ -1293,6 +1296,7 @@
 		45F7161B171F163C009097F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				458569F81788F86300D8FB83 /* StoreKit.framework */,
 				4518ADDE175AAE3600D5D95C /* MediaPlayer.framework */,
 				4518AD581758FCE700D5D95C /* CoreMedia.framework */,
 				4518AD541758FC5300D5D95C /* AssetsLibrary.framework */,
@@ -2045,8 +2049,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2060,6 +2064,7 @@
 					"\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include\"",
 				);
 				INFOPLIST_FILE = "Wax/Wax-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -2074,8 +2079,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "986DEBDA-2E39-4474-82E2-7197482099BA";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "986DEBDA-2E39-4474-82E2-7197482099BA";
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2085,8 +2090,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Acacia Interactive, Inc.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Acacia Interactive, Inc.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2100,6 +2105,7 @@
 					"\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include\"",
 				);
 				INFOPLIST_FILE = "Wax/Wax-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -2224,8 +2230,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2239,6 +2245,7 @@
 					"\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include\"",
 				);
 				INFOPLIST_FILE = "Wax/Wax-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -2253,8 +2260,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "F60F8946-5B82-4293-AEF9-ECB048308F55";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F60F8946-5B82-4293-AEF9-ECB048308F55";
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};

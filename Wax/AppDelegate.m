@@ -10,6 +10,7 @@
 #import <AcaciaKit/TestFlight.h>
 #import <AcaciaKit/Flurry.h>
 
+
 @protocol UIDeviceHack <NSObject>
 -(NSString *)uniqueIdentifier;
 @end
@@ -32,6 +33,7 @@
     if ([[WaxUser currentUser] isLoggedIn]) {
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound |UIRemoteNotificationTypeAlert)];
     }
+    
     [self customizeAppearance];
     [self bootupThirdPartySDKs];
     
@@ -116,20 +118,23 @@
 
 #pragma Internal Methods & Misc. 
 -(void)bootupThirdPartySDKs{
+    /*
 #ifdef DEBUG
-    //    [Appirater setAppId:@"551174140"];
-    //    [Appirater setDaysUntilPrompt:3];
-    //    [Appirater setUsesUntilPrompt:10];
-    //    [Appirater setTimeBeforeReminding:3];
-    //    [Appirater setDelegate:self];
-    //    [Appirater appLaunched:YES];
+    [Appirater setAppId:@"551174140"];
+    [Appirater setDaysUntilPrompt:3];
+    [Appirater setUsesUntilPrompt:10];
+    [Appirater setTimeBeforeReminding:3];
+    [Appirater setDelegate:self];
+    [Appirater appLaunched:YES];
 #endif
+    */
     
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     [AIKFacebookManager setFacebookAppID:kThirdPartyFacebookAppID];
     [AIKTwitterManager setTwitterConsumerKey:kThirdPartyTwitterConsumerKey];
     [AIKTwitterManager setTwitterConsumerSecret:kThirdPartyTwitterConsumerSecret];
     
+    [TestFlight setDeviceIdentifier:[UIDevice currentDevice].identifierForVendor.UUIDString]; 
 #ifndef DEBUG
 #ifdef TESTFLIGHT
     [TestFlight setDeviceIdentifier:[(id<UIDeviceHack>)[UIDevice currentDevice] uniqueIdentifier]];
@@ -188,38 +193,39 @@
     [[UITabBarItem appearance] setTitleTextAttributes:tabBarItemTitleNormal forState:UIControlStateNormal];
     [[UITabBarItem appearance] setTitleTextAttributes:tabBarItemTitleHighlighted forState:UIControlStateSelected];
 
-
-    UIImage *searchBG = [UIImage stretchyImage:[UIImage imageNamed:@"waxSearchBar_bg"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO];
-    UIImage *scopeBGNormal = [UIImage stretchyImage:[UIImage imageNamed:@"waxSearchScope"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO];
-    UIImage *scopeBGSelected = [UIImage stretchyImage:[UIImage imageNamed:@"waxSearchScope_on"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO];
-    
-    [[UISearchBar appearance] setSearchFieldBackgroundImage:searchBG forState:UIControlStateNormal];
-    [[UISearchBar appearance] setBackgroundImage:searchBG]; 
-    [[UISearchBar appearance] setScopeBarButtonBackgroundImage:scopeBGNormal forState:UIControlStateNormal];
-    [[UISearchBar appearance] setScopeBarButtonBackgroundImage:scopeBGSelected forState:UIControlStateSelected];
-    [[UISearchBar appearance] setScopeBarBackgroundImage:searchBG]; 
-    
-    NSDictionary *searchBarButtonNormal = @{UITextAttributeFont: [UIFont waxDefaultFontOfSize:12],
-                                           UITextAttributeTextColor: [UIColor blackColor],
-                                           UITextAttributeTextShadowColor: [UIColor clearColor]};
-    
-    NSDictionary *searchBarButtonHighlighted = @{UITextAttributeFont: [UIFont waxDefaultFontOfSize:12],
-                                                UITextAttributeTextColor: [UIColor lightGrayColor],
+    if (!SYSTEM_VERSION_IS_IOS_7) {
+        UIImage *searchBG = [UIImage stretchyImage:[UIImage imageNamed:@"waxSearchBar_bg"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO];
+        UIImage *scopeBGNormal = [UIImage stretchyImage:[UIImage imageNamed:@"waxSearchScope"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO];
+        UIImage *scopeBGSelected = [UIImage stretchyImage:[UIImage imageNamed:@"waxSearchScope_on"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO];
+        
+        [[UISearchBar appearance] setSearchFieldBackgroundImage:searchBG forState:UIControlStateNormal];
+        [[UISearchBar appearance] setBackgroundImage:searchBG];
+        [[UISearchBar appearance] setScopeBarButtonBackgroundImage:scopeBGNormal forState:UIControlStateNormal];
+        [[UISearchBar appearance] setScopeBarButtonBackgroundImage:scopeBGSelected forState:UIControlStateSelected];
+        [[UISearchBar appearance] setScopeBarBackgroundImage:searchBG];
+        
+        NSDictionary *searchBarButtonNormal = @{UITextAttributeFont: [UIFont waxDefaultFontOfSize:12],
+                                                UITextAttributeTextColor: [UIColor blackColor],
                                                 UITextAttributeTextShadowColor: [UIColor clearColor]};
-
-    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:searchBarButtonNormal  forState:UIControlStateNormal];
-    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:searchBarButtonHighlighted forState:UIControlStateHighlighted];
-
-    NSDictionary *scopeButtonTextNormal = @{UITextAttributeFont: [UIFont waxDetailFontOfSize:12],
-                                            UITextAttributeTextColor: [UIColor blackColor],
-                                            UITextAttributeTextShadowColor: [UIColor clearColor]};
-    
-    NSDictionary *scopeButtonTextSelected = @{UITextAttributeFont: [UIFont waxDetailFontOfSize:12],
-                                            UITextAttributeTextColor: [UIColor whiteColor],
-                                            UITextAttributeTextShadowColor: [UIColor clearColor]};
-    
-    [[UISearchBar appearance] setScopeBarButtonTitleTextAttributes:scopeButtonTextNormal forState:UIControlStateNormal];
-    [[UISearchBar appearance] setScopeBarButtonTitleTextAttributes:scopeButtonTextSelected forState:UIControlStateSelected];
+        
+        NSDictionary *searchBarButtonHighlighted = @{UITextAttributeFont: [UIFont waxDefaultFontOfSize:12],
+                                                     UITextAttributeTextColor: [UIColor lightGrayColor],
+                                                     UITextAttributeTextShadowColor: [UIColor clearColor]};
+        
+        [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:searchBarButtonNormal  forState:UIControlStateNormal];
+        [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:searchBarButtonHighlighted forState:UIControlStateHighlighted];
+        
+        NSDictionary *scopeButtonTextNormal = @{UITextAttributeFont: [UIFont waxDetailFontOfSize:12],
+                                                UITextAttributeTextColor: [UIColor blackColor],
+                                                UITextAttributeTextShadowColor: [UIColor clearColor]};
+        
+        NSDictionary *scopeButtonTextSelected = @{UITextAttributeFont: [UIFont waxDetailFontOfSize:12],
+                                                  UITextAttributeTextColor: [UIColor whiteColor],
+                                                  UITextAttributeTextShadowColor: [UIColor clearColor]};
+        
+        [[UISearchBar appearance] setScopeBarButtonTitleTextAttributes:scopeButtonTextNormal forState:UIControlStateNormal];
+        [[UISearchBar appearance] setScopeBarButtonTitleTextAttributes:scopeButtonTextSelected forState:UIControlStateSelected];
+    }
     
     
     [[UISwitch appearance] setOnTintColor:[UIColor waxRedColor]];

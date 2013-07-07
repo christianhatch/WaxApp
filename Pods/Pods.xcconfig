@@ -1,8 +1,8 @@
-ALWAYS_SEARCH_USER_PATHS = YES
+#include "Pods-Appirater.xcconfig"
+#include "Pods-Lockbox.xcconfig"
+#include "Pods-SVProgressHUD.xcconfig"
+#include "Pods-SVPullToRefresh.xcconfig"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = ${PODS_HEADERS_SEARCH_PATHS}
-OTHER_LDFLAGS = -ObjC -framework QuartzCore -framework Security
-PODS_BUILD_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/Lockbox" "${PODS_ROOT}/BuildHeaders/SVProgressHUD" "${PODS_ROOT}/BuildHeaders/SVPullToRefresh"
-PODS_HEADERS_SEARCH_PATHS = ${PODS_PUBLIC_HEADERS_SEARCH_PATHS}
-PODS_PUBLIC_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/Lockbox" "${PODS_ROOT}/Headers/SVProgressHUD" "${PODS_ROOT}/Headers/SVPullToRefresh"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/Appirater" "${PODS_ROOT}/Headers/Lockbox" "${PODS_ROOT}/Headers/SVProgressHUD" "${PODS_ROOT}/Headers/SVPullToRefresh"
+OTHER_LDFLAGS = -ObjC ${PODS_APPIRATER_OTHER_LDFLAGS} ${PODS_LOCKBOX_OTHER_LDFLAGS} ${PODS_SVPROGRESSHUD_OTHER_LDFLAGS} ${PODS_SVPULLTOREFRESH_OTHER_LDFLAGS}
 PODS_ROOT = ${SRCROOT}/Pods
