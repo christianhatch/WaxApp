@@ -263,7 +263,7 @@
     [self.currentUpload removeFromDisk];
     self.currentUpload = nil;
     
-    [self clearChallengeData];
+    [self clearChallengeData]; 
     
     if (completion) {
         [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to facebook from share page: %@", [NSString localizedStringFromBool:self.currentUpload.shareToFacebook]]];

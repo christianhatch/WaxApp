@@ -15,6 +15,8 @@ typedef void(^WaxDataManagerCompletionBlockTypeSimple)(NSError *error);
 
 + (WaxDataManager *)sharedManager;
 
+@property (nonatomic, strong) NSDictionary *remoteNotification;
+
 //universal
 @property (nonatomic, strong) NSMutableArray *homeFeed;
 -(void)updateHomeFeedWithInfiniteScroll:(BOOL)infiniteScroll

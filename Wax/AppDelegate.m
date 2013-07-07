@@ -20,12 +20,13 @@
 #ifdef DEBUG
     [SBAPNSPusher start];
 #endif
+    
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"initialLaunch"]) {
         [self initialLaunch];
     }
     
-    if (launchOptions) {
-        [self handleLaunchingFromRemoteNotification:[launchOptions objectForKeyOrNil:UIApplicationLaunchOptionsRemoteNotificationKey]];
+    if ([launchOptions objectForKeyOrNil:UIApplicationLaunchOptionsRemoteNotificationKey] != nil) {
+        [self handleRemoteNotification:[launchOptions objectForKeyOrNil:UIApplicationLaunchOptionsRemoteNotificationKey]];
     }
     
     if ([[WaxUser currentUser] isLoggedIn]) {
@@ -60,19 +61,24 @@
     [AIKErrorManager logMessage:@"Did Fail To Register For Remote Notifications" withError:error];
 }
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-    if (application.applicationState != UIApplicationStateActive) {
-        [self handleLaunchingFromRemoteNotification:userInfo];
-    }else{
-        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationRemoteNotificationReceived object:self userInfo:userInfo];
-//        [[WaxDataManager sharedManager] updateNotificationCountWithCompletion:nil];
-//        [[WaxDataManager sharedManager] updateNotificationsWithInfiniteScroll:NO completion:nil];
-    }
+ 
+    [self handleRemoteNotification:userInfo];
+
     [UIApplication resetBadge];
 }
--(void)handleLaunchingFromRemoteNotification:(NSDictionary *)note{
-//    [AIKErrorManager showAlertWithTitle:@"Note" message:[NSString stringWithFormat:@"%@", note] buttonHandler:nil logError:NO];
 
-    [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationRemoteNotificationReceived object:self userInfo:note]; 
+-(void)handleRemoteNotification:(NSDictionary *)note{
+    
+    switch ([UIApplication sharedApplication].applicationState) {
+        case UIApplicationStateInactive:
+        case UIApplicationStateBackground:{
+            [WaxDataManager sharedManager].remoteNotification = note; 
+        }break;
+        case UIApplicationStateActive:{
+            [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationRemoteNotificationReceived object:self userInfo:note];
+        }break;
+    }
+
 }
 
 

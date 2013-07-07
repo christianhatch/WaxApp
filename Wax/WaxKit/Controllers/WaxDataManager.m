@@ -29,7 +29,8 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
 @synthesize homeFeed = _homeFeed, myFeed = _myFeed, notifications = _notifications; 
 @synthesize categories = _categories, discoverArray = _discoverArray;
 @synthesize profileFeed = _profileFeed, tagFeed = _tagFeed, personList = _personList; 
-@synthesize lastTagID = _lastTagID, lastFeedUserID = _lastFeedUserID, lastPersonListUserID = _lastPersonListUserID; 
+@synthesize lastTagID = _lastTagID, lastFeedUserID = _lastFeedUserID, lastPersonListUserID = _lastPersonListUserID;
+@synthesize remoteNotification = _remoteNotification; 
 
 #pragma mark - Alloc & Init
 + (WaxDataManager *)sharedManager {
@@ -40,6 +41,7 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
     });
     return sharedID;
 }
+
 #pragma mark - Public API
 -(void)updateHomeFeedWithInfiniteScroll:(BOOL)infiniteScroll completion:(WaxDataManagerCompletionBlockTypeSimple)completion{
     

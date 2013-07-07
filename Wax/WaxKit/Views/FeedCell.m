@@ -162,9 +162,13 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 
 - (IBAction)challengeButtonAction:(id)sender {
     
-    [[VideoUploadManager sharedManager] beginUploadProcessWithVideoID:self.videoObject.videoID competitionTag:self.videoObject.tag category:self.videoObject.category];
-    [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationPresentVideoCamera object:self]; 
-
+    [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithBlock:^(BOOL cancelled) {
+        if (cancelled) {
+            [[VideoUploadManager sharedManager] beginUploadProcessWithVideoID:self.videoObject.videoID competitionTag:self.videoObject.tag category:self.videoObject.category];
+            [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationPresentVideoCamera object:self ];
+        }
+    }];
+    
 }
 
 - (IBAction)voteButtonAction:(id)sender {
