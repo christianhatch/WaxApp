@@ -98,16 +98,11 @@
 -(void)capture{
     [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithBlock:^(BOOL cancelled) {
         if (cancelled) {
-            if (!SYSTEM_VERSION_IS_IOS_7) {
-                VideoCameraViewController *video = [[VideoCameraViewController alloc] init];
-                [self presentViewController:video animated:YES completion:nil];
-            }else{
-                [SVProgressHUD showErrorWithStatus:@"Not on ios 7!"];
-            }
+            VideoCameraViewController *video = [[VideoCameraViewController alloc] init];
+            [self presentViewController:video animated:YES completion:nil];
         }
     }];
 }
-
 
 #pragma mark - Internal Methods
 

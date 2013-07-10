@@ -1960,6 +1960,7 @@
 /* Begin XCBuildConfiguration section */
 		459100201755906E000D8BCD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1969,6 +1970,7 @@
 		};
 		459100221755906E000D8BCD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1978,6 +1980,7 @@
 		};
 		459100231755906E000D8BCD /* TestFlight */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1987,6 +1990,7 @@
 		};
 		45F7164F171F163D009097F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -2018,6 +2022,7 @@
 		};
 		45F71650171F163D009097F3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -2049,8 +2054,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2079,8 +2084,9 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "986DEBDA-2E39-4474-82E2-7197482099BA";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "986DEBDA-2E39-4474-82E2-7197482099BA";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) \"${PODS_ROOT}/BuildHeaders\" $(BUILT_PRODUCTS_DIR)/** \"$(SRCROOT)/Pods/Headers/\"/**";
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2120,8 +2126,9 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7949147B-BC6D-4D69-A97E-3349A150E9AC";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7949147B-BC6D-4D69-A97E-3349A150E9AC";
+				PROVISIONING_PROFILE = "5542C230-6C55-4260-A13F-06D5965BBC1F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5542C230-6C55-4260-A13F-06D5965BBC1F";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) \"${PODS_ROOT}/BuildHeaders\" $(BUILT_PRODUCTS_DIR)/** \"$(SRCROOT)/Pods/Headers/\"/**";
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2199,6 +2206,7 @@
 		};
 		45F71661171F18D7009097F3 /* TestFlight */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -2230,8 +2238,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2260,8 +2268,9 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F60F8946-5B82-4293-AEF9-ECB048308F55";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F60F8946-5B82-4293-AEF9-ECB048308F55";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) \"${PODS_ROOT}/BuildHeaders\" $(BUILT_PRODUCTS_DIR)/** \"$(SRCROOT)/Pods/Headers/\"/**";
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};

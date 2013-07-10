@@ -9,10 +9,15 @@
 #import "AppDelegate.h"
 #import <AcaciaKit/TestFlight.h>
 #import <AcaciaKit/Flurry.h>
+//#import "Appirater.h"
+//#import "AppiraterDelegate.h" 
 
+//@protocol UIDeviceHack <NSObject>
+//-(NSString *)uniqueIdentifier;
+//@end
 
-@protocol UIDeviceHack <NSObject>
--(NSString *)uniqueIdentifier;
+@interface AppDelegate () 
+
 @end
 
 @implementation AppDelegate
@@ -134,10 +139,10 @@
     [AIKTwitterManager setTwitterConsumerKey:kThirdPartyTwitterConsumerKey];
     [AIKTwitterManager setTwitterConsumerSecret:kThirdPartyTwitterConsumerSecret];
     
-    [TestFlight setDeviceIdentifier:[UIDevice currentDevice].identifierForVendor.UUIDString]; 
 #ifndef DEBUG
 #ifdef TESTFLIGHT
-    [TestFlight setDeviceIdentifier:[(id<UIDeviceHack>)[UIDevice currentDevice] uniqueIdentifier]];
+    [TestFlight setDeviceIdentifier:[UIDevice currentDevice].identifierForVendor.UUIDString];
+//    [TestFlight setDeviceIdentifier:[(id<UIDeviceHack>)[UIDevice currentDevice] uniqueIdentifier]];
 #endif
     [TestFlight takeOff:kThirdPartyTestFlightAPIKey];
     [Flurry startSession:kThirdPartyFlurryAPIKey];

@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <UIScrollView+SVInfiniteScrolling.h>
-#import <UIScrollView+SVPullToRefresh.h>
+#import "UIScrollView+SVInfiniteScrolling.h"
+#import "UIScrollView+SVPullToRefresh.h"
 #import "WaxTableViewCell.h"
 
 
@@ -24,5 +24,6 @@
 @property (nonatomic, readwrite) BOOL automaticallyHideInfiniteScrolling; //default is YES
 
 -(void)setEmptyViewMessageText:(NSString *)message;
+
 
 @end
