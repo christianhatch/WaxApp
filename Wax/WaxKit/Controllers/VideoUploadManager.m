@@ -269,8 +269,7 @@
         [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to facebook from share page: %@", [NSString localizedStringFromBool:self.currentUpload.shareToFacebook]]];
         [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to twitter from share page: %@", [NSString localizedStringFromBool:self.currentUpload.shareToTwitter]]];
         [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared location with video: %@", [NSString localizedStringFromBool:self.currentUpload.shareLocation]]];
-        [[WaxDataManager sharedManager] updateHomeFeedWithInfiniteScroll:NO completion:nil];
-        [[WaxDataManager sharedManager] updateMyFeedWithInfiniteScroll:NO completion:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationVideoUploadCompleted object:self]; 
         completion();
     }
 }

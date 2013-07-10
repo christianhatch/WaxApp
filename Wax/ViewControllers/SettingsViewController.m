@@ -26,6 +26,8 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     
+    self.clearsSelectionOnViewWillAppear = YES;
+    
     [self setUpView];
     self.navigationItem.title = NSLocalizedString(@"Settings", @"Settings"); 
 }
@@ -37,23 +39,6 @@
 
 -(void)cameraRollSwitched:(UISwitch *)sender{
     [[NSUserDefaults standardUserDefaults] setBool:self.cameraRollSwitch.on forKey:kUserSaveToCameraRollKey];
-}
-
-#pragma mark - Internal Methods
--(void)sendFeedback{
-    if ([MFMailComposeViewController canSendMail]) {
-        MFMailComposeViewController *mailie = [[MFMailComposeViewController alloc] init];
-                        
-        [mailie setSubject:[NSString stringWithFormat:@"Feedback for %@", [NSString appNameVersionAndBuildString]]];
-        [mailie setToRecipients:@[@"dev@wax.li"]];
-        [mailie setMessageBody:[NSString stringWithFormat:@"\n\n\n\n\n\n%@\n%@", [NSString appNameVersionAndBuildString], [NSString deviceModelAndVersionString]] isHTML:NO];
-        [mailie setMailComposeDelegate:self];
-        [self presentViewController:mailie animated:YES completion:nil];
-        
-    }else{
-        UIAlertView *nomail = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Send Email", @"Cannot Send Email") message:NSLocalizedString(@"Messaging is not available on this device at this time.", @"Messaging is not available on this device at this time.") cancelButtonItem:[RIButtonItem randomDismissalButton] otherButtonItems:nil, nil];
-        [nomail show];
-    }
 }
 
 
@@ -102,14 +87,32 @@
     return title;
 }
 
+#pragma mark - Internal Methods
+-(void)sendFeedback{
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *mailie = [[MFMailComposeViewController alloc] init];
+        
+        [mailie setSubject:[NSString stringWithFormat:@"Feedback for %@", [NSString appNameVersionAndBuildString]]];
+        [mailie setToRecipients:@[@"dev@wax.li"]];
+        [mailie setMessageBody:[NSString stringWithFormat:@"\n\n\n\n\n\n%@\n%@", [NSString appNameVersionAndBuildString], [NSString deviceModelAndVersionString]] isHTML:NO];
+        [mailie setMailComposeDelegate:self];
+        [self presentViewController:mailie animated:YES completion:nil];
+        
+    }else{
+        UIAlertView *nomail = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Send Email", @"Cannot Send Email") message:NSLocalizedString(@"Messaging is not available on this device at this time.", @"Messaging is not available on this device at this time.") cancelButtonItem:[RIButtonItem randomDismissalButton] otherButtonItems:nil, nil];
+        [nomail show];
+    }
+}
+
 
 #pragma mark - MailComposeDelegate
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
+    
     [controller dismissViewControllerAnimated:YES completion:nil];
+    
     switch (result) {
         case MFMailComposeResultSent:{
             RIButtonItem *item = [RIButtonItem itemWithLabel:NSLocalizedString(@"You're Welcome!", @"You're Welcome!")];
-            item.action = nil;
             UIAlertView *nomail = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Thanks So Much!", @"Thanks So Much!") message:NSLocalizedString(@"Thanks for the feedback, we'll read it right away!", @"Thanks for the feedback, we'll read it right away!") cancelButtonItem:item otherButtonItems:nil, nil];
             [nomail show];
         }break;

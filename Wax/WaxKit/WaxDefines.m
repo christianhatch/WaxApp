@@ -55,6 +55,7 @@ NSString *const kWaxNotificationTwitterAccountDidChange = @"waxUserTwitterAccoun
 NSString *const kWaxNotificationFacebookAccountDidChange = @"waxUserFacebookAccountDidChangeNotification"; 
 NSString *const kWaxNotificationPresentVideoCamera = @"waxShowVideoCameraNotification"; 
 NSString *const kWaxNotificationRemoteNotificationReceived = @"waxRemoteNotificationReceivedNotification"; 
+NSString *const kWaxNotificationVideoUploadCompleted = @"waxVideoUploadDidCompleteNotification"; 
 
 
 #define KWLaunchOptionGotoIDKey             @"pID"

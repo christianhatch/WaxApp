@@ -20,30 +20,25 @@ typedef void(^WaxUserCompletionBlockTypeProfilePicture)(UIImage *profilePicture,
 
 +(WaxUser *)currentUser;
 
-#pragma mark - User Information Getters
--(NSString *)token;
--(NSString *)userID;
+#pragma mark - User Information Properties
+@property (nonatomic, strong) NSString *token;
+@property (nonatomic, strong) NSString *userID;
 
--(NSString *)username;
--(NSString *)fullName;
--(NSString *)email;
+@property (nonatomic, strong) NSString *username;
+@property (nonatomic, strong) NSString *fullName;
+@property (nonatomic, strong) NSString *email;
 
--(NSString *)facebookAccountID;
--(NSString *)twitterAccountID;
--(NSString *)twitterAccountName;
+@property (nonatomic, strong) NSString *facebookAccountID;
+@property (nonatomic, strong) NSString *twitterAccountID;
+@property (nonatomic, strong) NSString *twitterAccountName;
 
-#pragma mark - User Information Setters
--(void)saveToken:(NSString *)token;
--(void)saveUserID:(NSString *)userID;
+@property (nonatomic, readonly) BOOL isLoggedIn;
+@property (nonatomic, readonly) BOOL twitterAccountConnected;
+@property (nonatomic, readonly) BOOL facebookAccountConnected;
 
--(void)saveUserame:(NSString *)username;
--(void)saveFullName:(NSString *)fullName;
--(void)saveEmail:(NSString *)email;
+@property (nonatomic, copy, readonly) PersonObject *personObject;
 
--(void)saveFacebookAccountID:(NSString *)facebookAccountID;
--(void)saveTwitterAccountID:(NSString *)twitterAccountID;
-
-#pragma mark - Signup/Login/Logout/Update Pic
+#pragma mark - Signup/Login/Logout
 -(void)createAccountWithUsername:(NSString *)username
                         fullName:(NSString *)fullName
                            email:(NSString *)email
@@ -59,6 +54,9 @@ typedef void(^WaxUserCompletionBlockTypeProfilePicture)(UIImage *profilePicture,
                 password:(NSString *)password
               completion:(WaxUserCompletionBlockTypeSimple)completion;
 
+-(void)logOut;
+
+#pragma mark - Profile Picture
 -(void)chooseNewprofilePicture:(UIViewController *)sender completion:(WaxUserCompletionBlockTypeProfilePicture)completion;
 
 -(void)updateProfilePictureOnServer:(UIImage *)profilePicture
@@ -67,17 +65,12 @@ typedef void(^WaxUserCompletionBlockTypeProfilePicture)(UIImage *profilePicture,
 
 -(void)syncFacebookProfilePictureWithCompletion:(WaxUserCompletionBlockTypeSimple)completion;
 
--(void)logOut;
-
-#pragma mark - Utility Methods
--(PersonObject *)personObject; 
-
--(BOOL)isLoggedIn;
--(BOOL)twitterAccountConnected;
--(BOOL)facebookAccountConnected;
+#pragma mark - Social Accounts
 -(void)chooseTwitterAccountWithCompletion:(WaxUserCompletionBlockTypeSimple)completion;
+
 -(void)connectFacebookWithCompletion:(WaxUserCompletionBlockTypeSimple)completion; 
 
+#pragma mark - Utility Methods
 +(BOOL)userIDIsCurrentUser:(NSString *)userID;
 +(void)resetForInitialLaunch;
 

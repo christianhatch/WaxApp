@@ -76,7 +76,9 @@
 }
 -(void)didMoveToSuperview{
     [super didMoveToSuperview];
-    [self triggerPullToRefresh]; 
+    if (self.superview != nil) {
+        [self triggerPullToRefresh];
+    }
 }
 -(void)deleteCellAtIndexPath:(NSIndexPath *)indexPath{
     [[self proxyDataSourceArray] removeObjectAtIndex:indexPath.row];

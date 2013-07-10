@@ -74,6 +74,9 @@
     [self setUpFollowingLabel]; 
 }
 -(void)setPerson:(PersonObject *)person{
+    
+    NSParameterAssert(person);
+    
     if (_person != person) {
         _person = person; 
         [self setUpView];

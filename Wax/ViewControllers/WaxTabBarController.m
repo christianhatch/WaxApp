@@ -36,58 +36,48 @@
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    if (![[WaxUser currentUser] isLoggedIn]) {
-        [self showSplashScreen];
+    if ([[WaxUser currentUser] isLoggedIn]) {
+        [self handleAppLaunchFromRemoteNotificationIfApplicable];
     }else{
-        if ([WaxDataManager sharedManager].remoteNotification) {
-            
-            [self selectNotificationTab];
-            [WaxDataManager sharedManager].remoteNotification = nil;
-            
-        }
+        [self showSplashScreen];
     }
 }
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+  
+    UINavigationController *navigationController = (UINavigationController *)viewController;
+
+    BOOL shouldSelectReturnValue = YES;
+     
     if ([viewController.title isEqualToString:@"Capture"]){
+        
+        shouldSelectReturnValue = NO;
+        
         [AIKLocationManager getAuthorizationStatusOrAskIfUndetermined];
         [self captureFromTabBar];
-        return NO;
-        
+       
     }else if ([viewController.title isEqualToString:@"Me"]){
-        UINavigationController *nav = (UINavigationController *)viewController;
 
-        ProfileViewController *profile = [nav.viewControllers objectAtIndexOrNil:0];
-        if ([profile isKindOfClass:[ProfileViewController class]]) {
+        if ([navigationController.viewControllers.firstObject isKindOfClass:[ProfileViewController class]]) {
+            ProfileViewController *profile = navigationController.viewControllers.firstObject;
             profile.person = [[WaxUser currentUser] personObject];
         }
         
-        return YES;
     }else if([viewController.title isEqualToString:@"Notifications"]){
         
         [WaxDataManager sharedManager].notificationCount = @0;
         [self updateNoteCountAndUpdateBadge];
         
-        return YES; 
-    }else{
+    }else if ([self isThirdTapOnViewController:viewController]){
         
-//        /*
-        UINavigationController *selectedNow = (UINavigationController *)self.selectedViewController;
-        
-        if (viewController == self.selectedViewController && selectedNow.visibleViewController == [selectedNow.viewControllers objectAtIndex:0]) {
-            for (UIView *view in selectedNow.visibleViewController.view.subviews) {
-                if ([view isKindOfClass:[UIScrollView class]] && [view respondsToSelector:@selector(setContentOffset:animated:)]) {
-                    UIScrollView *scroller = (UIScrollView *)view;
-                    [scroller setContentOffset:CGPointMake(0, 0) animated:YES];
-                }
-            }
-            return NO;
-        }else{
-            return YES;
+        shouldSelectReturnValue = NO;
+
+        if ([navigationController.visibleViewController respondsToSelector:@selector(scrollAllScrollViewSubviewsToTopAnimated:)]) {
+            [navigationController.visibleViewController scrollAllScrollViewSubviewsToTopAnimated:YES];
         }
-//         */
         
-        return YES; 
     }
+    
+    return shouldSelectReturnValue;
 }
 
 
@@ -105,20 +95,23 @@
 }
 
 #pragma mark - Internal Methods
-
+-(void)handleAppLaunchFromRemoteNotificationIfApplicable{
+    if ([WaxDataManager sharedManager].remoteNotification) {
+        
+        [self selectNotificationTab];
+        [WaxDataManager sharedManager].remoteNotification = nil;
+        
+    }
+}
 -(void)handleRemoteNoteFromNotification:(NSNotification *)note{
     [self updateNoteCountAndUpdateBadge];
 }
 
 -(void)showSplashScreen{
-    UINavigationController *nav = initViewControllerWithIdentifier(@"SplashNav");
+    UINavigationController *splashAndLoginFlow = initViewControllerWithIdentifier(@"SplashNav");
     
-    [self presentViewController:nav animated:YES completion:^{
-        for (UINavigationController *nav in self.viewControllers) {
-            if ([nav respondsToSelector:@selector(popToRootViewControllerAnimated:)]) {
-                [nav popToRootViewControllerAnimated:NO];
-            }
-        }
+    [self presentViewController:splashAndLoginFlow animated:YES completion:^{
+        [self popAllNavigationChildrenViewControllersToRootViewControllerAnimated:NO]; 
         [self setSelectedIndex:0];
     }];
 }
@@ -134,7 +127,6 @@
     NSString *count = [WaxDataManager sharedManager].notificationCount.intValue == 0 ? nil : [NSString stringWithFormat:@"%@", [WaxDataManager sharedManager].notificationCount];
     [[self.tabBar.items objectAtIndexOrNil:3] setBadgeValue:count];
 }
-         
 -(void)selectNotificationTab{
     [self setSelectedIndex:3];
 }

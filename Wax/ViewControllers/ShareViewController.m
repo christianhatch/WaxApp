@@ -42,8 +42,12 @@
 -(void)setUpView{
     self.navigationItem.title = NSLocalizedString(@"Share", @"Share");
 
-    self.tagField.autocorrectionType = UITextAutocorrectionTypeNo; 
-    self.instructionsLabel.text = NSLocalizedString(@"Choose a competition tag", @"Choose a competition tag");
+    self.tagField.autocorrectionType = UITextAutocorrectionTypeNo;
+    for (UILabel *lbl in @[self.instructionsLabel, self.facebookLabel, self.twitterLabel, self.locationLabel]) {
+        [lbl setWaxDefaultFont];
+        lbl.textAlignment = NSTextAlignmentLeft; 
+    }
+    self.instructionsLabel.text = NSLocalizedString(@"create a CompetitionTag above", @"Choose a competition tag");
     self.facebookLabel.text = NSLocalizedString(@"Share to Facebook", @"Share to Facebook");
     self.twitterLabel.text = NSLocalizedString(@"Share to Twitter", @"Share to Twitter");
     self.locationLabel.text = NSLocalizedString(@"Include Location", @"Include Location");
@@ -62,14 +66,10 @@
 -(void)setUpTagAndCategoryFields{
     if ([[VideoUploadManager sharedManager] isInChallengeMode]) {
         self.tagField.text = [[VideoUploadManager sharedManager] challengeVideoTag];
-//        self.tagField.enabled = NO;
         [self.categoryButton styleAsWaxRoundButtonBlueWithTitle:[[VideoUploadManager sharedManager] challengeVideoCategory]];
-//        self.categoryButton.enabled = NO; 
     }else{
-//        self.tagField.enabled = YES;
-        self.tagField.placeholder = NSLocalizedString(@"competition tag", @"competition tag");
-        [self.categoryButton styleAsWaxRoundButtonBlueWithTitle:NSLocalizedString(@"Choose Category", @"Choose Category")];
-//        self.categoryButton.enabled = YES; 
+        self.tagField.placeholder = NSLocalizedString(@"ExampleCompetitionTag", @"competition tag field placeholder");
+        [self.categoryButton styleAsWaxRoundButtonBlueWithTitle:NSLocalizedString(@"tap to choose category", @"tap to choose category")];
     }
 }
 -(void)finish:(id)sender{

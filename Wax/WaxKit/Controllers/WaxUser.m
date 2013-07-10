@@ -80,14 +80,30 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 -(NSString *)twitterAccountName{
     NSString *name = @"none";
     if ([self twitterAccountConnected]) {
-        ACAccount *twitter = [[AIKTwitterManager sharedManager] accountForIdentifier:[self twitterAccountID]];
+        ACAccount *twitter = [[AIKTwitterManager sharedManager] accountForIdentifier:self.twitterAccountID];
         name = [NSString stringWithFormat:@"@%@",twitter.username];
     }
     return name;
 }
+-(BOOL)isLoggedIn{
+    return ((![self.userID isEqualToString:kFalseString]) && (![self.token isEqualToString:kFalseString]));
+}
+-(BOOL)twitterAccountConnected{
+    return (![self.twitterAccountID isEqualToString:kFalseString]);
+}
+-(BOOL)facebookAccountConnected{
+    return (![self.facebookAccountID isEqualToString:kFalseString]);
+}
+-(PersonObject *)personObject{
+    PersonObject *me = [[PersonObject alloc] init];
+    me.userID = self.userID;
+    me.username = self.username;
+    me.fullName = self.fullName;
+    return me;
+}
 
 #pragma mark - User Information Setters
--(void)saveToken:(NSString *)token{
+-(void)setToken:(NSString *)token{
     if ([NSString isEmptyOrNil:token]){
         [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Internal Error", @"Internal Error") message:NSLocalizedString(@"Wax has encountered and internal error, and you have been logged out. Please log in again.", @"Wax has encountered and internal error, and you have been logged out Please log in again.") buttonTitle:NSLocalizedString(@"OK", @"OK") showsCancelButton:NO buttonHandler:^{
             [self logOut];
@@ -96,7 +112,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         [Lockbox setString:token forKey:kUserTokenKey];
     }
 }
--(void)saveUserID:(NSString *)userID{
+-(void)setUserID:(NSString *)userID{
     if ([NSString isEmptyOrNil:userID]){
         [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Internal Error", @"Internal Error") message:NSLocalizedString(@"Wax has encountered and internal error, and you have been logged out. Please log in again.", @"Wax has encountered and internal error, and you have been logged out Please log in again.") buttonTitle:NSLocalizedString(@"OK", @"OK") showsCancelButton:NO buttonHandler:^{
             [self logOut];
@@ -106,24 +122,22 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     }
 }
 
--(void)saveUserame:(NSString *)username{
+-(void)setUsername:(NSString *)username{
     [Lockbox setString:username forKey:kUserNameKey];
 }
--(void)saveFullName:(NSString *)fullName{
+-(void)setFullName:(NSString *)fullName{
     [Lockbox setString:fullName forKey:kUserFirstNameKey];
 }
--(void)saveEmail:(NSString *)email{
+-(void)setEmail:(NSString *)email{
     [Lockbox setString:email forKey:kUserEmailKey];
 }
 
--(void)saveFacebookAccountID:(NSString *)facebookAccountID{
-    if ([NSString isEmptyOrNil:facebookAccountID]){
-        [AIKErrorManager logMessageToAllServices:@"tried to save null fb ID"]; 
-    }else{
+-(void)setFacebookAccountID:(NSString *)facebookAccountID{
+    if (![NSString isEmptyOrNil:facebookAccountID]){
         [Lockbox setString:facebookAccountID forKey:kUserFacebookAccountIDKey];
     }
 }
--(void)saveTwitterAccountID:(NSString *)twitterAccountID{
+-(void)setTwitterAccountID:(NSString *)twitterAccountID{
     if ([NSString isEmptyOrNil:twitterAccountID]){
         [AIKErrorManager logMessageToAllServices:@"tried to save null twitter ID"];
     }else{
@@ -174,14 +188,15 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     }];
 }
 -(void)finishLoggingInAndSaveUserInformation:(LoginObject *)loginResponse completion:(WaxUserCompletionBlockTypeSimple)completion{
-    [self saveToken:loginResponse.token];
-    [self saveUserID:loginResponse.userID];
-    
-    [self saveUserame:loginResponse.username];
-    [self saveFullName:loginResponse.fullName];
-    [self saveEmail:loginResponse.email];
-    
-    [self saveFacebookAccountID:loginResponse.facebookID];
+
+    self.token = loginResponse.token;
+    self.userID = loginResponse.userID;
+
+    self.username = loginResponse.username;
+    self.fullName = loginResponse.fullName;
+    self.email = loginResponse.email;
+
+    self.facebookAccountID = loginResponse.facebookID;
     
     [self saveCurrentUserToVendorSolutions];
     
@@ -199,8 +214,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     
     UIActionSheet *profPicSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Choose Profile Picture", @"Choose Profile Picture") cancelButtonItem:nil destructiveButtonItem:nil otherButtonItems:nil, nil];
       
-    RIButtonItem *choosePic = [RIButtonItem item];
-    choosePic.label = NSLocalizedString(@"Choose Picture", @"Choose Picture");
+    RIButtonItem *choosePic = [RIButtonItem itemWithLabel:NSLocalizedString(@"Choose Picture", @"Choose Picture")];
     choosePic.action = ^{
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         picker.delegate = self;
@@ -208,8 +222,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         [sender presentViewController:picker animated:YES completion:nil];
     };
-    RIButtonItem *takePic = [RIButtonItem item];
-    takePic.label = NSLocalizedString(@"Take Picture", @"Take Picture");
+    RIButtonItem *takePic = [RIButtonItem itemWithLabel:NSLocalizedString(@"Take Picture", @"Take Picture")];
     takePic.action = ^{
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         picker.delegate = self;
@@ -219,17 +232,15 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
         [sender presentViewController:picker animated:YES completion:nil];
     };
-    RIButtonItem *cancel = [RIButtonItem item];
-    cancel.label = NSLocalizedString(@"Cancel", @"Cancel");
+    RIButtonItem *cancel = [RIButtonItem cancelButton];
     cancel.action = ^{
         if (completion) {
             completion(nil, nil); 
         }
     };
     
-    if ([self facebookAccountConnected]) {
-        RIButtonItem *fbook = [RIButtonItem item];
-        fbook.label = NSLocalizedString(@"Use Facebook Profile Picture", @"Use Facebook Profile Picture");
+    if (self.facebookAccountConnected) {
+        RIButtonItem *fbook = [RIButtonItem itemWithLabel:NSLocalizedString(@"Use Facebook Profile Picture", @"Use Facebook Profile Picture")];
         fbook.action = ^{
             [self syncFacebookProfilePictureWithCompletion:^(NSError *error) {
                 if (completion) {
@@ -323,13 +334,6 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 }
 
 #pragma mark - Utility Methods
--(PersonObject *)personObject{
-    PersonObject *me = [[PersonObject alloc] init];
-    me.userID = self.userID;
-    me.username = self.username;
-    me.fullName = self.fullName;
-    return me; 
-}
 -(SettingsObject *)settingsObject{
     SettingsObject *settings = [[SettingsObject alloc] init];
     settings.username = self.username;
@@ -339,27 +343,18 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     settings.pushSettings = [NSDictionary dictionary];
     return settings; 
 }
--(BOOL)isLoggedIn{
-    return ((![[self userID] isEqualToString:kFalseString]) && (![[self token] isEqualToString:kFalseString]));
-}
--(BOOL)twitterAccountConnected{
-    return (![[self twitterAccountID] isEqualToString:kFalseString]);
-}
--(BOOL)facebookAccountConnected{
-    return (![[self facebookAccountID] isEqualToString:kFalseString]);
-}
 +(BOOL)userIDIsCurrentUser:(NSString *)userID{
-    return [[[WaxUser currentUser] userID] isEqualToString:userID];
+    return [[WaxUser currentUser].userID isEqualToString:userID];
 }
 -(void)chooseTwitterAccountWithCompletion:(WaxUserCompletionBlockTypeSimple)completion{
-    [[AIKTwitterManager sharedManager] chooseTwitterAccountAlreadyConnected:[self twitterAccountConnected] withCompletion:^(ACAccount *twitterAccount, NSError *error) {
+    [[AIKTwitterManager sharedManager] chooseTwitterAccountAlreadyConnected:self.twitterAccountConnected withCompletion:^(ACAccount *twitterAccount, NSError *error) {
         if (twitterAccount) {
-            [self saveTwitterAccountID:twitterAccount.identifier];
+            self.twitterAccountID = twitterAccount.identifier;
             if (completion) {
                 completion(nil);
             }
         }else{
-            [self saveTwitterAccountID:kFalseString];
+            self.twitterAccountID = kFalseString;
             if (completion) {
                 completion(error); 
             }
@@ -373,7 +368,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         }else{
             [[WaxAPIClient sharedClient] connectFacebookAccountWithFacebookID:user.id completion:^(BOOL complete, NSError *error) {
                 if (!error) {
-                    [self saveFacebookAccountID:user.id];
+                    self.facebookAccountID = user.id;
                 }else{
                     [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error Connecting Facebook to Wax", @"Error Connecting Facebook to Wax") error:error buttonHandler:nil logError:NO];
                 }
@@ -383,30 +378,36 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 }
 -(void)saveCurrentUserToVendorSolutions{
     [Flurry setUserID:self.userID];
+    
     [Crashlytics setUserIdentifier:self.userID];
     [Crashlytics setUserName:self.username];
     [Crashlytics setUserEmail:self.email];
+    
     [Crashlytics setObjectValue:[NSString versionAndBuildString] forKey:@"Version"];
     [Crashlytics setObjectValue:self.userID forKey:@"userid"];
     [Crashlytics setObjectValue:self.username forKey:@"username"];
     [Crashlytics setObjectValue:self.email forKey:@"email"];
 }
+
 +(void)resetForInitialLaunch{
-    [[WaxUser currentUser] saveToken:kFalseString];
-    [[WaxUser currentUser] saveUserID:kFalseString];
+    [WaxUser currentUser].token = kFalseString;
+    [WaxUser currentUser].userID = kFalseString;
     
-    [[WaxUser currentUser] saveUserame:kFalseString];
-    [[WaxUser currentUser] saveFullName:kFalseString];
-    [[WaxUser currentUser] saveEmail:kFalseString];
+    [WaxUser currentUser].username = kFalseString;
+    [WaxUser currentUser].fullName = kFalseString;
+    [WaxUser currentUser].email = kFalseString;
     
-    [[WaxUser currentUser] saveTwitterAccountID:kFalseString];
-    [[WaxUser currentUser] saveFacebookAccountID:kFalseString];
+    [WaxUser currentUser].twitterAccountID = kFalseString;
+    [WaxUser currentUser].facebookAccountID = kFalseString;
+    
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUserSaveToCameraRollKey];
 }
 
 
-
-
+-(NSString *)description{
+    NSString *descrippy = [NSString stringWithFormat:@"WaxUser Description: Token=%@ UserID=%@ Username=%@ FullName=%@ Email=%@ FacebookAccountID=%@ TwitterAccountID=%@ TwitterAccountName=%@ isLoggedIn=%@ TwitterAccountConnected=%@ FacebookAccountConnected=%@", self.token, self.userID, self.username, self.fullName, self.email, self.facebookAccountID, self.twitterAccountID, self.twitterAccountName, [NSString localizedStringFromBool:self.isLoggedIn], [NSString localizedStringFromBool:self.twitterAccountConnected], [NSString localizedStringFromBool:self.facebookAccountConnected]];
+    return descrippy;
+}
 
 
 

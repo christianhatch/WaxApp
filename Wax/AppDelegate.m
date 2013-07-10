@@ -38,6 +38,7 @@
     if ([[WaxUser currentUser] isLoggedIn]) {
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound |UIRemoteNotificationTypeAlert)];
     }
+    VLog(@"Current User %@", [WaxUser currentUser]); 
     
     [self customizeAppearance];
     [self bootupThirdPartySDKs];

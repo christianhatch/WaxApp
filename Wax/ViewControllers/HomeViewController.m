@@ -20,6 +20,7 @@
     [super viewDidLoad];
     [self setUpView];
     [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(triggerPullToRefresh) name:WaxUserDidLogInNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(triggerPullToRefresh) name:kWaxNotificationVideoUploadCompleted object:nil];
 }
 
 -(void)setUpView{

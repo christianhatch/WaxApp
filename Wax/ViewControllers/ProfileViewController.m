@@ -50,11 +50,13 @@
     }
     return self;
 }
-
 #pragma mark - View LifeCycle
 - (void)viewDidLoad{
     [super viewDidLoad];
     
+    VLog(@"added profile as observer to logout notification");
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetForLogOut:) name:WaxUserDidLogOutNotification object:nil];
+
     [self enableSwipeToPopVC:YES];
         
     [self setUpView];
@@ -65,14 +67,13 @@
 }
 -(void)setUpView{
     self.navigationItem.title = self.username;
+    if ([self isMyProfile]) {
+        self.tableView = [FeedTableView feedTableViewForMyProfileWithFrame:self.view.bounds];
+        [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(triggerPullToRefresh) name:kWaxNotificationVideoUploadCompleted object:nil];
+    }
     if (![self.view.subviews containsObject:self.tableView]) {
         [self.view addSubview:self.tableView];
     }
-}
-
--(void)showSettings:(UIBarButtonItem *)sender{
-    SettingsViewController *settings = initViewControllerWithIdentifier(@"SettingsVC");
-    [self.navigationController pushViewController:settings animated:YES];
 }
 
 #pragma mark - Setters
@@ -80,11 +81,6 @@
     _person = person;
     self.userID = person.userID;
     self.username = person.username;
-    
-    [self.tableView removeFromSuperview];
-    self.tableView = nil;
-    
-    [self setUpView]; 
 }
 
 #pragma mark - Getters
@@ -96,22 +92,31 @@
 }
 
 -(NSString *)userID{
-    if (!_userID) {
-        if (self.person) {
-            _userID = self.person.userID;
-        }
+    if (!_userID && self.person != nil) {
+        _userID = self.person.userID;
     }
     return _userID; 
 }
 -(NSString *)username{
-    if (!_username) {
-        if (self.person) {
-            _username = self.person.username;
-        }
+    if (!_username && self.person != nil) {
+        _username = self.person.username;
     }
     return _username; 
 }
 
+#pragma mark - Internal Methods
+-(void)resetForLogOut:(NSNotification *)note{
+    VLog(@"log out notification %@", note.userInfo);
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self.tableView];
+    [self.tableView removeFromSuperview];
+    self.tableView = nil;
+}
+
+#pragma mark - Utility Methods
+-(BOOL)isMyProfile{
+    return ([WaxUser userIDIsCurrentUser:self.userID] || self.person.isMe);
+}
 
 
 
