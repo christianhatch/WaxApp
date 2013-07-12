@@ -9,6 +9,9 @@
 #import "AppDelegate.h"
 #import <AcaciaKit/TestFlight.h>
 #import <AcaciaKit/Flurry.h>
+#import <AcaciaKit/TSTapstream.h>
+#import <AdSupport/AdSupport.h>
+
 //#import "Appirater.h"
 //#import "AppiraterDelegate.h" 
 
@@ -136,9 +139,18 @@
     */
     
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+   
     [AIKFacebookManager setFacebookAppID:kThirdPartyFacebookAppID];
     [AIKTwitterManager setTwitterConsumerKey:kThirdPartyTwitterConsumerKey];
     [AIKTwitterManager setTwitterConsumerSecret:kThirdPartyTwitterConsumerSecret];
+    
+    TSConfig *config = [TSConfig configWithDefaults];
+    
+    config.collectWifiMac = NO;
+    config.idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+
+    [TSTapstream createWithAccountName:kThirdPartyTapStreamAccountName developerSecret:kThirdPartyTapStreamAccountSecret config:config];
+    
     
 #ifndef DEBUG
 #ifdef TESTFLIGHT

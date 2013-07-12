@@ -21,6 +21,9 @@ extern NSString *const kThirdPartyCloudFrontImagesBaseURL;
 extern NSString *const kThirdPartyUrbanAirshipAppKey;
 extern NSString *const kThirdPartyUrbanAirshipAppSecret;
 
+extern NSString *const kThirdPartyTapStreamAccountName;
+extern NSString *const kThirdPartyTapStreamAccountSecret;
+
 extern NSString *const kThirdPartyFlurryAPIKey;
 extern NSString *const kThirdPartyTestFlightAPIKey;
 extern NSString *const kThirdPartyCrashlyticsAPIKey;
@@ -28,6 +31,8 @@ extern NSString *const kThirdPartyCrashlyticsAPIKey;
 extern NSString *const kThirdPartyFacebookAppID;
 extern NSString *const kThirdPartyTwitterConsumerKey;
 extern NSString *const kThirdPartyTwitterConsumerSecret;
+
+
 
 #pragma mark - User Defaults Keys
 extern NSString *const kUserSaveToCameraRollKey;

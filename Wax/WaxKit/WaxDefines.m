@@ -29,6 +29,9 @@ NSString *const kThirdPartyUrbanAirshipAppKey = @"KuL5-1QcTKupwNmaUmsnFA";
 NSString *const kThirdPartyUrbanAirshipAppSecret = @"R5R1VnxeSuug8r_wfK_0IQ";
 #endif
 
+NSString *const kThirdPartyTapStreamAccountName = @"wax"; 
+NSString *const kThirdPartyTapStreamAccountSecret = @"QeNEvXFrSeqe14bG9OHjAA";
+
 NSString *const kThirdPartyFlurryAPIKey = @"TQYDF7654QX3TSKCPZ7T";
 NSString *const kThirdPartyTestFlightAPIKey = @"cd37aa62-2d60-4e23-9c49-33561a1f3f3b";
 NSString *const kThirdPartyCrashlyticsAPIKey = @"50bd7200ec2054f6ac2b747cc51ca6ae08298664";
