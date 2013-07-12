@@ -656,10 +656,16 @@
                             <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="Juh-4B-Lxb">
                                 <rect key="frame" x="223" y="171" width="79" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="twitterSwitchToggled:" destination="TjB-My-Xng" eventType="valueChanged" id="0i8-FW-aH7"/>
+                                </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="gI7-q4-Jai">
                                 <rect key="frame" x="223" y="206" width="79" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="facebookSwitchToggled:" destination="TjB-My-Xng" eventType="valueChanged" id="49a-yW-baK"/>
+                                </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="DLH-c1-6cL">
                                 <rect key="frame" x="223" y="241" width="79" height="27"/>
@@ -683,6 +689,9 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="chooseCategory:" destination="TjB-My-Xng" eventType="touchUpInside" id="ilj-Qb-WuH"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1013,6 +1022,9 @@
         <class className="ShareViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ShareViewController.h"/>
             <relationships>
+                <relationship kind="action" name="chooseCategory:"/>
+                <relationship kind="action" name="facebookSwitchToggled:"/>
+                <relationship kind="action" name="twitterSwitchToggled:"/>
                 <relationship kind="outlet" name="categoryButton" candidateClass="WaxRoundButton"/>
                 <relationship kind="outlet" name="facebookLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="facebookSwitch" candidateClass="UISwitch"/>

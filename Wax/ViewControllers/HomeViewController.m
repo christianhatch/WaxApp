@@ -19,21 +19,11 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     [self setUpView];
-    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(triggerPullToRefresh) name:WaxUserDidLogInNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(triggerPullToRefresh) name:kWaxNotificationVideoUploadCompleted object:nil];
 }
 
 -(void)setUpView{
     self.navigationItem.title = NSLocalizedString(@"Wax", @"Wax");
     [self.view addSubview:self.tableView];
-    [[WaxDataManager sharedManager] addObserver:self forKeyPath:@"homeFeed" options:NSKeyValueObservingOptionNew context:nil]; 
-}
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
-    if ([keyPath isEqualToString:@"homeFeed"]) {
-        [self.tableView handleUpdatingFeedWithError:nil];
-    }else{
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
 }
 
 #pragma mark - Getters
@@ -45,11 +35,6 @@
 }
 
 
-
-
--(void)dealloc{
-    [[WaxDataManager sharedManager] removeObserver:self forKeyPath:@"homeFeed"]; 
-}
 - (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
 

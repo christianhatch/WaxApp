@@ -58,6 +58,13 @@
         if (feedtype == FeedTableViewTypeMyFeed || feedtype == FeedTableViewTypeUserFeed) {
             self.tableHeaderView = [ProfileHeaderView profileHeaderViewForUserID:self.dataSourceID];
         }
+        
+        if (feedtype == FeedTableViewTypeMyFeed || feedtype == FeedTableViewTypeHomeFeed) {
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(triggerPullToRefresh) name:kWaxNotificationVideoUploadCompleted object:nil];
+        }
+        if (feedtype == FeedTableViewTypeHomeFeed) {
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(triggerPullToRefresh) name:WaxUserDidLogInNotification object:nil];
+        }
 
         __block FeedTableView *blockSelf = self;
         [self addPullToRefreshWithActionHandler:^{
@@ -219,7 +226,9 @@
 }
 
 
-
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 
 

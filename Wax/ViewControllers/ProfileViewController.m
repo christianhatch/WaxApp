@@ -54,43 +54,58 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    VLog(@"added profile as observer to logout notification");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetForLogOut:) name:WaxUserDidLogOutNotification object:nil];
-
+    
     [self enableSwipeToPopVC:YES];
         
     [self setUpView];
 }
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    [self setUpView]; 
-}
+
 -(void)setUpView{
+    VLog();
+    
+    [self setNavBarTitle];
+    [self setProfileTableView];
+    [self addProfileTableViewAsSubviewIfNecessary];
+}
+
+#pragma mark - View Setup
+-(void)setNavBarTitle{
     self.navigationItem.title = self.username;
+}
+-(void)setProfileTableView{
     if ([self isMyProfile]) {
         self.tableView = [FeedTableView feedTableViewForMyProfileWithFrame:self.view.bounds];
-        [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(triggerPullToRefresh) name:kWaxNotificationVideoUploadCompleted object:nil];
-    }
-    if (![self.view.subviews containsObject:self.tableView]) {
-        [self.view addSubview:self.tableView];
+    }else{
+        self.tableView = [FeedTableView feedTableViewForProfileWithUserID:self.userID frame:self.view.bounds];
     }
 }
+-(void)addProfileTableViewAsSubviewIfNecessary{
+
+    VLog();
+    
+    if (![self viewContainsProfileTableView]) {
+        [self.view addSubview:self.tableView];
+        VLog(@"added subview again");
+    }
+}
+
+
+
+
 
 #pragma mark - Setters
 -(void)setPerson:(PersonObject *)person{
     _person = person;
     self.userID = person.userID;
     self.username = person.username;
+    
+    if (![self viewContainsProfileTableView]) {
+        [self setUpView];
+    }
 }
 
 #pragma mark - Getters
--(FeedTableView *)tableView{
-    if (!_tableView) {
-        _tableView = [FeedTableView feedTableViewForProfileWithUserID:self.userID frame:self.view.bounds]; 
-    }
-    return _tableView; 
-}
-
 -(NSString *)userID{
     if (!_userID && self.person != nil) {
         _userID = self.person.userID;
@@ -106,24 +121,29 @@
 
 #pragma mark - Internal Methods
 -(void)resetForLogOut:(NSNotification *)note{
-    VLog(@"log out notification %@", note.userInfo);
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self.tableView];
-    [self.tableView removeFromSuperview];
+    VLog(@"logged out");
+    [self clearPersonUserIDAndUsername];
     self.tableView = nil;
 }
+
 
 #pragma mark - Utility Methods
 -(BOOL)isMyProfile{
     return ([WaxUser userIDIsCurrentUser:self.userID] || self.person.isMe);
 }
-
-
+-(BOOL)viewContainsProfileTableView{
+    return [self.view.subviews containsObject:self.tableView];
+}
+-(void)clearPersonUserIDAndUsername{
+    self.person = nil;
+    self.username = nil;
+    self.userID = nil;
+}
 
 
 -(void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
-
 }
+
 
 @end

@@ -37,14 +37,14 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     if ([[WaxUser currentUser] isLoggedIn]) {
-        [self handleAppLaunchFromRemoteNotificationIfApplicable];
+        [self handleAppLaunchFromRemoteNotificationOrUpdateNoteCountBadge];
     }else{
         [self showSplashScreen];
     }
 }
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
   
-    UINavigationController *navigationController = (UINavigationController *)viewController;
+    UINavigationController *shouldSelectNavigationController = (UINavigationController *)viewController;
 
     BOOL shouldSelectReturnValue = YES;
      
@@ -57,9 +57,9 @@
        
     }else if ([viewController.title isEqualToString:@"Me"]){
 
-        if ([navigationController.viewControllers.firstObject isKindOfClass:[ProfileViewController class]]) {
-            ProfileViewController *profile = navigationController.viewControllers.firstObject;
-            profile.person = [[WaxUser currentUser] personObject];
+        if ([shouldSelectNavigationController.viewControllers.firstObject respondsToSelector:@selector(setPerson:)]) {
+            ProfileViewController *profile = shouldSelectNavigationController.viewControllers.firstObject;
+            profile.person = [WaxUser currentUser].personObject;
         }
         
     }else if([viewController.title isEqualToString:@"Notifications"]){
@@ -71,8 +71,8 @@
         
         shouldSelectReturnValue = NO;
 
-        if ([navigationController.visibleViewController respondsToSelector:@selector(scrollAllScrollViewSubviewsToTopAnimated:)]) {
-            [navigationController.visibleViewController scrollAllScrollViewSubviewsToTopAnimated:YES];
+        if ([shouldSelectNavigationController.visibleViewController respondsToSelector:@selector(scrollAllScrollViewSubviewsToTopAnimated:)]) {
+            [shouldSelectNavigationController.visibleViewController scrollAllScrollViewSubviewsToTopAnimated:YES];
         }
         
     }
@@ -95,12 +95,14 @@
 }
 
 #pragma mark - Internal Methods
--(void)handleAppLaunchFromRemoteNotificationIfApplicable{
+-(void)handleAppLaunchFromRemoteNotificationOrUpdateNoteCountBadge{
     if ([WaxDataManager sharedManager].remoteNotification) {
         
         [self selectNotificationTab];
         [WaxDataManager sharedManager].remoteNotification = nil;
         
+    }else{
+        [self updateNoteCountAndUpdateBadge]; 
     }
 }
 -(void)handleRemoteNoteFromNotification:(NSNotification *)note{
