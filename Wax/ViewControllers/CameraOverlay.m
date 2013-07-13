@@ -289,7 +289,7 @@
     [self.loadingActivity startAnimating]; 
     
     self.loadingLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    self.loadingLabel.text = [[NSUserDefaults standardUserDefaults] boolForKey:kUserSaveToCameraRollKey] ? @"finishing \n & \n saving to camera roll" : @"finishing";
+    self.loadingLabel.text = [WaxUser currentUser].shouldSaveVideosToCameraRoll ? @"finishing \n & \n saving to camera roll" : @"finishing";
     self.loadingLabel.numberOfLines = 0;
     self.loadingLabel.textColor = [UIColor whiteColor];
     self.loadingLabel.backgroundColor = [UIColor clearColor]; 

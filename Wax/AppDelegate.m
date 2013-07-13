@@ -15,9 +15,9 @@
 //#import "Appirater.h"
 //#import "AppiraterDelegate.h" 
 
-//@protocol UIDeviceHack <NSObject>
-//-(NSString *)uniqueIdentifier;
-//@end
+@protocol UIDeviceHack <NSObject>
+-(NSString *)uniqueIdentifier;
+@end
 
 @interface AppDelegate () 
 
@@ -41,6 +41,7 @@
     if ([[WaxUser currentUser] isLoggedIn]) {
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound |UIRemoteNotificationTypeAlert)];
     }
+    
     VLog(@"Current User %@", [WaxUser currentUser]); 
     
     [self customizeAppearance];
@@ -127,6 +128,7 @@
 
 #pragma Internal Methods & Misc. 
 -(void)bootupThirdPartySDKs{
+    
     /*
 #ifdef DEBUG
     [Appirater setAppId:@"551174140"];
@@ -144,23 +146,21 @@
     [AIKTwitterManager setTwitterConsumerKey:kThirdPartyTwitterConsumerKey];
     [AIKTwitterManager setTwitterConsumerSecret:kThirdPartyTwitterConsumerSecret];
     
-    TSConfig *config = [TSConfig configWithDefaults];
-    
-    config.collectWifiMac = NO;
-    config.idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-
-    [TSTapstream createWithAccountName:kThirdPartyTapStreamAccountName developerSecret:kThirdPartyTapStreamAccountSecret config:config];
-    
-    
 #ifndef DEBUG
 #ifdef TESTFLIGHT
     [TestFlight setDeviceIdentifier:[UIDevice currentDevice].identifierForVendor.UUIDString];
-//    [TestFlight setDeviceIdentifier:[(id<UIDeviceHack>)[UIDevice currentDevice] uniqueIdentifier]];
+    [TestFlight setDeviceIdentifier:[(id<UIDeviceHack>)[UIDevice currentDevice] uniqueIdentifier]];
 #endif
+    TSConfig *config = [TSConfig configWithDefaults];
+    config.collectWifiMac = NO;
+    config.idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    [TSTapstream createWithAccountName:kThirdPartyTapStreamAccountName developerSecret:kThirdPartyTapStreamAccountSecret config:config];
+    
     [TestFlight takeOff:kThirdPartyTestFlightAPIKey];
     [Flurry startSession:kThirdPartyFlurryAPIKey];
     [Crashlytics startWithAPIKey:kThirdPartyCrashlyticsAPIKey delegate:self];
 #endif
+    
 }
 
 -(void)customizeAppearance{

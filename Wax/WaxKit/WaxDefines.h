@@ -33,9 +33,7 @@ extern NSString *const kThirdPartyTwitterConsumerKey;
 extern NSString *const kThirdPartyTwitterConsumerSecret;
 
 
-
 #pragma mark - User Defaults Keys
-extern NSString *const kUserSaveToCameraRollKey;
 extern NSString *const kUserTokenKey;
 extern NSString *const kUserIDKey;
 extern NSString *const kUserNameKey;
@@ -44,6 +42,8 @@ extern NSString *const kUserLastNameKey;
 extern NSString *const kUserEmailKey;
 extern NSString *const kUserTwitterAccountIDKey;
 extern NSString *const kUserFacebookAccountIDKey;
+
+extern NSString *const kShouldSaveToCameraRollKey;
 extern NSString *const kFalseString;
 
 

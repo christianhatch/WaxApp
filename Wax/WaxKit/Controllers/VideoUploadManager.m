@@ -11,6 +11,7 @@
 
 
 @interface VideoUploadManager ()
+@property (nonatomic, strong) UploadObject *currentUpload;
 @property (nonatomic, strong) NSString *challengeVideoID;
 @property (nonatomic, strong) NSString *challengeVideoTag;
 @property (nonatomic, strong) NSString *challengeVideoCategory;
@@ -43,13 +44,14 @@
     if ([self isUploading]) {
         RIButtonItem *sure = [RIButtonItem itemWithLabel:NSLocalizedString(@"Delete", @"Delete")];
         sure.action = ^{
-            [self cancelAllOperations];
+            [self cancelAllOperationsAndClearCurrentUpload];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (block) {
                     block(YES);
                 }
             });
         };
+        
         RIButtonItem *cancel = [RIButtonItem itemWithLabel:NSLocalizedString(@"Cancel", @"Cancel")];
         cancel.action = ^{
             [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"User attempted to capture new video while having an existing video that is %@, and decided to retry or let it finish", StringFromUploadStatus(self.currentUpload.status)]];
@@ -94,7 +96,7 @@
         [AIKErrorManager logMessage:@"location manager error" withError:error]; 
     }];
     
-    [[AIKVideoProcessor sharedProcessor] cropToSquareAndCompressVideoAtFilePath:videoFileURL andSaveToFileURL:self.currentUpload.videoFileURL andSaveToCameraRoll:[[NSUserDefaults standardUserDefaults] boolForKey:kUserSaveToCameraRollKey] withCompletionBlock:^(NSURL *exportedFileURL, NSError *error) {
+    [[AIKVideoProcessor sharedProcessor] cropToSquareAndCompressVideoAtFilePath:videoFileURL andSaveToFileURL:self.currentUpload.videoFileURL andSaveToCameraRoll:[WaxUser currentUser].shouldSaveVideosToCameraRoll withCompletionBlock:^(NSURL *exportedFileURL, NSError *error) {
         
         if (!error) {
             [self uploadVideoDataWithAttemptCount:@0];
@@ -238,7 +240,7 @@
 //        [self retryUploadWithCompletion:completion];
     }
 }
--(void)cancelAllOperations{
+-(void)cancelAllOperationsAndClearCurrentUpload{
     if ([AIKVideoProcessor sharedProcessor].exporter.status == AVAssetExportSessionStatusExporting) {
         [[AIKVideoProcessor sharedProcessor].exporter cancelExport];
     }
@@ -247,15 +249,31 @@
     [[NSFileManager defaultManager] removeItemAtURL:[NSURL currentThumbnailFileURL] error:nil];
 
     [[WaxAPIClient sharedClient] cancelVideoUploadingOperationWithVideoID:self.currentUpload.videoID];
-    [self finishUploadWithCompletion:nil];
+
+    [self cleanUpCurrentUpload];
 }
+
 -(void)finishUploadWithCompletion:(void(^)(void))completion{
-    
-    [[AIKLocationManager sharedManager] stopUpdatingLocation];
     
     if ([self isInChallengeMode]) {
         [AIKErrorManager logMessageToAllServices:@"Uploaded video via challenge button"];
     }
+    
+    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to facebook from share page: %@", [NSString localizedStringFromBool:self.currentUpload.shareToFacebook]]];
+    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to twitter from share page: %@", [NSString localizedStringFromBool:self.currentUpload.shareToTwitter]]];
+    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared location with video: %@", [NSString localizedStringFromBool:self.currentUpload.shareLocation]]];
+    
+    [self cleanUpCurrentUpload];
+
+    [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationVideoUploadCompleted object:self];
+
+    if (completion) {
+        completion();
+    }
+}
+
+-(void)cleanUpCurrentUpload{
+    [[AIKLocationManager sharedManager] stopUpdatingLocation];
     
     [[NSFileManager defaultManager] removeItemAtURL:self.currentUpload.videoFileURL error:nil];
     [[NSFileManager defaultManager] removeItemAtURL:self.currentUpload.thumbnailFileURL error:nil];
@@ -263,15 +281,7 @@
     [self.currentUpload removeFromDisk];
     self.currentUpload = nil;
     
-    [self clearChallengeData]; 
-    
-    if (completion) {
-        [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to facebook from share page: %@", [NSString localizedStringFromBool:self.currentUpload.shareToFacebook]]];
-        [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to twitter from share page: %@", [NSString localizedStringFromBool:self.currentUpload.shareToTwitter]]];
-        [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared location with video: %@", [NSString localizedStringFromBool:self.currentUpload.shareLocation]]];
-        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationVideoUploadCompleted object:self]; 
-        completion();
-    }
+    [self clearChallengeData];
 }
 
 #pragma mark - Convenience methods

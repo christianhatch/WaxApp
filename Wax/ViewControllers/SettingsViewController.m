@@ -33,12 +33,12 @@
 }
 
 -(void)setUpView{
-    [self.cameraRollSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:kUserSaveToCameraRollKey] animated:NO];
+    [self.cameraRollSwitch setOn:[WaxUser currentUser].shouldSaveVideosToCameraRoll animated:NO];
     [self.cameraRollSwitch addTarget:self action:@selector(cameraRollSwitched:) forControlEvents:UIControlEventValueChanged];
 }
 
 -(void)cameraRollSwitched:(UISwitch *)sender{
-    [[NSUserDefaults standardUserDefaults] setBool:self.cameraRollSwitch.on forKey:kUserSaveToCameraRollKey];
+    [WaxUser currentUser].shouldSaveVideosToCameraRoll = self.cameraRollSwitch.on;
 }
 
 
@@ -79,13 +79,13 @@
     return title;
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
-    NSString *title = nil;
-    if (section == SectionOtherSettings) {
-        title = [NSString stringWithFormat:NSLocalizedString(@"%@\nCopyright \u00A9 2013 Acacia Interactive", @"%@\nCopyright \u00A9 2013 Acacia Interactive"), [NSString appNameVersionAndBuildString]];
-    }
-    return title;
-}
+//-(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
+//    NSString *title = nil;
+//    if (section == SectionOtherSettings) {
+//        title = [NSString stringWithFormat:NSLocalizedString(@"%@\nCopyright \u00A9 2013 Acacia Interactive", @"%@\nCopyright \u00A9 2013 Acacia Interactive"), [NSString appNameVersionAndBuildString]];
+//    }
+//    return title;
+//}
 
 #pragma mark - Internal Methods
 -(void)sendFeedback{

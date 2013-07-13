@@ -32,6 +32,7 @@ typedef void(^WaxUserCompletionBlockTypeProfilePicture)(UIImage *profilePicture,
 @property (nonatomic, strong) NSString *twitterAccountID;
 @property (nonatomic, strong) NSString *twitterAccountName;
 
+@property (nonatomic) BOOL shouldSaveVideosToCameraRoll;
 @property (nonatomic, readonly) BOOL isLoggedIn;
 @property (nonatomic, readonly) BOOL twitterAccountConnected;
 @property (nonatomic, readonly) BOOL facebookAccountConnected;

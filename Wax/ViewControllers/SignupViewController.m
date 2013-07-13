@@ -20,8 +20,6 @@
 @property (strong, nonatomic) IBOutlet UITextField *usernameField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
 
-@property (strong, nonatomic) IBOutlet UILabel *disclaimerLabel;
-
 - (IBAction)profilePictureButtonAction:(id)sender;
 - (IBAction)signupButtonAction:(id)sender;
 
@@ -31,7 +29,7 @@
 @end
 
 @implementation SignupViewController
-@synthesize profilePictureButton, fullNameField, emailField, usernameField, passwordField, disclaimerLabel, goButton, facebookSignup; 
+@synthesize profilePictureButton, fullNameField, emailField, usernameField, passwordField, goButton, facebookSignup; 
 
 
 -(void)viewDidLoad{

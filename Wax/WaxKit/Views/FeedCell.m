@@ -61,7 +61,11 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     [self.usernameLabel setWaxHeaderFont];
     [self.timestampLabel setWaxDetailFont];
     [self.competitionNameButton styleFontAsWaxHeaderItalics];
+    self.competitionNameButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.competitionNameButton.titleLabel.adjustsLetterSpacingToFitWidth = YES;
+    self.competitionNameButton.titleLabel.numberOfLines = 1;
     self.competitionNameButton.titleLabel.minimumScaleFactor = 0.2;
+    self.competitionNameButton.titleLabel.font = [UIFont waxHeaderFontItalicsOfSize:15]; 
     
     [self.rankWordLabel setWaxDetailFont];
     self.rankWordLabel.text = NSLocalizedString(@"Rank", @"Rank"); 

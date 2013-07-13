@@ -4,6 +4,8 @@ pod 'Lockbox'
 pod 'SVPullToRefresh'
 pod 'SVProgressHUD'
 pod 'Appirater'
+pod 'BlocksKit'
+pod 'ReactiveCocoa'
 
 #pod 'STTweetLabel'
 #pod 'TSMessages'

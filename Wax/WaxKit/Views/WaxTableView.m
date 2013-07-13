@@ -31,6 +31,16 @@
     return self; 
 }
 
+#pragma mark - Overrides
+-(void)reloadData{
+    [super reloadData];
+    [self updateEmptyView];
+}
+-(void)deleteRowsAtIndexPaths:(NSArray *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation{
+    [super deleteRowsAtIndexPaths:indexPaths withRowAnimation:animation];
+    [self updateEmptyView];
+}
+
 #pragma mark - TableView DataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;

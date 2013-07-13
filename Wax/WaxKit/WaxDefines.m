@@ -41,7 +41,6 @@ NSString *const kThirdPartyTwitterConsumerKey = @"CVR0lzKnwcyobFkt5X8xg";
 NSString *const kThirdPartyTwitterConsumerSecret = @"JvJAvPfvEUFDTRXpHv3Iq1yABERa4naCrWo2vJfZQDw"; 
 
 #pragma mark - User Defaults Keys
-NSString *const kUserSaveToCameraRollKey = @"saveToCameraRoll";
 NSString *const kUserTokenKey = @"waxUserToken";
 NSString *const kUserIDKey = @"waxUserID";
 NSString *const kUserNameKey = @"waxUserName";
@@ -49,7 +48,9 @@ NSString *const kUserFirstNameKey = @"waxFirstName";
 NSString *const kUserLastNameKey = @"waxLastName";
 NSString *const kUserEmailKey = @"waxEmail"; 
 NSString *const kUserTwitterAccountIDKey = @"waxTwitterAccountID";
-NSString *const kUserFacebookAccountIDKey = @"waxFacebookAccountID"; 
+NSString *const kUserFacebookAccountIDKey = @"waxFacebookAccountID";
+
+NSString *const kShouldSaveToCameraRollKey = @"waxShouldSaveToCameraRoll"; 
 NSString *const kFalseString = @"false";
 
 #pragma mark - Notifications

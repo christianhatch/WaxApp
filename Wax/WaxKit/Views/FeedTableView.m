@@ -83,10 +83,13 @@
 }
 -(void)didMoveToSuperview{
     [super didMoveToSuperview];
+    [self reloadData];
+    
     if (self.superview != nil) {
         [self triggerPullToRefresh];
     }
 }
+
 -(void)deleteCellAtIndexPath:(NSIndexPath *)indexPath{
     [[self proxyDataSourceArray] removeObjectAtIndex:indexPath.row];
     [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft]; 
@@ -205,7 +208,7 @@
                 [self setEmptyViewMessageText:[NSString stringWithFormat:NSLocalizedString(@"Error loading your videos", @"error loading your videos")]];
             }break;
             case FeedTableViewTypeHomeFeed:{
-                
+                [self setEmptyViewMessageText:[NSString stringWithFormat:NSLocalizedString(@"Error loading home feed :(", @"error loading home feed")]];
             }break;
             case FeedTableViewTypeUserFeed:{
                 [self setEmptyViewMessageText:[NSString stringWithFormat:NSLocalizedString(@"Error loading this users videos", @"error loading a users videos")]];

@@ -33,7 +33,7 @@
 
 -(void)retryUploadWithCompletion:(void(^)(void))completion;
 
-@property (nonatomic, strong) UploadObject *currentUpload;
+@property (nonatomic, readonly) UploadObject *currentUpload;
 
 -(BOOL)isInChallengeMode;
 @property (nonatomic, readonly) NSString *challengeVideoTag;

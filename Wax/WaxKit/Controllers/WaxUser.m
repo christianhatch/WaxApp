@@ -14,7 +14,6 @@
 NSString *const WaxUserDidLogInNotification = @"WaxUserLoggedIn";
 NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut"; 
 
-
 @interface WaxUser () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) WaxUserCompletionBlockTypeProfilePicture profilePictureCompletion;
@@ -85,6 +84,9 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     }
     return name;
 }
+-(BOOL)shouldSaveVideosToCameraRoll{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kShouldSaveToCameraRollKey]; 
+}
 -(BOOL)isLoggedIn{
     return ((![self.userID isEqualToString:kFalseString]) && (![self.token isEqualToString:kFalseString]));
 }
@@ -145,7 +147,10 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationTwitterAccountDidChange object:self];
     }
 }
-
+-(void)setShouldSaveVideosToCameraRoll:(BOOL)shouldSaveVideosToCameraRoll{
+    [[NSUserDefaults standardUserDefaults] setBool:shouldSaveVideosToCameraRoll forKey:kShouldSaveToCameraRollKey];
+    [[NSUserDefaults standardUserDefaults] synchronize]; 
+}
 
 #pragma mark - Signup/Login/Logout/Update Pic
 -(void)createAccountWithUsername:(NSString *)username fullName:(NSString *)fullName email:(NSString *)email passwordOrFacebookID:(NSString *)passwordOrFacebookID completion:(WaxUserCompletionBlockTypeSimple)completion{
@@ -400,12 +405,12 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     [WaxUser currentUser].twitterAccountID = kFalseString;
     [WaxUser currentUser].facebookAccountID = kFalseString;
     
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUserSaveToCameraRollKey];
+    [WaxUser currentUser].shouldSaveVideosToCameraRoll = YES; 
 }
 
 
 -(NSString *)description{
-    NSString *descrippy = [NSString stringWithFormat:@"WaxUser Description: Token=%@ UserID=%@ Username=%@ FullName=%@ Email=%@ FacebookAccountID=%@ TwitterAccountID=%@ TwitterAccountName=%@ isLoggedIn=%@ TwitterAccountConnected=%@ FacebookAccountConnected=%@", self.token, self.userID, self.username, self.fullName, self.email, self.facebookAccountID, self.twitterAccountID, self.twitterAccountName, [NSString localizedStringFromBool:self.isLoggedIn], [NSString localizedStringFromBool:self.twitterAccountConnected], [NSString localizedStringFromBool:self.facebookAccountConnected]];
+    NSString *descrippy = [NSString stringWithFormat:@"WaxUser Description: Token=%@ \nUserID=%@ \nUsername=%@ \nFullName=%@ \nEmail=%@ \nFacebookAccountID=%@ \nTwitterAccountID=%@ \nTwitterAccountName=%@ \nisLoggedIn=%@ \nTwitterAccountConnected=%@ \nFacebookAccountConnected=%@", self.token, self.userID, self.username, self.fullName, self.email, self.facebookAccountID, self.twitterAccountID, self.twitterAccountName, [NSString localizedStringFromBool:self.isLoggedIn], [NSString localizedStringFromBool:self.twitterAccountConnected], [NSString localizedStringFromBool:self.facebookAccountConnected]];
     return descrippy;
 }
 
@@ -415,27 +420,6 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 
 
 
-
-
-
-
-
-
-//#ifndef RELEASE
-//
-//#define KWChristianSuperUserID      @"c0601e7ceda37593447c7525dea3070c"
-//#define KWStuSuperUserID            @"9e194145c13551e4160e8377fcb47a51"
-//#define KWJaymeSuperUserID          @"624bf3ceca5c86f33fe06fc31e80bce8"
-//
-//-(BOOL)isSuperUser{
-//    if (([[self userid] isEqualToString:KWJaymeSuperUserID] || [[self userid] isEqualToString:KWStuSuperUserID] || [[self userid] isEqualToString:KWChristianSuperUserID]) && [[NSUserDefaults standardUserDefaults] boolForKey:KWSuperUserModeEnableKey]) {
-//        return YES;
-//    }else{
-//        return NO; 
-//    }
-//}
-//
-//#endif
 
 
 

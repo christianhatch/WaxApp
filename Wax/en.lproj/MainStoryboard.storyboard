@@ -157,7 +157,7 @@
                                             <rect key="frame" x="10" y="0.0" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="About" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="zHx-eo-xp0" userLabel="MentionLabel">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="about" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="zHx-eo-xp0" userLabel="MentionLabel">
                                                     <rect key="frame" x="41" y="10" width="210" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
@@ -438,19 +438,20 @@
                                     <action selector="profilePictureButtonAction:" destination="8xJ-dn-Pob" eventType="touchUpInside" id="vWT-gb-mu8"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" id="QxH-3e-PWX">
-                                <rect key="frame" x="47" y="163" width="227" height="37"/>
+                            <view contentMode="scaleToFill" id="6lw-0W-nTN">
+                                <rect key="frame" x="47" y="166" width="227" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="by signing up you agree to the Wax terms of service and privacy policy" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kWa-6A-qlX">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="by signing up you agree to the Wax terms of service and privacy policy" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Xxt-tZ-kAP">
                                         <rect key="frame" x="-1" y="0.0" width="228" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zli-CJ-uHc">
-                                        <rect key="frame" x="8" y="11" width="108" height="26"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" lineBreakMode="middleTruncation" id="Pa4-95-Xv2">
+                                        <rect key="frame" x="-2" y="15" width="108" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
                                         <state key="normal" title="terms of service">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -460,12 +461,13 @@
                                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="tosButtonAction:" destination="8xJ-dn-Pob" eventType="touchUpInside" id="2bJ-l3-yoj"/>
+                                            <action selector="tosButtonAction:" destination="8xJ-dn-Pob" eventType="touchUpInside" id="eS3-kL-azl"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mnX-T8-ahb">
-                                        <rect key="frame" x="118" y="11" width="108" height="26"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" lineBreakMode="middleTruncation" id="gPD-Ha-4o0">
+                                        <rect key="frame" x="133" y="15" width="108" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
                                         <state key="normal" title="privacy policy">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -475,7 +477,7 @@
                                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="privacyButtonAction:" destination="8xJ-dn-Pob" eventType="touchUpInside" id="ePQ-E6-F0m"/>
+                                            <action selector="privacyButtonAction:" destination="8xJ-dn-Pob" eventType="touchUpInside" id="z9c-Cm-l2M"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -493,7 +495,6 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="disclaimerLabel" destination="kWa-6A-qlX" id="0Ff-Cc-6Iz"/>
                         <outlet property="emailField" destination="r0P-sT-VWE" id="Opc-mv-rS8"/>
                         <outlet property="fullNameField" destination="oaw-wn-sPC" id="n39-sF-88t"/>
                         <outlet property="goButton" destination="YDV-jc-E6P" id="ldo-CT-IHn"/>
@@ -679,7 +680,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rYe-Jy-ihd" customClass="WaxRoundButton">
-                                <rect key="frame" x="20" y="115" width="280" height="44"/>
+                                <rect key="frame" x="20" y="100" width="280" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="choose-category-button-label">
@@ -794,11 +795,10 @@
                                     <action selector="loginFacebookButtonAction:" destination="o5G-cy-uvx" eventType="touchUpInside" id="vK7-7Z-lWn"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="login with email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Yj-b3-j5W">
-                                <rect key="frame" x="43" y="65" width="234" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="login with email:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Yj-b3-j5W">
+                                <rect key="frame" x="54" y="65" width="212" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" id="nYa-6s-had">
@@ -838,9 +838,10 @@
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="n6V-SH-h0S">
-                                        <rect key="frame" x="8" y="11" width="108" height="26"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" lineBreakMode="middleTruncation" id="n6V-SH-h0S">
+                                        <rect key="frame" x="-2" y="15" width="108" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
                                         <state key="normal" title="terms of service">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -853,9 +854,10 @@
                                             <action selector="tosButtonAction:" destination="o5G-cy-uvx" eventType="touchUpInside" id="rq8-cH-Fjc"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="c7I-sS-YkR">
-                                        <rect key="frame" x="118" y="11" width="108" height="26"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" lineBreakMode="middleTruncation" id="c7I-sS-YkR">
+                                        <rect key="frame" x="133" y="15" width="108" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
                                         <state key="normal" title="privacy policy">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
