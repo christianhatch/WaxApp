@@ -8,6 +8,7 @@
 
 #define kInitialLaunchKey   @"initialLaunch"
 
+
 #import "AppDelegate.h"
 #import <AcaciaKit/TestFlight.h>
 #import <AcaciaKit/Flurry.h>
@@ -150,14 +151,14 @@
     
 #ifndef DEBUG
 #ifdef TESTFLIGHT
-    [TestFlight setDeviceIdentifier:[UIDevice currentDevice].identifierForVendor.UUIDString];
     [TestFlight setDeviceIdentifier:[(id<UIDeviceHack>)[UIDevice currentDevice] uniqueIdentifier]];
-#endif
+
     TSConfig *config = [TSConfig configWithDefaults];
     config.collectWifiMac = NO;
     config.idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
     [TSTapstream createWithAccountName:kThirdPartyTapStreamAccountName developerSecret:kThirdPartyTapStreamAccountSecret config:config];
     
+#endif
     [TestFlight takeOff:kThirdPartyTestFlightAPIKey];
     [Flurry startSession:kThirdPartyFlurryAPIKey];
     [Crashlytics startWithAPIKey:kThirdPartyCrashlyticsAPIKey delegate:self];

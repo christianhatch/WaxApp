@@ -24,10 +24,10 @@
     self.delegate = self;
     [self setUpView];
     
-    AppDelegate *delly = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    delly.rootViewController = self;
+//    AppDelegate *delly = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//    delly.rootViewController = self;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSplashScreen) name:WaxUserDidLogOutNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentInitialViewController) name:WaxUserDidLogOutNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(capture) name:kWaxNotificationPresentVideoCamera object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRemoteNoteFromNotification:) name:kWaxNotificationRemoteNotificationReceived object:nil];
 }
