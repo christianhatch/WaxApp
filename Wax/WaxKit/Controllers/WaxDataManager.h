@@ -15,7 +15,7 @@ typedef void(^WaxDataManagerCompletionBlockTypeSimple)(NSError *error);
 
 + (WaxDataManager *)sharedManager;
 
-@property (nonatomic, strong) NSDictionary *remoteNotification;
+@property (nonatomic, strong) NSDictionary *launchInfo;
 
 //universal
 @property (nonatomic, strong) NSMutableArray *homeFeed;

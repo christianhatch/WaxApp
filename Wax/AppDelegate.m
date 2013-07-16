@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Christian Hatch. All rights reserved.
 //
 
+#define kInitialLaunchKey   @"initialLaunch"
+
 #import "AppDelegate.h"
 #import <AcaciaKit/TestFlight.h>
 #import <AcaciaKit/Flurry.h>
@@ -24,13 +26,14 @@
 @end
 
 @implementation AppDelegate
+@synthesize rootViewController = _rootViewController; 
 
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
 #ifdef DEBUG
     [SBAPNSPusher start];
 #endif
     
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"initialLaunch"]) {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:kInitialLaunchKey]) {
         [self initialLaunch];
     }
     
@@ -63,7 +66,7 @@
     
     AFUrbanAirshipClient *ship = [[AFUrbanAirshipClient alloc] initWithApplicationKey:kThirdPartyUrbanAirshipAppKey applicationSecret:kThirdPartyUrbanAirshipAppSecret];
 
-    [ship registerDeviceToken:deviceToken withAlias:[[WaxUser currentUser] userID] success:^{
+    [ship registerDeviceToken:deviceToken withAlias:[WaxUser currentUser].userID success:^{
         //yay!
     } failure:^(NSError *error) {
         [AIKErrorManager logMessage:@"error registering device token with urban airship" withError:error];
@@ -84,13 +87,12 @@
     switch ([UIApplication sharedApplication].applicationState) {
         case UIApplicationStateInactive:
         case UIApplicationStateBackground:{
-            [WaxDataManager sharedManager].remoteNotification = note; 
+            [WaxDataManager sharedManager].launchInfo = note;
         }break;
         case UIApplicationStateActive:{
             [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationRemoteNotificationReceived object:self userInfo:note];
         }break;
     }
-
 }
 
 
@@ -250,9 +252,13 @@
 }
 
 -(void)initialLaunch{
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"initialLaunch"]; //set the flag so this is run only the first time the app is opened
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kInitialLaunchKey];
+   
+    [WaxDataManager sharedManager].launchInfo = @{@"initial": @1};
+    
     [WaxUser resetForInitialLaunch];
 }
+
 -(void)crashlyticsDidDetectCrashDuringPreviousExecution:(Crashlytics *)crashlytics{
     [AIKErrorManager didCrash];
 }

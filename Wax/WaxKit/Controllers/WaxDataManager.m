@@ -30,7 +30,7 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
 @synthesize categories = _categories, discoverArray = _discoverArray;
 @synthesize profileFeed = _profileFeed, tagFeed = _tagFeed, personList = _personList; 
 @synthesize lastTagID = _lastTagID, lastFeedUserID = _lastFeedUserID, lastPersonListUserID = _lastPersonListUserID;
-@synthesize remoteNotification = _remoteNotification; 
+@synthesize launchInfo = _launchInfo;
 
 #pragma mark - Alloc & Init
 + (WaxDataManager *)sharedManager {

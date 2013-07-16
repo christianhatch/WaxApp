@@ -10,6 +10,7 @@
 #import "SplashViewController.h"
 #import "ProfileViewController.h"
 #import "VideoCameraViewController.h"
+#import "TutorialParentViewController.h"
 
 @interface WaxTabBarController ()
 
@@ -23,10 +24,14 @@
     self.delegate = self;
     [self setUpView];
     
+    AppDelegate *delly = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delly.rootViewController = self;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSplashScreen) name:WaxUserDidLogOutNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(capture) name:kWaxNotificationPresentVideoCamera object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRemoteNoteFromNotification:) name:kWaxNotificationRemoteNotificationReceived object:nil];
 }
+
 -(void)setUpView{    
     [[self.tabBar.items objectAtIndex:0] setFinishedSelectedImage:[UIImage imageNamed:@"homeTab_on"] withFinishedUnselectedImage:[UIImage imageNamed:@"homeTab"]];
     [[self.tabBar.items objectAtIndex:1] setFinishedSelectedImage:[UIImage imageNamed:@"discoverTab_on"] withFinishedUnselectedImage:[UIImage imageNamed:@"discoverTab"]];
@@ -36,10 +41,11 @@
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
     if ([[WaxUser currentUser] isLoggedIn]) {
         [self handleAppLaunchFromRemoteNotificationOrUpdateNoteCountBadge];
     }else{
-        [self showSplashScreen];
+        [self presentInitialViewController];
     }
 }
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
@@ -94,12 +100,35 @@
     }];
 }
 
-#pragma mark - Internal Methods
+#pragma mark - Splash Screen
+-(void)presentInitialViewController{
+    
+    BOOL initialLaunch = [[WaxDataManager sharedManager].launchInfo objectForKeyOrNil:@"initial"] != nil;
+    
+    initialLaunch ? [self presentTutorialAndRegistrationViewController] : [self presentRegistrationViewController];
+}
+
+-(void)presentRegistrationViewController{
+    UINavigationController *splashAndLoginFlow = initViewControllerWithIdentifier(@"SplashNav");
+    [self presentAnIntroVC:splashAndLoginFlow];
+}
+-(void)presentTutorialAndRegistrationViewController{
+    TutorialParentViewController *tut = [TutorialParentViewController tutorialViewController];
+    [self presentAnIntroVC:tut];
+}
+-(void)presentAnIntroVC:(UIViewController *)vc{
+    [self presentViewController:vc animated:YES completion:^{
+        [self popAllNavigationChildrenViewControllersToRootViewControllerAnimated:NO];
+        [self setSelectedIndex:0];
+    }];
+}
+
+#pragma mark - Remote Notifications
 -(void)handleAppLaunchFromRemoteNotificationOrUpdateNoteCountBadge{
-    if ([WaxDataManager sharedManager].remoteNotification) {
+    if ([WaxDataManager sharedManager].launchInfo) {
         
         [self selectNotificationTab];
-        [WaxDataManager sharedManager].remoteNotification = nil;
+        [WaxDataManager sharedManager].launchInfo = nil;
         
     }else{
         [self updateNoteCountAndUpdateBadge]; 
@@ -109,15 +138,7 @@
     [self updateNoteCountAndUpdateBadge];
 }
 
--(void)showSplashScreen{
-    UINavigationController *splashAndLoginFlow = initViewControllerWithIdentifier(@"SplashNav");
-    
-    [self presentViewController:splashAndLoginFlow animated:YES completion:^{
-        [self popAllNavigationChildrenViewControllersToRootViewControllerAnimated:NO]; 
-        [self setSelectedIndex:0];
-    }];
-}
-
+#pragma mark - Notification Badges
 -(void)updateNoteCountAndUpdateBadge{
     [[WaxDataManager sharedManager] updateNotificationCountWithCompletion:^(NSError *error) {
         if (!error) {

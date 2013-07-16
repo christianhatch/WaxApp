@@ -60,6 +60,26 @@
 		452FAEE417416C680091F8D4 /* UIView+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAEE217416C680091F8D4 /* UIView+WaxKit.m */; };
 		452FAFDD1741830E0091F8D4 /* libAcaciaKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 452FAFD8174182D10091F8D4 /* libAcaciaKit.a */; };
 		452FAFDE174183560091F8D4 /* libAcaciaKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 452FAFD8174182D10091F8D4 /* libAcaciaKit.a */; };
+		453E44671794AA6200771312 /* TutorialParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 453E44661794AA6200771312 /* TutorialParentViewController.m */; };
+		453E44681794AA6200771312 /* TutorialParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 453E44661794AA6200771312 /* TutorialParentViewController.m */; };
+		453E446B1794AC4600771312 /* TutorialChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 453E446A1794AC4600771312 /* TutorialChildViewController.m */; };
+		453E446C1794AC4600771312 /* TutorialChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 453E446A1794AC4600771312 /* TutorialChildViewController.m */; };
+		453E44771794B11A00771312 /* tutorial_screen1.png in Resources */ = {isa = PBXBuildFile; fileRef = 453E446F1794B11A00771312 /* tutorial_screen1.png */; };
+		453E44781794B11A00771312 /* tutorial_screen1.png in Resources */ = {isa = PBXBuildFile; fileRef = 453E446F1794B11A00771312 /* tutorial_screen1.png */; };
+		453E44791794B11A00771312 /* tutorial_screen1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 453E44701794B11A00771312 /* tutorial_screen1@2x.png */; };
+		453E447A1794B11A00771312 /* tutorial_screen1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 453E44701794B11A00771312 /* tutorial_screen1@2x.png */; };
+		453E447B1794B11A00771312 /* tutorial_screen2.png in Resources */ = {isa = PBXBuildFile; fileRef = 453E44711794B11A00771312 /* tutorial_screen2.png */; };
+		453E447C1794B11A00771312 /* tutorial_screen2.png in Resources */ = {isa = PBXBuildFile; fileRef = 453E44711794B11A00771312 /* tutorial_screen2.png */; };
+		453E447D1794B11A00771312 /* tutorial_screen2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 453E44721794B11A00771312 /* tutorial_screen2@2x.png */; };
+		453E447E1794B11A00771312 /* tutorial_screen2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 453E44721794B11A00771312 /* tutorial_screen2@2x.png */; };
+		453E447F1794B11A00771312 /* tutorial_screen3.png in Resources */ = {isa = PBXBuildFile; fileRef = 453E44731794B11A00771312 /* tutorial_screen3.png */; };
+		453E44801794B11A00771312 /* tutorial_screen3.png in Resources */ = {isa = PBXBuildFile; fileRef = 453E44731794B11A00771312 /* tutorial_screen3.png */; };
+		453E44811794B11A00771312 /* tutorial_screen3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 453E44741794B11A00771312 /* tutorial_screen3@2x.png */; };
+		453E44821794B11A00771312 /* tutorial_screen3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 453E44741794B11A00771312 /* tutorial_screen3@2x.png */; };
+		453E44831794B11A00771312 /* tutorial_screen4.png in Resources */ = {isa = PBXBuildFile; fileRef = 453E44751794B11A00771312 /* tutorial_screen4.png */; };
+		453E44841794B11A00771312 /* tutorial_screen4.png in Resources */ = {isa = PBXBuildFile; fileRef = 453E44751794B11A00771312 /* tutorial_screen4.png */; };
+		453E44851794B11A00771312 /* tutorial_screen4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 453E44761794B11A00771312 /* tutorial_screen4@2x.png */; };
+		453E44861794B11A00771312 /* tutorial_screen4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 453E44761794B11A00771312 /* tutorial_screen4@2x.png */; };
 		455406CC177A42F8004E334A /* UILabel+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 455406CB177A42F8004E334A /* UILabel+WaxKit.m */; };
 		455406CD177A42F8004E334A /* UILabel+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 455406CB177A42F8004E334A /* UILabel+WaxKit.m */; };
 		455406D3177A4490004E334A /* UIColor+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 455406D2177A4490004E334A /* UIColor+WaxKit.m */; };
@@ -441,6 +461,18 @@
 		452FAEE117416C680091F8D4 /* UIView+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WaxKit.h"; sourceTree = "<group>"; };
 		452FAEE217416C680091F8D4 /* UIView+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WaxKit.m"; sourceTree = "<group>"; };
 		452FAFD2174182D00091F8D4 /* AcaciaKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AcaciaKit.xcodeproj; path = AcaciaKit/AcaciaKit.xcodeproj; sourceTree = "<group>"; };
+		453E44651794AA6200771312 /* TutorialParentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialParentViewController.h; path = Wax/ViewControllers/TutorialParentViewController.h; sourceTree = SOURCE_ROOT; };
+		453E44661794AA6200771312 /* TutorialParentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialParentViewController.m; path = Wax/ViewControllers/TutorialParentViewController.m; sourceTree = SOURCE_ROOT; };
+		453E44691794AC4600771312 /* TutorialChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialChildViewController.h; path = Wax/ViewControllers/TutorialChildViewController.h; sourceTree = SOURCE_ROOT; };
+		453E446A1794AC4600771312 /* TutorialChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialChildViewController.m; path = Wax/ViewControllers/TutorialChildViewController.m; sourceTree = SOURCE_ROOT; };
+		453E446F1794B11A00771312 /* tutorial_screen1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial_screen1.png; sourceTree = "<group>"; };
+		453E44701794B11A00771312 /* tutorial_screen1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial_screen1@2x.png"; sourceTree = "<group>"; };
+		453E44711794B11A00771312 /* tutorial_screen2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial_screen2.png; sourceTree = "<group>"; };
+		453E44721794B11A00771312 /* tutorial_screen2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial_screen2@2x.png"; sourceTree = "<group>"; };
+		453E44731794B11A00771312 /* tutorial_screen3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial_screen3.png; sourceTree = "<group>"; };
+		453E44741794B11A00771312 /* tutorial_screen3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial_screen3@2x.png"; sourceTree = "<group>"; };
+		453E44751794B11A00771312 /* tutorial_screen4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial_screen4.png; sourceTree = "<group>"; };
+		453E44761794B11A00771312 /* tutorial_screen4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial_screen4@2x.png"; sourceTree = "<group>"; };
 		455406CA177A42F8004E334A /* UILabel+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+WaxKit.h"; sourceTree = "<group>"; };
 		455406CB177A42F8004E334A /* UILabel+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+WaxKit.m"; sourceTree = "<group>"; };
 		455406D1177A4490004E334A /* UIColor+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+WaxKit.h"; sourceTree = "<group>"; };
@@ -789,6 +821,7 @@
 		45009A55174EBF1600EE0B5C /* Login/Signup */ = {
 			isa = PBXGroup;
 			children = (
+				453E446D1794AC9100771312 /* Tutorial */,
 				455A1841177B52FA00185F61 /* SplashViewController.h */,
 				455A1842177B52FA00185F61 /* SplashViewController.m */,
 				455A183F177B52FA00185F61 /* SignupViewController.h */,
@@ -834,6 +867,32 @@
 				45AC7CC217637E050086D980 /* AcaciaKitResources.bundle */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		453E446D1794AC9100771312 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				453E44651794AA6200771312 /* TutorialParentViewController.h */,
+				453E44661794AA6200771312 /* TutorialParentViewController.m */,
+				453E44691794AC4600771312 /* TutorialChildViewController.h */,
+				453E446A1794AC4600771312 /* TutorialChildViewController.m */,
+			);
+			name = Tutorial;
+			sourceTree = "<group>";
+		};
+		453E446E1794B11A00771312 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				453E446F1794B11A00771312 /* tutorial_screen1.png */,
+				453E44701794B11A00771312 /* tutorial_screen1@2x.png */,
+				453E44711794B11A00771312 /* tutorial_screen2.png */,
+				453E44721794B11A00771312 /* tutorial_screen2@2x.png */,
+				453E44731794B11A00771312 /* tutorial_screen3.png */,
+				453E44741794B11A00771312 /* tutorial_screen3@2x.png */,
+				453E44751794B11A00771312 /* tutorial_screen4.png */,
+				453E44761794B11A00771312 /* tutorial_screen4@2x.png */,
+			);
+			path = Tutorial;
 			sourceTree = "<group>";
 		};
 		455A168D177B509000185F61 /* Controllers */ = {
@@ -893,6 +952,7 @@
 				45A7C9451780E91E00F62D4D /* Default@2x.png */,
 				45A7C9431780E91B00F62D4D /* Default-568h@2x.png */,
 				45A7C9411780E91600F62D4D /* Default.png */,
+				453E446E1794B11A00771312 /* Tutorial */,
 				45A7C9F21782671C00F62D4D /* Misc */,
 				45A7C963178211D700F62D4D /* Camera */,
 				457BBAB0177D445300533B57 /* UISearchBar */,
@@ -1621,6 +1681,14 @@
 				45A7CA251783742700F62D4D /* profile_picture_placeholder_On@2x.png in Resources */,
 				45A7CA271783742700F62D4D /* profile_picture_placeholder.png in Resources */,
 				45A7CA291783742700F62D4D /* profile_picture_placeholder@2x.png in Resources */,
+				453E44771794B11A00771312 /* tutorial_screen1.png in Resources */,
+				453E44791794B11A00771312 /* tutorial_screen1@2x.png in Resources */,
+				453E447B1794B11A00771312 /* tutorial_screen2.png in Resources */,
+				453E447D1794B11A00771312 /* tutorial_screen2@2x.png in Resources */,
+				453E447F1794B11A00771312 /* tutorial_screen3.png in Resources */,
+				453E44811794B11A00771312 /* tutorial_screen3@2x.png in Resources */,
+				453E44831794B11A00771312 /* tutorial_screen4.png in Resources */,
+				453E44851794B11A00771312 /* tutorial_screen4@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1688,6 +1756,14 @@
 				45A7CA261783742700F62D4D /* profile_picture_placeholder_On@2x.png in Resources */,
 				45A7CA281783742700F62D4D /* profile_picture_placeholder.png in Resources */,
 				45A7CA2A1783742700F62D4D /* profile_picture_placeholder@2x.png in Resources */,
+				453E44781794B11A00771312 /* tutorial_screen1.png in Resources */,
+				453E447A1794B11A00771312 /* tutorial_screen1@2x.png in Resources */,
+				453E447C1794B11A00771312 /* tutorial_screen2.png in Resources */,
+				453E447E1794B11A00771312 /* tutorial_screen2@2x.png in Resources */,
+				453E44801794B11A00771312 /* tutorial_screen3.png in Resources */,
+				453E44821794B11A00771312 /* tutorial_screen3@2x.png in Resources */,
+				453E44841794B11A00771312 /* tutorial_screen4.png in Resources */,
+				453E44861794B11A00771312 /* tutorial_screen4@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1839,6 +1915,8 @@
 				457BBAAE177CC2CF00533B57 /* WaxRoundButton.m in Sources */,
 				457BBAD7177E478000533B57 /* WaxFollowButton.m in Sources */,
 				45A7C9DE1782251B00F62D4D /* AboutViewController.m in Sources */,
+				453E44671794AA6200771312 /* TutorialParentViewController.m in Sources */,
+				453E446B1794AC4600771312 /* TutorialChildViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1901,6 +1979,8 @@
 				457BBAAF177CC2CF00533B57 /* WaxRoundButton.m in Sources */,
 				457BBAD8177E478000533B57 /* WaxFollowButton.m in Sources */,
 				45A7C9DF1782251B00F62D4D /* AboutViewController.m in Sources */,
+				453E44681794AA6200771312 /* TutorialParentViewController.m in Sources */,
+				453E446C1794AC4600771312 /* TutorialChildViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,6 +23,7 @@
 
 
 //Controllers
+#import "AppDelegate.h"
 #import "WaxAPIClient.h"
 #import "WaxUser.h"
 #import "WaxDataManager.h" 
@@ -49,6 +50,7 @@
 
 //#import "WaxTableView.h" //not needed..now - but here for consistency
 //#import "WaxTableViewCell.h" //not needed..now - but here for consistency
+
 
 
 //viewcontrollers

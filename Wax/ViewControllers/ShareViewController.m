@@ -73,6 +73,8 @@
 
 //#ifndef DEBUG
     self.instructionsLabel.hidden = YES;
+    self.locationLabel.hidden = YES;
+    self.locationSwitch.hidden = YES; 
 //#endif
     
 }

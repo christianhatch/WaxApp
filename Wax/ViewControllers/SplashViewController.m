@@ -10,6 +10,8 @@
 #import "SignupViewController.h"
 #import "LoginViewController.h"
 
+#import "TutorialParentViewController.h"
+
 @interface SplashViewController ()
 @property (strong, nonatomic) IBOutlet UIImageView *waxLogoView;
 @property (strong, nonatomic) IBOutlet UILabel *sloganLabel;
@@ -40,6 +42,17 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [SVProgressHUD dismiss];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+//    if ([[WaxDataManager sharedManager].launchInfo objectForKeyOrNil:@"initial"]) {
+//        TutorialParentViewController *tuts = [[TutorialParentViewController alloc] init];
+//        [self presentViewController:tuts animated:YES completion:nil];
+//        
+//        [WaxDataManager sharedManager].launchInfo = nil;
+//    }
 }
 
 -(void)setUpView{
