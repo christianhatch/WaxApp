@@ -10,11 +10,10 @@
 
 @interface WaxTableView ()
 @property (nonatomic, strong) UIView *emptyView;
-@property (nonatomic, strong) NSString *emptyViewText;
 @end
 
 @implementation WaxTableView
-@synthesize automaticallyDeselectRow = _automaticallyDeselectRow, automaticallyHideInfiniteScrolling = _automaticallyHideInfiniteScrolling, emptyView = _emptyView, emptyViewText = _emptyViewText; 
+@synthesize automaticallyDeselectRow = _automaticallyDeselectRow, automaticallyHideInfiniteScrolling = _automaticallyHideInfiniteScrolling, emptyView = _emptyView, emptyViewMessageText = _emptyViewMessageText;
 
 #pragma mark - Alloc & Init
 -(instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style{
@@ -72,12 +71,12 @@
         [self.pullToRefreshView stopAnimating];
     }
     if (self.automaticallyHideInfiniteScrolling) {
-        BOOL dataSourceIsEmpty = [NSArray isEmptyOrNil:[self proxyDataSourceArray]];        
+        BOOL dataSourceIsEmpty = [NSArray isEmptyOrNil:self.proxyDataSourceArray];        
         if (dataSourceIsEmpty) {
             self.showsInfiniteScrolling = NO; 
         }
         
-        BOOL dataSourceIsBatchOfTen = [[self proxyDataSourceArray] countIsDivisibleBy:kAPIBatchCountDefault];
+        BOOL dataSourceIsBatchOfTen = [self.proxyDataSourceArray countIsDivisibleBy:kAPIBatchCountDefault];
         if (!dataSourceIsBatchOfTen) {
             self.showsInfiniteScrolling = NO; 
         }
@@ -85,10 +84,6 @@
             self.showsInfiniteScrolling = YES; 
         }
     }
-    [self updateEmptyView];
-}
--(void)setEmptyViewMessageText:(NSString *)message{
-    self.emptyViewText = message;
     [self updateEmptyView];
 }
 
@@ -105,6 +100,12 @@
     
     [self updateEmptyView];
 }
+-(void)setEmptyViewMessageText:(NSString *)emptyViewMessageText{
+    if (_emptyViewMessageText != emptyViewMessageText) {
+        _emptyViewMessageText = emptyViewMessageText;
+        [self updateEmptyView];
+    }
+}
 
 #pragma mark - Getters
 -(UIView *)emptyView{
@@ -120,7 +121,7 @@
         
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectInset(_emptyView.bounds, (_emptyView.bounds.size.width/10), (_emptyView.bounds.size.height/10))];
         [label setWaxHeaderFontOfSize:15 color:[UIColor waxHeaderFontColor]];
-        label.text = self.emptyViewText;
+        label.text = self.emptyViewMessageText;
         label.center = _emptyView.center;
         label.textAlignment = NSTextAlignmentCenter;
         label.minimumScaleFactor = 0.2;
@@ -135,11 +136,11 @@
     }
     return _emptyView;
 }
--(NSString *)emptyViewText{
-    if (!_emptyViewText) {
-        _emptyViewText = NSLocalizedString(@"No Content :(", @"No Content :("); 
+-(NSString *)emptyViewMessageText{
+    if (!_emptyViewMessageText) {
+        _emptyViewMessageText = NSLocalizedString(@"No Content :(", @"No Content :(");
     }
-    return _emptyViewText; 
+    return _emptyViewMessageText;
 }
 
 #pragma mark - Internal Methods
@@ -147,21 +148,16 @@
     
     self.emptyView.frame  = [self rectForEmptyView];
     
-    const bool shouldShowEmptyView = [[self proxyDataSourceArray] count] == 0;
+    const bool shouldShowEmptyView = [self.proxyDataSourceArray count] == 0;
     const bool emptyViewShown      = self.emptyView.superview != nil;
     
     if (shouldShowEmptyView == emptyViewShown) return;
     
-//    CATransition *animation = [CATransition animation];
-//    [animation setDuration:AIKDefaultAnimationDuration];
-//    [animation setType:kCATransitionFade];
-//    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
-//    [[self layer] addAnimation:animation forKey:kCATransitionReveal];
     
     if (shouldShowEmptyView){
         for (UILabel *label in self.emptyView.subviews) {
             if ([label respondsToSelector:@selector(setText:)]) {
-                label.text = self.emptyViewText;
+                label.text = self.emptyViewMessageText;
                 label.frame = [self rectForLabel];
                 label.center = CGPointMake(self.emptyView.bounds.size.width/2, self.emptyView.bounds.size.height/2);
             }

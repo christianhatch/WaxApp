@@ -18,12 +18,11 @@
 
 -(void)handleUpdatingFeedWithError:(NSError *)error; //must implement this and call super when loading is finished
 
+@property (nonatomic, readonly) NSMutableArray *proxyDataSourceArray; //must implement and override getter
 
--(NSMutableArray *)proxyDataSourceArray; //must implement this and ovveride 
 @property (nonatomic, readwrite) BOOL automaticallyDeselectRow; //default is YES
 @property (nonatomic, readwrite) BOOL automaticallyHideInfiniteScrolling; //default is YES
 
--(void)setEmptyViewMessageText:(NSString *)message;
-
+@property (nonatomic, strong) NSString *emptyViewMessageText;
 
 @end
