@@ -337,20 +337,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     [[WaxDataManager sharedManager] clearAllData];
     [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:WaxUserDidLogOutNotification object:self]; 
 }
-
-#pragma mark - Utility Methods
--(SettingsObject *)settingsObject{
-    SettingsObject *settings = [[SettingsObject alloc] init];
-    settings.username = self.username;
-    settings.fullName = self.fullName;
-    settings.email = self.email;
-    settings.facebookID = self.facebookAccountID;
-    settings.pushSettings = [NSDictionary dictionary];
-    return settings; 
-}
-+(BOOL)userIDIsCurrentUser:(NSString *)userID{
-    return [[WaxUser currentUser].userID isEqualToString:userID];
-}
+#pragma mark - Social
 -(void)chooseTwitterAccountWithCompletion:(WaxUserCompletionBlockTypeSimple)completion{
     [[AIKTwitterManager sharedManager] chooseTwitterAccountAlreadyConnected:self.twitterAccountConnected withCompletion:^(ACAccount *twitterAccount, NSError *error) {
         if (twitterAccount) {
@@ -361,7 +348,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         }else{
             self.twitterAccountID = kFalseString;
             if (completion) {
-                completion(error); 
+                completion(error);
             }
         }
     }];
@@ -381,6 +368,51 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         }
     }];
 }
+-(void)fetchMatchedContactsWithCompletion:(WaxUserCompletionBlockTypeList)completion{
+    [[AIKContactsManager sharedManager] requestAccessToContactsWithCompletion:^(BOOL granted) {
+        if (granted) {
+            [[AIKContactsManager sharedManager] allContactsAsDictionariesForUploadingToServerWithCompletion:^(NSMutableArray *contacts) {
+                [[WaxAPIClient sharedClient] fetchMatchedContactsOnWaxWithContacts:contacts completion:^(NSMutableArray *list, NSError *error) {
+
+                    if (completion) {
+                        completion(list, error);
+                    }
+                    
+                }];
+            }];
+        }else{
+            //TODO: handle not being granted access
+        }
+    }];
+}
+-(void)fetchMatchedFacebookFriendsWithCompletion:(WaxUserCompletionBlockTypeList)completion{
+    if (self.facebookAccountConnected) {
+        [[WaxAPIClient sharedClient] fetchMatchedFacebookFriendsOnWaxWithFacebookID:self.facebookAccountID facebookAccessToken:[[AIKFacebookManager sharedManager] accessToken] completion:^(NSMutableArray *list, NSError *error) {
+
+            if (completion) {
+                completion(list, error);
+            }
+            
+        }];
+    }else{
+        //TODO: present alertview asking to connect to fb, making it so that if they click yes it'll connect to fb and then fetch the contacts 
+    }
+}
+
+#pragma mark - Utility Methods
+-(SettingsObject *)settingsObject{
+    SettingsObject *settings = [[SettingsObject alloc] init];
+    settings.username = self.username;
+    settings.fullName = self.fullName;
+    settings.email = self.email;
+    settings.facebookID = self.facebookAccountID;
+    settings.pushSettings = [NSDictionary dictionary];
+    return settings; 
+}
++(BOOL)userIDIsCurrentUser:(NSString *)userID{
+    return [[WaxUser currentUser].userID isEqualToString:userID];
+}
+
 -(void)saveCurrentUserToVendorSolutions{
     [Flurry setUserID:self.userID];
     

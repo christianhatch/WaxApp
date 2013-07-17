@@ -6,6 +6,9 @@
 //  Copyright (c) 2013 Acacia Interactive. All rights reserved.
 //
 
+
+#define kLastItemKey    @"lastitem"
+
 static inline BOOL SimpleReturnFromAPIResponse(id response) {
     return [[[response objectAtIndexOrNil:0] objectForKeyOrNil:@"complete"] boolValue];
 }
@@ -240,7 +243,9 @@ static inline BOOL PathRequiresArray(NSString *path){
     NSData *picData = UIImageJPEGRepresentation(small, 0.5);
     
     [self postMultiPartPath:@"settings/update_picture" parameters:@{@"facebook": @0} constructingBodyWithBlock:^(id <AFMultipartFormData>formData) {
+        
         [formData appendPartWithFileData:picData name:@"profile_picture" fileName:@"profile_picture.jpg" mimeType:@"image/jpeg"];
+        
     } progress:progress completion:^(id model, NSError *error) {
         if (completion) {
             completion(SimpleReturnFromAPIResponse(model), error);
@@ -256,6 +261,34 @@ static inline BOOL PathRequiresArray(NSString *path){
     }];
 }
 
+#pragma mark - Social
+-(void)fetchMatchedContactsOnWaxWithContacts:(NSArray *)contacts completion:(WaxAPIClientBlockTypeCompletionList)completion{
+    
+    NSParameterAssert(contacts);
+    
+    [self postPath:@"find_friends/contact" parameters:@{@"contacts": contacts} modelClass:[PersonObject class] completionBlock:^(id model, NSError *error) {
+        
+        if (completion) {
+            completion(model, error);
+        }
+        
+    }];
+}
+-(void)fetchMatchedFacebookFriendsOnWaxWithFacebookID:(NSString *)facebookID facebookAccessToken:(NSString *)facebookAccessToken completion:(WaxAPIClientBlockTypeCompletionList)completion{
+    
+    NSParameterAssert(facebookID);
+    NSParameterAssert(facebookAccessToken);
+    
+    [self postPath:@"find_friends/facebook" parameters:@{@"facebookid": facebookID, @"access_token":facebookAccessToken} modelClass:[PersonObject class] completionBlock:^(id model, NSError *error) {
+        
+        if (completion) {
+            completion(model, error);
+        }
+        
+    }];
+    
+}
+
 
 #pragma mark - Videos
 -(void)uploadVideoAtFileURL:(NSURL *)fileURL videoID:(NSString *)videoID progress:(WaxAPIClientBlockTypeProgressUpload)progress completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
@@ -265,11 +298,11 @@ static inline BOOL PathRequiresArray(NSString *path){
     
     [self postMultiPartPath:@"videos/put_video" parameters:nil constructingBodyWithBlock:^(id <AFMultipartFormData>formData) {
         
-        NSError *error = nil;
-        [formData appendPartWithFileURL:fileURL name:@"video" fileName:videoID mimeType:@"video/mp4" error:&error];
+        [formData appendPartWithFileURL:fileURL name:@"video" fileName:videoID mimeType:@"video/mp4" error:nil];
         
     }progress:progress completion:^(id model, NSError *error) {
-        DLog(@"upload video response %@", model);
+       
+        VLog(@"upload video response %@", model);
 
         if (completion) {
             completion(SimpleReturnFromAPIResponse(model), error);
@@ -284,11 +317,11 @@ static inline BOOL PathRequiresArray(NSString *path){
     
     [self postMultiPartPath:@"videos/put_thumbnail" parameters:nil constructingBodyWithBlock:^(id <AFMultipartFormData>formData) {
         
-        NSError *error = nil;
-        [formData appendPartWithFileURL:fileURL name:@"thumbnail" fileName:videoID mimeType:@"image/jpg" error:&error];
+        [formData appendPartWithFileURL:fileURL name:@"thumbnail" fileName:videoID mimeType:@"image/jpg" error:nil];
         
     }progress:progress completion:^(id model, NSError *error) {
-        DLog(@"upload thumbnail response %@", model);
+      
+        VLog(@"upload thumbnail response %@", model);
 
         if (completion) {
             completion(SimpleReturnFromAPIResponse(model), error);
@@ -316,25 +349,20 @@ static inline BOOL PathRequiresArray(NSString *path){
     
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:videoID, @"videoid", videoLength, @"videolength", tag, @"tag", category, @"category", nil];
-
-    if (lat && lon) {
-        [params setObject:lat forKey:@"lat"];
-        [params setObject:lon forKey:@"lon"];
-    }
-    if (challengeVideoID) {
-        [params setObject:challengeVideoID forKey:@"challenge_videoid"];
-    }
-    if (challengeVideoTag) {
-        [params setObject:challengeVideoTag forKey:@"challenge_tag"];
-    }
+    
+    [params safeSetObject:lat forKey:@"lat"];
+    [params safeSetObject:lon forKey:@"lon"];
+    [params safeSetObject:challengeVideoID forKey:@"challenge_videoid"];
+    [params safeSetObject:challengeVideoTag forKey:@"challenge_tag"];
+    
     if (shareToFacebook) {
-        if ([[WaxUser currentUser] facebookAccountConnected]) {
-            [params setObject:[[WaxUser currentUser] facebookAccountID] forKey:@"facebookid"];
+        if ([WaxUser currentUser].facebookAccountConnected) {
+            [params setObject:[WaxUser currentUser].facebookAccountID forKey:@"facebookid"];
             [params setObject:[AIKFacebookManager sharedManager].accessToken forKey:@"facebook_token"];
         }
     }
     if (shareToTwitter) {
-        if ([[WaxUser currentUser] twitterAccountConnected]) {
+        if ([WaxUser currentUser].twitterAccountConnected) {
             [[AIKTwitterManager sharedManager] reverseAuthTokenForAccountID:[[WaxUser currentUser] twitterAccountID] withCompletion:^(NSString *reverseAuthFullToken, NSString *accessToken, NSString *accessTokenSecret, NSError *error) {
                 
                 [params setObject:accessToken forKey:@"twitter_token"];
@@ -350,7 +378,9 @@ static inline BOOL PathRequiresArray(NSString *path){
         }
     }else{
         [self postPath:@"videos/put_data" parameters:params modelClass:nil completionBlock:^(id model, NSError *error) {
-            DLog(@"upload meta response %@", model);
+            
+            VLog(@"upload meta response %@", model);
+            
             if (completion) {
                 completion(SimpleReturnFromAPIResponse(model), error);
             }
@@ -434,9 +464,7 @@ static inline BOOL PathRequiresArray(NSString *path){
     
     NSParameterAssert(searchTerm);
     
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:searchTerm, @"tag", infiniteScrollingID, @"lastitem", nil];
-    
-    [self postPath:@"tags/search" parameters:params modelClass:[TagObject class] completionBlock:^(id model, NSError *error) {
+    [self postPath:@"tags/search" parameters:@{@"tag": searchTerm, kLastItemKey:CollectionSafeObject(infiniteScrollingID)} modelClass:[TagObject class] completionBlock:^(id model, NSError *error) {
         if (completion) {
             completion(model, error); 
         }
@@ -486,16 +514,16 @@ static inline BOOL PathRequiresArray(NSString *path){
     }]; 
 }
 -(void)fetchNotificationsWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
-
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:infiniteScrollingID, @"lastitem", nil]; 
     
-    [self postPath:@"notes/get" parameters:params modelClass:[NotificationObject class] completionBlock:^(id model, NSError *error) {
+    [self postPath:@"notes/get" parameters:@{kLastItemKey: CollectionSafeObject(infiniteScrollingID)} modelClass:[NotificationObject class] completionBlock:^(id model, NSError *error) {
         if (completion) {
             completion(model, error);
         }
     }];
 }
 -(void)fetchNoteCountWithCompletion:(void (^)(NSNumber *, NSError *))completion{
+    
+    
     [self postPath:@"notes/unread" parameters:nil modelClass:nil completionBlock:^(id model, NSError *error) {
         
         NSNumber *count = [[model objectAtIndexOrNil:0] objectForKeyOrNil:@"unread"];
@@ -510,13 +538,13 @@ static inline BOOL PathRequiresArray(NSString *path){
 -(void)fetchFeedFromPath:(NSString *)path tagOrPersonID:(NSString *)tagOrPersonID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
 
     NSParameterAssert(tagOrPersonID);
-            
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:tagOrPersonID, @"feedid", infiniteScrollingID, @"lastitem", nil];
-
-    [self postPath:path parameters:params modelClass:[VideoObject class] completionBlock:^(id model, NSError *error) {
+    
+    [self postPath:path parameters:@{@"feedid": tagOrPersonID, kLastItemKey:CollectionSafeObject(infiniteScrollingID)} modelClass:[VideoObject class] completionBlock:^(id model, NSError *error) {
+        
         if (completion) {
             completion(model, error);
         }
+        
     }];
 }
 
@@ -524,9 +552,7 @@ static inline BOOL PathRequiresArray(NSString *path){
     
     NSParameterAssert(personId);
     
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:personId, @"personid", infiniteScrollingID, @"lastitem", nil];
-
-    [self postPath:path parameters:params modelClass:[PersonObject class] completionBlock:^(id model, NSError *error) {
+    [self postPath:path parameters:@{@"personid": personId, kLastItemKey: CollectionSafeObject(infiniteScrollingID)} modelClass:[PersonObject class] completionBlock:^(id model, NSError *error) {
         if (completion) {
             completion(model, error);
         }
@@ -543,12 +569,15 @@ static inline BOOL PathRequiresArray(NSString *path){
             }
         }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        DLog(@"standard post request failure %@", error);
+        
+        VLog(@"standard post request failure %@", error);
+        
         if ([NSError NSURLRequestErrorIsRequestWasCancelled:error]) {
             if (completion) {
                 completion(nil, error);
             }
         }else{
+            
 #ifdef DEBUG
             [AIKErrorManager showAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion buttonHandler:^{
                 if (completion) {
@@ -588,7 +617,9 @@ static inline BOOL PathRequiresArray(NSString *path){
             }
         }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        DLog(@"multipart form request failure %@", error);
+        
+        VLog(@"multipart form request failure %@", error);
+        
         if ([NSError NSURLRequestErrorIsRequestWasCancelled:error]) {
             if (completion) {
                 completion(nil, error);

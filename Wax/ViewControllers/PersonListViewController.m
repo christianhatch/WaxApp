@@ -46,7 +46,7 @@
     plv.challengeTag = tag;
     plv.challengeVideoID = videoID; 
     plv.addSearchBar = YES;
-    plv.userID = [[WaxUser currentUser] userID]; 
+    plv.userID = [WaxUser currentUser].userID;
     return plv; 
 }
 -(id)initWithCoder:(NSCoder *)aDecoder{

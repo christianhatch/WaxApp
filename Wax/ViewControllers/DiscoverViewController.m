@@ -13,13 +13,18 @@
 #import "FeedViewController.h"
 
 @interface DiscoverViewController () <UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate>
+
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *findFriendsButton;
+- (IBAction)findFriendsAction:(id)sender;
+
+@property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, strong) CategoryTableView *tableView;
 @property (nonatomic, strong) NSMutableArray *personSearchResults;
 @property (nonatomic, strong) NSMutableArray *tagSearchResults;
 @end
 
 @implementation DiscoverViewController
-@synthesize tableView = _tableView, searchBar = _searchBar, personSearchResults, tagSearchResults; 
+@synthesize tableView = _tableView, searchBar = _searchBar, personSearchResults, tagSearchResults, findFriendsButton;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
@@ -28,6 +33,11 @@
 
 -(void)setUpView{
     self.navigationItem.title = NSLocalizedString(@"Discover", @"Discover");
+    
+#ifndef DEBUG
+    self.findFriendsButton = nil;
+#endif
+    
     [self.view addSubview:self.tableView];
     [self updatePlaceholder];
     self.searchBar.showsScopeBar = YES;
@@ -35,6 +45,11 @@
     self.tableView.tableHeaderView = self.searchBar;
     self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo; 
 }
+#pragma mark - IBActions
+- (IBAction)findFriendsAction:(id)sender {
+    
+}
+
 
 #pragma mark - UISearchBar Delegate
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
@@ -74,7 +89,7 @@
     }
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.searchDisplayController.searchBar.selectedScopeButtonIndex == 0) {
+    if (USER_SCOPE_SELECTED) {
         PersonCell *cell = [tableView dequeueReusableCellWithIdentifier:kPersonCellID];
         cell.person = [self.personSearchResults objectAtIndexOrNil:indexPath.row];
         return cell;
@@ -149,7 +164,6 @@
         _tableView = [CategoryTableView categoryTableViewForDiscoverWithFrame:self.view.bounds didSelectCategoryBlock:^(NSString *category) {
             [self.navigationController pushViewController:[FeedViewController feedViewControllerWithCategory:category] animated:YES];
         }];
-        _tableView.automaticallyDeselectRow = YES; 
     }
     return _tableView;
 }

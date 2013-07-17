@@ -19,8 +19,18 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     [self setUpView];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(testThings)];
 }
-
+-(void)testThings{
+    
+    [[WaxUser currentUser] fetchMatchedContactsWithCompletion:^(NSMutableArray *list, NSError *error) {
+        VLog(@"matched contacts %@", list);
+    }];
+    [[WaxUser currentUser] fetchMatchedFacebookFriendsWithCompletion:^(NSMutableArray *list, NSError *error) {
+        VLog(@"matched fb friends %@", list); 
+    }];
+}
 -(void)setUpView{
     self.navigationItem.title = NSLocalizedString(@"Wax", @"Wax");
     [self.view addSubview:self.tableView];

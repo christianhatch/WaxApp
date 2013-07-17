@@ -83,8 +83,9 @@
 }
 -(void)didMoveToSuperview{
     [super didMoveToSuperview];
-    [self reloadData];
     
+    [self reloadData];
+
     if (self.superview != nil) {
         [self triggerPullToRefresh];
     }

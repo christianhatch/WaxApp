@@ -9,7 +9,6 @@
 
 #import "UploadObject.h"
 
-NSString *const CurrentUploadObjectUserDefaultsKey = @"currentUploadObject";
 
 @implementation UploadObject
 @synthesize status = _status, videoStatus = _videoStatus, thumbnailStatus = _thumbnailStatus, metadataStatus = _metadataStatus, shareToFacebook = _shareToFacebook, shareToTwitter = _shareToTwitter, shareLocation = _shareLocation, videoID = _videoID, lat = _lat, lon = _lon, tag = _tag, category = _category, videoLength = _videoLength, videoFileURL = _videoFileURL, thumbnailFileURL = _thumbnailFileURL;
@@ -98,10 +97,18 @@ NSString *const CurrentUploadObjectUserDefaultsKey = @"currentUploadObject";
     return self;
 }
 -(NSDictionary *)dictionaryRepresentation{
-    NSArray *objects = [NSArray arrayWithObjects:[NSNumber numberWithInteger:self.status], [NSNumber numberWithInteger:self.videoStatus], [NSNumber numberWithInteger:self.thumbnailStatus], [NSNumber numberWithInteger:self.metadataStatus], [NSNumber numberWithBool:self.shareToFacebook], [NSNumber numberWithBool:self.shareToTwitter], [NSNumber numberWithBool:self.shareLocation], self.videoID, _lat, _lon, self.tag, self.category, self.videoLength, self.videoFileURL.path, self.thumbnailFileURL.path, nil];
-    NSArray *keys = [NSArray arrayWithObjects:@"status", @"videostatus", @"thumbnailstatus", @"metadatastatus", @"sharetofacebook", @"sharetotwitter", @"sharelocation", @"videoid", @"lat", @"lon", @"tag", @"category", @"videolength", @"videofileurl", @"thumbnailfileurl", nil];
-    NSDictionary *dict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
-    return dict;
+    @try {
+        NSArray *objects = [NSArray arrayWithObjects:[NSNumber numberWithInteger:self.status], [NSNumber numberWithInteger:self.videoStatus], [NSNumber numberWithInteger:self.thumbnailStatus], [NSNumber numberWithInteger:self.metadataStatus], [NSNumber numberWithBool:self.shareToFacebook], [NSNumber numberWithBool:self.shareToTwitter], [NSNumber numberWithBool:self.shareLocation], self.videoID, _lat, _lon, self.tag, self.category, self.videoLength, self.videoFileURL.path, self.thumbnailFileURL.path, nil];
+        NSArray *keys = [NSArray arrayWithObjects:@"status", @"videostatus", @"thumbnailstatus", @"metadatastatus", @"sharetofacebook", @"sharetotwitter", @"sharelocation", @"videoid", @"lat", @"lon", @"tag", @"category", @"videolength", @"videofileurl", @"thumbnailfileurl", nil];
+        NSDictionary *dict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+        return dict;
+    }
+    @catch (NSException *exception) {
+        [AIKErrorManager logExceptionWithMessage:@"uploadobject dictionary representation" exception:exception];
+    }
+    @finally {
+
+    }
 }
 
 -(void)updateOverallStatus{

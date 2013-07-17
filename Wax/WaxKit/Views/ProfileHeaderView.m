@@ -116,14 +116,12 @@
 
 - (IBAction)followersButtonAction:(id)sender {
     PersonListViewController *plvc = [PersonListViewController personListViewControllerForFollowersFromUserID:self.person.userID];
-    UIViewController *vc = [self nearestViewController];
-    [vc.navigationController pushViewController:plvc animated:YES];
+    [[self nearestNavigationController] pushViewController:plvc animated:YES];
 }
 
 - (IBAction)followingButtonAction:(id)sender {
     PersonListViewController *plvc = [PersonListViewController personListViewControllerForFollowingFromUserID:self.person.userID];
-    UIViewController *vc = [self nearestViewController];
-    [vc.navigationController pushViewController:plvc animated:YES];
+    [[self nearestNavigationController] pushViewController:plvc animated:YES];
 }
 
 #pragma mark - Public API

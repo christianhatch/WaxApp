@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *const CurrentUploadObjectUserDefaultsKey;
-
 typedef NS_ENUM(NSInteger, UploadStatus){
     UploadStatusWaitingForData = 0,
     UploadStatusWaiting,

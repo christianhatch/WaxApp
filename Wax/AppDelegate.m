@@ -42,7 +42,7 @@
         [self handleRemoteNotification:[launchOptions objectForKeyOrNil:UIApplicationLaunchOptionsRemoteNotificationKey]];
     }
     
-    if ([[WaxUser currentUser] isLoggedIn]) {
+    if ([WaxUser currentUser].isLoggedIn) {
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound |UIRemoteNotificationTypeAlert)];
     }
     

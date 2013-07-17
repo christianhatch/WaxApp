@@ -189,6 +189,13 @@ typedef NS_ENUM(NSInteger, WaxAPIClientVideoActionType){
                    progress:(WaxAPIClientBlockTypeProgressUpload)progress
                  completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
 
+#pragma mark - Social
+-(void)fetchMatchedContactsOnWaxWithContacts:(NSArray *)contacts
+                                  completion:(WaxAPIClientBlockTypeCompletionList)completion;
+
+-(void)fetchMatchedFacebookFriendsOnWaxWithFacebookID:(NSString *)facebookID
+                                  facebookAccessToken:(NSString *)facebookAccessToken
+                                           completion:(WaxAPIClientBlockTypeCompletionList)completion;
 
 #pragma mark - Videos
 -(void)uploadVideoAtFileURL:(NSURL *)fileURL
@@ -257,10 +264,6 @@ typedef NS_ENUM(NSInteger, WaxAPIClientVideoActionType){
 
 -(void)fetchNoteCountWithCompletion:(void(^)(NSNumber *noteCount, NSError *error))completion;
 
-//#pragma mark - Internal Methods
-//-(void)postPath:(NSString *)path parameters:(NSDictionary *)parameters modelClass:(Class)modelClass completionBlock:(void (^)(id model, NSError *error))completion;
-//
-//-(void)postMultiPartPath:(NSString *)path parameters:(NSDictionary *)parameters constructingBodyWithBlock:(void (^)(id <AFMultipartFormData>formData))block progress:(WaxAPIClientBlockTypeProgressUpload)progress completion:(void (^)(id model, NSError *error))completion;
 
 
 

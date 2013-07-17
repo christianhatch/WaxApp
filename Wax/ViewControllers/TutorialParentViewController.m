@@ -21,6 +21,9 @@
 +(TutorialParentViewController *)tutorialViewController{
     return [[TutorialParentViewController alloc] init]; 
 }
+//+(TutorialParentViewController *)tutorialViewControllerWithRegistrationViewControllers{
+//    
+//}
 
 - (void)viewDidLoad{
     [super viewDidLoad];

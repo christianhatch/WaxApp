@@ -11,5 +11,6 @@
 @interface TutorialParentViewController : UIViewController
 
 +(TutorialParentViewController *)tutorialViewController; 
+//+(TutorialParentViewController *)tutorialViewControllerWithRegistrationViewControllers; 
 
 @end

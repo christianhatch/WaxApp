@@ -10,7 +10,8 @@
 
 
 #pragma mark - API
-NSString *const kWaxAPIBaseURL = @"https://api.wax.li/v0.0.1/";
+
+NSString *const kWaxAPIBaseURL = @"https://devapi.wax.li/v1/";
 NSString *const kWaxAPISalt = @"pXOnay@E3p*#5lJC)D^t$8WBb4X_yDds0Z75t$@I";
 NSString *const kWaxAPIErrorDomain = @"com.wax.api"; 
 NSString *const kWaxAPIJSONKey = @"response";
@@ -60,29 +61,6 @@ NSString *const kWaxNotificationFacebookAccountDidChange = @"waxUserFacebookAcco
 NSString *const kWaxNotificationPresentVideoCamera = @"waxShowVideoCameraNotification"; 
 NSString *const kWaxNotificationRemoteNotificationReceived = @"waxRemoteNotificationReceivedNotification"; 
 NSString *const kWaxNotificationVideoUploadCompleted = @"waxVideoUploadDidCompleteNotification"; 
-
-
-#define KWLaunchOptionGotoIDKey             @"pID"
-#define KWLaunchOptionGotoTypeKey           @"pType"
-#define KWLaunchOptionUsernameKey           @"pName"
-
-
-
-#ifndef RELEASE
-
-#define kSuperUserFinalConfirmationText     @"Are you absolutely sure you want to invoke super user privileges and delete this?\n\nRemember, with great power comes great responsibility! Be careful sonny!\n\n - ONLY use this when a Kiwi or comment violates the Kiwi Terms of Service! - \n\n"
-#define kSuperUserGuidelinesText            @"Does this Kiwi or comment contain:\nProfanity?\nNudity?\nRacially Offesnive content?\nGraphic Violence?\nObscenity?"
-#define kInvokeSuPrivsButtonLabel           @" -Invoke Superuser Privs to Delete- "
-#define KWSuperUserModeEnableKey            @"superUserModeEnabled"
-
-#endif
-
-
-
-
-
-
-
 
 
 

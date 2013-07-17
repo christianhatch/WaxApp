@@ -13,6 +13,7 @@ extern NSString *const WaxUserDidLogOutNotification;
 
 @class PersonObject;
 
+typedef void(^WaxUserCompletionBlockTypeList)(NSMutableArray *list, NSError *error);
 typedef void(^WaxUserCompletionBlockTypeSimple)(NSError *error);
 typedef void(^WaxUserCompletionBlockTypeProfilePicture)(UIImage *profilePicture, NSError *error);
 
@@ -70,6 +71,9 @@ typedef void(^WaxUserCompletionBlockTypeProfilePicture)(UIImage *profilePicture,
 -(void)chooseTwitterAccountWithCompletion:(WaxUserCompletionBlockTypeSimple)completion;
 
 -(void)connectFacebookWithCompletion:(WaxUserCompletionBlockTypeSimple)completion; 
+
+-(void)fetchMatchedContactsWithCompletion:(WaxUserCompletionBlockTypeList)completion;
+-(void)fetchMatchedFacebookFriendsWithCompletion:(WaxUserCompletionBlockTypeList)completion; 
 
 #pragma mark - Utility Methods
 +(BOOL)userIDIsCurrentUser:(NSString *)userID;

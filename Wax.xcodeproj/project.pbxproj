@@ -254,7 +254,6 @@
 		457BBAC8177D445300533B57 /* waxSearchScope_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 457BBAB8177D445300533B57 /* waxSearchScope_on@2x.png */; };
 		457BBAD7177E478000533B57 /* WaxFollowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 457BBAD6177E477F00533B57 /* WaxFollowButton.m */; };
 		457BBAD8177E478000533B57 /* WaxFollowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 457BBAD6177E477F00533B57 /* WaxFollowButton.m */; };
-		458569F91788F86300D8FB83 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458569F81788F86300D8FB83 /* StoreKit.framework */; };
 		4591002A1755979E000D8BCD /* AppledocSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 459100291755979E000D8BCD /* AppledocSettings.plist */; };
 		459C28251725EC82009C5487 /* UIButton+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C281E1725EC82009C5487 /* UIButton+WaxKit.m */; };
 		459C28271725EC82009C5487 /* UIFont+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C28201725EC82009C5487 /* UIFont+WaxKit.m */; };
@@ -604,7 +603,6 @@
 		457BBAB8177D445300533B57 /* waxSearchScope_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "waxSearchScope_on@2x.png"; sourceTree = "<group>"; };
 		457BBAD5177E477F00533B57 /* WaxFollowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxFollowButton.h; sourceTree = "<group>"; };
 		457BBAD6177E477F00533B57 /* WaxFollowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxFollowButton.m; sourceTree = "<group>"; };
-		458569F81788F86300D8FB83 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		459100291755979E000D8BCD /* AppledocSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppledocSettings.plist; sourceTree = "<group>"; };
 		459C281D1725EC82009C5487 /* UIButton+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+WaxKit.h"; sourceTree = "<group>"; };
 		459C281E1725EC82009C5487 /* UIButton+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WaxKit.m"; sourceTree = "<group>"; };
@@ -746,7 +744,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				458569F91788F86300D8FB83 /* StoreKit.framework in Frameworks */,
 				4518ADE0175AC3FA00D5D95C /* MediaPlayer.framework in Frameworks */,
 				4518AD591758FCE700D5D95C /* CoreMedia.framework in Frameworks */,
 				45EA321F17260DA100980320 /* AVFoundation.framework in Frameworks */,
@@ -1356,7 +1353,6 @@
 		45F7161B171F163C009097F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				458569F81788F86300D8FB83 /* StoreKit.framework */,
 				4518ADDE175AAE3600D5D95C /* MediaPlayer.framework */,
 				4518AD581758FCE700D5D95C /* CoreMedia.framework */,
 				4518AD541758FC5300D5D95C /* AssetsLibrary.framework */,
@@ -1488,6 +1484,11 @@
 				TargetAttributes = {
 					45F71618171F163C009097F3 = {
 						DevelopmentTeam = Z4M8HTC8XC;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -2135,8 +2136,8 @@
 			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2165,8 +2166,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "C66F4783-2188-49BD-B943-55758BBEC1C0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C66F4783-2188-49BD-B943-55758BBEC1C0";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) \"${PODS_ROOT}/BuildHeaders\" $(BUILT_PRODUCTS_DIR)/** \"$(SRCROOT)/Pods/Headers/\"/**";
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
@@ -2220,7 +2221,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Wax.app/Wax";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2246,8 +2247,9 @@
 					SystemConfiguration,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "92327EBB-4D86-4506-8DC3-43621C117C2D";
+				PROVISIONING_PROFILE = "C66F4783-2188-49BD-B943-55758BBEC1C0";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) \"${PODS_ROOT}/BuildHeaders\" $(BUILT_PRODUCTS_DIR)/** \"$(SRCROOT)/Pods/Headers/\"/**";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -2256,8 +2258,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Wax.app/Wax";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
@@ -2281,7 +2284,9 @@
 					SystemConfiguration,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5542C230-6C55-4260-A13F-06D5965BBC1F";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) \"${PODS_ROOT}/BuildHeaders\" $(BUILT_PRODUCTS_DIR)/** \"$(SRCROOT)/Pods/Headers/\"/**";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
@@ -2321,8 +2326,8 @@
 			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2351,8 +2356,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "6E1AC7AD-4B79-49DC-92D0-83C96B3BACFB";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6E1AC7AD-4B79-49DC-92D0-83C96B3BACFB";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) \"${PODS_ROOT}/BuildHeaders\" $(BUILT_PRODUCTS_DIR)/** \"$(SRCROOT)/Pods/Headers/\"/**";
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
@@ -2363,8 +2368,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Wax.app/Wax";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
@@ -2388,7 +2394,9 @@
 					SystemConfiguration,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "6E1AC7AD-4B79-49DC-92D0-83C96B3BACFB";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) \"${PODS_ROOT}/BuildHeaders\" $(BUILT_PRODUCTS_DIR)/** \"$(SRCROOT)/Pods/Headers/\"/**";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = TestFlight;
