@@ -68,7 +68,7 @@ static inline NSString * WaxControlStateFromUIControlState(UIControlState state)
     self.borderColors = [NSMutableDictionary dictionaryWithDictionary:
                          @{WaxControlStateNormal: [UIColor waxTableViewCellSelectionColor]}];
     
-    [self setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    [self setTitleColorForAllControlStates:[UIColor blackColor]]; 
     [self setTitleForAllControlStates:title]; 
 }
 -(void)styleAsWaxRoundButtonBlueWithTitle:(NSString *)title{
@@ -78,9 +78,10 @@ static inline NSString * WaxControlStateFromUIControlState(UIControlState state)
                        WaxControlStateDisabled: [UIColor blueColor]}];
     
     self.borderColors = [NSMutableDictionary dictionaryWithDictionary:
-                         @{WaxControlStateNormal: [UIColor blueColor],
-                        }];
+                         @{WaxControlStateNormal: [UIColor blueColor]}];
     
+    [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     [self setTitleForAllControlStates:title];
 }
 -(void)styleAsWaxRoundButtonWhiteWithTitle:(NSString *)title{
@@ -100,6 +101,7 @@ static inline NSString * WaxControlStateFromUIControlState(UIControlState state)
     [self setBorderColor:color forState:state];
     [self setFillColor:color forState:state]; 
 }
+
 #pragma mark - Alloc & Init
 -(id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];

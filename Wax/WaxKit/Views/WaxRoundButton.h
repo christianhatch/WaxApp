@@ -23,5 +23,7 @@
 -(void)setBorderColor:(UIColor *)color forState:(UIControlState)state;
 -(void)setFillColor:(UIColor *)color forState:(UIControlState)state;
 
+-(UIColor *)borderColorForControlState:(UIControlState)state;
+-(UIColor *)fillColorForControlState:(UIControlState)state;
 
 @end
