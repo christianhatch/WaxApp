@@ -14,7 +14,7 @@
 @end
 
 @implementation PersonTableView
-@synthesize userID = _userID, didSelectBlock = _didSelectBlock, hidesFollowButtonOnCells = _hidesFollowButtonOnCells;
+@synthesize userID = _userID, didSelectBlock = _didSelectBlock;
 
 +(PersonTableView *)personTableViewForFollowingWithUserID:(NSString *)userID didSelectBlock:(PersonTableViewDidSelectPersonBlock)selectBlock frame:(CGRect)frame{
     PersonTableView *persony = [[PersonTableView alloc] initWithPersonTableViewType:PersonTableViewTypeFollowing userID:userID didSelectBlock:selectBlock frame:frame];
@@ -48,6 +48,7 @@
     [super didMoveToSuperview];
     [self triggerPullToRefresh];
 }
+
 #pragma mark - Internal Methods
 -(void)refreshDataWithInfiniteScroll:(BOOL)infiniteScroll{
     switch (self.tableViewType) {
@@ -69,15 +70,15 @@
     return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [self proxyDataSourceArray].count;
+    return self.proxyDataSourceArray.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     PersonCell *cell = [self dequeueReusableCellWithIdentifier:kPersonCellID];
     
-    PersonObject *person = [[self proxyDataSourceArray] objectAtIndexOrNil:indexPath.row];
+    PersonObject *person = [self.proxyDataSourceArray objectAtIndexOrNil:indexPath.row];
+    cell.cellType = PersonCellTypeDefault; 
     cell.person = person;
-    cell.hidesFollowButton = self.hidesFollowButtonOnCells;
     
     return cell;
 }
@@ -85,8 +86,9 @@
 #pragma mark - TableView Delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    
     if (self.didSelectBlock) {
-        PersonObject *person = [[self proxyDataSourceArray] objectAtIndexOrNil:indexPath.row];
+        PersonObject *person = [self.proxyDataSourceArray objectAtIndexOrNil:indexPath.row];
         self.didSelectBlock(person); 
     }
 }
@@ -117,7 +119,6 @@
      */
 }
 
-#pragma mark - Getters
 
 
 @end

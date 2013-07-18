@@ -43,6 +43,8 @@
 
 #import "FeedTableView.h"
 #import "FeedCell.h"
+#import "SendChallengeTableView.h"
+#import "InviteFriendsCell.h"
 
 #import "PersonTableView.h"
 #import "PersonCell.h"
@@ -58,10 +60,13 @@
 #import "HomeViewController.h"
 #import "DiscoverViewController.h"
 #import "NotificationsViewController.h"
-#import "FeedViewController.h"
 #import "ProfileViewController.h"
+
+#import "SettingsViewController.h"
+#import "FeedViewController.h"
 #import "PersonListViewController.h"
-#import "SettingsViewController.h" 
+#import "SendChallengeViewController.h"
+
 
 //Models
 #import "ModelObject.h"

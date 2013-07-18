@@ -48,6 +48,8 @@
 -(instancetype)initWithFeedTableViewType:(FeedTableViewType)feedtype tagOrUserID:(NSString *)tagOrUserID frame:(CGRect)frame{
     self = [super initWithFrame:frame style:UITableViewStylePlain];
     if (self) {
+        self.allowsSelection = NO;
+        
         self.tableViewType = feedtype;
         self.dataSourceID = tagOrUserID;
         self.automaticallyHideInfiniteScrolling = YES;
@@ -92,7 +94,7 @@
 }
 
 -(void)deleteCellAtIndexPath:(NSIndexPath *)indexPath{
-    [[self proxyDataSourceArray] removeObjectAtIndex:indexPath.row];
+    [self.proxyDataSourceArray removeObjectAtIndex:indexPath.row];
     [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft]; 
 }
 #pragma mark - Internal Methods
@@ -136,16 +138,16 @@
     return 1; 
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [self proxyDataSourceArray].count; 
+    return self.proxyDataSourceArray.count; 
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     FeedCell *cell = [self dequeueReusableCellWithIdentifier:kFeedCellID];
-    cell.videoObject = [[self proxyDataSourceArray] objectAtIndexOrNil:indexPath.row];
+    cell.videoObject = [self.proxyDataSourceArray objectAtIndexOrNil:indexPath.row];
     return cell;
 }
--(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
-    return NO; 
-}
+//-(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
+//    return NO; 
+//}
 
 #pragma mark - TableView Delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

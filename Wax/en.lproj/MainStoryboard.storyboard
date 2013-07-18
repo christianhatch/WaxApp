@@ -29,15 +29,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="8Bk-Lq-pGx">
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="G8z-Jw-6d4">
-                            <connections>
-                                <action selector="findFriendsAction:" destination="Q30-Vg-Hhb" id="pXn-Dr-jYV"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="8Bk-Lq-pGx"/>
                     <connections>
-                        <outlet property="findFriendsButton" destination="G8z-Jw-6d4" id="70T-T1-abO"/>
                         <outlet property="searchBar" destination="bjx-LV-h2c" id="dvC-9h-w6Y"/>
                         <outlet property="searchDisplayController" destination="bML-ju-RU5" id="Xms-qo-ZHR"/>
                     </connections>
@@ -751,10 +744,10 @@
             </objects>
             <point key="canvasLocation" x="2171" y="624"/>
         </scene>
-        <!--Person List View Controller-->
+        <!--Send Challenge View Controller-->
         <scene sceneID="Jtb-0h-9pE">
             <objects>
-                <viewController storyboardIdentifier="PersonListVC" id="I5l-lf-Y9e" customClass="PersonListViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SendChallengeVC" id="I5l-lf-Y9e" customClass="SendChallengeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9t1-WZ-mdq">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1045,14 +1038,14 @@
         <class className="NotificationsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationsViewController.h"/>
         </class>
-        <class className="PersonListViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PersonListViewController.h"/>
+        <class className="ProfileViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileViewController.h"/>
+        </class>
+        <class className="SendChallengeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SendChallengeViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
             </relationships>
-        </class>
-        <class className="ProfileViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileViewController.h"/>
         </class>
         <class className="SettingsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
@@ -1069,7 +1062,6 @@
                 <relationship kind="outlet" name="categoryButton" candidateClass="WaxRoundButton"/>
                 <relationship kind="outlet" name="facebookLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="facebookSwitch" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="instructionsLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="locationSwitch" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="tagField" candidateClass="UITextField"/>

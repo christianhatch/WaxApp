@@ -46,13 +46,6 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
-//    if ([[WaxDataManager sharedManager].launchInfo objectForKeyOrNil:@"initial"]) {
-//        TutorialParentViewController *tuts = [[TutorialParentViewController alloc] init];
-//        [self presentViewController:tuts animated:YES completion:nil];
-//        
-//        [WaxDataManager sharedManager].launchInfo = nil;
-//    }
 }
 
 -(void)setUpView{
@@ -64,7 +57,7 @@
     self.backgroundImageView.dimmingView.alpha = 0.65;
     
     
-    [self.signupWithFacebookButton styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Signup With Facebook", @"Signup With Facebook")];
+    [self.signupWithFacebookButton styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Sign Up With Facebook", @"Sign Up With Facebook")];
     [self.signupWithFacebookButton.titleLabel setFont:[UIFont waxHeaderFontItalicsOfSize:16]];
     [self.signupWithFacebookButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.signupWithFacebookButton setTitleColor:[UIColor waxDefaultFontColor] forState:UIControlStateHighlighted]; 

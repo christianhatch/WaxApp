@@ -71,13 +71,13 @@
     return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [self proxyDataSourceArray].count;
+    return self.proxyDataSourceArray.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     CategoryCell *cell = [self dequeueReusableCellWithIdentifier:kCategoryCellID];
     
-    cell.category = [[self proxyDataSourceArray] objectAtIndexOrNil:indexPath.row]; 
+    cell.category = [self.proxyDataSourceArray objectAtIndexOrNil:indexPath.row]; 
     return cell;
 }
 
@@ -86,7 +86,7 @@
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     
     if (self.didSelectBlock) {
-        NSString *cat = [[self proxyDataSourceArray] objectAtIndexOrNil:indexPath.row];
+        NSString *cat = [self.proxyDataSourceArray objectAtIndexOrNil:indexPath.row];
         self.didSelectBlock(cat);
     }
 }
@@ -120,6 +120,7 @@
             }break;
         }
     }
+    
     [super handleUpdatingFeedWithError:error];
 }
 

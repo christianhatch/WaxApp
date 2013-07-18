@@ -16,7 +16,7 @@
 
 -(instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style; //designated initalizer, required to properly initalize the class
 
--(void)handleUpdatingFeedWithError:(NSError *)error; //must implement this and call super when loading is finished
+-(void)handleUpdatingFeedWithError:(NSError *)error; //must implement and override this method AND call super at the end of your implementation
 
 @property (nonatomic, readonly) NSMutableArray *proxyDataSourceArray; //must implement and override getter
 

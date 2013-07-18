@@ -53,9 +53,11 @@
 -(void)updateUI{
     if (self.enabled) {
         if (self.isFollowing) {
-            [self setTitleForAllControlStates:NSLocalizedString(@"Unfollow", @"Unfollow")];
+            [self styleAsWaxRoundButtonBlueWithTitle:NSLocalizedString(@"Unfollow", @"Unfollow")];
+//            [self setTitleForAllControlStates:NSLocalizedString(@"Unfollow", @"Unfollow")];
         }else{
-            [self setTitleForAllControlStates:NSLocalizedString(@"Follow", @"Follow")];
+            [self styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Follow", @"Follow")];
+//            [self setTitleForAllControlStates:NSLocalizedString(@"Follow", @"Follow")];
         }
     }else{
         [self setTitleForAllControlStates:@"......"];
@@ -78,6 +80,7 @@
             }else{
                 [AIKErrorManager logMessageToAllServices:@"User followed another user"];
             }
+            
             self.following = !self.isFollowing;
             
         }else{

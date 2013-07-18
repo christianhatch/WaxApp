@@ -12,6 +12,7 @@
 
 
 -(void)awakeFromNib{
+    [super awakeFromNib];
     [self configureSelectedBackgroundView];
 }
 -(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{

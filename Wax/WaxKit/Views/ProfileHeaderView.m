@@ -39,6 +39,8 @@
     return header;
 }
 -(void)awakeFromNib{
+    [super awakeFromNib];
+
     [self.followButton styleAsWaxRoundButtonWhiteWithTitle:nil];
     
     [self.nameLabel setWaxHeaderFontOfSize:20];
@@ -97,7 +99,7 @@
 -(IBAction)followButtonAction:(id)sender {
     if (self.person.isMe) {
         SettingsViewController *settings = initViewControllerWithIdentifier(@"SettingsVC");
-        [[self nearestNavigationController] pushViewController:settings animated:YES];
+        [self.nearestNavigationController pushViewController:settings animated:YES];
     }else{
         [[WaxAPIClient sharedClient] toggleFollowUserID:self.person.userID completion:^(BOOL complete, NSError *error) {
             if (!error) {
@@ -116,12 +118,12 @@
 
 - (IBAction)followersButtonAction:(id)sender {
     PersonListViewController *plvc = [PersonListViewController personListViewControllerForFollowersFromUserID:self.person.userID];
-    [[self nearestNavigationController] pushViewController:plvc animated:YES];
+    [self.nearestNavigationController pushViewController:plvc animated:YES];
 }
 
 - (IBAction)followingButtonAction:(id)sender {
     PersonListViewController *plvc = [PersonListViewController personListViewControllerForFollowingFromUserID:self.person.userID];
-    [[self nearestNavigationController] pushViewController:plvc animated:YES];
+    [self.nearestNavigationController pushViewController:plvc animated:YES];
 }
 
 #pragma mark - Public API

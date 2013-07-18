@@ -36,45 +36,56 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 
 //the video
 @property (strong, nonatomic) AIKMoviePlayer *moviePlayer;
-@property (strong, nonatomic) IBOutlet UIButton *competitionNameButton;
+@property (strong, nonatomic) IBOutlet UIButton *competitionTitleButton;
 @property (strong, nonatomic) IBOutlet UILabel *rankLabel;
 @property (strong, nonatomic) IBOutlet UILabel *rankWordLabel;
 
 //action buttons
-@property (strong, nonatomic) IBOutlet UIButton *actionButton;
-@property (strong, nonatomic) IBOutlet WaxRoundButton *challengeButton;
+@property (strong, nonatomic) IBOutlet UIButton *shareButton;
+@property (strong, nonatomic) IBOutlet WaxRoundButton *respondButton;
 @property (strong, nonatomic) IBOutlet WaxRoundButton *voteButton;
 @property (strong, nonatomic) IBOutlet WaxRoundButton *sendChallengeButton;
 
-- (IBAction)actionButtonAction:(id)sender;
-- (IBAction)challengeButtonAction:(id)sender;
+@property (nonatomic, readonly) RIButtonItem *actionSheetButtonShare;
+@property (nonatomic, readonly) RIButtonItem *actionSheetButtonDelete;
+@property (nonatomic, readonly) RIButtonItem *actionSheetButtonFlag;
+@property (nonatomic, readonly) NSURL *thumbnailURL;
+@property (nonatomic, readonly) NSURL *videoStreamingURL;
+@property (nonatomic, readonly) AIKMoviePlayerBeginPlaybackBlock beginPlaybackBlock; 
+
+- (IBAction)shareButtonAction:(id)sender;
+- (IBAction)respondButtonAction:(id)sender;
 - (IBAction)voteButtonAction:(id)sender;
-- (IBAction)competitionNameButtonAction:(id)sender;
+- (IBAction)competitionTitleButtonAction:(id)sender;
 - (IBAction)sendChallengeButtonAction:(id)sender;
 
 @end
 
 @implementation FeedCell
-@synthesize profilePictureView, usernameLabel, timestampLabel, moviePlayer = _moviePlayer, competitionNameButton, rankLabel, actionButton, challengeButton, voteButton, videoObject = _videoObject;
+@synthesize profilePictureView, usernameLabel, timestampLabel, moviePlayer = _moviePlayer, competitionTitleButton, rankLabel, shareButton, respondButton, voteButton;
+@synthesize videoObject = _videoObject;
+
 
 -(void)awakeFromNib{
+    [super awakeFromNib];
+    
     [self.usernameLabel setWaxHeaderFont];
     [self.timestampLabel setWaxDetailFont];
-    [self.competitionNameButton styleFontAsWaxHeaderItalics];
-    self.competitionNameButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-    self.competitionNameButton.titleLabel.adjustsLetterSpacingToFitWidth = YES;
-    self.competitionNameButton.titleLabel.numberOfLines = 1;
-    self.competitionNameButton.titleLabel.minimumScaleFactor = 0.2;
-    self.competitionNameButton.titleLabel.font = [UIFont waxHeaderFontItalicsOfSize:15]; 
+    [self.competitionTitleButton styleFontAsWaxHeaderItalics];
+    self.competitionTitleButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.competitionTitleButton.titleLabel.adjustsLetterSpacingToFitWidth = YES;
+    self.competitionTitleButton.titleLabel.numberOfLines = 1;
+    self.competitionTitleButton.titleLabel.minimumScaleFactor = 0.2;
+    self.competitionTitleButton.titleLabel.font = [UIFont waxHeaderFontItalicsOfSize:15]; 
     
     [self.rankWordLabel setWaxDetailFont];
     self.rankWordLabel.text = NSLocalizedString(@"Rank", @"Rank"); 
     [self.rankLabel setWaxHeaderFont];
     
-    [self.challengeButton styleAsWaxRoundButtonGreyWithTitle:nil];
-    [self.challengeButton setImage:[UIImage imageNamed:@"feedCell_challenge_icon"] forState:UIControlStateNormal];
-    [self.challengeButton setImage:[UIImage imageNamed:@"feedCell_challenge_iconOn"] forState:UIControlStateHighlighted];
-    [self.challengeButton setFillColor:[UIColor waxRedColor] forState:UIControlStateHighlighted];
+    [self.respondButton styleAsWaxRoundButtonGreyWithTitle:nil];
+    [self.respondButton setImage:[UIImage imageNamed:@"feedCell_challenge_icon"] forState:UIControlStateNormal];
+    [self.respondButton setImage:[UIImage imageNamed:@"feedCell_challenge_iconOn"] forState:UIControlStateHighlighted];
+    [self.respondButton setFillColor:[UIColor waxRedColor] forState:UIControlStateHighlighted];
     
     [self.sendChallengeButton styleAsWaxRoundButtonGreyWithTitle:nil];
     [self.sendChallengeButton setImage:[UIImage imageNamed:@"feedCell_forward_icon"] forState:UIControlStateNormal];
@@ -90,8 +101,8 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     [self.voteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
     [self.voteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     
-    [self.actionButton setImage:[UIImage imageNamed:@"downarrow"] forState:UIControlStateNormal];
-    [self.actionButton setImage:[UIImage imageNamed:@"downarrow_on"] forState:UIControlStateHighlighted];
+    [self.shareButton setImage:[UIImage imageNamed:@"downarrow"] forState:UIControlStateNormal];
+    [self.shareButton setImage:[UIImage imageNamed:@"downarrow_on"] forState:UIControlStateHighlighted];
 }
 
 -(void)setUpView{
@@ -115,7 +126,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     self.timestampLabel.text = video.timeStamp;
     self.rankLabel.text = video.rank;
 
-    [self.competitionNameButton setTitleForAllControlStates:video.tag];
+    [self.competitionTitleButton setTitleForAllControlStates:video.tag];
     
     [self setupVoteButton]; 
 }
@@ -146,26 +157,26 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     if (!self.moviePlayer) {
         CGFloat bottomPlus8 = (self.profilePictureView.bounds.size.height + self.profilePictureView.frame.origin.y + 5);
         CGRect movieFrame = CGRectMake(0, bottomPlus8, self.bounds.size.width, self.bounds.size.width);
-        self.moviePlayer = [AIKMoviePlayer moviePlayerWithFrame:movieFrame thumbnailURL:[self thumbnailURL] videoStreamingURL:[self streamingURL] playbackBeginBlock:[self beginPlayingBlock]];
+        self.moviePlayer = [AIKMoviePlayer moviePlayerWithFrame:movieFrame thumbnailURL:self.thumbnailURL videoStreamingURL:self.videoStreamingURL playbackBeginBlock:self.beginPlaybackBlock];
         [self.contentView addSubview:self.moviePlayer];
     }else{
-        [self.moviePlayer resetWithNewThumbnailURL:[self thumbnailURL] andVideoURL:[self streamingURL] playbackBeginBlock:[self beginPlayingBlock]];
+        [self.moviePlayer resetWithNewThumbnailURL:self.thumbnailURL andVideoURL:self.videoStreamingURL playbackBeginBlock:self.beginPlaybackBlock];
     }
 }
 
 
 
 #pragma mark - IBActions
-- (IBAction)actionButtonAction:(id)sender {
+- (IBAction)shareButtonAction:(id)sender {
 
     if (self.videoObject.isMine) {
-        [[[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:[RIButtonItem cancelButton] destructiveButtonItem:[self deleteButton] otherButtonItems:[self shareButton], nil] showInView:self];
+        [[[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:[RIButtonItem cancelButton] destructiveButtonItem:self.actionSheetButtonDelete otherButtonItems:self.actionSheetButtonShare, nil] showInView:self];
     }else{
-        [[[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:[RIButtonItem cancelButton] destructiveButtonItem:[self flagButton] otherButtonItems:[self shareButton], nil] showInView:self];
+        [[[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:[RIButtonItem cancelButton] destructiveButtonItem:self.actionSheetButtonFlag otherButtonItems:self.actionSheetButtonShare, nil] showInView:self];
     }
 }
 
-- (IBAction)challengeButtonAction:(id)sender {
+- (IBAction)respondButtonAction:(id)sender {
     
     [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithBlock:^(BOOL cancelled) {
         if (cancelled) {
@@ -188,15 +199,16 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 }
 
 
-- (IBAction)competitionNameButtonAction:(id)sender {
+- (IBAction)competitionTitleButtonAction:(id)sender {
     FeedViewController *pvc = [FeedViewController feedViewControllerWithTag:self.videoObject.tag];
-    [[self nearestNavigationController] pushViewController:pvc animated:YES];
+    [self.nearestNavigationController pushViewController:pvc animated:YES];
 }
 
 - (IBAction)sendChallengeButtonAction:(id)sender {
     [AIKErrorManager logMessageToAllServices:@"User tapped send challenge to friend button"];
-    PersonListViewController *plvc = [PersonListViewController personListViewControllerForSendingChallengeWithTag:self.videoObject.tag videoID:self.videoObject.videoID];
-    [[self nearestNavigationController] pushViewController:plvc animated:YES];
+    
+    SendChallengeViewController *send = [SendChallengeViewController sendChallengeViewControllerWithChallengeTag:self.videoObject.tag challengeVideoID:self.videoObject.videoID shareID:self.videoObject.shareID];
+    [self.nearestNavigationController pushViewController:send animated:YES];
 }
 
 
@@ -205,8 +217,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     self.voteButton.enabled = !self.videoObject.didVote;
 }
 
-
--(RIButtonItem *)shareButton{
+-(RIButtonItem *)actionSheetButtonShare{
     RIButtonItem *share = [RIButtonItem itemWithLabel:NSLocalizedString(@"Share", @"Share")];
     share.action = ^{
         UIActivityViewController *share = [[UIActivityViewController alloc] initWithActivityItems:self.videoObject.sharingActivityItems applicationActivities:nil];
@@ -223,14 +234,12 @@ static inline NSString *stringFromActivityType(NSString *activityType){
             }
         };
         
-        [[self nearestViewController] presentViewController:share animated:YES completion:nil];
+        [self.nearestViewController presentViewController:share animated:YES completion:nil];
     };
     return share; 
 }
 
-
-
--(RIButtonItem *)flagButton{
+-(RIButtonItem *)actionSheetButtonFlag{
     
     RIButtonItem *confirmFlag = [RIButtonItem itemWithLabel:NSLocalizedString(@"Report Innapropriate", @"Feed cell report innapropriate button label")];
     confirmFlag.action = ^{
@@ -248,7 +257,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     };
     return confirmFlag; 
 }
--(RIButtonItem *)deleteButton{
+-(RIButtonItem *)actionSheetButtonDelete{
 
     RIButtonItem *confirmDelete = [RIButtonItem itemWithLabel:NSLocalizedString(@"Delete Video", @"Feed cell delete video button label")];
     confirmDelete.action = ^{
@@ -267,11 +276,11 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 -(NSURL *)thumbnailURL{
     return [NSURL thumbnailURLFromUserID:self.videoObject.userID andVideoID:self.videoObject.videoID];
 }
--(NSURL *)streamingURL{
+-(NSURL *)videoStreamingURL{
     return [NSURL streamingURLFromUserID:self.videoObject.userID andVideoID:self.videoObject.videoID];
 }
 
--(AIKMoviePlayerBeginPlaybackBlock)beginPlayingBlock{
+-(AIKMoviePlayerBeginPlaybackBlock)beginPlaybackBlock{
     return ^{
         [[WaxAPIClient sharedClient] performAction:WaxAPIClientVideoActionTypeView onVideoID:self.videoObject.videoID completion:nil];
         

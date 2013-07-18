@@ -245,7 +245,7 @@ typedef NS_ENUM(NSInteger, WaxAPIClientVideoActionType){
 
 -(void)sendChallengeTag:(NSString *)tag
                 videoID:(NSString *)videoID
-               toUserID:(NSString *)userID
+              toUserIDs:(NSArray *)userIDs
              completion:(WaxAPIClientBlockTypeCompletionSimple)completion;
 
 #pragma mark - Settings

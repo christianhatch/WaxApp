@@ -20,7 +20,6 @@
 @property (strong, nonatomic) IBOutlet UISwitch *facebookSwitch;
 @property (strong, nonatomic) IBOutlet UISwitch *locationSwitch;
 
-@property (strong, nonatomic) IBOutlet UILabel *instructionsLabel;
 @property (strong, nonatomic) IBOutlet UILabel *twitterLabel;
 @property (strong, nonatomic) IBOutlet UILabel *facebookLabel;
 @property (strong, nonatomic) IBOutlet UILabel *locationLabel;
@@ -32,7 +31,7 @@
 @end
 
 @implementation ShareViewController
-@synthesize tagField, facebookLabel, twitterLabel, locationLabel, facebookSwitch, twitterSwitch, locationSwitch, instructionsLabel, categoryButton;
+@synthesize tagField, facebookLabel, twitterLabel, locationLabel, facebookSwitch, twitterSwitch, locationSwitch, categoryButton;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
@@ -54,12 +53,11 @@
     self.tagField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     self.tagField.delegate = self;
     
-    for (UILabel *lbl in @[self.instructionsLabel, self.facebookLabel, self.twitterLabel, self.locationLabel]) {
+    for (UILabel *lbl in @[self.facebookLabel, self.twitterLabel, self.locationLabel]) {
         [lbl setWaxDefaultFont];
         lbl.textAlignment = NSTextAlignmentLeft; 
     }
     
-    self.instructionsLabel.text = NSLocalizedString(@"create a CompetitionTag above", @"Choose a competition tag");
     self.facebookLabel.text = NSLocalizedString(@"Share to Facebook", @"Share to Facebook");
     self.twitterLabel.text = NSLocalizedString(@"Share to Twitter", @"Share to Twitter");
     self.locationLabel.text = NSLocalizedString(@"Include Location", @"Include Location");
@@ -72,7 +70,6 @@
     [self setUpTagAndCategoryFields];
 
 //#ifndef DEBUG
-    self.instructionsLabel.hidden = YES;
     self.locationLabel.hidden = YES;
     self.locationSwitch.hidden = YES; 
 //#endif
@@ -151,7 +148,7 @@
     return verified; 
 }
 -(void)notifyUserThatNonAlphaNumericCharactersNotAllowed{
-    [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Please enter only letters and/or numbers", @"Please enter only letters and/or numbers")]; 
+    [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Only letters and/or numbers are allowed", @"Please enter only letters and/or numbers")];
 }
 
 #pragma mark - TextField Delegate

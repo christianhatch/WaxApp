@@ -27,6 +27,20 @@
 		45009A53174EBD1200EE0B5C /* VideoObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45009A52174EBD1200EE0B5C /* VideoObjectTests.m */; };
 		4508A89B176AC54B001E024A /* UIImageView+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4508A89A176AC54B001E024A /* UIImageView+WaxKit.m */; };
 		4508A89C176AC54B001E024A /* UIImageView+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4508A89A176AC54B001E024A /* UIImageView+WaxKit.m */; };
+		4517F55C17963A1700DC81A1 /* SendChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4517F55B17963A1700DC81A1 /* SendChallengeViewController.m */; };
+		4517F55D17963A1700DC81A1 /* SendChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4517F55B17963A1700DC81A1 /* SendChallengeViewController.m */; };
+		4517F56217974AE300DC81A1 /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4517F56117974AE300DC81A1 /* FeedCell.xib */; };
+		4517F56317974AE300DC81A1 /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4517F56117974AE300DC81A1 /* FeedCell.xib */; };
+		4517F566179751ED00DC81A1 /* SendChallengeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4517F565179751ED00DC81A1 /* SendChallengeTableView.m */; };
+		4517F567179751ED00DC81A1 /* SendChallengeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4517F565179751ED00DC81A1 /* SendChallengeTableView.m */; };
+		4517F56A179759C500DC81A1 /* InviteFriendsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4517F569179759C400DC81A1 /* InviteFriendsCell.m */; };
+		4517F56B179759C500DC81A1 /* InviteFriendsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4517F569179759C400DC81A1 /* InviteFriendsCell.m */; };
+		4517F56D17975BC200DC81A1 /* InviteFriendsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4517F56C17975BC100DC81A1 /* InviteFriendsCell.xib */; };
+		4517F56E17975BC200DC81A1 /* InviteFriendsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4517F56C17975BC100DC81A1 /* InviteFriendsCell.xib */; };
+		4517F572179796D900DC81A1 /* InviteFriendsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4517F571179796D800DC81A1 /* InviteFriendsHeaderView.m */; };
+		4517F573179796D900DC81A1 /* InviteFriendsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4517F571179796D800DC81A1 /* InviteFriendsHeaderView.m */; };
+		4517F575179796F000DC81A1 /* InviteFriendsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4517F574179796EF00DC81A1 /* InviteFriendsHeaderView.xib */; };
+		4517F576179796F000DC81A1 /* InviteFriendsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4517F574179796EF00DC81A1 /* InviteFriendsHeaderView.xib */; };
 		4518AD551758FC5300D5D95C /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518AD541758FC5300D5D95C /* AssetsLibrary.framework */; };
 		4518AD591758FCE700D5D95C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518AD581758FCE700D5D95C /* CoreMedia.framework */; };
 		4518AD5E175948B600D5D95C /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518AD541758FC5300D5D95C /* AssetsLibrary.framework */; };
@@ -200,8 +214,6 @@
 		455A182D177B525D00185F61 /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455A182A177B525D00185F61 /* CategoryCell.xib */; };
 		455A182E177B525D00185F61 /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455A182B177B525D00185F61 /* TagCell.xib */; };
 		455A182F177B525D00185F61 /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455A182B177B525D00185F61 /* TagCell.xib */; };
-		455A1831177B526D00185F61 /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455A1830177B526D00185F61 /* FeedCell.xib */; };
-		455A1832177B526D00185F61 /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455A1830177B526D00185F61 /* FeedCell.xib */; };
 		455A1835177B527D00185F61 /* PersonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455A1833177B527D00185F61 /* PersonCell.xib */; };
 		455A1836177B527D00185F61 /* PersonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455A1833177B527D00185F61 /* PersonCell.xib */; };
 		455A1837177B527D00185F61 /* ProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455A1834177B527D00185F61 /* ProfileHeaderView.xib */; };
@@ -442,6 +454,17 @@
 		45009A52174EBD1200EE0B5C /* VideoObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoObjectTests.m; sourceTree = "<group>"; };
 		4508A899176AC54B001E024A /* UIImageView+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WaxKit.h"; sourceTree = "<group>"; };
 		4508A89A176AC54B001E024A /* UIImageView+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WaxKit.m"; sourceTree = "<group>"; };
+		4517F55A17963A1700DC81A1 /* SendChallengeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SendChallengeViewController.h; path = Wax/ViewControllers/SendChallengeViewController.h; sourceTree = SOURCE_ROOT; };
+		4517F55B17963A1700DC81A1 /* SendChallengeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SendChallengeViewController.m; path = Wax/ViewControllers/SendChallengeViewController.m; sourceTree = SOURCE_ROOT; };
+		4517F56117974AE300DC81A1 /* FeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FeedCell.xib; path = WaxKit/Nibs/FeedCell.xib; sourceTree = "<group>"; };
+		4517F564179751EC00DC81A1 /* SendChallengeTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SendChallengeTableView.h; path = WaxKit/Views/SendChallengeTableView.h; sourceTree = "<group>"; };
+		4517F565179751ED00DC81A1 /* SendChallengeTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SendChallengeTableView.m; path = WaxKit/Views/SendChallengeTableView.m; sourceTree = "<group>"; };
+		4517F568179759C400DC81A1 /* InviteFriendsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InviteFriendsCell.h; path = WaxKit/Views/InviteFriendsCell.h; sourceTree = "<group>"; };
+		4517F569179759C400DC81A1 /* InviteFriendsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InviteFriendsCell.m; path = WaxKit/Views/InviteFriendsCell.m; sourceTree = "<group>"; };
+		4517F56C17975BC100DC81A1 /* InviteFriendsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InviteFriendsCell.xib; path = WaxKit/Nibs/InviteFriendsCell.xib; sourceTree = "<group>"; };
+		4517F570179796D800DC81A1 /* InviteFriendsHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InviteFriendsHeaderView.h; path = WaxKit/Views/InviteFriendsHeaderView.h; sourceTree = "<group>"; };
+		4517F571179796D800DC81A1 /* InviteFriendsHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InviteFriendsHeaderView.m; path = WaxKit/Views/InviteFriendsHeaderView.m; sourceTree = "<group>"; };
+		4517F574179796EF00DC81A1 /* InviteFriendsHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InviteFriendsHeaderView.xib; path = WaxKit/Nibs/InviteFriendsHeaderView.xib; sourceTree = "<group>"; };
 		4518AD541758FC5300D5D95C /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		4518AD581758FCE700D5D95C /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		4518ADDE175AAE3600D5D95C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -558,7 +581,6 @@
 		455A175E177B523D00185F61 /* tabbar_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_bg@2x.png"; sourceTree = "<group>"; };
 		455A182A177B525D00185F61 /* CategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CategoryCell.xib; path = WaxKit/Nibs/CategoryCell.xib; sourceTree = "<group>"; };
 		455A182B177B525D00185F61 /* TagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TagCell.xib; path = WaxKit/Nibs/TagCell.xib; sourceTree = "<group>"; };
-		455A1830177B526D00185F61 /* FeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FeedCell.xib; path = WaxKit/Nibs/FeedCell.xib; sourceTree = "<group>"; };
 		455A1833177B527D00185F61 /* PersonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PersonCell.xib; path = WaxKit/Nibs/PersonCell.xib; sourceTree = "<group>"; };
 		455A1834177B527D00185F61 /* ProfileHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProfileHeaderView.xib; path = WaxKit/Nibs/ProfileHeaderView.xib; sourceTree = "<group>"; };
 		455A183D177B52FA00185F61 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = Wax/ViewControllers/LoginViewController.h; sourceTree = SOURCE_ROOT; };
@@ -830,6 +852,21 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		4517F56F179769AD00DC81A1 /* Send Challenge */ = {
+			isa = PBXGroup;
+			children = (
+				4517F564179751EC00DC81A1 /* SendChallengeTableView.h */,
+				4517F565179751ED00DC81A1 /* SendChallengeTableView.m */,
+				4517F570179796D800DC81A1 /* InviteFriendsHeaderView.h */,
+				4517F571179796D800DC81A1 /* InviteFriendsHeaderView.m */,
+				4517F574179796EF00DC81A1 /* InviteFriendsHeaderView.xib */,
+				4517F568179759C400DC81A1 /* InviteFriendsCell.h */,
+				4517F569179759C400DC81A1 /* InviteFriendsCell.m */,
+				4517F56C17975BC100DC81A1 /* InviteFriendsCell.xib */,
+			);
+			name = "Send Challenge";
+			sourceTree = "<group>";
+		};
 		4518AD4217584FDE00D5D95C /* Video */ = {
 			isa = PBXGroup;
 			children = (
@@ -843,6 +880,8 @@
 				455A184E177B532600185F61 /* ShareViewController.m */,
 				455A184B177B532600185F61 /* CategoryChooserViewController.h */,
 				455A184C177B532600185F61 /* CategoryChooserViewController.m */,
+				4517F55A17963A1700DC81A1 /* SendChallengeViewController.h */,
+				4517F55B17963A1700DC81A1 /* SendChallengeViewController.m */,
 			);
 			name = Video;
 			sourceTree = "<group>";
@@ -1284,7 +1323,8 @@
 				455A16BE177B518500185F61 /* FeedTableView.m */,
 				455A16BB177B518500185F61 /* FeedCell.h */,
 				455A16BC177B518500185F61 /* FeedCell.m */,
-				455A1830177B526D00185F61 /* FeedCell.xib */,
+				4517F56117974AE300DC81A1 /* FeedCell.xib */,
+				4517F56F179769AD00DC81A1 /* Send Challenge */,
 			);
 			name = Feeds/Videos;
 			sourceTree = "<group>";
@@ -1587,7 +1627,6 @@
 				455A1825177B523D00185F61 /* tabbar_bg@2x.png in Resources */,
 				455A182C177B525D00185F61 /* CategoryCell.xib in Resources */,
 				455A182E177B525D00185F61 /* TagCell.xib in Resources */,
-				455A1831177B526D00185F61 /* FeedCell.xib in Resources */,
 				455A1835177B527D00185F61 /* PersonCell.xib in Resources */,
 				455A1837177B527D00185F61 /* ProfileHeaderView.xib in Resources */,
 				457BBABD177D445300533B57 /* waxSearchBar_bg.png in Resources */,
@@ -1690,6 +1729,9 @@
 				453E44811794B11A00771312 /* tutorial_screen3@2x.png in Resources */,
 				453E44831794B11A00771312 /* tutorial_screen4.png in Resources */,
 				453E44851794B11A00771312 /* tutorial_screen4@2x.png in Resources */,
+				4517F56217974AE300DC81A1 /* FeedCell.xib in Resources */,
+				4517F56D17975BC200DC81A1 /* InviteFriendsCell.xib in Resources */,
+				4517F575179796F000DC81A1 /* InviteFriendsHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1734,7 +1776,6 @@
 				455A1826177B523D00185F61 /* tabbar_bg@2x.png in Resources */,
 				455A182D177B525D00185F61 /* CategoryCell.xib in Resources */,
 				455A182F177B525D00185F61 /* TagCell.xib in Resources */,
-				455A1832177B526D00185F61 /* FeedCell.xib in Resources */,
 				455A1836177B527D00185F61 /* PersonCell.xib in Resources */,
 				455A1838177B527D00185F61 /* ProfileHeaderView.xib in Resources */,
 				457BBABE177D445300533B57 /* waxSearchBar_bg.png in Resources */,
@@ -1765,6 +1806,9 @@
 				453E44821794B11A00771312 /* tutorial_screen3@2x.png in Resources */,
 				453E44841794B11A00771312 /* tutorial_screen4.png in Resources */,
 				453E44861794B11A00771312 /* tutorial_screen4@2x.png in Resources */,
+				4517F56317974AE300DC81A1 /* FeedCell.xib in Resources */,
+				4517F56E17975BC200DC81A1 /* InviteFriendsCell.xib in Resources */,
+				4517F576179796F000DC81A1 /* InviteFriendsHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1918,6 +1962,10 @@
 				45A7C9DE1782251B00F62D4D /* AboutViewController.m in Sources */,
 				453E44671794AA6200771312 /* TutorialParentViewController.m in Sources */,
 				453E446B1794AC4600771312 /* TutorialChildViewController.m in Sources */,
+				4517F55C17963A1700DC81A1 /* SendChallengeViewController.m in Sources */,
+				4517F566179751ED00DC81A1 /* SendChallengeTableView.m in Sources */,
+				4517F56A179759C500DC81A1 /* InviteFriendsCell.m in Sources */,
+				4517F572179796D900DC81A1 /* InviteFriendsHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1982,6 +2030,10 @@
 				45A7C9DF1782251B00F62D4D /* AboutViewController.m in Sources */,
 				453E44681794AA6200771312 /* TutorialParentViewController.m in Sources */,
 				453E446C1794AC4600771312 /* TutorialChildViewController.m in Sources */,
+				4517F55D17963A1700DC81A1 /* SendChallengeViewController.m in Sources */,
+				4517F567179751ED00DC81A1 /* SendChallengeTableView.m in Sources */,
+				4517F56B179759C500DC81A1 /* InviteFriendsCell.m in Sources */,
+				4517F573179796D900DC81A1 /* InviteFriendsHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

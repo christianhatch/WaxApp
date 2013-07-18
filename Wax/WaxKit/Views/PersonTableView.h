@@ -26,6 +26,5 @@ typedef void(^PersonTableViewDidSelectPersonBlock)(PersonObject *person);
 
 @property (nonatomic) PersonTableViewType tableViewType;
 @property (nonatomic, strong) PersonTableViewDidSelectPersonBlock didSelectBlock; 
-@property (nonatomic) BOOL hidesFollowButtonOnCells;
 
 @end

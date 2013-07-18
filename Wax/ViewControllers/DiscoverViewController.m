@@ -14,9 +14,6 @@
 
 @interface DiscoverViewController () <UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *findFriendsButton;
-- (IBAction)findFriendsAction:(id)sender;
-
 @property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, strong) CategoryTableView *tableView;
 @property (nonatomic, strong) NSMutableArray *personSearchResults;
@@ -24,7 +21,7 @@
 @end
 
 @implementation DiscoverViewController
-@synthesize tableView = _tableView, searchBar = _searchBar, personSearchResults, tagSearchResults, findFriendsButton;
+@synthesize tableView = _tableView, searchBar = _searchBar, personSearchResults, tagSearchResults;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
@@ -33,10 +30,7 @@
 
 -(void)setUpView{
     self.navigationItem.title = NSLocalizedString(@"Discover", @"Discover");
-    
-#ifndef DEBUG
-    self.findFriendsButton = nil;
-#endif
+
     
     [self.view addSubview:self.tableView];
     [self updatePlaceholder];
@@ -44,10 +38,6 @@
     self.searchBar.scopeButtonTitles = @[NSLocalizedString(@"@users", @"@users"), NSLocalizedString(@"#tags", @"#tags")];
     self.tableView.tableHeaderView = self.searchBar;
     self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo; 
-}
-#pragma mark - IBActions
-- (IBAction)findFriendsAction:(id)sender {
-    
 }
 
 
@@ -124,7 +114,7 @@
     NSString *searchString = self.searchBar.text;
     
     if (searchString.length > 1) {
-        if (self.searchDisplayController.searchBar.selectedScopeButtonIndex == 0) {
+        if (USER_SCOPE_SELECTED) {
             [self searchUsersWithSearchTerm:searchString];
         }else{
             [self searchTagsWithSearchTerm:searchString];

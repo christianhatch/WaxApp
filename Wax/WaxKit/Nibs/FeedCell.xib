@@ -35,7 +35,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUITableViewCell" id="601113982">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">1316</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIView" id="1039422609">
@@ -48,7 +48,6 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{7, 7}, {44, 44}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="286310357"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -59,7 +58,6 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{58, 7}, {186, 21}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="14583799"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -94,7 +92,6 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{268, 7}, {44, 44}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1034134007"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -129,7 +126,6 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{58, 24}, {186, 21}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="952620065"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -160,7 +156,6 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{269, 391}, {41, 21}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="465762789"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -189,7 +184,6 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{10, 421}, {95, 35}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="757850998"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -218,8 +212,6 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{215, 421}, {95, 36}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -240,7 +232,6 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{10, 378}, {198, 34}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="268441567"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -269,7 +260,6 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{113, 421}, {95, 36}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="610955351"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -290,7 +280,6 @@
 								<int key="NSvFlags">1316</int>
 								<string key="NSFrame">{{231, 391}, {34, 21}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="901497052"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -310,7 +299,6 @@
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
 						<string key="NSFrameSize">{320, 471}</string>
 						<reference key="NSSuperview" ref="601113982"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="189181462"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -325,8 +313,6 @@
 				</array>
 				<object class="NSPSMatrix" key="NSFrameMatrix"/>
 				<string key="NSFrameSize">{320, 472}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1039422609"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<reference key="IBUIContentView" ref="1039422609"/>
@@ -337,30 +323,6 @@
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<bool key="usesAutoincrementingIDs">NO</bool>
 			<array class="NSMutableArray" key="connectionRecords">
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">actionButton</string>
-						<reference key="source" ref="601113982"/>
-						<reference key="destination" ref="952620065"/>
-					</object>
-					<string key="id">22</string>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">challengeButton</string>
-						<reference key="source" ref="601113982"/>
-						<reference key="destination" ref="465762789"/>
-					</object>
-					<string key="id">26</string>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">competitionNameButton</string>
-						<reference key="source" ref="601113982"/>
-						<reference key="destination" ref="1034134007"/>
-					</object>
-					<string key="id">39</string>
-				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">profilePictureView</string>
@@ -418,22 +380,46 @@
 					<string key="id">ezn-Gx-cLx</string>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">shareButton</string>
+						<reference key="source" ref="601113982"/>
+						<reference key="destination" ref="952620065"/>
+					</object>
+					<string key="id">1L8-V4-nsN</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">respondButton</string>
+						<reference key="source" ref="601113982"/>
+						<reference key="destination" ref="465762789"/>
+					</object>
+					<string key="id">L8P-Mx-0bt</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">competitionTitleButton</string>
+						<reference key="source" ref="601113982"/>
+						<reference key="destination" ref="1034134007"/>
+					</object>
+					<string key="id">XqP-dT-HKk</string>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">actionButtonAction:</string>
+						<string key="label">shareButtonAction:</string>
 						<reference key="source" ref="952620065"/>
 						<reference key="destination" ref="601113982"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<string key="id">28</string>
+					<string key="id">ggW-dR-CCZ</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">challengeButtonAction:</string>
+						<string key="label">respondButtonAction:</string>
 						<reference key="source" ref="465762789"/>
 						<reference key="destination" ref="601113982"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<string key="id">29</string>
+					<string key="id">JqA-kM-uFV</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -446,12 +432,12 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">competitionNameButtonAction:</string>
+						<string key="label">competitionTitleButtonAction:</string>
 						<reference key="source" ref="1034134007"/>
 						<reference key="destination" ref="601113982"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<string key="id">40</string>
+					<string key="id">oY4-sL-rbR</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">

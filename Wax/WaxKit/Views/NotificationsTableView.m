@@ -49,18 +49,18 @@
     return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [self proxyDataSourceArray].count;
+    return self.proxyDataSourceArray.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NotificationCell *cell = [self dequeueReusableCellWithIdentifier:kNotificationCellID];
-    cell.noteObject = [[self proxyDataSourceArray] objectAtIndexOrNil:indexPath.row];
+    cell.noteObject = [self.proxyDataSourceArray objectAtIndexOrNil:indexPath.row];
     return cell;
 }
 
 #pragma mark - TableView Delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-    NotificationObject *note = [[self proxyDataSourceArray] objectAtIndexOrNil:indexPath.row];
+    NotificationObject *note = [self.proxyDataSourceArray objectAtIndexOrNil:indexPath.row];
     
     VLog(@"selected note object %@", note);
 
@@ -73,16 +73,16 @@
         case NotificationTypeChallenged:
         case NotificationTypeChallengeResponse:{
             FeedViewController *feedy = [FeedViewController feedViewControllerForSingleVideoWithVideoID:note.videoID tag:note.tag];
-            [[self nearestNavigationController] pushViewController:feedy animated:YES]; 
+            [self.nearestNavigationController pushViewController:feedy animated:YES]; 
         }break;
         case NotificationTypeTitleEarned:
         case NotificationTypeTitleStolen:{
             FeedViewController *feedy = [FeedViewController feedViewControllerWithTag:note.tag];
-            [[self nearestNavigationController] pushViewController:feedy animated:YES];
+            [self.nearestNavigationController pushViewController:feedy animated:YES];
         }break;
         case NotificationTypeFollow:{
             ProfileViewController *profy = [ProfileViewController profileViewControllerFromUserID:note.userID username:note.username];
-            [[self nearestNavigationController] pushViewController:profy animated:YES]; 
+            [self.nearestNavigationController pushViewController:profy animated:YES]; 
         }break;
     }
 }
@@ -92,20 +92,21 @@
 
 #pragma mark - Convenience Methods
 -(NSMutableArray *)proxyDataSourceArray{
-    return [[WaxDataManager sharedManager] notifications];
+    return [WaxDataManager sharedManager].notifications;
 }
 
 -(void)handleUpdatingFeedWithError:(NSError *)error{
     
     [self setEmptyViewMessageText:NSLocalizedString(@"No Notifications", @"No Notifications")]; 
     
-    [super handleUpdatingFeedWithError:error];
     
     if (!error) {
         
     }else{
         VLog(@"error updating feed %@", error);
     }
+    
+    [super handleUpdatingFeedWithError:error];
 }
 
 

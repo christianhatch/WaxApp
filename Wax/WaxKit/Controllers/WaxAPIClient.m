@@ -470,13 +470,13 @@ static inline BOOL PathRequiresArray(NSString *path){
         }
     }];
 }
--(void)sendChallengeTag:(NSString *)tag videoID:(NSString *)videoID toUserID:(NSString *)userID completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
+-(void)sendChallengeTag:(NSString *)tag videoID:(NSString *)videoID toUserIDs:(NSArray *)userIDs completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
     
     NSParameterAssert(tag);
-    NSParameterAssert(userID);
+    NSParameterAssert(userIDs);
     NSParameterAssert(videoID);
     
-    [self postPath:@"tags/send" parameters:@{@"personid": userID, @"tag": tag, @"videoid":videoID} modelClass:nil completionBlock:^(id model, NSError *error) {
+    [self postPath:@"tags/send" parameters:@{@"personid": userIDs, @"tag": tag, @"videoid":videoID} modelClass:nil completionBlock:^(id model, NSError *error) {
         if (completion) {
             completion(SimpleReturnFromAPIResponse(model), error); 
         }

@@ -19,7 +19,7 @@
 
 
 @implementation PersonCell
-@synthesize followButton = _followButton, fullNameLabel, usernameLabel, profilePictureView, hidesFollowButton = _hidesFollowButton;
+@synthesize followButton = _followButton, fullNameLabel, usernameLabel, profilePictureView, cellType = _cellType; 
 @synthesize person = _person; 
 
 -(void)setUpView{
@@ -30,20 +30,28 @@
     self.fullNameLabel.text = person.fullName;
     self.usernameLabel.text = person.username;
     
-    if (!person.isMe || !self.hidesFollowButton) {
-        self.followButton.hidden = NO; 
-        [self.followButton setUserid:person.userID isFollowing:person.isFollowing]; 
+    if (person.isMe || self.cellType == PersonCellTypeSendChallenge) {
+        self.followButton.hidden = YES;
     }else{
-        self.followButton.hidden = YES; 
+        self.followButton.hidden = NO;
+        [self.followButton setUserid:person.userID isFollowing:person.isFollowing];
     }
+//    self.accessoryType = UITableViewCellAccessoryNone; 
 }
+
 -(void)setPerson:(PersonObject *)person{
+    BOOL hasCellType = ((self.cellType == PersonCellTypeDefault) || (self.cellType == PersonCellTypeSendChallenge));
+    NSAssert(hasCellType, @"you must set a cell type BEFORE setting a person object");
+    
     if (_person != person) {
         _person = person;
         [self setUpView]; 
     }
 }
 
+
+
+#pragma mark - Overrides
 -(void)setSelected:(BOOL)selected animated:(BOOL)animated{
     [super setSelected:selected animated:animated];
     self.followButton.highlighted = NO;
@@ -53,4 +61,11 @@
     self.followButton.highlighted = NO;
 }
 
+
 @end
+
+
+
+
+
+

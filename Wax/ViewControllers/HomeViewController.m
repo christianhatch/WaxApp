@@ -20,17 +20,26 @@
     [super viewDidLoad];
     [self setUpView];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(testThings)];
+#ifdef DEBUG
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(testThings)];
+#endif
 }
+
 -(void)testThings{
-    
     [[WaxUser currentUser] fetchMatchedContactsWithCompletion:^(NSMutableArray *list, NSError *error) {
+        if (error) {
+            [AIKErrorManager showAlertWithTitle:@"matching contacts error!" message:[NSString stringWithFormat:@"%@", error] buttonHandler:nil logError:NO];
+        }
         VLog(@"matched contacts %@", list);
     }];
     [[WaxUser currentUser] fetchMatchedFacebookFriendsWithCompletion:^(NSMutableArray *list, NSError *error) {
-        VLog(@"matched fb friends %@", list); 
+        if (error) {
+            [AIKErrorManager showAlertWithTitle:@"matching facebook error!" message:[NSString stringWithFormat:@"%@", error] buttonHandler:nil logError:NO];
+        }
+        VLog(@"matched fb friends %@", list);
     }];
 }
+
 -(void)setUpView{
     self.navigationItem.title = NSLocalizedString(@"Wax", @"Wax");
     [self.view addSubview:self.tableView];

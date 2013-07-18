@@ -79,14 +79,6 @@
     return title;
 }
 
-//-(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
-//    NSString *title = nil;
-//    if (section == SectionOtherSettings) {
-//        title = [NSString stringWithFormat:NSLocalizedString(@"%@\nCopyright \u00A9 2013 Acacia Interactive", @"%@\nCopyright \u00A9 2013 Acacia Interactive"), [NSString appNameVersionAndBuildString]];
-//    }
-//    return title;
-//}
-
 #pragma mark - Internal Methods
 -(void)sendFeedback{
     if ([MFMailComposeViewController canSendMail]) {
@@ -99,8 +91,7 @@
         [self presentViewController:mailie animated:YES completion:nil];
         
     }else{
-        UIAlertView *nomail = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Send Email", @"Cannot Send Email") message:NSLocalizedString(@"Messaging is not available on this device at this time.", @"Messaging is not available on this device at this time.") cancelButtonItem:[RIButtonItem randomDismissalButton] otherButtonItems:nil, nil];
-        [nomail show];
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Send Email", @"Cannot Send Email") message:NSLocalizedString(@"Messaging is not available on this device at this time.", @"Messaging is not available on this device at this time.") cancelButtonItem:[RIButtonItem randomDismissalButton] otherButtonItems:nil, nil] show];
     }
 }
 
