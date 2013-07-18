@@ -207,7 +207,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 - (IBAction)sendChallengeButtonAction:(id)sender {
     [AIKErrorManager logMessageToAllServices:@"User tapped send challenge to friend button"];
     
-    SendChallengeViewController *send = [SendChallengeViewController sendChallengeViewControllerWithChallengeTag:self.videoObject.tag challengeVideoID:self.videoObject.videoID shareID:self.videoObject.shareID];
+    SendChallengeViewController *send = [SendChallengeViewController sendChallengeViewControllerWithChallengeTag:self.videoObject.tag challengeVideoID:self.videoObject.videoID shareURL:[NSURL shareURLFromShareID:self.videoObject.shareID]];
     [self.nearestNavigationController pushViewController:send animated:YES];
 }
 

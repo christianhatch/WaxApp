@@ -10,7 +10,7 @@
 
 @interface SendChallengeViewController : UIViewController
 
-+(SendChallengeViewController *)sendChallengeViewControllerWithChallengeTag:(NSString *)tag challengeVideoID:(NSString *)videoID shareID:(NSString *)shareID;
++(SendChallengeViewController *)sendChallengeViewControllerWithChallengeTag:(NSString *)tag challengeVideoID:(NSString *)videoID shareURL:(NSURL *)shareURL;
 
 
 @end

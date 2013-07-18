@@ -12,7 +12,7 @@
 @interface SendChallengeViewController () <MFMessageComposeViewControllerDelegate>
 @property (nonatomic, strong) NSString *challengeTag;
 @property (nonatomic, strong) NSString *challengeVideoID;
-@property (nonatomic, strong) NSString *challengeShareID; 
+@property (nonatomic, strong) NSURL *challengeShareURL;
 
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, strong) NSMutableArray *searchResults;
@@ -25,9 +25,9 @@
 @end
 
 @implementation SendChallengeViewController
-@synthesize challengeTag, challengeVideoID, challengeShareID, waxTableView = _waxTableView, contactsTableView = _contactsTableView, searchBar, searchResults;
+@synthesize challengeTag, challengeVideoID, challengeShareURL, waxTableView = _waxTableView, contactsTableView = _contactsTableView, searchBar, searchResults;
 
-+(SendChallengeViewController *)sendChallengeViewControllerWithChallengeTag:(NSString *)tag challengeVideoID:(NSString *)videoID shareID:(NSString *)shareID{
++(SendChallengeViewController *)sendChallengeViewControllerWithChallengeTag:(NSString *)tag challengeVideoID:(NSString *)videoID shareURL:(NSURL *)shareURL{
     
     NSParameterAssert(tag);
     NSParameterAssert(videoID);
@@ -35,7 +35,7 @@
     SendChallengeViewController *sender = initViewControllerWithIdentifier(@"SendChallengeVC");
     sender.challengeTag = tag;
     sender.challengeVideoID = videoID;
-    sender.challengeShareID = shareID; 
+    sender.challengeShareURL = shareURL;
     
     return sender;
 }
@@ -202,7 +202,7 @@
     if ([MFMessageComposeViewController canSendText]) {
         MFMessageComposeViewController *texter = [[MFMessageComposeViewController alloc] init];
         
-        texter.body = [NSString stringWithFormat:NSLocalizedString(@"I think you could be #1 at %@ on Wax! Check it out here: %@ \n\n\nDon't have Wax? Get it here: http://wax.li", @"send challenge via text"), self.challengeTag, self.challengeShareID];
+        texter.body = [NSString stringWithFormat:NSLocalizedString(@"I think you could be #1 at %@ on Wax! \nCheck out your competition here: %@ \n\n\nDon't have Wax? Download it: http://wax.li", @"send challenge via text"), self.challengeTag, self.challengeShareURL];
         
         texter.messageComposeDelegate = self;
         
