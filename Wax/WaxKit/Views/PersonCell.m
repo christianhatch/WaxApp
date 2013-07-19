@@ -30,18 +30,15 @@
     self.fullNameLabel.text = person.fullName;
     self.usernameLabel.text = person.username;
     
-    if (person.isMe || self.cellType == PersonCellTypeSendChallenge) {
-        self.followButton.hidden = YES;
-    }else{
-        self.followButton.hidden = NO;
+    self.followButton.hidden = (person.isMe || self.cellType == PersonCellTypeSendChallenge);
+
+    if (self.cellType == PersonCellTypeDefault) {
         [self.followButton setUserid:person.userID isFollowing:person.isFollowing];
     }
-//    self.accessoryType = UITableViewCellAccessoryNone; 
 }
 
 -(void)setPerson:(PersonObject *)person{
-    BOOL hasCellType = ((self.cellType == PersonCellTypeDefault) || (self.cellType == PersonCellTypeSendChallenge));
-    NSAssert(hasCellType, @"you must set a cell type BEFORE setting a person object");
+    NSAssert(((self.cellType == PersonCellTypeDefault) || (self.cellType == PersonCellTypeSendChallenge)), @"you must set a cell type BEFORE setting a person object");
     
     if (_person != person) {
         _person = person;

@@ -213,20 +213,25 @@
     }
 }
 -(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result{
-    [controller dismissViewControllerAnimated:YES completion:nil];
-
+   
     switch (result) {
         case MessageComposeResultCancelled:
             [AIKErrorManager logMessageToAllServices:@"user canceled challenging via text message"];
+            [controller dismissViewControllerAnimated:YES completion:nil];
             break;
         case MessageComposeResultFailed:
             [AIKErrorManager logMessageToAllServices:@"sending challenge via text failed"];
+            [controller dismissViewControllerAnimated:YES completion:nil];
             break;
         case MessageComposeResultSent:
             [AIKErrorManager logMessageToAllServices:@"user challenged via text message"];
+            [controller dismissViewControllerAnimated:YES completion:^{
+                [self.navigationController popViewControllerAnimated:YES];
+                [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:NSLocalizedString(@"Sent %@ via text!", @"Sent tag success message"), self.challengeTag]];
+            }];
             break;
     }
-}
+}                                                                                                                                                                       
 
 #pragma mark - Getters
 -(SendChallengeTableView *)waxTableView{
