@@ -12,7 +12,6 @@
 
 @implementation UploadObject
 @synthesize status = _status, videoStatus = _videoStatus, thumbnailStatus = _thumbnailStatus, metadataStatus = _metadataStatus, shareToFacebook = _shareToFacebook, shareToTwitter = _shareToTwitter, shareLocation = _shareLocation, videoID = _videoID, lat = _lat, lon = _lon, tag = _tag, category = _category, videoLength = _videoLength, videoFileURL = _videoFileURL, thumbnailFileURL = _thumbnailFileURL;
-//@synthesize videoUploadProgress = _videoUploadProgress;
 
 #pragma mark - Alloc & Init
 -(instancetype)initWithVideoFileURL:(NSURL *)videoFileURL{
@@ -81,7 +80,6 @@
         _videoStatus = [[dictionary objectForKeyOrNil:@"videostatus"] integerValue];
         _thumbnailStatus = [[dictionary objectForKeyOrNil:@"thumbnailstatus"] integerValue];
         _metadataStatus = [[dictionary objectForKeyOrNil:@"metadatastatus"] integerValue];
-//        _videoUploadProgress = [[dictionary objectForKeyOrNil:@"videouploadprogress"] floatValue];
         
         _shareToFacebook = [[dictionary objectForKeyOrNil:@"sharetofacebook"] boolValue];
         _shareToTwitter = [[dictionary objectForKeyOrNil:@"sharetotwitter"] boolValue];
@@ -99,18 +97,23 @@
     return self;
 }
 -(NSDictionary *)dictionaryRepresentation{
-    @try {
-        NSArray *objects = [NSArray arrayWithObjects:[NSNumber numberWithInteger:self.status], [NSNumber numberWithInteger:self.videoStatus], [NSNumber numberWithInteger:self.thumbnailStatus], [NSNumber numberWithInteger:self.metadataStatus],/* [NSNumber numberWithFloat:self.videoUploadProgress],*/ [NSNumber numberWithBool:self.shareToFacebook], [NSNumber numberWithBool:self.shareToTwitter], [NSNumber numberWithBool:self.shareLocation], self.videoID, _lat, _lon, self.tag, self.category, self.videoLength, self.videoFileURL.path, self.thumbnailFileURL.path, nil];
-        NSArray *keys = [NSArray arrayWithObjects:@"status", @"videostatus", @"thumbnailstatus", @"metadatastatus", /*@"videouploadstatus", */@"sharetofacebook", @"sharetotwitter", @"sharelocation", @"videoid", @"lat", @"lon", @"tag", @"category", @"videolength", @"videofileurl", @"thumbnailfileurl", nil];
-        NSDictionary *dict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
-        return dict;
-    }
-    @catch (NSException *exception) {
-        [AIKErrorManager logExceptionWithMessage:@"uploadobject dictionary representation" exception:exception];
-    }
-    @finally {
-
-    }
+        NSDictionary *me = @{@"status": CollectionSafeObject([NSNumber numberWithInteger:self.status]),
+                             @"videostatus": CollectionSafeObject([NSNumber numberWithInteger:self.videoStatus]),
+                             @"thumbnailstatus":CollectionSafeObject([NSNumber numberWithInteger:self.thumbnailStatus]),
+                             @"metadatastatus":CollectionSafeObject([NSNumber numberWithInteger:self.metadataStatus]),
+                             @"sharetofacebook":CollectionSafeObject([NSNumber numberWithBool:self.shareToFacebook]),
+                             @"sharetotwitter":CollectionSafeObject([NSNumber numberWithBool:self.shareToTwitter]),
+                             @"sharelocation":CollectionSafeObject([NSNumber numberWithBool:self.shareLocation]),
+                             @"videoid":CollectionSafeObject(self.videoID),
+                             @"lat":CollectionSafeObject(_lat),
+                             @"lon":CollectionSafeObject(_lon),
+                             @"tag":CollectionSafeObject(self.tag),
+                             @"category":CollectionSafeObject(self.category),
+                             @"videolength":CollectionSafeObject(self.videoLength),
+                             @"videofileurl":CollectionSafeObject(self.videoFileURL.path),
+                             @"thumbnailfileurl":CollectionSafeObject(self.thumbnailFileURL.path)};
+        
+        return me;
 }
 
 -(void)updateOverallStatus{

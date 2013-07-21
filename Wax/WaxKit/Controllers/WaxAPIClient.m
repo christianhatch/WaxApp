@@ -81,7 +81,12 @@ static inline BOOL PathRequiresArray(NSString *path){
     
     return [super multipartFormRequestWithMethod:method path:path parameters:finalParameters constructingBodyWithBlock:block];
 }
-
+-(void)enqueueHTTPRequestOperation:(AFHTTPRequestOperation *)operation{
+    [operation setShouldExecuteAsBackgroundTaskWithExpirationHandler:^{
+        //TODO: add an 'upload operation expired block' to this method so I can handle this on the videouploadmanager
+    }];
+    [super enqueueHTTPRequestOperation:operation];
+}
 #pragma mark - Public API -
 
 #pragma mark - Logins

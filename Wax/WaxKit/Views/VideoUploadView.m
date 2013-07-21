@@ -23,7 +23,6 @@
 
 @property (nonatomic, copy) VideoUploadViewShouldShowHideBlock shouldShowBlock;
 @property (nonatomic, copy) VideoUploadViewShouldShowHideBlock shouldHideBlock;
-
 @end
 
 @implementation VideoUploadView
@@ -38,24 +37,20 @@
 -(void)awakeFromNib{
     [super awakeFromNib];
     [self setUpView];
-    [self resetView];
+    [self resetToDefaults];
 }
 -(void)setUpView{
     self.backgroundColor = [UIColor darkGrayColor];
-    
+    self.thumbnailView.layer.cornerRadius = 5;
     [self.progressView setProgressTintColor:[UIColor waxRedColor]];
     [self.statusLabel setWaxHeaderItalicsFontOfSize:14 color:[UIColor whiteColor]];
     [self setSelfAsVideoUploadManagerDelegate];
 }
--(void)resetView{
+-(void)resetToDefaults{
+    self.statusLabel.textColor = [UIColor whiteColor];
     [self.progressView fadeOut];
     [self showProcessingVideoText];
-    
     self.thumbnailView.image = nil;
-}
--(void)prepareToShow{
-//    self.retryButton.hidden = NO;
-//    self.cancelButton.hidden = NO;
 }
 
 -(void)setSelfAsVideoUploadManagerDelegate{
@@ -75,9 +70,13 @@
         self.statusLabel.text = NSLocalizedString(@"Uploading Video...", @"uploading video status text");
     }];
     [[VideoUploadManager sharedManager] setVideoFileUploadCompletionBlock:^(BOOL success, NSError *error){
-        [self shouldShow];
-        [self.progressView fadeOut];
-        [self showSuccessText:NSLocalizedString(@"Uploaded Video!", @"video upload complete status text")];
+        if (success) {
+            [self shouldShow];
+            [self.progressView fadeOut];
+            [self showSuccessText:NSLocalizedString(@"Uploaded Video!", @"video upload complete status text")];
+        }else{
+            [self showErrorText:NSLocalizedString(@"Upload Failed :(", @"upload failed text")]; 
+        }
     }];
     
     //thumbnail
@@ -95,9 +94,13 @@
 //        self.statusLabel.text = NSLocalizedString(@"Uploading Thumbnail", @"uploading thumbnail status text");
 //    }];
     [[VideoUploadManager sharedManager] setThumbnailUploadCompletionBlock:^(BOOL success, NSError *error){
-        [self shouldShow];
-        [self.progressView fadeOut];
-        [self showSuccessText:NSLocalizedString(@"Uploaded Thumbnail!", @"thumbnail upload complete status text")];
+        if (success) {
+            [self shouldShow];
+            [self.progressView fadeOut];
+            [self showSuccessText:NSLocalizedString(@"Uploaded Thumbnail!", @"thumbnail upload complete status text")];
+        }else{
+            [self showErrorText:NSLocalizedString(@"Upload Failed :(", @"upload failed text")]; 
+        }
     }];
     
     //metadata
@@ -107,11 +110,14 @@
         self.statusLabel.text = NSLocalizedString(@"Finishing Upload...", @"uploading metadata status text");
     }];
     [[VideoUploadManager sharedManager] setMetadataUploadCompletionBlock:^(BOOL success, NSError *error){
-        [self.activityView stopAnimating];
-        [self.progressView fadeOut];
-        self.statusLabel.text = NSLocalizedString(@"Finished Upload!", @"metadata upload complete status text");
-
-        [self performSelector:@selector(shouldHide) withObject:nil afterDelay:1.5]; 
+        if (success) {
+            [self.activityView stopAnimating];
+            [self.progressView fadeOut];
+            self.statusLabel.text = NSLocalizedString(@"Finished Upload!", @"metadata upload complete status text");
+            [self performSelector:@selector(shouldHide) withObject:nil afterDelay:1.5];
+        }else{
+            [self showErrorText:NSLocalizedString(@"Upload Failed :(", @"upload failed text")];
+        }
     }];
 }
 
@@ -132,10 +138,9 @@
     if (self.shouldHideBlock) {
         self.shouldHideBlock(self);
     }
-    [self resetView];
+    [self resetToDefaults];
 }
 -(void)shouldShow{
-    [self prepareToShow];
     if (self.shouldShowBlock) {
         self.shouldShowBlock(self);
     }
@@ -145,7 +150,16 @@
     self.statusLabel.text = text;
     [self performSelector:@selector(showProcessingVideoText) withObject:nil afterDelay:0.5];
 }
+
+-(void)showErrorText:(NSString *)text{
+    [self.activityView stopAnimating];
+    self.statusLabel.textColor = [UIColor waxRedColor];
+    self.statusLabel.text = text; 
+}
+
+
 -(void)showProcessingVideoText{
+    self.statusLabel.textColor = [UIColor whiteColor];
     self.statusLabel.text = NSLocalizedString(@"Processing Video", @"processing video status text");
     [self.activityView startAnimating];
 }

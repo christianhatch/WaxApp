@@ -45,7 +45,6 @@ static inline NSString * StringFromUploadStatus(UploadStatus uStatus) {
 @property (nonatomic) UploadStatus videoStatus;
 @property (nonatomic) UploadStatus thumbnailStatus;
 @property (nonatomic) UploadStatus metadataStatus;
-//@property (nonatomic) CGFloat videoUploadProgress; 
 
 @property (nonatomic) BOOL shareToFacebook;
 @property (nonatomic) BOOL shareToTwitter;
