@@ -60,10 +60,11 @@
         
     [self setUpView];
 }
-
--(void)setUpView{
-    VLog();
-    
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.tableView.pullToRefreshView stopAnimating];
+}
+-(void)setUpView{    
     [self setNavBarTitle];
     [self setProfileTableView];
     [self addProfileTableViewAsSubviewIfNecessary];
@@ -81,12 +82,9 @@
     }
 }
 -(void)addProfileTableViewAsSubviewIfNecessary{
-
-    VLog();
     
     if (![self viewContainsProfileTableView]) {
         [self.view addSubview:self.tableView];
-        VLog(@"added subview again");
     }
 }
 

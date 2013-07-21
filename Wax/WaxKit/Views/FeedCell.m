@@ -178,7 +178,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 
 - (IBAction)respondButtonAction:(id)sender {
     
-    [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithBlock:^(BOOL cancelled) {
+    [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithCompletion:^(BOOL cancelled) {
         if (cancelled) {
             [[VideoUploadManager sharedManager] beginUploadProcessWithVideoID:self.videoObject.videoID competitionTag:self.videoObject.tag category:self.videoObject.category];
             [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationPresentVideoCamera object:self ];

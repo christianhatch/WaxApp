@@ -12,11 +12,12 @@
 @interface FeedViewController ()
 @property (nonatomic, strong) NSString *feedID;
 @property (nonatomic, strong) NSString *tag; 
-@property (nonatomic, readwrite) FeedTableViewType feedType; 
+@property (nonatomic, readwrite) FeedTableViewType feedType;
+@property (nonatomic, strong) FeedTableView *tableView; 
 @end
 
 @implementation FeedViewController
-@synthesize feedID = _feedID, feedType = _feedType, tag = _tag;
+@synthesize feedID = _feedID, feedType = _feedType, tag = _tag, tableView = _tableView; 
 
 #pragma mark - Alloc & Init
 +(FeedViewController *)feedViewControllerWithTag:(NSString *)tag{
@@ -51,25 +52,44 @@
     
     [self setUpView];
 }
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.tableView.pullToRefreshView stopAnimating];
+}
 
 -(void)setUpView{
-    switch (self.feedType) {
-        case FeedTableViewTypeCategoryFeed:{
-            self.navigationItem.title = self.feedID;
-            [self.view addSubview:[FeedTableView feedTableViewForCategory:self.feedID frame:self.view.bounds]];
-        }break;
-        case FeedTableViewTypeTagFeed:{
-            self.navigationItem.title = self.feedID;
-            [self.view addSubview:[FeedTableView feedTableViewForTag:self.feedID frame:self.view.bounds]];
-        }break;
-        case FeedTableViewTypeSingleVideo:{
-            self.navigationItem.title = self.tag;
-            [self.view addSubview:[FeedTableView feedTableViewForSingleVideoWithVideoID:self.feedID frame:self.view.bounds]];
-        }break;
-        default:{
-            
-        }break; 
+
+    if (self.feedType == FeedTableViewTypeSingleVideo) {
+        self.navigationItem.title = self.tag;
+    }else{
+        self.navigationItem.title = self.feedID;
     }
+    
+    [self.view addSubview:self.tableView];
+}
+
+#pragma mark - Getters
+-(FeedTableView *)tableView{
+    if (!_tableView) {
+        
+        _tableView = [[FeedTableView alloc] initWithFeedTableViewType:self.feedType tagOrUserID:self.feedID frame:self.view.bounds]; 
+        
+//        switch (self.feedType) {
+//            case FeedTableViewTypeCategoryFeed:{
+//                _tableView = [FeedTableView feedTableViewForCategory:self.feedID frame:self.view.bounds];
+//            }break;
+//            case FeedTableViewTypeTagFeed:{
+//                _tableView = [FeedTableView feedTableViewForTag:self.feedID frame:self.view.bounds];
+//            }break;
+//            case FeedTableViewTypeSingleVideo:{
+//                _tableView = [FeedTableView feedTableViewForSingleVideoWithVideoID:self.feedID frame:self.view.bounds];
+//            }break;
+//            default:{
+//                
+//            }break; 
+//        }
+    }
+    return _tableView;
 }
 
 - (void)didReceiveMemoryWarning{

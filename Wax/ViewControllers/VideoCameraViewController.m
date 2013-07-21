@@ -72,7 +72,7 @@
     }
 }
 -(void)dismissCamera{
-    [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithBlock:^(BOOL cancelled) {
+    [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithCompletion:^(BOOL cancelled) {
         if (cancelled) {
             [AIKErrorManager logMessageToAllServices:@"User Canceled from video camera"];
             [self dismissViewControllerAnimated:YES completion:nil];

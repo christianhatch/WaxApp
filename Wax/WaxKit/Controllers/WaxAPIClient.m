@@ -302,7 +302,7 @@ static inline BOOL PathRequiresArray(NSString *path){
         
     }progress:progress completion:^(id model, NSError *error) {
        
-        VLog(@"upload video response %@", model);
+//        VLog(@"upload video response %@", model);
 
         if (completion) {
             completion(SimpleReturnFromAPIResponse(model), error);
@@ -321,7 +321,7 @@ static inline BOOL PathRequiresArray(NSString *path){
         
     }progress:progress completion:^(id model, NSError *error) {
       
-        VLog(@"upload thumbnail response %@", model);
+//        VLog(@"upload thumbnail response %@", model);
 
         if (completion) {
             completion(SimpleReturnFromAPIResponse(model), error);
@@ -369,7 +369,9 @@ static inline BOOL PathRequiresArray(NSString *path){
                 [params setObject:accessTokenSecret forKey:@"twitter_token_secret"];
                 
                 [self postPath:@"videos/put_data" parameters:params modelClass:nil completionBlock:^(id model, NSError *error) {
-                    DLog(@"upload meta response %@", model);
+                    
+//                    DLog(@"upload meta response %@", model);
+                    
                     if (completion) {
                         completion(SimpleReturnFromAPIResponse(model), error);
                     }
@@ -379,7 +381,7 @@ static inline BOOL PathRequiresArray(NSString *path){
     }else{
         [self postPath:@"videos/put_data" parameters:params modelClass:nil completionBlock:^(id model, NSError *error) {
             
-            VLog(@"upload meta response %@", model);
+//            VLog(@"upload meta response %@", model);
             
             if (completion) {
                 completion(SimpleReturnFromAPIResponse(model), error);
@@ -587,6 +589,10 @@ static inline BOOL PathRequiresArray(NSString *path){
 #else
             [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error Loading Data", @"Error Loading Data") message:[NSString stringWithFormat:NSLocalizedString(@"Error Code: %i", @"Error Code"), error.code] buttonHandler:^{
                 
+                if (completion) {
+                    completion(nil, error);
+                }
+
             } logError:YES];
 #endif
         }
@@ -609,6 +615,9 @@ static inline BOOL PathRequiresArray(NSString *path){
             
         }];
     }
+    [operation setShouldExecuteAsBackgroundTaskWithExpirationHandler:^{
+        //TODO: add an 'upload operation expired block' to this method so I can handle this on the videouploadmanager 
+    }];
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self processResponseObject:responseObject forModelClass:nil forceArray:NO withCompletionBlock:^(id model, NSError *error) {

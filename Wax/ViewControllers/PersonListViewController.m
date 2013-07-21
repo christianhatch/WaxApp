@@ -40,6 +40,10 @@
     
     [self setUpView];
 }
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.tableView.pullToRefreshView stopAnimating];
+}
 
 #pragma mark - Setters
 -(void)setUserID:(NSString *)userID{

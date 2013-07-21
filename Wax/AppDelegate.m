@@ -27,7 +27,6 @@
 @end
 
 @implementation AppDelegate
-@synthesize rootViewController = _rootViewController; 
 
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
 #ifdef DEBUG

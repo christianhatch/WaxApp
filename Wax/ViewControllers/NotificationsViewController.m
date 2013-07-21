@@ -9,25 +9,36 @@
 #import "NotificationsViewController.h"
 
 @interface NotificationsViewController ()
-@property (nonatomic, strong) NotificationsTableView *noteTableView;
+@property (nonatomic, strong) NotificationsTableView *tableView;
 @end
 
 @implementation NotificationsViewController
-@synthesize noteTableView = _noteTableView;
+@synthesize tableView = _noteTableView;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
     [self setUpView];
     
 }
-
 -(void)setUpView{
     self.navigationItem.title = NSLocalizedString(@"Notifications", @"Notifications");
-    [self.view addSubview:self.noteTableView]; 
+    [self.view addSubview:self.tableView];
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if ([WaxDataManager sharedManager].notificationCount.intValue > 0) {
+        [self.tableView triggerPullToRefresh]; 
+    }
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.tableView.pullToRefreshView stopAnimating];
+}
+
+
 #pragma mark - Getters
--(NotificationsTableView *)noteTableView{
+-(NotificationsTableView *)tableView{
     if (!_noteTableView) {
         _noteTableView = [NotificationsTableView notificationsTableViewWithFrame:self.view.bounds];
     }

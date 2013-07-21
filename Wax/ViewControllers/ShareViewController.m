@@ -86,7 +86,7 @@
 }
 -(void)finish:(id)sender{
     if ([self verifyInputtedData]) {
-        [[VideoUploadManager sharedManager] addMetadataWithTag:self.tagField.text category:self.categoryButton.titleLabel.text shareToFacebook:self.facebookSwitch.on sharetoTwitter:self.twitterSwitch.on shareLocation:self.locationSwitch.on completion:nil];
+        [[VideoUploadManager sharedManager] addMetadataWithTag:self.tagField.text category:self.categoryButton.titleLabel.text shareToFacebook:self.facebookSwitch.on sharetoTwitter:self.twitterSwitch.on shareLocation:self.locationSwitch.on];
         
         [[[self presentingViewController] presentingViewController] dismissViewControllerAnimated:YES completion:nil];
     }
@@ -98,23 +98,22 @@
     } navigationController:self.navigationController];
 }
 - (IBAction)twitterSwitchToggled:(id)sender {
-    if (![[WaxUser currentUser] twitterAccountConnected]) {
+    if (![WaxUser currentUser].twitterAccountConnected) {
         [[WaxUser currentUser] chooseTwitterAccountWithCompletion:^(NSError *error) {
             [sender setOn:(error == nil) animated:YES];
+            //TODO: handle error choosing twitter account
         }];
     }
 }
 - (IBAction)facebookSwitchToggled:(id)sender {
-    if (![[WaxUser currentUser] facebookAccountConnected]) {
+    if ([WaxUser currentUser].facebookAccountConnected) {
+        [self requestFacebookPublishPermissionsWithSenderSwitch:sender];
+    }else{
         [[WaxUser currentUser] connectFacebookWithCompletion:^(NSError *error) {
             if (!error) {
-                [self requestFacebookPublishPermissionsWithSenderSwitch:sender];
-            }else{
-                //handle error connecting to fb
+                [self requestFacebookPublishPermissionsWithSenderSwitch:sender]; 
             }
-        }];
-    }else{
-        [self requestFacebookPublishPermissionsWithSenderSwitch:sender];
+        }]; 
     }
 }
 
@@ -122,10 +121,8 @@
 -(void)requestFacebookPublishPermissionsWithSenderSwitch:(UISwitch *)sender{
     if (![[AIKFacebookManager sharedManager] canPublish]) {
         [[AIKFacebookManager sharedManager] requestPublishPermissionsWithCompletion:^(BOOL success, NSError *error) {
-            if (!error) {
-                [sender setOn:success animated:YES];
-            }else{
-                //handle error requesting permissions
+            if (error) {
+                [sender setOn:NO animated:YES]; 
             }
         }];
     }

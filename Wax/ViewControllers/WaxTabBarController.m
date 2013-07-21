@@ -23,13 +23,10 @@
     [super viewDidLoad];
     self.delegate = self;
     [self setUpView];
-    
-//    AppDelegate *delly = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//    delly.rootViewController = self;
-    
+        
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentInitialViewController) name:WaxUserDidLogOutNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(capture) name:kWaxNotificationPresentVideoCamera object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRemoteNoteFromNotification:) name:kWaxNotificationRemoteNotificationReceived object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidReceiveRemoteNotification:) name:kWaxNotificationRemoteNotificationReceived object:nil];
 }
 
 -(void)setUpView{    
@@ -38,12 +35,23 @@
     [[self.tabBar.items objectAtIndex:2] setFinishedSelectedImage:[UIImage imageNamed:@"camTab_on"] withFinishedUnselectedImage:[UIImage imageNamed:@"camTab"]];
     [[self.tabBar.items objectAtIndex:3] setFinishedSelectedImage:[UIImage imageNamed:@"notesTab_on"] withFinishedUnselectedImage:[UIImage imageNamed:@"notesTab"]];
     [[self.tabBar.items objectAtIndex:4] setFinishedSelectedImage:[UIImage imageNamed:@"profileTab_on"] withFinishedUnselectedImage:[UIImage imageNamed:@"profileTab"]];
+
+    for (UITabBarItem *item in self.tabBar.items) {
+        item.title = nil;
+        item.imageInsets = UIEdgeInsetsMake(7, 0, -7, 0);
+    }
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    if ([[WaxUser currentUser] isLoggedIn]) {
-        [self handleAppLaunchFromRemoteNotificationOrUpdateNoteCountBadge];
+    if ([WaxUser currentUser].isLoggedIn) {
+        
+        [self updateNoteCountAndBadgeFromServer];
+
+        if ([self shouldHandleLaunchFromRemoteNotification]) {
+            [self handleLaunchFromRemoteNotification];
+        }
+        
     }else{
         [self presentInitialViewController];
     }
@@ -52,38 +60,38 @@
   
     UINavigationController *shouldSelectNavigationController = (UINavigationController *)viewController;
 
-    BOOL shouldSelectReturnValue = YES;
-     
+    BOOL shouldSelect = YES; 
+    
     if ([viewController.title isEqualToString:@"Capture"]){
-        
-        shouldSelectReturnValue = NO;
-        
+                
         [AIKLocationManager getAuthorizationStatusOrAskIfUndetermined];
         [self captureFromTabBar];
-       
+
+        shouldSelect =  NO;
+        
     }else if ([viewController.title isEqualToString:@"Me"]){
 
         if ([shouldSelectNavigationController.viewControllers.firstObject respondsToSelector:@selector(setPerson:)]) {
             ProfileViewController *profile = shouldSelectNavigationController.viewControllers.firstObject;
             profile.person = [WaxUser currentUser].personObject;
         }
-        
+                
     }else if([viewController.title isEqualToString:@"Notifications"]){
         
         [WaxDataManager sharedManager].notificationCount = @0;
-        [self updateNoteCountAndUpdateBadge];
+        [self updateNotificationBadgeToReflectNoteCount];
+                
+    }
+    
+    if ([self isThirdTapOnViewController:viewController]){
         
-    }else if ([self isThirdTapOnViewController:viewController]){
-        
-        shouldSelectReturnValue = NO;
-
         if ([shouldSelectNavigationController.visibleViewController respondsToSelector:@selector(scrollAllScrollViewSubviewsToTopAnimated:)]) {
             [shouldSelectNavigationController.visibleViewController scrollAllScrollViewSubviewsToTopAnimated:YES];
         }
         
     }
     
-    return shouldSelectReturnValue;
+    return shouldSelect;
 }
 
 
@@ -92,7 +100,7 @@
     [self capture];
 }
 -(void)capture{
-    [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithBlock:^(BOOL cancelled) {
+    [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithCompletion:^(BOOL cancelled) {
         if (cancelled) {
             VideoCameraViewController *video = [[VideoCameraViewController alloc] init];
             [self presentViewController:video animated:YES completion:nil];
@@ -102,10 +110,46 @@
 
 #pragma mark - Splash Screen
 -(void)presentInitialViewController{
-    
-    BOOL initialLaunch = [[WaxDataManager sharedManager].launchInfo objectForKeyOrNil:@"initial"] != nil;
-    
-    initialLaunch ? [self presentTutorialAndRegistrationViewController] : [self presentRegistrationViewController];
+        
+    [self isInitialLaunch] ? [self presentTutorialAndRegistrationViewController] : [self presentRegistrationViewController];
+}
+
+#pragma mark - Remote Notifications
+-(void)handleLaunchFromRemoteNotification{
+    [self selectNotificationTab];
+    [WaxDataManager sharedManager].launchInfo = nil;
+}
+
+-(void)handleDidReceiveRemoteNotification:(NSNotification *)note{
+    [self updateNoteCountAndBadgeFromServer];
+}
+
+
+#pragma mark - Internal Methods
+-(void)updateNoteCountAndBadgeFromServer{
+    [[WaxDataManager sharedManager] updateNotificationCountWithCompletion:^(NSError *error) {
+        if (!error) {
+            [self updateNotificationBadgeToReflectNoteCount];
+        }
+    }];
+}
+
+#pragma mark - Convenience Methods
+-(void)updateNotificationBadgeToReflectNoteCount{
+    NSString *count = [WaxDataManager sharedManager].notificationCount.intValue == 0 ? nil : [NSString stringWithFormat:@"%@", [WaxDataManager sharedManager].notificationCount];
+    [[self.tabBar.items objectAtIndexOrNil:3] setBadgeValue:count];
+}
+
+-(void)selectNotificationTab{
+    [self setSelectedIndex:3];
+}
+
+-(BOOL)shouldHandleLaunchFromRemoteNotification{
+    return [WaxDataManager sharedManager].launchInfo != nil; 
+}
+
+-(BOOL)isInitialLaunch{
+    return [[WaxDataManager sharedManager].launchInfo objectForKeyOrNil:@"initial"] != nil;
 }
 
 -(void)presentRegistrationViewController{
@@ -122,38 +166,6 @@
         [self setSelectedIndex:0];
     }];
 }
-
-#pragma mark - Remote Notifications
--(void)handleAppLaunchFromRemoteNotificationOrUpdateNoteCountBadge{
-    if ([WaxDataManager sharedManager].launchInfo) {
-        
-        [self selectNotificationTab];
-        [WaxDataManager sharedManager].launchInfo = nil;
-        
-    }else{
-        [self updateNoteCountAndUpdateBadge]; 
-    }
-}
--(void)handleRemoteNoteFromNotification:(NSNotification *)note{
-    [self updateNoteCountAndUpdateBadge];
-}
-
-#pragma mark - Notification Badges
--(void)updateNoteCountAndUpdateBadge{
-    [[WaxDataManager sharedManager] updateNotificationCountWithCompletion:^(NSError *error) {
-        if (!error) {
-            [self setBadgeAsNoteCount];
-        }
-    }];
-}
--(void)setBadgeAsNoteCount{
-    NSString *count = [WaxDataManager sharedManager].notificationCount.intValue == 0 ? nil : [NSString stringWithFormat:@"%@", [WaxDataManager sharedManager].notificationCount];
-    [[self.tabBar.items objectAtIndexOrNil:3] setBadgeValue:count];
-}
--(void)selectNotificationTab{
-    [self setSelectedIndex:3];
-}
-
 
 - (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];

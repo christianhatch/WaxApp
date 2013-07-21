@@ -32,6 +32,7 @@
 //controls
 #import "WaxRoundButton.h"
 #import "WaxFollowButton.h"
+#import "VideoUploadView.h"
 
 //tableview views
 #import "NotificationsTableView.h"

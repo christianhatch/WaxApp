@@ -62,7 +62,7 @@
         }
         
         if (feedtype == FeedTableViewTypeMyFeed || feedtype == FeedTableViewTypeHomeFeed) {
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(triggerPullToRefresh) name:kWaxNotificationVideoUploadCompleted object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(triggerPullToRefresh) name:VideoUploadManagerDidCompleteEntireUploadSuccessfullyNotification object:nil];
         }
         if (feedtype == FeedTableViewTypeHomeFeed) {
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(triggerPullToRefresh) name:WaxUserDidLogInNotification object:nil];

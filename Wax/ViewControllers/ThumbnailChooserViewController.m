@@ -60,7 +60,7 @@
 }
 -(void)cancel:(id)sender{
     if (![VideoUploadManager sharedManager].isInChallengeMode) {
-        [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithBlock:^(BOOL cancelled) {
+        [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithCompletion:^(BOOL cancelled) {
             if (cancelled) {
                 [AIKErrorManager logMessageToAllServices:@"User canceled from thumbnail chooser"];
                 [self dismissViewControllerAnimated:YES completion:nil];

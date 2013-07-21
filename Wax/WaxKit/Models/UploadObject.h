@@ -41,14 +41,15 @@ static inline NSString * StringFromUploadStatus(UploadStatus uStatus) {
 
 @interface UploadObject : NSObject
 
-@property (nonatomic, assign) UploadStatus status;
-@property (nonatomic, assign) UploadStatus videoStatus;
-@property (nonatomic, assign) UploadStatus thumbnailStatus;
-@property (nonatomic, assign) UploadStatus metadataStatus;
+@property (nonatomic) UploadStatus status;
+@property (nonatomic) UploadStatus videoStatus;
+@property (nonatomic) UploadStatus thumbnailStatus;
+@property (nonatomic) UploadStatus metadataStatus;
+//@property (nonatomic) CGFloat videoUploadProgress; 
 
-@property (nonatomic, assign) BOOL shareToFacebook;
-@property (nonatomic, assign) BOOL shareToTwitter;
-@property (nonatomic, assign) BOOL shareLocation;
+@property (nonatomic) BOOL shareToFacebook;
+@property (nonatomic) BOOL shareToTwitter;
+@property (nonatomic) BOOL shareLocation;
 
 @property (nonatomic, copy) NSString *videoID;
 @property (nonatomic, copy) NSString *tag;

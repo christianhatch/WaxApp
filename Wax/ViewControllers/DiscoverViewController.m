@@ -27,6 +27,10 @@
     [super viewDidLoad];
     [self setUpView];
 }
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.tableView.pullToRefreshView stopAnimating];
+}
 
 -(void)setUpView{
     self.navigationItem.title = NSLocalizedString(@"Discover", @"Discover");

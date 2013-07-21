@@ -6,44 +6,36 @@
 //  Copyright (c) 2013 Christian Hatch. All rights reserved.
 //
 
+#define kShowUploadViewFrame CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, 60)
+#define kHideUploadViewFrame CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, 0)
+
 #import "HomeViewController.h"
 #import "FeedTableView.h"
 
 @interface HomeViewController ()
-@property (nonatomic, strong) FeedTableView *tableView; 
+@property (nonatomic, strong) FeedTableView *tableView;
+@property (nonatomic, strong) VideoUploadView *uploadView; 
 @end
 
 @implementation HomeViewController
-@synthesize tableView = _tableView;
+@synthesize tableView = _tableView, uploadView = _uploadView; 
 
 -(void)viewDidLoad{
     [super viewDidLoad];
     [self setUpView];
-    
-#ifdef DEBUG
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(testThings)];
-#endif
-}
-
--(void)testThings{
-    [[WaxUser currentUser] fetchMatchedContactsWithCompletion:^(NSMutableArray *list, NSError *error) {
-        if (error) {
-            [AIKErrorManager showAlertWithTitle:@"matching contacts error!" message:[NSString stringWithFormat:@"%@", error] buttonHandler:nil logError:NO];
-        }
-        VLog(@"matched contacts %@", list);
-    }];
-    [[WaxUser currentUser] fetchMatchedFacebookFriendsWithCompletion:^(NSMutableArray *list, NSError *error) {
-        if (error) {
-            [AIKErrorManager showAlertWithTitle:@"matching facebook error!" message:[NSString stringWithFormat:@"%@", error] buttonHandler:nil logError:NO];
-        }
-        VLog(@"matched fb friends %@", list);
-    }];
 }
 
 -(void)setUpView{
     self.navigationItem.title = NSLocalizedString(@"Wax", @"Wax");
     [self.view addSubview:self.tableView];
+    [self.view addSubview:self.uploadView]; 
 }
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.tableView.pullToRefreshView stopAnimating]; 
+}
+
 
 #pragma mark - Getters
 -(FeedTableView *)tableView{
@@ -52,6 +44,41 @@
     }
     return _tableView; 
 }
+-(VideoUploadView *)uploadView{
+    if (!_uploadView) {
+        
+        _uploadView = [VideoUploadView videoUploadViewWithShowBlock:^(VideoUploadView *view) {
+            [self showUploadView];
+        } shouldHideBlock:^(VideoUploadView *view) {
+            [self hideUploadView]; 
+        }];
+        _uploadView.frame = kHideUploadViewFrame;
+    }
+    return _uploadView; 
+}
+
+#pragma mark - Convenience Methods
+-(void)showUploadView{
+    CGRect newUploadViewFrame = kShowUploadViewFrame;
+    CGRect newTableViewFrame = CGRectMake(self.view.bounds.origin.x, newUploadViewFrame.size.height, self.view.bounds.size.width, (self.view.bounds.size.height - newUploadViewFrame.size.height));
+    
+    [UIView animateWithDuration:AIKDefaultAnimationDuration delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        self.uploadView.frame = newUploadViewFrame;
+        self.tableView.frame = newTableViewFrame;
+    } completion:nil];
+}
+-(void)hideUploadView{
+    CGRect newUploadViewFrame = kHideUploadViewFrame;
+    CGRect newTableViewFrame = self.view.bounds;
+    
+    [UIView animateWithDuration:AIKDefaultAnimationDuration delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        self.uploadView.frame = newUploadViewFrame;
+        self.tableView.frame = newTableViewFrame;
+    } completion:nil];
+}
+
+
+
 
 
 - (void)didReceiveMemoryWarning{

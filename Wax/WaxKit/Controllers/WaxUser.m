@@ -355,7 +355,8 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 }
 -(void)connectFacebookWithCompletion:(WaxUserCompletionBlockTypeSimple)completion{
     [[AIKFacebookManager sharedManager] connectFacebookWithCompletion:^(id<FBGraphUser> user, NSError *error) {
-        if (!error) {
+        //TODO: (7.19.13) - check this out, previously it was if(!error) but that doesn't seemt to make sense in context, so i switched it..
+        if (error) {
             [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error logging into Facebook", @"Error logging into Facebook") error:error buttonHandler:nil logError:NO];
         }else{
             [[WaxAPIClient sharedClient] connectFacebookAccountWithFacebookID:user.id completion:^(BOOL complete, NSError *error) {
