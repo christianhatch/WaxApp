@@ -16,6 +16,5 @@
 
 @property (nonatomic, strong) TagObject *tagObject;
 
-@property (strong, nonatomic) IBOutlet UILabel *tagLabel;
 
 @end

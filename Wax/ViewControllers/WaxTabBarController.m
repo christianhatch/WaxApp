@@ -100,8 +100,8 @@
     [self capture];
 }
 -(void)capture{
-    [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithCompletion:^(BOOL cancelled) {
-        if (cancelled) {
+    [[VideoUploadManager sharedManager] askToCaptureFromTabbarWithBlock:^(BOOL allowedToProceed) {
+        if (allowedToProceed) {
             VideoCameraViewController *video = [[VideoCameraViewController alloc] init];
             [self presentViewController:video animated:YES completion:nil];
         }
@@ -110,7 +110,6 @@
 
 #pragma mark - Splash Screen
 -(void)presentInitialViewController{
-        
     [self isInitialLaunch] ? [self presentTutorialAndRegistrationViewController] : [self presentRegistrationViewController];
 }
 

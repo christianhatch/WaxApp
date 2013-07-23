@@ -97,6 +97,9 @@
 #pragma mark - IBActions
 
 -(IBAction)followButtonAction:(id)sender {
+    if (!self.person) {
+        return; 
+    }
     if (self.person.isMe) {
         SettingsViewController *settings = initViewControllerWithIdentifier(@"SettingsVC");
         [self.nearestNavigationController pushViewController:settings animated:YES];
@@ -117,11 +120,17 @@
 }
 
 - (IBAction)followersButtonAction:(id)sender {
+    if (!self.person) {
+        return;
+    }
     PersonListViewController *plvc = [PersonListViewController personListViewControllerForFollowersFromUserID:self.person.userID];
     [self.nearestNavigationController pushViewController:plvc animated:YES];
 }
 
 - (IBAction)followingButtonAction:(id)sender {
+    if (!self.person) {
+        return;
+    }
     PersonListViewController *plvc = [PersonListViewController personListViewControllerForFollowingFromUserID:self.person.userID];
     [self.nearestNavigationController pushViewController:plvc animated:YES];
 }

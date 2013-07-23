@@ -10,6 +10,7 @@ typedef NS_ENUM(NSInteger, SendChallengeTableViewType){
     SendChallengeTableViewTypeWax = 1,
     SendChallengeTableViewTypeContacts,
     SendChallengeTableViewTypeFacebook,
+//    SendChallengeTableViewTypeTwitter,
 };
 
 
@@ -17,13 +18,13 @@ typedef NS_ENUM(NSInteger, SendChallengeTableViewType){
 
 @interface SendChallengeTableView : WaxTableView
 
-+(SendChallengeTableView *)sendChallengeTableViewForWaxWithFrame:(CGRect)frame;
-+(SendChallengeTableView *)sendChallengeTableViewForContactsWithFrame:(CGRect)frame;
-+(SendChallengeTableView *)sendChallengeTableViewForFacebookWithFrame:(CGRect)frame;
++(SendChallengeTableView *)sendChallengeTableViewForWaxWithChallengeTag:(NSString *)challengeTag shareURL:(NSURL *)shareURL frame:(CGRect)frame;
++(SendChallengeTableView *)sendChallengeTableViewForContactsWithChallengeTag:(NSString *)challengeTag shareURL:(NSURL *)shareURL frame:(CGRect)frame;
++(SendChallengeTableView *)sendChallengeTableViewForFacebookWithChallengeTag:(NSString *)challengeTag shareURL:(NSURL *)shareURL frame:(CGRect)frame;
 
 @property (nonatomic, readonly) NSArray *selectedPersons;
 
-@property (nonatomic) SendChallengeTableViewType tableViewType;
+@property (nonatomic, assign) SendChallengeTableViewType tableViewType;
 
 
 @end

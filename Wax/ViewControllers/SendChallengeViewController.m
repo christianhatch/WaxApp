@@ -7,9 +7,8 @@
 //
 
 #import "SendChallengeViewController.h"
-#import <MessageUI/MessageUI.h>
 
-@interface SendChallengeViewController () <MFMessageComposeViewControllerDelegate>
+@interface SendChallengeViewController ()
 @property (nonatomic, strong) NSString *challengeTag;
 @property (nonatomic, strong) NSString *challengeVideoID;
 @property (nonatomic, strong) NSURL *challengeShareURL;
@@ -36,6 +35,7 @@
     sender.challengeTag = tag;
     sender.challengeVideoID = videoID;
     sender.challengeShareURL = shareURL;
+    sender.hidesBottomBarWhenPushed = YES; 
     
     return sender;
 }
@@ -198,45 +198,11 @@
     }
     return userIDs;
 }
--(void)sendViaText{
-    if ([MFMessageComposeViewController canSendText]) {
-        MFMessageComposeViewController *texter = [[MFMessageComposeViewController alloc] init];
-        
-        texter.body = [NSString stringWithFormat:NSLocalizedString(@"I think you could be #1 at %@ on Wax! \nCheck out your competition here: %@ \n\n\nDon't have Wax? Download it: http://wax.li", @"send challenge via text"), self.challengeTag, self.challengeShareURL];
-        
-        texter.messageComposeDelegate = self;
-        
-        [self presentViewController:texter animated:YES completion:nil];
-        
-    }else{
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Send Text", @"Cannot Send Text") message:NSLocalizedString(@"Messaging is not available on this device at this time.", @"Messaging is not available on this device at this time.") cancelButtonItem:[RIButtonItem randomDismissalButton] otherButtonItems:nil, nil] show];
-    }
-}
--(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result{
-   
-    switch (result) {
-        case MessageComposeResultCancelled:
-            [AIKErrorManager logMessageToAllServices:@"user canceled challenging via text message"];
-            [controller dismissViewControllerAnimated:YES completion:nil];
-            break;
-        case MessageComposeResultFailed:
-            [AIKErrorManager logMessageToAllServices:@"sending challenge via text failed"];
-            [controller dismissViewControllerAnimated:YES completion:nil];
-            break;
-        case MessageComposeResultSent:
-            [AIKErrorManager logMessageToAllServices:@"user challenged via text message"];
-            [controller dismissViewControllerAnimated:YES completion:^{
-                [self.navigationController popViewControllerAnimated:YES];
-                [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:NSLocalizedString(@"Sent %@ via text!", @"Sent tag success message"), self.challengeTag]];
-            }];
-            break;
-    }
-}                                                                                                                                                                       
 
 #pragma mark - Getters
 -(SendChallengeTableView *)waxTableView{
     if (!_waxTableView) {
-        _waxTableView = [SendChallengeTableView sendChallengeTableViewForWaxWithFrame:self.view.bounds];
+        _waxTableView = [SendChallengeTableView sendChallengeTableViewForWaxWithChallengeTag:self.challengeTag shareURL:self.challengeShareURL frame:self.view.bounds];
     }
     return _waxTableView;
 }

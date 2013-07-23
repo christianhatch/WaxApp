@@ -45,7 +45,7 @@
 #import "FeedTableView.h"
 #import "FeedCell.h"
 #import "SendChallengeTableView.h"
-#import "InviteFriendsCell.h"
+#import "SendChallengeCell.h"
 
 #import "PersonTableView.h"
 #import "PersonCell.h"
@@ -57,6 +57,8 @@
 
 
 //viewcontrollers
+#import "VideoCameraViewController.h"
+
 #import "WaxTabBarController.h"
 #import "HomeViewController.h"
 #import "DiscoverViewController.h"

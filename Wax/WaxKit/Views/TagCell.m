@@ -8,6 +8,10 @@
 
 #import "TagCell.h"
 
+@interface TagCell ()
+@property (strong, nonatomic) IBOutlet UILabel *tagLabel;
+@end
+
 @implementation TagCell
 @synthesize tagLabel; 
 @synthesize tagObject = _tagObject;

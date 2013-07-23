@@ -26,6 +26,8 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     
+    [self enableSwipeToPopVC:YES];
+    
     self.clearsSelectionOnViewWillAppear = YES;
     
     [self setUpView];

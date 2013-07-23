@@ -45,13 +45,13 @@
             [self.profilePictureView setImageForProfilePictureWithUserID:self.noteObject.userID buttonHandler:nil];
         }break;
         case NotificationTypeTitleEarned:{
-            self.voteCountLabel.hidden = YES; 
-            [self.profilePictureView setImage:[UIImage imageNamed:@"upVote_icon"] animated:YES]; 
+            self.voteCountLabel.hidden = YES;
+            [self.profilePictureView setImage:[UIImage imageNamed:@"title_icon"] animated:YES];
         }break;
         case NotificationTypeVote:{
-            self.voteCountLabel.text = note.voteCount.stringValue;
-            self.voteCountLabel.hidden = NO;
-            [self.profilePictureView setImage:[UIImage imageNamed:@"title_icon"] animated:YES];
+//            self.voteCountLabel.text = note.voteCount.stringValue;
+            self.voteCountLabel.hidden = YES;
+            [self.profilePictureView setImage:[UIImage imageNamed:@"upVote_icon"] animated:YES];
         }break;
     }
 

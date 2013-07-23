@@ -17,5 +17,6 @@ typedef void(^VideoUploadViewShouldShowHideBlock)(VideoUploadView *view);
 +(VideoUploadView *)videoUploadViewWithShowBlock:(VideoUploadViewShouldShowHideBlock)shouldShowBlock
                                  shouldHideBlock:(VideoUploadViewShouldShowHideBlock)shouldHideBlock;
 
+@property (nonatomic, readonly) BOOL shouldBeVisible; 
 
 @end

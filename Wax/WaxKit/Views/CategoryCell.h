@@ -16,7 +16,4 @@
 
 @property (nonatomic, strong) NSString *category;
 
-@property (strong, nonatomic) IBOutlet UIImageView *categoryIconView;
-@property (strong, nonatomic) IBOutlet UILabel *categoryLabel;
-
 @end

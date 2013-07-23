@@ -43,7 +43,6 @@
 }
 
 
-
 -(void)setWaxDetailFont{
     [self setFont:[UIFont waxDetailFont] andColor:[UIColor waxDetailFontColor]]; 
 }

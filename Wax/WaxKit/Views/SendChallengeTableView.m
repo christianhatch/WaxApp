@@ -7,43 +7,44 @@
 //
 
 #import "SendChallengeTableView.h"
-#import "InviteFriendsHeaderView.h"
 
 @interface SendChallengeTableView ()
 @property (nonatomic, strong) NSMutableSet *selectedPersonSet;
+@property (nonatomic, strong) NSString *challengeTag;
+@property (nonatomic, strong) NSURL *challengeShareURL;
 @end
 
 @implementation SendChallengeTableView
-@synthesize selectedPersonSet = _selectedPersonSet, tableViewType;
+@synthesize selectedPersonSet = _selectedPersonSet, tableViewType, challengeTag, challengeShareURL; 
 
-+(SendChallengeTableView *)sendChallengeTableViewForWaxWithFrame:(CGRect)frame{
-    SendChallengeTableView *sendy = [[SendChallengeTableView alloc] initWithSendChallengeTableViewType:SendChallengeTableViewTypeWax frame:frame];
++(SendChallengeTableView *)sendChallengeTableViewForWaxWithChallengeTag:(NSString *)challengeTag shareURL:(NSURL *)shareURL frame:(CGRect)frame{
+    SendChallengeTableView *sendy = [[SendChallengeTableView alloc] initWithSendChallengeTableViewType:SendChallengeTableViewTypeWax challengeTag:challengeTag shareURL:shareURL frame:frame];
     return sendy;
 }
-+(SendChallengeTableView *)sendChallengeTableViewForContactsWithFrame:(CGRect)frame{
-    SendChallengeTableView *sendy = [[SendChallengeTableView alloc] initWithSendChallengeTableViewType:SendChallengeTableViewTypeContacts frame:frame];
++(SendChallengeTableView *)sendChallengeTableViewForContactsWithChallengeTag:(NSString *)challengeTag shareURL:(NSURL *)shareURL frame:(CGRect)frame{
+    SendChallengeTableView *sendy = [[SendChallengeTableView alloc] initWithSendChallengeTableViewType:SendChallengeTableViewTypeContacts challengeTag:challengeTag shareURL:shareURL frame:frame];
     return sendy;
 }
-+(SendChallengeTableView *)sendChallengeTableViewForFacebookWithFrame:(CGRect)frame{
-    SendChallengeTableView *sendy = [[SendChallengeTableView alloc] initWithSendChallengeTableViewType:SendChallengeTableViewTypeFacebook frame:frame];
++(SendChallengeTableView *)sendChallengeTableViewForFacebookWithChallengeTag:(NSString *)challengeTag shareURL:(NSURL *)shareURL frame:(CGRect)frame{
+    SendChallengeTableView *sendy = [[SendChallengeTableView alloc] initWithSendChallengeTableViewType:SendChallengeTableViewTypeFacebook challengeTag:challengeTag shareURL:shareURL frame:frame];
     return sendy;
 }
 
--(instancetype)initWithSendChallengeTableViewType:(SendChallengeTableViewType)type frame:(CGRect)frame{
+-(instancetype)initWithSendChallengeTableViewType:(SendChallengeTableViewType)type challengeTag:(NSString *)tag shareURL:(NSURL *)shareURL frame:(CGRect)frame{
     self = [super initWithFrame:frame style:UITableViewStylePlain];
     if (self) {
         
+        NSParameterAssert(type);
+        NSParameterAssert(tag);
+        NSParameterAssert(shareURL); 
+        
         self.tableViewType = type;
+        self.challengeTag = tag;
+        self.challengeShareURL = shareURL; 
         
         self.rowHeight = kPersonCellHeight;
         [self registerNib:[UINib nibWithNibName:@"PersonCell" bundle:nil] forCellReuseIdentifier:kPersonCellID];
-        [self registerNib:[UINib nibWithNibName:@"InviteFriendsCell" bundle:nil] forCellReuseIdentifier:kInviteFriendsCellID];
-        
-        if (self.tableViewType == SendChallengeTableViewTypeContacts) {
-            self.tableHeaderView = [InviteFriendsHeaderView inviteFriendsHeaderViewForContacts];
-        }else if (self.tableViewType == SendChallengeTableViewTypeFacebook){
-            self.tableHeaderView = [InviteFriendsHeaderView inviteFriendsHeaderViewForFacebook];
-        }
+        [self registerNib:[UINib nibWithNibName:@"SendChallengeCell" bundle:nil] forCellReuseIdentifier:kSendChallengeCellID];
         
         __block SendChallengeTableView *blockSelf = self;
         [self addPullToRefreshWithActionHandler:^{
@@ -86,7 +87,9 @@
     
     if (indexPath.section == 0) {
         
-        InviteFriendsCell *cell = [self dequeueReusableCellWithIdentifier:kInviteFriendsCellID];
+        SendChallengeCell *cell = [self dequeueReusableCellWithIdentifier:kSendChallengeCellID];
+        [cell setChallengeTag:self.challengeTag shareURL:self.challengeShareURL];
+        cell.cellType = SendChallengeCellTypeContacts;
         return cell;
         
     }else{
@@ -95,6 +98,7 @@
         PersonObject *person = [self.proxyDataSourceArray objectAtIndexOrNil:indexPath.row];
         cell.cellType = PersonCellTypeSendChallenge;
         cell.person = person;
+        cell.accessoryType = UITableViewCellAccessoryNone; 
         
         return cell;
     }
@@ -106,8 +110,8 @@
     
     if (indexPath.section == 0) {
         
-        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:@"wax.sendChallenge" object:self]; 
-        
+        SendChallengeCell *cell = (SendChallengeCell *)[self cellForRowAtIndexPath:indexPath];
+        [cell didSelect]; 
         
     }else{
         [self updateCheckmarkForCellAtIndexPath:indexPath];

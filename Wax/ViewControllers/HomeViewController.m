@@ -30,7 +30,16 @@
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.uploadView]; 
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    //TODO: test this!!!
+    if (self.uploadView.shouldBeVisible) {
+        [self showUploadView];
+    }else{
+        [self hideUploadView]; 
+    }
+}
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     [self.tableView.pullToRefreshView stopAnimating]; 

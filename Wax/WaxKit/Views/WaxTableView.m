@@ -119,7 +119,7 @@
 //        _emptyView.layer.borderWidth = 5;
 //        _emptyView.layer.borderColor = [UIColor blueColor].CGColor;
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectInset(_emptyView.bounds, (_emptyView.bounds.size.width/10), (_emptyView.bounds.size.height/10))];
+        UILabel *label = [[UILabel alloc] initWithFrame:[self rectForLabel]];
         [label setWaxHeaderFontOfSize:15 color:[UIColor waxHeaderFontColor]];
         label.text = self.emptyViewMessageText;
         label.center = _emptyView.center;
@@ -153,7 +153,6 @@
     
     if (shouldShowEmptyView == emptyViewShown) return;
     
-    
     if (shouldShowEmptyView){
         for (UILabel *label in self.emptyView.subviews) {
             if ([label respondsToSelector:@selector(setText:)]) {
@@ -169,18 +168,20 @@
 }
 -(CGRect)rectForEmptyView{
     if (self.tableHeaderView) {
-        CGRect frame = self.frame;
+        CGRect frame = self.bounds;
         frame.origin.y = self.tableHeaderView.frame.size.height;
         frame.size.height -= self.tableHeaderView.frame.size.height;
         return frame; 
     }else{
-        return self.frame;
+        return self.bounds;
     }
 }
 -(CGRect)rectForLabel{
     return CGRectInset(_emptyView.bounds, (_emptyView.bounds.size.width/10), (_emptyView.bounds.size.height/10)); 
 }
-
+-(CGRect)rectForErrorImage{
+    return CGRectInset(_emptyView.bounds, (_emptyView.bounds.size.width/10), (_emptyView.bounds.size.height/10)); 
+}
 
 
 @end

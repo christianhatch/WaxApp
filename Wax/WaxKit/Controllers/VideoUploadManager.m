@@ -18,6 +18,8 @@ NSString *const VideoUploadManagerDidCompleteEntireUploadSuccessfullyNotificatio
 @property (nonatomic, strong) NSString *challengeVideoTag;
 @property (nonatomic, strong) NSString *challengeVideoCategory;
 @property (nonatomic, strong) UIImage *thumbnailImage;
+
+@property (nonatomic, readonly) BOOL hasVideoFileOnDisk;
 @end
 
 @implementation VideoUploadManager
@@ -41,39 +43,144 @@ NSString *const VideoUploadManagerDidCompleteEntireUploadSuccessfullyNotificatio
 }
 
 #pragma mark - Public API
--(void)askToCancelAndDeleteCurrentUploadWithCompletion:(void (^)(BOOL))block{
+-(void)askToRespondToChallengeWithBlock:(VideoManagerCancelBlock)block{
+    //standard question
+    //clear everything
+    [self askUserQuestion:nil withBlock:^(BOOL allowedToProceed) {
+        
+        if (allowedToProceed) {
+            [self cancelAllOperationsAndCleanUpCurrentUpload];
+            [self clearChallengeData];
+        }
+        
+        if (block) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                block(allowedToProceed);
+            });
+        }
+
+    }];
+}
+-(void)askToCaptureFromTabbarWithBlock:(VideoManagerCancelBlock)block{
+    //standard question
+    //clear everything (esp. challenge since it couldn't possibly be a challenge!)
     
-    [[WaxDataManager sharedManager] updateCategoriesWithCompletion:nil]; //update categories at the beginning of each upload process
-   
-    if ([self isUploading]) {
-        RIButtonItem *sure = [RIButtonItem itemWithLabel:NSLocalizedString(@"Delete", @"Delete")];
-        sure.action = ^{
-            [self cancelAllOperationsAndClearCurrentUpload];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (block) {
-                    block(YES);
-                }
-            });
-        };
+    [self askUserQuestion:nil withBlock:^(BOOL allowedToProceed) {
         
-        RIButtonItem *cancel = [RIButtonItem itemWithLabel:NSLocalizedString(@"Cancel", @"Cancel")];
-        cancel.action = ^{
-            [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"User attempted to capture new video while having an existing video that is %@, and decided to retry or let it finish", StringFromUploadStatus(self.currentUpload.status)]];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (block) {
-                    block(NO);
-                }
-            });
-        };
+        if (allowedToProceed) {
+            [self cancelAllOperationsAndCleanUpCurrentUpload];
+            [self clearChallengeData];
+        }
         
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Delete Current?", @"Delete Current?") message:NSLocalizedString(@"Are you sure you want to cancel the current video upload? The video will be deleted permanently.", @"Are you sure you want to cancel this video upload? The video will be gone forever") cancelButtonItem:cancel otherButtonItems:sure, nil] show];
-    }else{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (block) {
+        if (block) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                block(allowedToProceed);
+            });
+        }
+    }];
+}
+
+-(void)askToExitThumbnailChooserWithBlock:(VideoManagerCancelBlock)block{
+    //are you sure you want to take a new video? your current video will be deleted.
+    //don't clear challenge data, but clear everything else
+    
+    [self askUserQuestion:NSLocalizedString(@"Are you sure you want to take another video?", @"cancel current upload confirmation from thumbnail chooser") withBlock:^(BOOL allowedToProceed) {
+        
+        if (allowedToProceed) {
+            [self cancelAllOperationsAndCleanUpCurrentUpload];
+        }
+        
+        if (block) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                block(allowedToProceed);
+            });
+        }
+    }];
+}
+-(void)askToExitVideoCameraWithBlock:(VideoManagerCancelBlock)block{
+    //standard question
+    //clear everything completely
+    [self askUserQuestion:nil withBlock:^(BOOL allowedToProceed) {
+        
+        if (allowedToProceed) {
+            [self cancelAllOperationsAndCleanUpCurrentUpload];
+            [self clearChallengeData];
+        }
+        
+        if (block) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                block(allowedToProceed);
+            });
+        }
+    }];
+}
+-(void)askToCancelFromUploadView:(VideoManagerCancelBlock)block{
+    //you sure you want to cancel this video upload? it'll be deleted permanently
+    //cler everything, since we are cancelling the upload entirely
+    
+    [self askUserQuestion:NSLocalizedString(@"Are you sure you want to cancel this video upload? \n\nIt'll be deleted permanently.", @"cancel from upload view string") withBlock:^(BOOL allowedToProceed) {
+        
+        if (allowedToProceed) {
+            [self cancelAllOperationsAndCleanUpCurrentUpload];
+            [self clearChallengeData];
+        }
+        
+        if (block) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                block(allowedToProceed);
+            });
+        }
+    }];
+}
+
+-(void)askUserQuestion:(NSString *)question withBlock:(VideoManagerCancelBlock)block{
+    
+    if (!self.hasPendingOrFailedUpload) {
+        
+        if (block) {
+            dispatch_async(dispatch_get_main_queue(), ^{
                 block(YES);
-            }
-        });
+            });
+        }
+        
+        return;
     }
+        
+    RIButtonItem *deleteUpload = [RIButtonItem itemWithLabel:NSLocalizedString(@"Delete", @"Delete")];
+    deleteUpload.action = ^{
+
+        [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"User attempted to capture new video while having an existing video that is %@, and decided to cancel it", StringFromUploadStatus(self.currentUpload.status)]];
+
+        if (block) {
+            block(YES);
+        }        
+    };
+    
+    RIButtonItem *cancel = [RIButtonItem itemWithLabel:NSLocalizedString(@"Cancel", @"Cancel")];
+    cancel.action = ^{
+        
+        [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"User attempted to capture new video while having an existing video that is %@, and decided to retry or let it finish", StringFromUploadStatus(self.currentUpload.status)]];
+        
+        if (block) {
+            block(NO);
+        }
+
+    };
+    
+    NSString *reason = @"";
+    if (self.currentUpload) {
+        reason = NSLocalizedString(@"You have a video that is currently uploading.\n", @"currently uploading message");
+    }else if (self.hasVideoFileOnDisk){
+        reason = NSLocalizedString(@"You have a video that failed to upload.\n", @"failed upload message");
+    }
+
+    if (!question) {
+        question = [NSString stringWithFormat:NSLocalizedString(@"%@Are you sure you want to cancel your current video upload? \n\nThe video will be deleted permanently.", @"cancel current upload confirmation message"), reason];
+    }
+
+    
+    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Delete Current Upload?", @"cancel current upload title") message:question cancelButtonItem:cancel otherButtonItems:deleteUpload, nil] show];
+
 }
 -(void)beginUploadProcessWithVideoID:(NSString *)videoID competitionTag:(NSString *)tag category:(NSString *)category{
 
@@ -91,6 +198,8 @@ NSString *const VideoUploadManagerDidCompleteEntireUploadSuccessfullyNotificatio
     NSParameterAssert(duration); 
     VLog();
     
+    [[WaxDataManager sharedManager] updateCategoriesWithCompletion:nil]; //update categories at the beginning of each upload process
+
     self.currentUpload = [[UploadObject alloc] initWithVideoFileURL:[NSURL currentVideoFileURL]];
     self.currentUpload.videoLength = duration; 
     self.currentUpload.videoStatus = UploadStatusWaiting;
@@ -106,6 +215,10 @@ NSString *const VideoUploadManagerDidCompleteEntireUploadSuccessfullyNotificatio
         
         if (!error) {
             [self uploadVideoDataWithAttemptCount:@0];
+        }else if(error.code == 1337){
+            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error Recording Video", @"Error Recording Video") message:NSLocalizedString(@"There was an error recording your video. Please try again.", @"There was an error recording your video. Please try again.") buttonTitle:NSLocalizedString(@"OK", @"OK") showsCancelButton:NO buttonHandler:^{
+                [AIKErrorManager logMessageToAllServices:@"Canceled or failed video export"];
+            } logError:YES];
         }else{
             [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error Recording Video", @"Error Recording Video") message:NSLocalizedString(@"There was an error recording your video. Please try again.", @"There was an error recording your video. Please try again.") buttonTitle:NSLocalizedString(@"OK", @"OK") showsCancelButton:NO buttonHandler:^{
                 [AIKErrorManager logMessageToAllServices:@"Canceled or failed video export"];
@@ -173,7 +286,6 @@ NSString *const VideoUploadManagerDidCompleteEntireUploadSuccessfullyNotificatio
     
     [[WaxAPIClient sharedClient] uploadVideoAtFileURL:self.currentUpload.videoFileURL videoID:self.currentUpload.videoID progress:^(CGFloat percentage, NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
         
-//        self.currentUpload.videoUploadProgress = percentage;
         self.currentUpload.videoStatus = UploadStatusInProgress;
 
         if (self.videoFileUploadProgressBlock) {
@@ -255,7 +367,7 @@ NSString *const VideoUploadManagerDidCompleteEntireUploadSuccessfullyNotificatio
                 VLog(@"metadata uploaded");
 
                 self.currentUpload.metadataStatus = UploadStatusCompleted;
-                [self finishUpload];
+                [self finishUploadProcessAndCleanUpCurrentUpload];
                 
             }else if(![NSError NSURLRequestErrorIsRequestWasCancelled:error]){
                 
@@ -267,7 +379,23 @@ NSString *const VideoUploadManagerDidCompleteEntireUploadSuccessfullyNotificatio
         VLog(@"can't upload metadata because video and thumbnail haven't uploaded yet..");
     }
 }
--(void)cancelAllOperationsAndClearCurrentUpload{
+-(void)finishUploadProcessAndCleanUpCurrentUpload{
+    VLog();
+    
+    if ([self isInChallengeMode]) {
+        [AIKErrorManager logMessageToAllServices:@"Uploaded video via challenge button"];
+    }
+    
+    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to facebook from share page: %@", [NSString localizedStringFromBool:self.currentUpload.shareToFacebook]]];
+    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to twitter from share page: %@", [NSString localizedStringFromBool:self.currentUpload.shareToTwitter]]];
+    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared location with video: %@", [NSString localizedStringFromBool:self.currentUpload.shareLocation]]];
+    
+    [self clearChallengeData]; 
+    [self cleanUpCurrentUpload];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:VideoUploadManagerDidCompleteEntireUploadSuccessfullyNotification object:self];
+}
+-(void)cancelAllOperationsAndCleanUpCurrentUpload{
     VLog();
 
     if ([AIKVideoProcessor sharedProcessor].exporter.status == AVAssetExportSessionStatusExporting) {
@@ -281,23 +409,6 @@ NSString *const VideoUploadManagerDidCompleteEntireUploadSuccessfullyNotificatio
 
     [self cleanUpCurrentUpload];
 }
-
--(void)finishUpload{
-    VLog();
-
-    if ([self isInChallengeMode]) {
-        [AIKErrorManager logMessageToAllServices:@"Uploaded video via challenge button"];
-    }
-    
-    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to facebook from share page: %@", [NSString localizedStringFromBool:self.currentUpload.shareToFacebook]]];
-    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared to twitter from share page: %@", [NSString localizedStringFromBool:self.currentUpload.shareToTwitter]]];
-    [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Shared location with video: %@", [NSString localizedStringFromBool:self.currentUpload.shareLocation]]];
-    
-    [self cleanUpCurrentUpload];
-
-    [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:VideoUploadManagerDidCompleteEntireUploadSuccessfullyNotification object:self];
-}
-
 -(void)cleanUpCurrentUpload{
     VLog();
 
@@ -308,21 +419,23 @@ NSString *const VideoUploadManagerDidCompleteEntireUploadSuccessfullyNotificatio
     
     [self.currentUpload removeFromDisk];
     self.currentUpload = nil;
-    
-    [self clearChallengeData];
 }
 
 #pragma mark - Convenience methods
--(BOOL)isUploading{
-    return (self.currentUpload || [self checkUploadsDirectory] || [AIKVideoProcessor sharedProcessor].exporter.status == AVAssetExportSessionStatusExporting);
+-(BOOL)hasPendingOrFailedUpload{
+    return (self.currentUpload || self.hasVideoFileOnDisk || self.isProcessingVideo);
 }
--(BOOL)checkUploadsDirectory{
+-(BOOL)hasVideoFileOnDisk{
     return [[NSFileManager defaultManager] fileExistsAtPath:[NSURL currentVideoFileURL].path];
+}
+-(BOOL)isProcessingVideo{
+    return [AIKVideoProcessor sharedProcessor].exporter.status == AVAssetExportSessionStatusExporting; 
 }
 
 -(BOOL)isInChallengeMode{
     return ((self.challengeVideoTag != nil) && (self.challengeVideoID != nil) && (self.challengeVideoCategory != nil));
 }
+
 -(void)setchallengeVideoID:(NSString *)videoID challengeTag:(NSString *)tag challengeVideoCategory:(NSString *)category{
     self.challengeVideoID = videoID;
     self.challengeVideoTag = tag;

@@ -16,7 +16,10 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.navigationItem.title = NSLocalizedString(@"About", @"About"); 
+    
+    [self enableSwipeToPopVC:YES];
+
+    self.navigationItem.title = NSLocalizedString(@"About", @"About");
 }
 
 #pragma mark - Table view delegate

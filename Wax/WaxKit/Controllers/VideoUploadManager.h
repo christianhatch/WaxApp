@@ -13,6 +13,8 @@ typedef void(^VideoUploadManagerDidUpdateProgressBlock)(CGFloat progress);
 typedef void(^VideoUploadManagerDidCompleteUploadBlock)(BOOL success, NSError *error);
 
 
+typedef void(^VideoManagerCancelBlock)(BOOL allowedToProceed);
+
 #import <Foundation/Foundation.h>
 
 
@@ -22,7 +24,11 @@ typedef void(^VideoUploadManagerDidCompleteUploadBlock)(BOOL success, NSError *e
 
 +(VideoUploadManager *)sharedManager;
 
--(void)askToCancelAndDeleteCurrentUploadWithCompletion:(void(^)(BOOL cancelled))block;
+-(void)askToRespondToChallengeWithBlock:(VideoManagerCancelBlock)userblock;
+-(void)askToExitVideoCameraWithBlock:(VideoManagerCancelBlock)block;
+-(void)askToExitThumbnailChooserWithBlock:(VideoManagerCancelBlock)block;
+-(void)askToCaptureFromTabbarWithBlock:(VideoManagerCancelBlock)block;
+-(void)askToCancelFromUploadView:(VideoManagerCancelBlock)block; 
 
 -(void)beginUploadProcessWithVideoID:(NSString *)videoID competitionTag:(NSString *)tag category:(NSString *)category;
 
@@ -39,8 +45,10 @@ typedef void(^VideoUploadManagerDidCompleteUploadBlock)(BOOL success, NSError *e
 -(void)retryUpload;
 
 @property (nonatomic, readonly) UploadObject *currentUpload;
+@property (nonatomic, readonly) BOOL hasPendingOrFailedUpload;
+@property (nonatomic, readonly) BOOL isInChallengeMode; 
+@property (nonatomic, readonly) BOOL isProcessingVideo;
 
--(BOOL)isInChallengeMode;
 @property (nonatomic, readonly) NSString *challengeVideoTag;
 @property (nonatomic, readonly) NSString *challengeVideoCategory;
 

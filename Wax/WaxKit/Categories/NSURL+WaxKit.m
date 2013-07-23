@@ -15,20 +15,10 @@
 }
 +(NSURL *)currentVideoFileURL{
     NSURL *url = [NSURL libraryFileURLWithDirectory:@"uploads" filename:@"squared" extension:@"mp4"];    
-   /*
-    if ([[NSFileManager defaultManager] isDeletableFileAtPath:url.path]) {
-        [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
-    }
-    */
     return url;
 }
 +(NSURL *)currentThumbnailFileURL{
     NSURL *url = [NSURL libraryFileURLWithDirectory:@"uploads" filename:@"thumbnail" extension:@"jpg"];
-    /*
-    if ([[NSFileManager defaultManager] isDeletableFileAtPath:url.path]) {
-        [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
-    }
-    */
     return url;
 }
 +(NSURL *)currentMetaDataFileURL{
@@ -79,7 +69,7 @@
 }
 
 +(NSString *)baseFileString{
-    return [NSString stringWithFormat:@"%@/files", kWaxAPIBaseURL];
+    return [NSString stringWithFormat:@"%@files", kWaxAPIBaseURL];
 }
 
 

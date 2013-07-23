@@ -178,13 +178,15 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 
 - (IBAction)respondButtonAction:(id)sender {
     
-    [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithCompletion:^(BOOL cancelled) {
-        if (cancelled) {
+    [[VideoUploadManager sharedManager] askToRespondToChallengeWithBlock:^(BOOL allowedToProceed) {
+        if (allowedToProceed) {
             [[VideoUploadManager sharedManager] beginUploadProcessWithVideoID:self.videoObject.videoID competitionTag:self.videoObject.tag category:self.videoObject.category];
-            [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationPresentVideoCamera object:self ];
+            
+//            [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationPresentVideoCamera object:self];
+            VideoCameraViewController *video = [[VideoCameraViewController alloc] init];
+            [self.nearestViewController presentViewController:video animated:YES completion:nil];
         }
     }];
-    
 }
 
 - (IBAction)voteButtonAction:(id)sender {
@@ -193,6 +195,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
             self.videoObject.didVote = YES;
             [self setupVoteButton]; 
         }else{
+            //TODO: handle error here
             DLog(@"error voting :("); 
         }
     }];
@@ -214,7 +217,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 
 #pragma mark - Convenience Methods
 -(void)setupVoteButton{
-    self.voteButton.enabled = !self.videoObject.didVote;
+    self.voteButton.enabled = (!self.videoObject.didVote || !self.videoObject.isMine);
 }
 
 -(RIButtonItem *)actionSheetButtonShare{

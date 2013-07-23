@@ -59,14 +59,12 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
 }
 -(void)cancel:(id)sender{
-    if (![VideoUploadManager sharedManager].isInChallengeMode) {
-        [[VideoUploadManager sharedManager] askToCancelAndDeleteCurrentUploadWithCompletion:^(BOOL cancelled) {
-            if (cancelled) {
-                [AIKErrorManager logMessageToAllServices:@"User canceled from thumbnail chooser"];
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }
-        }];
-    }
+    [[VideoUploadManager sharedManager] askToExitThumbnailChooserWithBlock:^(BOOL allowedToProceed) {
+        if (allowedToProceed) {
+            [AIKErrorManager logMessageToAllServices:@"User canceled from thumbnail chooser"];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }];
 }
 
 

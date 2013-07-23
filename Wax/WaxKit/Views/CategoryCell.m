@@ -8,6 +8,11 @@
 
 #import "CategoryCell.h"
 
+@interface CategoryCell ()
+@property (strong, nonatomic) IBOutlet UIImageView *categoryIconView;
+@property (strong, nonatomic) IBOutlet UILabel *categoryLabel;
+@end
+
 @implementation CategoryCell
 @synthesize categoryIconView, categoryLabel; 
 @synthesize category = _category;

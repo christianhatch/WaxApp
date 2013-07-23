@@ -62,7 +62,7 @@
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     NotificationObject *note = [self.proxyDataSourceArray objectAtIndexOrNil:indexPath.row];
     
-    VLog(@"selected note object %@", note);
+//    VLog(@"selected note object %@", note);
 
     note.unread = NO;
     NotificationCell *cell = (NotificationCell *)[self cellForRowAtIndexPath:indexPath];

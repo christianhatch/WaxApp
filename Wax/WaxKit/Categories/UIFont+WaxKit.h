@@ -19,7 +19,7 @@
 +(UIFont *)waxHeaderFontItalics; //default size is 16
 +(UIFont *)waxHeaderFontItalicsOfSize:(CGFloat)size;
 
-+(UIFont *)waxDetailFont; //default size is 10
++(UIFont *)waxDetailFont; //default size is 12
 +(UIFont *)waxDetailFontOfSize:(CGFloat)size;
 
 
