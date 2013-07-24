@@ -22,6 +22,7 @@
     if (self) {
         _videoFileURL = videoFileURL;
         _videoID = [[NSString stringWithFormat:@"%f%i", [[NSDate date] timeIntervalSince1970], arc4random_uniform(5000000)] MD5];
+        
         _status = UploadStatusWaitingForData;
         _videoStatus = UploadStatusWaitingForData;
         _thumbnailStatus = UploadStatusWaitingForData;
@@ -30,15 +31,30 @@
     return self;
 }
 -(instancetype)initFromDisk{
+    
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:[NSURL currentMetaDataFileURL].path]; 
-    return [[UploadObject alloc] initWithDictionary:dict];
+    
+    UploadObject *obj = [[UploadObject alloc] initWithDictionary:dict];
+ 
+//    VLog(@"upload object %@", obj);
+    
+    if ([UploadObject isValidUploadObject:obj]) {
+        return obj;
+    }
+    
+    return nil; 
 }
 
 #pragma mark - Public API
 -(void)saveToDisk{
     NSDictionary *dict = [self dictionaryRepresentation];
-    [dict writeToURL:[NSURL currentMetaDataFileURL] atomically:YES];
-    VLog(@"Saved uploadObject to disk %@", [self dictionaryRepresentation]); 
+    BOOL success = [dict writeToURL:[NSURL currentMetaDataFileURL] atomically:YES];
+    
+    if (!success) {
+        VLog(@"Failed to save uploadObject to disk %@", [self dictionaryRepresentation]);
+    }else{
+        VLog(@"Saved uploadObject to disk %@", [self dictionaryRepresentation]);
+    }
 }
 -(void)removeFromDisk{
     VLog(); 
@@ -58,7 +74,6 @@
     _metadataStatus = metadataStatus;
     [self updateOverallStatus];
 }
-
 
 #pragma mark - Getters
 -(NSNumber *)lat{
@@ -86,11 +101,13 @@
         _shareLocation = [[dictionary objectForKeyOrNil:@"sharelocation"] boolValue];
         
         _videoID = [dictionary objectForKeyOrNil:@"videoid"];
-        _lat = [dictionary objectForKeyOrNil:@"lat"];
-        _lon = [dictionary objectForKeyOrNil:@"lon"];
         _tag = [dictionary objectForKeyOrNil:@"tag"];
         _category = [dictionary objectForKeyOrNil:@"category"];
+
         _videoLength = [dictionary objectForKeyOrNil:@"videolength"];
+        _lat = [dictionary objectForKeyOrNil:@"lat"];
+        _lon = [dictionary objectForKeyOrNil:@"lon"];
+        
         _videoFileURL = [NSURL URLWithString:[dictionary objectForKeyOrNil:@"videofileurl"]];
         _thumbnailFileURL = [NSURL URLWithString:[dictionary objectForKeyOrNil:@"thumbnailfileurl"]];
     }
@@ -101,18 +118,21 @@
                              @"videostatus": CollectionSafeObject([NSNumber numberWithInteger:self.videoStatus]),
                              @"thumbnailstatus":CollectionSafeObject([NSNumber numberWithInteger:self.thumbnailStatus]),
                              @"metadatastatus":CollectionSafeObject([NSNumber numberWithInteger:self.metadataStatus]),
+                            
                              @"sharetofacebook":CollectionSafeObject([NSNumber numberWithBool:self.shareToFacebook]),
                              @"sharetotwitter":CollectionSafeObject([NSNumber numberWithBool:self.shareToTwitter]),
                              @"sharelocation":CollectionSafeObject([NSNumber numberWithBool:self.shareLocation]),
+                             
                              @"videoid":CollectionSafeObject(self.videoID),
-                             @"lat":CollectionSafeObject(_lat),
-                             @"lon":CollectionSafeObject(_lon),
                              @"tag":CollectionSafeObject(self.tag),
                              @"category":CollectionSafeObject(self.category),
+
                              @"videolength":CollectionSafeObject(self.videoLength),
+                             @"lat":CollectionSafeObject(_lat),
+                             @"lon":CollectionSafeObject(_lon),
+                             
                              @"videofileurl":CollectionSafeObject(self.videoFileURL.path),
                              @"thumbnailfileurl":CollectionSafeObject(self.thumbnailFileURL.path)};
-        
         return me;
 }
 
@@ -124,6 +144,51 @@
     }else if (self.videoStatus == UploadStatusInProgress || self.thumbnailStatus == UploadStatusInProgress || self.metadataStatus == UploadStatusInProgress){
         self.status = UploadStatusInProgress;
     }
+}
+
+
++(BOOL)isValidUploadObject:(UploadObject *)object{
+
+//    VLog(@"%@", object);
+    
+    if (!object) {
+        [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"upload object failed validation: %@", object]];
+        return NO;
+    }
+
+    if (object.videoFileURL) {
+        
+        NSError *error = nil;
+        BOOL fileExists = [object.videoFileURL checkResourceIsReachableAndReturnError:&error];
+        
+        if (!fileExists || error) {
+            [AIKErrorManager logMessage:@"upload object video file failed validation!" withError:error];
+            return NO;
+        }
+    }
+    
+    if (object.thumbnailFileURL) {
+        
+        NSError *error = nil;
+        BOOL fileExists = [object.thumbnailFileURL checkResourceIsReachableAndReturnError:&error];
+        
+        if (!fileExists || error) {
+            [AIKErrorManager logMessage:@"upload object thumbnail failed validation!" withError:error];
+            return NO;
+        }
+    }
+    
+    if (!object.videoID || !object.tag || !object.category || !object.videoLength.integerValue > 0) {
+        return NO;
+    }
+    
+    
+    return YES;
+}
+
+#pragma mark - Overrides
+-(NSString *)description{
+    return [NSString stringWithFormat:@"Upload Object description: %@", [self dictionaryRepresentation]];
 }
 
 

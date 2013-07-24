@@ -34,21 +34,28 @@ static inline NSString * StringFromUploadStatus(UploadStatus uStatus) {
             return @"Waiting For Data";
             break;
         default:
-            return @"";
+            return @"Undefined Status!";
             break;
     }
 }
 
+static inline BOOL UploadStatusNotReadyForUpload(UploadStatus upStatus){
+    return (upStatus == UploadStatusWaitingForData || upStatus == UploadStatusInProgress);
+}
+static inline BOOL UploadStatusReadyForUpload(UploadStatus upStatus){
+    return (upStatus == UploadStatusFailed || upStatus == UploadStatusWaiting);
+}
+
 @interface UploadObject : NSObject
 
-@property (nonatomic) UploadStatus status;
-@property (nonatomic) UploadStatus videoStatus;
-@property (nonatomic) UploadStatus thumbnailStatus;
-@property (nonatomic) UploadStatus metadataStatus;
+@property (nonatomic, assign) UploadStatus status;
+@property (nonatomic, assign) UploadStatus videoStatus;
+@property (nonatomic, assign) UploadStatus thumbnailStatus;
+@property (nonatomic, assign) UploadStatus metadataStatus;
 
-@property (nonatomic) BOOL shareToFacebook;
-@property (nonatomic) BOOL shareToTwitter;
-@property (nonatomic) BOOL shareLocation;
+@property (nonatomic, assign) BOOL shareToFacebook;
+@property (nonatomic, assign) BOOL shareToTwitter;
+@property (nonatomic, assign) BOOL shareLocation;
 
 @property (nonatomic, copy) NSString *videoID;
 @property (nonatomic, copy) NSString *tag;
@@ -68,7 +75,7 @@ static inline NSString * StringFromUploadStatus(UploadStatus uStatus) {
 -(instancetype)initWithVideoFileURL:(NSURL *)videoFileURL;
 
 
-
++(BOOL)isValidUploadObject:(UploadObject *)object;
 
 
 
