@@ -36,30 +36,28 @@
         
         __block PersonTableView *blockSelf = self;
         [self addPullToRefreshWithActionHandler:^{
-            [blockSelf refreshDataWithInfiniteScroll:NO];
+            [blockSelf reFetchDataWithInfiniteScroll:NO];
         }];
         [self addInfiniteScrollingWithActionHandler:^{
-            [blockSelf refreshDataWithInfiniteScroll:YES];
+            [blockSelf reFetchDataWithInfiniteScroll:YES];
         }];
     }
     return self;
 }
--(void)didMoveToSuperview{
-    [super didMoveToSuperview];
-    [self triggerPullToRefresh];
-}
 
 #pragma mark - Internal Methods
--(void)refreshDataWithInfiniteScroll:(BOOL)infiniteScroll{
+-(void)reFetchDataWithInfiniteScroll:(BOOL)infiniteScroll{
+    [super reFetchDataWithInfiniteScroll:infiniteScroll];
+    
     switch (self.tableViewType) {
         case PersonTableViewTypeFollowers:{
             [[WaxDataManager sharedManager] updatePersonListForFollowersWithUserID:self.userID withInfiniteScroll:infiniteScroll completion:^(NSError *error) {
-                [self handleUpdatingFeedWithError:error];
+                [self finishDataReFetchWithReFetchError:error];
             }];
         }break;
         case PersonTableViewTypeFollowing:{
             [[WaxDataManager sharedManager] updatePersonListForFollowingWithUserID:self.userID withInfiniteScroll:infiniteScroll completion:^(NSError *error) {
-                [self handleUpdatingFeedWithError:error];
+                [self finishDataReFetchWithReFetchError:error];
             }];
         }break;
     }
@@ -100,8 +98,8 @@
 -(NSMutableArray *)proxyDataSourceArray{
     return [WaxDataManager sharedManager].personList;
 }
--(void)handleUpdatingFeedWithError:(NSError *)error{
-    [super handleUpdatingFeedWithError:error];
+-(void)finishDataReFetchWithReFetchError:(NSError *)error{
+    [super finishDataReFetchWithReFetchError:error];
     
     /*
     if (!error) {

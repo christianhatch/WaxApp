@@ -48,24 +48,20 @@
         
         __block SendChallengeTableView *blockSelf = self;
         [self addPullToRefreshWithActionHandler:^{
-            [blockSelf refreshDataWithInfiniteScroll:NO];
+            [blockSelf reFetchDataWithInfiniteScroll:NO];
         }];
         [self addInfiniteScrollingWithActionHandler:^{
-            [blockSelf refreshDataWithInfiniteScroll:YES];
+            [blockSelf reFetchDataWithInfiniteScroll:YES];
         }];
     }
     return self;
 }
 
--(void)didMoveToSuperview{
-    [super didMoveToSuperview];
-    [self triggerPullToRefresh];
-}
+-(void)reFetchDataWithInfiniteScroll:(BOOL)infiniteScroll{
+    [super reFetchDataWithInfiniteScroll:infiniteScroll];
 
-
--(void)refreshDataWithInfiniteScroll:(BOOL)infiniteScroll{
     [[WaxDataManager sharedManager] updatePersonListForFollowingWithUserID:[WaxUser currentUser].userID withInfiniteScroll:infiniteScroll completion:^(NSError *error) {
-        [self handleUpdatingFeedWithError:error];
+        [self finishDataReFetchWithReFetchError:error];
     }];
 }
 
@@ -93,12 +89,13 @@
         return cell;
         
     }else{
+        
         PersonCell *cell = [self dequeueReusableCellWithIdentifier:kPersonCellID];
         
         PersonObject *person = [self.proxyDataSourceArray objectAtIndexOrNil:indexPath.row];
         cell.cellType = PersonCellTypeSendChallenge;
         cell.person = person;
-        cell.accessoryType = UITableViewCellAccessoryNone; 
+        cell.accessoryType = [self.selectedPersonSet containsObject:person] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
         
         return cell;
     }
@@ -134,25 +131,21 @@
     
     PersonObject *person = [self.proxyDataSourceArray objectAtIndexOrNil:indexPath.row];
 
-    if ([self.selectedPersonSet containsObject:person]) {
-        [self.selectedPersonSet removeObject:person];
-    }else{
-        [self.selectedPersonSet addObject:person];
-    }
+    [self.selectedPersonSet containsObject:person] ? [self.selectedPersonSet removeObject:person] : [self.selectedPersonSet addObject:person]; 
 }
 
 #pragma mark - Overrides
 -(NSMutableArray *)proxyDataSourceArray{
     return [WaxDataManager sharedManager].personList;
 }
--(void)handleUpdatingFeedWithError:(NSError *)error{
-    [super handleUpdatingFeedWithError:error];
+-(void)finishDataReFetchWithReFetchError:(NSError *)error{
     
     if (!error) {
         
     }else{
         //TODO: handle error updating feed
     }
+    [super finishDataReFetchWithReFetchError:error];
 }
 
 #pragma mark - Getters

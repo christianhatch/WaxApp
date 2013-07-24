@@ -24,7 +24,7 @@ typedef void(^CategoryTableViewDidSelectCategoryBlock)(NSString *category);
 
 -(instancetype)initWithCategoryTableViewType:(CategoryTableViewType)categoryType frame:(CGRect)frame didSelectCategoryBlock:(CategoryTableViewDidSelectCategoryBlock)selectBlock;
 
-@property (nonatomic) CategoryTableViewType tableViewType;
+@property (nonatomic, assign) CategoryTableViewType tableViewType;
 @property (nonatomic, strong) CategoryTableViewDidSelectCategoryBlock didSelectBlock;
 
 

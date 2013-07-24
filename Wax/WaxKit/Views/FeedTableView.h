@@ -55,7 +55,10 @@ static inline NSString * StringFromFeedTableViewType(FeedTableViewType feedtype)
 
 -(void)deleteCellAtIndexPath:(NSIndexPath *)indexPath;
 
-@property (nonatomic) FeedTableViewType tableViewType;
+-(void)resetVideoPlayers;
+
+@property (nonatomic, assign) FeedTableViewType tableViewType;
+
 
 
 @end

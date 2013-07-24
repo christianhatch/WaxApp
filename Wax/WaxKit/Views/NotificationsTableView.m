@@ -19,28 +19,27 @@
     self = [super initWithFrame:frame style:UITableViewStylePlain];
     if (self) {
         
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:WaxUserDidLogOutNotification object:nil];
+        
         self.rowHeight = kNotificationCellHeight; 
         [self registerNib:[UINib nibWithNibName:@"NotificationCell" bundle:nil] forCellReuseIdentifier:kNotificationCellID];
         
         __block NotificationsTableView *blockSelf = self;
         [self addPullToRefreshWithActionHandler:^{
-            [blockSelf refreshDataWithInfiniteScroll:NO];
+            [blockSelf reFetchDataWithInfiniteScroll:NO];
         }];
         [self addInfiniteScrollingWithActionHandler:^{
-            [blockSelf refreshDataWithInfiniteScroll:YES];
+            [blockSelf reFetchDataWithInfiniteScroll:YES];
         }];
     }
     return self;
 }
--(void)didMoveToSuperview{
-    [super didMoveToSuperview];
-    [self triggerPullToRefresh];
-}
 
 #pragma mark - Internal Methods
--(void)refreshDataWithInfiniteScroll:(BOOL)infiniteScroll{
+-(void)reFetchDataWithInfiniteScroll:(BOOL)infiniteScroll{
+    [super reFetchDataWithInfiniteScroll:infiniteScroll];
     [[WaxDataManager sharedManager] updateNotificationsWithInfiniteScroll:infiniteScroll completion:^(NSError *error) {
-        [self handleUpdatingFeedWithError:error]; 
+        [self finishDataReFetchWithReFetchError:error]; 
     }];
 }
 
@@ -95,18 +94,18 @@
     return [WaxDataManager sharedManager].notifications;
 }
 
--(void)handleUpdatingFeedWithError:(NSError *)error{
-    
-    [self setEmptyViewMessageText:NSLocalizedString(@"No Notifications", @"No Notifications")]; 
-    
-    
+-(void)finishDataReFetchWithReFetchError:(NSError *)error{
+
     if (!error) {
-        
+        self.emptyView.labelText = NSLocalizedString(@"No Notifications", @"No Notifications");
+
     }else{
-        VLog(@"error updating feed %@", error);
+        self.emptyView.labelText = NSLocalizedString(@"Error Loading Notifications", @"No Notifications");
+
+        VLog(@"error updating notes %@", error);
     }
     
-    [super handleUpdatingFeedWithError:error];
+    [super finishDataReFetchWithReFetchError:error];
 }
 
 

@@ -25,6 +25,7 @@
     return cats;
 }
 -(instancetype)initWithCategoryTableViewType:(CategoryTableViewType)categoryType frame:(CGRect)frame didSelectCategoryBlock:(CategoryTableViewDidSelectCategoryBlock)selectBlock{
+    
     self = [super initWithFrame:frame style:UITableViewStylePlain];
     if (self) {
         self.tableViewType = categoryType;
@@ -35,33 +36,24 @@
         
         __block CategoryTableView *blockSelf = self;
         [self addPullToRefreshWithActionHandler:^{
-            [blockSelf refreshData];
+            [blockSelf reFetchDataWithInfiniteScroll:NO];
         }];
     }
     return self;
 }
--(void)didMoveToSuperview{
-    [super didMoveToSuperview];
-    switch (self.tableViewType) {
-        case CategoryTableViewTypeCategories:{
-            [self reloadData];
-        }break;
-        case CategoryTableViewTypeDiscover:{
-            [self triggerPullToRefresh];
-        }break;
-    }
-}
+
 #pragma mark - Internal Methods
--(void)refreshData{
+-(void)reFetchDataWithInfiniteScroll:(BOOL)infiniteScroll{
+    [super reFetchDataWithInfiniteScroll:infiniteScroll];
     switch (self.tableViewType) {
         case CategoryTableViewTypeCategories:{
             [[WaxDataManager sharedManager] updateCategoriesWithCompletion:^(NSError *error) {
-                [self handleUpdatingFeedWithError:error];
+                [self finishDataReFetchWithReFetchError:error];
             }]; 
         }break;
         case CategoryTableViewTypeDiscover:{
             [[WaxDataManager sharedManager] updateDiscoverWithCompletion:^(NSError *error) {
-                [self handleUpdatingFeedWithError:error];
+                [self finishDataReFetchWithReFetchError:error];
             }];
         }break;
     }
@@ -104,24 +96,24 @@
         }break;
     }
 }
--(void)handleUpdatingFeedWithError:(NSError *)error{
+-(void)finishDataReFetchWithReFetchError:(NSError *)error{
     
     if (!error) {
-
+        
     }else{
         DLog(@"error updating category %@", error);
         
         switch (self.tableViewType) {
             case CategoryTableViewTypeCategories:{
-                [self setEmptyViewMessageText:NSLocalizedString(@"Error loading categories :(", @"Error loading categories :(")]; 
+                self.emptyView.labelText = NSLocalizedString(@"Error loading categories :(", @"Error loading categories :("); 
             }break;
             case CategoryTableViewTypeDiscover:{
-                [self setEmptyViewMessageText:NSLocalizedString(@"Error loading categories :(", @"Error loading categories :(")];
+                self.emptyView.labelText = NSLocalizedString(@"Error loading categories :(", @"Error loading categories :(");
             }break;
         }
     }
     
-    [super handleUpdatingFeedWithError:error];
+    [super finishDataReFetchWithReFetchError:error];
 }
 
 
