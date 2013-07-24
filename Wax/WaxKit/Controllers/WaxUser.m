@@ -203,7 +203,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 
     self.facebookAccountID = loginResponse.facebookID;
     
-    [self saveCurrentUserToVendorSolutions];
+    [WaxUser saveCurrentUserToVendorSolutions];
     
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound |UIRemoteNotificationTypeAlert)];
     
@@ -334,9 +334,9 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     [[[WaxAPIClient sharedClient] operationQueue] cancelAllOperations];
     [[AIKFacebookManager sharedManager] logoutFacebookWithCompletion:nil];
     [WaxUser resetForInitialLaunch];
-    [[WaxDataManager sharedManager] clearAllData];
     [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:WaxUserDidLogOutNotification object:self]; 
 }
+
 #pragma mark - Social
 -(void)chooseTwitterAccountWithCompletion:(WaxUserCompletionBlockTypeSimple)completion{
     [[AIKTwitterManager sharedManager] chooseTwitterAccountAlreadyConnected:self.twitterAccountConnected withCompletion:^(ACAccount *twitterAccount, NSError *error) {
@@ -355,7 +355,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 }
 -(void)connectFacebookWithCompletion:(WaxUserCompletionBlockTypeSimple)completion{
     [[AIKFacebookManager sharedManager] connectFacebookWithCompletion:^(id<FBGraphUser> user, NSError *error) {
-        //TODO: (7.19.13) - check this out, previously it was if(!error) but that doesn't seemt to make sense in context, so i switched it..
+        //TODO: (7.19.13) - check this out, previously it was if(!error) but that doesn't seem to make sense in context, so i switched it.. 
         if (error) {
             [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error logging into Facebook", @"Error logging into Facebook") error:error buttonHandler:nil logError:NO];
         }else{
@@ -414,17 +414,21 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     return [[WaxUser currentUser].userID isEqualToString:userID];
 }
 
--(void)saveCurrentUserToVendorSolutions{
-    [Flurry setUserID:self.userID];
++(void)saveCurrentUserToVendorSolutions{
+    if (![WaxUser currentUser].isLoggedIn) {
+        return; 
+    }
     
-    [Crashlytics setUserIdentifier:self.userID];
-    [Crashlytics setUserName:self.username];
-    [Crashlytics setUserEmail:self.email];
+    [Flurry setUserID:[WaxUser currentUser].userID];
+    
+    [Crashlytics setUserIdentifier:[WaxUser currentUser].userID];
+    [Crashlytics setUserName:[WaxUser currentUser].username];
+    [Crashlytics setUserEmail:[WaxUser currentUser].email];
     
     [Crashlytics setObjectValue:[NSString versionAndBuildString] forKey:@"Version"];
-    [Crashlytics setObjectValue:self.userID forKey:@"userid"];
-    [Crashlytics setObjectValue:self.username forKey:@"username"];
-    [Crashlytics setObjectValue:self.email forKey:@"email"];
+    [Crashlytics setObjectValue:[WaxUser currentUser].userID forKey:@"userid"];
+    [Crashlytics setObjectValue:[WaxUser currentUser].username forKey:@"username"];
+    [Crashlytics setObjectValue:[WaxUser currentUser].email forKey:@"email"];
 }
 
 +(void)resetForInitialLaunch{
@@ -443,7 +447,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 
 
 -(NSString *)description{
-    NSString *descrippy = [NSString stringWithFormat:@"WaxUser Description: Token=%@ \nUserID=%@ \nUsername=%@ \nFullName=%@ \nEmail=%@ \nFacebookAccountID=%@ \nTwitterAccountID=%@ \nTwitterAccountName=%@ \nisLoggedIn=%@ \nTwitterAccountConnected=%@ \nFacebookAccountConnected=%@", self.token, self.userID, self.username, self.fullName, self.email, self.facebookAccountID, self.twitterAccountID, self.twitterAccountName, [NSString localizedStringFromBool:self.isLoggedIn], [NSString localizedStringFromBool:self.twitterAccountConnected], [NSString localizedStringFromBool:self.facebookAccountConnected]];
+    NSString *descrippy = [NSString stringWithFormat:@"WaxUser Description: Token=%@ \nUserID=%@ \nUsername=%@ \nFullName=%@ \nEmail=%@ \nFacebookAccountID=%@ \nTwitterAccountID=%@ \nTwitterAccountName=%@ \nisLoggedIn=%@ \nTwitterAccountConnected=%@ \nFacebookAccountConnected=%@", self.token, self.userID, self.username, self.fullName, self.email, self.facebookAccountID, self.twitterAccountID, self.twitterAccountName, HumanReadableStringFromBool(self.isLoggedIn), HumanReadableStringFromBool(self.twitterAccountConnected), HumanReadableStringFromBool(self.facebookAccountConnected)];
     return descrippy;
 }
 

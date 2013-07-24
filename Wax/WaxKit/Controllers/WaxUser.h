@@ -78,7 +78,7 @@ typedef void(^WaxUserCompletionBlockTypeProfilePicture)(UIImage *profilePicture,
 #pragma mark - Utility Methods
 +(BOOL)userIDIsCurrentUser:(NSString *)userID;
 +(void)resetForInitialLaunch;
-
++(void)saveCurrentUserToVendorSolutions; 
 
 //#ifndef RELEASE
 //-(BOOL)isSuperUser;
