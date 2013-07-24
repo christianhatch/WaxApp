@@ -7,10 +7,13 @@
 //
 
 
-
+#pragma mark - URLS
+NSString *const kWaxPrivacyPolicyURL = @"https://wax.li/documents/terms_of_service.html"; 
+NSString *const kWaxTermsOfServiceURL = @"https://wax.li/documents/privacy-policy.html"; 
+NSString *const kWaxAttributionsURL = @"https://wax.li/documents/acknowledgements.html"; 
+NSString *const kWaxItunesStoreURL = @"https://itunes.apple.com/us/app/id636507841";
 
 #pragma mark - API
-
 NSString *const kWaxAPIBaseURL = @"https://devapi.wax.li/v1/";
 NSString *const kWaxAPISalt = @"pXOnay@E3p*#5lJC)D^t$8WBb4X_yDds0Z75t$@I";
 NSString *const kWaxAPIErrorDomain = @"com.wax.api"; 

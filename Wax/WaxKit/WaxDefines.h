@@ -6,6 +6,11 @@
 //  Copyright (c) 2013 Acacia Interactive. All rights reserved.
 //
 
+#pragma mark - URLS
+extern NSString *const kWaxPrivacyPolicyURL;
+extern NSString *const kWaxTermsOfServiceURL;
+extern NSString *const kWaxAttributionsURL;
+extern NSString *const kWaxItunesStoreURL;
 
 #pragma mark - API
 extern NSString *const kWaxAPIBaseURL;
