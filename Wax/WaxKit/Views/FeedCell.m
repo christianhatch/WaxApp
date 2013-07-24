@@ -65,7 +65,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 @synthesize profilePictureView, usernameLabel, timestampLabel, moviePlayer = _moviePlayer, competitionTitleButton, rankLabel, shareButton, respondButton, voteButton;
 @synthesize videoObject = _videoObject;
 
-
+#pragma mark - Overrides
 -(void)awakeFromNib{
     [super awakeFromNib];
     
@@ -98,13 +98,32 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     [self.voteButton setImage:[UIImage imageNamed:@"feedCell_voted_icon"] forState:UIControlStateDisabled]; 
     [self.voteButton setFillColor:[UIColor colorWithHex:0x106DC2] forState:UIControlStateHighlighted];
     [self.voteButton setFillColor:[UIColor colorWithHex:0xE4F0F4] forState:UIControlStateDisabled];
-    [self.voteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
-    [self.voteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     
     [self.shareButton setImage:[UIImage imageNamed:@"downarrow"] forState:UIControlStateNormal];
     [self.shareButton setImage:[UIImage imageNamed:@"downarrow_on"] forState:UIControlStateHighlighted];
 }
-
+-(void)prepareForReuse{
+    [self setUpMoviePlayer];
+}
+-(void)setVideoObject:(VideoObject *)videoObject{
+    if ([videoObject isKindOfClass:[VideoObject class]]) {
+        if (_videoObject != videoObject) {
+            _videoObject = videoObject;
+            [self setUpView];
+        }
+    }else if ([videoObject isKindOfClass:[NSDictionary class]]) {
+        
+        VideoObject *newVideo = [[VideoObject alloc] initWithDictionary:(NSDictionary *)videoObject];
+        
+        if ([newVideo isKindOfClass:[VideoObject class]]) {
+            _videoObject = newVideo;
+            [self setUpView];
+        }
+        
+    }else{
+        [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Setting video object on feedcell is not a video object. Object attempted to set %@", videoObject]];
+    }
+}
 -(void)setUpView{
     VideoObject *video = self.videoObject;
     
@@ -130,41 +149,17 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     
     [self setupVoteButton]; 
 }
--(void)setVideoObject:(VideoObject *)videoObject{
-    if ([videoObject isKindOfClass:[VideoObject class]]) {
-        if (_videoObject != videoObject) {
-            _videoObject = videoObject;
-            [self setUpView];
-        }
-    }else if ([videoObject isKindOfClass:[NSDictionary class]]) {
-                    
-        VideoObject *newVideo = [[VideoObject alloc] initWithDictionary:(NSDictionary *)videoObject];
-        
-        if ([newVideo isKindOfClass:[VideoObject class]]) {
-            _videoObject = newVideo;
-            [self setUpView];
-        }
-        
-    }else{
-        [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Setting video object on feedcell is not a video object. Object attempted to set %@", videoObject]];
-    }
-}
--(void)prepareForReuse{
-    [self setUpMoviePlayer];
-}
 
 -(void)setUpMoviePlayer{
     if (!self.moviePlayer) {
-        CGFloat bottomPlus8 = (self.profilePictureView.bounds.size.height + self.profilePictureView.frame.origin.y + 5);
-        CGRect movieFrame = CGRectMake(0, bottomPlus8, self.bounds.size.width, self.bounds.size.width);
+        CGFloat belowProfilePicture = (self.profilePictureView.bounds.size.height + self.profilePictureView.frame.origin.y + 5);
+        CGRect movieFrame = CGRectMake(self.contentView.bounds.origin.x, belowProfilePicture, self.bounds.size.width+1, self.bounds.size.width);
         self.moviePlayer = [AIKMoviePlayer moviePlayerWithFrame:movieFrame thumbnailURL:self.thumbnailURL videoStreamingURL:self.videoStreamingURL playbackBeginBlock:self.beginPlaybackBlock];
         [self.contentView addSubview:self.moviePlayer];
     }else{
         [self.moviePlayer resetWithNewThumbnailURL:self.thumbnailURL andVideoURL:self.videoStreamingURL playbackBeginBlock:self.beginPlaybackBlock];
     }
 }
-
-
 
 #pragma mark - IBActions
 - (IBAction)shareButtonAction:(id)sender {
@@ -182,7 +177,6 @@ static inline NSString *stringFromActivityType(NSString *activityType){
         if (allowedToProceed) {
             [[VideoUploadManager sharedManager] beginUploadProcessWithVideoID:self.videoObject.videoID competitionTag:self.videoObject.tag category:self.videoObject.category];
             
-//            [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationPresentVideoCamera object:self];
             VideoCameraViewController *video = [[VideoCameraViewController alloc] init];
             [self.nearestViewController presentViewController:video animated:YES completion:nil];
         }
@@ -190,17 +184,21 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 }
 
 - (IBAction)voteButtonAction:(id)sender {
+    
+    self.videoObject.didVote = YES;
+    [self setupVoteButton]; //immediate user feedback upon pressing button
+    
     [[WaxAPIClient sharedClient] voteUpVideoID:self.videoObject.videoID ofUser:self.videoObject.userID completion:^(BOOL complete, NSError *error) {
-        if (!error) {
-            self.videoObject.didVote = YES;
-            [self setupVoteButton]; 
-        }else{
-            //TODO: handle error here
-            DLog(@"error voting :("); 
+      
+        self.videoObject.didVote = complete; 
+        [self setupVoteButton]; //will change to actual value upon completion of the request, so if it fails you can try it again
+        
+        if (error) {
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Error voting up video :(", @"error voting up video string")]; 
+            VLog(@"error voting :(");
         }
     }];
 }
-
 
 - (IBAction)competitionTitleButtonAction:(id)sender {
     FeedViewController *pvc = [FeedViewController feedViewControllerWithTag:self.videoObject.tag];
@@ -217,7 +215,10 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 
 #pragma mark - Convenience Methods
 -(void)setupVoteButton{
-    self.voteButton.enabled = (!self.videoObject.didVote || !self.videoObject.isMine);
+    self.voteButton.enabled = (!self.videoObject.didVote && !self.videoObject.isMine);
+}
+-(void)resetVideoPlayer{
+    [self.moviePlayer resetMoviePlayer];
 }
 
 -(RIButtonItem *)actionSheetButtonShare{
@@ -250,7 +251,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
         flag.action = ^{
             [[WaxAPIClient sharedClient] performAction:WaxAPIClientVideoActionTypeReport onVideoID:self.videoObject.videoID completion:^(BOOL complete, NSError *error) {
                 if (!error) {
-                    [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Thank You", @"Thank You") message:NSLocalizedString(@"Thank you for reporting this video. Our team will review it right away", @"Feed cell thank you for flagging video") buttonTitle:NSLocalizedString(@"You're Welcome", @"You're Welcome") showsCancelButton:NO buttonHandler:nil logError:NO];
+                    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Thank you!", @"Thank you!")]; 
                 }else{
                     [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error Reporting Video", @"Error Reporting Video") error:error buttonHandler:nil logError:NO]; 
                 }

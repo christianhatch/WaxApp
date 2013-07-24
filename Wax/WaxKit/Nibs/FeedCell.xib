@@ -35,7 +35,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUITableViewCell" id="601113982">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">1316</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIView" id="1039422609">
@@ -48,6 +48,7 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{7, 7}, {44, 44}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="286310357"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -58,6 +59,7 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{58, 7}, {186, 21}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="14583799"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -92,6 +94,7 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{268, 7}, {44, 44}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1034134007"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -126,6 +129,7 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{58, 24}, {186, 21}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="952620065"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -156,6 +160,7 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{269, 391}, {41, 21}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="465762789"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -184,6 +189,7 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{10, 421}, {95, 35}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="757850998"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -212,6 +218,7 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{215, 421}, {95, 36}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
+								<reference key="NSWindow"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -232,6 +239,7 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{10, 378}, {198, 34}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="268441567"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -260,6 +268,7 @@
 								<object class="NSPSMatrix" key="NSFrameMatrix"/>
 								<string key="NSFrame">{{113, 421}, {95, 36}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="610955351"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -280,6 +289,7 @@
 								<int key="NSvFlags">1316</int>
 								<string key="NSFrame">{{231, 391}, {34, 21}}</string>
 								<reference key="NSSuperview" ref="1039422609"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="901497052"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -299,6 +309,7 @@
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
 						<string key="NSFrameSize">{320, 471}</string>
 						<reference key="NSSuperview" ref="601113982"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="189181462"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -313,6 +324,8 @@
 				</array>
 				<object class="NSPSMatrix" key="NSFrameMatrix"/>
 				<string key="NSFrameSize">{320, 472}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1039422609"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<reference key="IBUIContentView" ref="1039422609"/>
@@ -1536,27 +1549,27 @@
 					<string key="className">FeedCell</string>
 					<string key="superclassName">WaxTableViewCell</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="actionButtonAction:">id</string>
-						<string key="challengeButtonAction:">id</string>
-						<string key="competitionNameButtonAction:">id</string>
+						<string key="competitionTitleButtonAction:">id</string>
+						<string key="respondButtonAction:">id</string>
 						<string key="sendChallengeButtonAction:">id</string>
+						<string key="shareButtonAction:">id</string>
 						<string key="voteButtonAction:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="actionButtonAction:">
-							<string key="name">actionButtonAction:</string>
+						<object class="IBActionInfo" key="competitionTitleButtonAction:">
+							<string key="name">competitionTitleButtonAction:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="challengeButtonAction:">
-							<string key="name">challengeButtonAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="competitionNameButtonAction:">
-							<string key="name">competitionNameButtonAction:</string>
+						<object class="IBActionInfo" key="respondButtonAction:">
+							<string key="name">respondButtonAction:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="sendChallengeButtonAction:">
 							<string key="name">sendChallengeButtonAction:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="shareButtonAction:">
+							<string key="name">shareButtonAction:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="voteButtonAction:">
@@ -1565,28 +1578,20 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="actionButton">UIButton</string>
-						<string key="challengeButton">WaxRoundButton</string>
-						<string key="competitionNameButton">UIButton</string>
+						<string key="competitionTitleButton">UIButton</string>
 						<string key="profilePictureView">UIImageView</string>
 						<string key="rankLabel">UILabel</string>
 						<string key="rankWordLabel">UILabel</string>
+						<string key="respondButton">WaxRoundButton</string>
 						<string key="sendChallengeButton">WaxRoundButton</string>
+						<string key="shareButton">UIButton</string>
 						<string key="timestampLabel">UILabel</string>
 						<string key="usernameLabel">UILabel</string>
 						<string key="voteButton">WaxRoundButton</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="actionButton">
-							<string key="name">actionButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="challengeButton">
-							<string key="name">challengeButton</string>
-							<string key="candidateClassName">WaxRoundButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="competitionNameButton">
-							<string key="name">competitionNameButton</string>
+						<object class="IBToOneOutletInfo" key="competitionTitleButton">
+							<string key="name">competitionTitleButton</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="profilePictureView">
@@ -1601,9 +1606,17 @@
 							<string key="name">rankWordLabel</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="respondButton">
+							<string key="name">respondButton</string>
+							<string key="candidateClassName">WaxRoundButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="sendChallengeButton">
 							<string key="name">sendChallengeButton</string>
 							<string key="candidateClassName">WaxRoundButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="shareButton">
+							<string key="name">shareButton</string>
+							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="timestampLabel">
 							<string key="name">timestampLabel</string>

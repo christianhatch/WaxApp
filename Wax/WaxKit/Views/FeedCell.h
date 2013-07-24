@@ -16,5 +16,6 @@
 
 @property (nonatomic, strong) VideoObject *videoObject; 
 
+-(void)resetVideoPlayer; 
 
 @end
