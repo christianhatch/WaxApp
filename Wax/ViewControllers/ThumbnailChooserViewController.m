@@ -54,7 +54,8 @@
 }
 
 -(void)setUpView{
-    self.directionsLabel.text = NSLocalizedString(@"Choose a thumbnail for your video by tapping one below", @"Choose a thumbnail for your video by tapping one below");
+    [self.directionsLabel setWaxDefaultFont];
+    self.directionsLabel.text = NSLocalizedString(@"Choose a cover for your video by tapping one below", @"Choose a thumbnail for your video by tapping one below");
     self.navigationItem.title = NSLocalizedString(@"Thumbnail", @"Thumbnail");
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
 }

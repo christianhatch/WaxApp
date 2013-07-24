@@ -13,7 +13,7 @@
 "com.wax.api.error=1003" = "Username already exists";
 "com.wax.api.error=1004" = "Email already exists";
 "com.wax.api.error=1005" = "Please enter valid email";
-"com.wax.api.error=1006" = "Username must be between 2-15 characters";
+"com.wax.api.error=1006" = "Username must be between 1-15 characters";
 "com.wax.api.error=1007" = "Username uses invalid characters";
 "com.wax.api.error=1008" = "Please enter full name";
 "com.wax.api.error=1009" = "Password must be at least 6 characters";

@@ -105,9 +105,10 @@
     
     switch (result) {
         case MFMailComposeResultSent:{
-            RIButtonItem *item = [RIButtonItem itemWithLabel:NSLocalizedString(@"You're Welcome!", @"You're Welcome!")];
-            UIAlertView *nomail = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Thanks So Much!", @"Thanks So Much!") message:NSLocalizedString(@"Thanks for the feedback, we'll read it right away!", @"Thanks for the feedback, we'll read it right away!") cancelButtonItem:item otherButtonItems:nil, nil];
-            [nomail show];
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Thank you!", @"Thank you!")];
+//            RIButtonItem *item = [RIButtonItem itemWithLabel:NSLocalizedString(@"You're Welcome!", @"You're Welcome!")];
+//            UIAlertView *nomail = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Thanks So Much!", @"Thanks So Much!") message:NSLocalizedString(@"Thanks for the feedback, we'll read it right away!", @"Thanks for the feedback, we'll read it right away!") cancelButtonItem:item otherButtonItems:nil, nil];
+//            [nomail show];
         }break;
         case MFMailComposeResultSaved:{
             

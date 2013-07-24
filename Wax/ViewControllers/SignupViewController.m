@@ -143,11 +143,11 @@
 }
 
 - (IBAction)tosButtonAction:(id)sender {
-    [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:@"https://api.wax.li/documents/terms_of_service.html"] pageTitle:NSLocalizedString(@"Terms of Service", @"Terms of Service") presentFromViewController:self];
+    [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:kWaxTermsOfServiceURL] pageTitle:NSLocalizedString(@"Terms of Service", @"Terms of Service") presentFromViewController:self];
 }
 
 - (IBAction)privacyButtonAction:(id)sender {
-    [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:@"https://api.wax.li/documents/privacy-policy.html"] pageTitle:NSLocalizedString(@"Privacy Policy", @"Privacy Policy") presentFromViewController:self];
+    [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:kWaxPrivacyPolicyURL] pageTitle:NSLocalizedString(@"Privacy Policy", @"Privacy Policy") presentFromViewController:self];
 }
 
 #pragma mark - UITextField Delegate
@@ -178,17 +178,11 @@
 -(BOOL)verifyInputtedData{
     BOOL verified = YES;
     
-    if (self.usernameField.text.length < 3) {
+    if ([NSString isEmptyOrNil:self.emailField.text]) {
         verified = NO;
-        if ([NSString isEmptyOrNil:self.emailField.text]) {
-            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"No Username", @"No Username") message:NSLocalizedString(@"Please choose a username", @"Please choose a username") buttonHandler:^{
-                [self.usernameField becomeFirstResponder];
-            } logError:NO];
-        }else{
-            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Username Too Short", @"Username Too Short") message:NSLocalizedString(@"Your username must be at least 2 characters long.", @"Your username must be at least 2 characters long.") buttonHandler:^{
-                [self.usernameField becomeFirstResponder];
-            } logError:NO];
-        }
+        [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"No Username", @"No Username") message:NSLocalizedString(@"Please choose a username", @"Please choose a username") buttonHandler:^{
+            [self.usernameField becomeFirstResponder];
+        } logError:NO];
     }else if ([NSString isEmptyOrNil:self.emailField.text]) {
         verified = NO;
         [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"No Email", @"No Email") message:NSLocalizedString(@"Please enter your email address", @"Please enter your email address") buttonHandler:^{

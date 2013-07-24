@@ -26,22 +26,27 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {
         case 0:{
-            [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:@"https://api.wax.li/documents/terms_of_service.html"] pageTitle:NSLocalizedString(@"Terms of Service", @"Terms of Service") presentFromViewController:self];
+            [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:kWaxTermsOfServiceURL] pageTitle:NSLocalizedString(@"Terms of Service", @"Terms of Service") presentFromViewController:self];
         }break;
         case 1:{
-            [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:@"https://api.wax.li/documents/privacy-policy.html"] pageTitle:NSLocalizedString(@"Privacy Policy", @"Privacy Policy") presentFromViewController:self];
+            [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:kWaxPrivacyPolicyURL] pageTitle:NSLocalizedString(@"Privacy Policy", @"Privacy Policy") presentFromViewController:self];
         }break;
         case 2:{
-            [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:@"https://api.wax.li/documents/acknowledgements.html"] pageTitle:NSLocalizedString(@"Acknowledgements", @"Acknowledgements") presentFromViewController:self];
+            [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:kWaxAttributionsURL] pageTitle:NSLocalizedString(@"Acknowledgements", @"Acknowledgements") presentFromViewController:self];
         }break;
     }    
 }
 -(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
-    NSString *title = nil;
+    
     if (section == 0) {
-        title = [NSString stringWithFormat:NSLocalizedString(@"%@\nCopyright \u00A9 2013 Acacia Interactive", @"%@\nCopyright \u00A9 2013 Acacia Interactive"), [NSString appNameVersionAndBuildString]];
+        return [NSString stringWithFormat:NSLocalizedString(@"%@\nCopyright \u00A9 2013 Acacia Interactive", @"%@\nCopyright \u00A9 2013 Acacia Interactive"), [NSString appNameVersionAndBuildString]];
     }
-    return title;
+
+    return nil;
 }
+
+
+
+
 
 @end

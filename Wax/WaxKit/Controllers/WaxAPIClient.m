@@ -55,31 +55,25 @@ static inline BOOL PathRequiresArray(NSString *path){
     
     return self;
 }
--(NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters{
-
-    NSDictionary *finalParameters = nil;
-    if (parameters) {
-        NSMutableDictionary *authentication = [NSMutableDictionary dictionaryWithDictionary:@{@"token":[[WaxUser currentUser] token], @"userid":[[WaxUser currentUser] userID]}];
-        [authentication addEntriesFromDictionary:parameters];
-        finalParameters = [NSDictionary dictionaryWithDictionary:authentication];
-    }else{
-        finalParameters = @{@"token":[[WaxUser currentUser] token], @"userid":[[WaxUser currentUser] userID]};
-    }
+- (NSDictionary *)addAuthenticationToParameters:(NSDictionary *)parameters {
     
-    return [super requestWithMethod:method path:path parameters:finalParameters];
+    NSDictionary *authDict = @{@"token":[WaxUser currentUser].token, @"userid":[WaxUser currentUser].userID};
+    
+    if ([NSDictionary isEmptyOrNil:parameters]) {
+        return authDict;
+    }
+
+    NSMutableDictionary *authentication = [NSMutableDictionary dictionaryWithDictionary:authDict];
+    [authentication addEntriesFromDictionary:parameters];
+    return authentication; 
+}
+
+-(NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters{    
+    return [super requestWithMethod:method path:path parameters:[self addAuthenticationToParameters:parameters]];
 }
 -(NSMutableURLRequest *)multipartFormRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block{
     
-    NSDictionary *finalParameters = nil;
-    if (parameters) {
-        NSMutableDictionary *authentication = [NSMutableDictionary dictionaryWithDictionary:@{@"token":[[WaxUser currentUser] token], @"userid":[[WaxUser currentUser] userID]}];
-        [authentication addEntriesFromDictionary:parameters];
-        finalParameters = [NSDictionary dictionaryWithDictionary:authentication];
-    }else{
-        finalParameters = @{@"token":[[WaxUser currentUser] token], @"userid":[[WaxUser currentUser] userID]};
-    }
-    
-    return [super multipartFormRequestWithMethod:method path:path parameters:finalParameters constructingBodyWithBlock:block];
+    return [super multipartFormRequestWithMethod:method path:path parameters:[self addAuthenticationToParameters:parameters] constructingBodyWithBlock:block];
 }
 -(void)enqueueHTTPRequestOperation:(AFHTTPRequestOperation *)operation{
     [operation setShouldExecuteAsBackgroundTaskWithExpirationHandler:^{
@@ -139,8 +133,8 @@ static inline BOOL PathRequiresArray(NSString *path){
     }];
 }
 -(void)fetchHomeFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
-    if ([[WaxUser currentUser] isLoggedIn]) {
-        [self fetchFeedFromPath:@"feeds/home" tagOrPersonID:[[WaxUser currentUser] userID] infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
+    if ([WaxUser currentUser].isLoggedIn) {
+        [self fetchFeedFromPath:@"feeds/home" tagOrPersonID:[WaxUser currentUser].userID infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
                         
             if (completion) {
                 completion(list, error);
@@ -149,8 +143,8 @@ static inline BOOL PathRequiresArray(NSString *path){
     }
 }
 -(void)fetchMyFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
-    if ([[WaxUser currentUser] isLoggedIn]) {
-        [self fetchFeedForUserID:[[WaxUser currentUser] userID] infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
+    if ([WaxUser currentUser].isLoggedIn) {
+        [self fetchFeedForUserID:[WaxUser currentUser].userID infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
 
             if (completion) {
                 completion(list, error); 
@@ -181,6 +175,7 @@ static inline BOOL PathRequiresArray(NSString *path){
     }
 }
 -(void)fetchFeedForCategory:(NSString *)category infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
+    
     [self fetchFeedFromPath:@"feeds/discover" tagOrPersonID:category infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
         if (completion) {
             completion(list, error); 
@@ -570,36 +565,40 @@ static inline BOOL PathRequiresArray(NSString *path){
     NSParameterAssert(path);
     
     [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+       
         [self processResponseObject:responseObject forModelClass:modelClass forceArray:PathRequiresArray(path) withCompletionBlock:^(id model, NSError *error) {
+            
             if (completion) {
                 completion(model, error);
             }
         }];
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         VLog(@"standard post request failure %@", error);
         
-        if ([NSError NSURLRequestErrorIsRequestWasCancelled:error]) {
+        if ([NSError errorIsEqualToNSURLErrorRequestCanceled:error]) {
             if (completion) {
                 completion(nil, error);
             }
         }else{
             
-#ifdef DEBUG
-            [AIKErrorManager showAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion buttonHandler:^{
+//#ifdef DEBUG
+            
+            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Network Request Failed", @"standard post error string") error:error buttonHandler:^{
                 if (completion) {
                     completion(nil, error);
                 }
-            } logError:NO];
-#else
-            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error Loading Data", @"Error Loading Data") message:[NSString stringWithFormat:NSLocalizedString(@"Error Code: %i", @"Error Code"), error.code] buttonHandler:^{
-                
-                if (completion) {
-                    completion(nil, error);
-                }
-
             } logError:YES];
-#endif
+//#else
+//            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error Loading Data", @"Error Loading Data") message:[NSString stringWithFormat:NSLocalizedString(@"Error Code: %i", @"Error Code"), error.code] buttonHandler:^{
+//                
+//                if (completion) {
+//                    completion(nil, error);
+//                }
+//
+//            } logError:YES];
+//#endif
         }
     }];
 }
@@ -634,7 +633,7 @@ static inline BOOL PathRequiresArray(NSString *path){
         
         VLog(@"multipart form request failure %@", error);
         
-        if ([NSError NSURLRequestErrorIsRequestWasCancelled:error]) {
+        if ([NSError errorIsEqualToNSURLErrorRequestCanceled:error]) {
             if (completion) {
                 completion(nil, error);
             }

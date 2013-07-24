@@ -127,11 +127,11 @@
 }
 
 - (IBAction)tosButtonAction:(id)sender {
-    [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:@"https://api.wax.li/documents/terms_of_service.html"] pageTitle:NSLocalizedString(@"Terms of Service", @"Terms of Service") presentFromViewController:self];
+    [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:kWaxTermsOfServiceURL] pageTitle:NSLocalizedString(@"Terms of Service", @"Terms of Service") presentFromViewController:self];
 }
 
 - (IBAction)privacyButtonAction:(id)sender {
-    [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:@"https://api.wax.li/documents/privacy-policy.html"] pageTitle:NSLocalizedString(@"Privacy Policy", @"Privacy Policy") presentFromViewController:self];
+    [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:kWaxPrivacyPolicyURL] pageTitle:NSLocalizedString(@"Privacy Policy", @"Privacy Policy") presentFromViewController:self];
 }
 
 #pragma mark - UITextField Delegate
@@ -143,8 +143,6 @@
     }
     return YES;
 }
-
-
 
 
 

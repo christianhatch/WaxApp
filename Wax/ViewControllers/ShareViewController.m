@@ -51,7 +51,17 @@
     self.tagField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.tagField.spellCheckingType = UITextSpellCheckingTypeNo;
     self.tagField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    self.tagField.returnKeyType = UIReturnKeyDone; 
     self.tagField.delegate = self;
+   
+    UILabel *poundLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 5, self.tagField.bounds.size.height)];
+    poundLabel.text = @"#";
+    poundLabel.font = self.tagField.font;
+    poundLabel.backgroundColor = [UIColor clearColor];
+    [poundLabel sizeToFit]; 
+    self.tagField.leftView = poundLabel;
+    self.tagField.leftViewMode = UITextFieldViewModeAlways;
+    
     
     for (UILabel *lbl in @[self.facebookLabel, self.twitterLabel, self.locationLabel]) {
         [lbl setWaxDefaultFont];
@@ -64,32 +74,37 @@
             
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Share", @"Share") style:UIBarButtonItemStyleDone target:self action:@selector(finish:)];
     
-    [self.facebookSwitch setOn:([[WaxUser currentUser] facebookAccountConnected] && [[AIKFacebookManager sharedManager] canPublish]) animated:NO];
-    [self.twitterSwitch setOn:[[WaxUser currentUser] twitterAccountConnected] animated:NO];
+    [self.facebookSwitch setOn:([WaxUser currentUser].facebookAccountConnected && [[AIKFacebookManager sharedManager] canPublish]) animated:NO];
+    [self.twitterSwitch setOn:[WaxUser currentUser].twitterAccountConnected animated:NO];
     
     [self setUpTagAndCategoryFields];
 
-//#ifndef DEBUG
     self.locationLabel.hidden = YES;
-    self.locationSwitch.hidden = YES; 
-//#endif
-    
+    self.locationSwitch.hidden = YES;     
 }
 -(void)setUpTagAndCategoryFields{
-    if ([[VideoUploadManager sharedManager] isInChallengeMode]) {
-        self.tagField.text = [[VideoUploadManager sharedManager] challengeVideoTag];
-        [self.categoryButton styleAsWaxRoundButtonBlueWithTitle:[[VideoUploadManager sharedManager] challengeVideoCategory]];
+    if ([VideoUploadManager sharedManager].isInChallengeMode) {
+        
+        NSString *tag = [VideoUploadManager sharedManager].challengeVideoTag;
+        self.tagField.text = [tag stringByReplacingOccurrencesOfString:@"#" withString:@""];
+        
+        [self.categoryButton styleAsWaxRoundButtonBlueWithTitle:[VideoUploadManager sharedManager].challengeVideoCategory];
+        
     }else{
         self.tagField.placeholder = NSLocalizedString(@"ExampleCompetitionTag", @"competition tag field placeholder");
         [self.categoryButton styleAsWaxRoundButtonBlueWithTitle:kChooseCategoryPlaceHolderText];
     }
 }
 -(void)finish:(id)sender{
-    if ([self verifyInputtedData]) {
-        [[VideoUploadManager sharedManager] addMetadataWithTag:self.tagField.text category:self.categoryButton.titleLabel.text shareToFacebook:self.facebookSwitch.on sharetoTwitter:self.twitterSwitch.on shareLocation:self.locationSwitch.on];
-        
-        [[[self presentingViewController] presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+    if (![self verifyInputtedData]) {
+        return;
     }
+    
+    [[VideoUploadManager sharedManager] addMetadataWithTag:self.tagField.text category:self.categoryButton.titleLabel.text shareToFacebook:self.facebookSwitch.on sharetoTwitter:self.twitterSwitch.on shareLocation:self.locationSwitch.on];
+    
+    [[[self presentingViewController] presentingViewController] dismissViewControllerAnimated:YES completion:^{
+        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:@"kDidDismissSharePage" object:self];
+    }];
 }
 - (IBAction)chooseCategory:(id)sender {
     [self.view endEditing:YES];
@@ -115,6 +130,22 @@
             }
         }]; 
     }
+}
+#pragma mark - TextField Delegate
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    if ([self testMaxCharacterLengthInTagFieldWithReplacementString:string andCharactersInRange:range]) {
+        return NO;
+    }
+    if ([self testReplacementStringForNonAlphaNumericCharactersAndAlertUserWithReplacementString:string]) {
+        return NO;
+    }
+    
+    return YES;
+}
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 #pragma mark - Internal Methods
@@ -144,23 +175,6 @@
     
     return verified; 
 }
--(void)notifyUserThatNonAlphaNumericCharactersNotAllowed{
-    [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Only letters and/or numbers are allowed", @"Please enter only letters and/or numbers")];
-}
-
-#pragma mark - TextField Delegate
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    
-    if ([self testMaxCharacterLengthInTagFieldWithReplacementString:string andCharactersInRange:range]) {
-        return NO;
-    }
-    if ([self testReplacementStringForNonAlphaNumericCharactersAndAlertUserWithReplacementString:string]) {
-        return NO;
-    }
-    
-    return YES; 
-}
-
 -(BOOL)testReplacementStringForNonAlphaNumericCharactersAndAlertUserWithReplacementString:(NSString *)string{
     NSCharacterSet *blockedCharacters = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
     
@@ -182,5 +196,10 @@
     
     return !(newLength <= kTagFieldMaxCharacters || returnKey);
 }
+-(void)notifyUserThatNonAlphaNumericCharactersNotAllowed{
+    [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Only letters and/or numbers are allowed", @"Please enter only letters and/or numbers")];
+}
+
+
 
 @end

@@ -68,7 +68,7 @@
     if ([MFMessageComposeViewController canSendText]) {
         MFMessageComposeViewController *texter = [[MFMessageComposeViewController alloc] init];
         
-        texter.body = [NSString stringWithFormat:NSLocalizedString(@"I think you could be #1 at %@ on Wax! \nCheck out your competition here: %@ \n\n\nDon't have Wax? Download it: http://wax.li", @"send challenge via text"), self.challengeTag, self.challengeShareURL];
+        texter.body = [NSString stringWithFormat:NSLocalizedString(@"I think you could be #1 at %@ on Wax! \nCheck out your competition here: %@ \n\n\nDon't have Wax? Download it:http://wax.li", @"send challenge via text"), self.challengeTag, self.challengeShareURL];
         
         texter.messageComposeDelegate = self;
         

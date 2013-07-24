@@ -41,6 +41,13 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
     });
     return sharedID;
 }
+-(id)init{
+    self = [super init];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearAllData) name:WaxUserDidLogOutNotification object:nil];
+    }
+    return self; 
+}
 
 #pragma mark - Public API
 -(void)updateHomeFeedWithInfiniteScroll:(BOOL)infiniteScroll completion:(WaxDataManagerCompletionBlockTypeSimple)completion{
@@ -83,8 +90,6 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
     [[WaxAPIClient sharedClient] fetchCategoriesWithCompletion:^(NSMutableArray *list, NSError *error) {
         if (!error) {
             self.categories = list;
-        }else{
-
         }
         if (completion) {
             completion(error);
@@ -195,15 +200,13 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
 
 #pragma mark - Private/Helper/Convenience Methods
 +(NSNumber *)infiniteScrollingIDFromArray:(NSMutableArray *)feed{
-    
-    NSNumber *infinite = nil;
     if (feed && feed.count > 0) {
         if ([[feed lastObject] isKindOfClass:[ModelObject class]]) {
             ModelObject *model = [feed lastObject];
-            infinite = model.infiniteScrollingID;
+            return model.infiniteScrollingID;
         }
     }
-    return infinite;
+    return nil;
 }
 -(NSNumber *)infiniteIDForFeedFromUserID:(NSString *)userID refresh:(BOOL)refresh{
     self.lastFeedUserID = userID;

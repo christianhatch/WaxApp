@@ -51,6 +51,7 @@
 #import "PersonCell.h"
 #import "ProfileHeaderView.h"
 
+#import "WaxEmptyView.h"
 //#import "WaxTableView.h" //not needed..now - but here for consistency
 //#import "WaxTableViewCell.h" //not needed..now - but here for consistency
 

@@ -58,7 +58,7 @@
     return self;
 }
 -(NSString *)description{
-    NSString *descrippy = [NSString stringWithFormat:@"VideoObject Description: UserID=%@ Username=%@ Rank=%@ TagCount=%@ VideoID=%@ ShareID=%@ TimeStamp=%@ Tag=%@ Category=%@ VotesCount=%@ ViewsCount=%@ DidVote=%@ InfiniteScrollingID=%@", self.userID, self.username, self.rank, self.tagCount, self.videoID, self.shareID, self.timeStamp, self.tag, self.category, self.votesCount, self.viewCount, [NSString localizedStringFromBool:self.didVote], self.infiniteScrollingID];
+    NSString *descrippy = [NSString stringWithFormat:@"VideoObject Description: UserID=%@ Username=%@ Rank=%@ TagCount=%@ VideoID=%@ ShareID=%@ TimeStamp=%@ Tag=%@ Category=%@ VotesCount=%@ ViewsCount=%@ DidVote=%@ InfiniteScrollingID=%@", self.userID, self.username, self.rank, self.tagCount, self.videoID, self.shareID, self.timeStamp, self.tag, self.category, self.votesCount, self.viewCount, HumanReadableStringFromBool(self.didVote), self.infiniteScrollingID];
     return descrippy;
 }
 

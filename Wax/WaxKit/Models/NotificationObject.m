@@ -39,7 +39,7 @@
 }
 
 -(NSString *)description{
-    NSString *descrippy = [NSString stringWithFormat:@"NotificationObject Description: UserID=%@ Username=%@ NoteText=%@ NoteType=%@ VideoID=%@ Tag=%@ Timestamp=%@ Unread=%@ InfiniteScrollingID=%@", self.userID, self.username, self.noteText, StringFromNotificationType(self.noteType), self.videoID, self.tag, self.timeStamp, [NSString localizedStringFromBool:self.unread], self.infiniteScrollingID];
+    NSString *descrippy = [NSString stringWithFormat:@"NotificationObject Description: UserID=%@ Username=%@ NoteText=%@ NoteType=%@ VideoID=%@ Tag=%@ Timestamp=%@ Unread=%@ InfiniteScrollingID=%@", self.userID, self.username, self.noteText, StringFromNotificationType(self.noteType), self.videoID, self.tag, self.timeStamp, HumanReadableStringFromBool(self.unread), self.infiniteScrollingID];
     return descrippy;
 }
 

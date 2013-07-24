@@ -27,6 +27,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentInitialViewController) name:WaxUserDidLogOutNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(capture) name:kWaxNotificationPresentVideoCamera object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidReceiveRemoteNotification:) name:kWaxNotificationRemoteNotificationReceived object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectHomeTab) name:@"kDidDismissSharePage" object:nil];
 }
 
 -(void)setUpView{    
@@ -141,6 +142,9 @@
 
 -(void)selectNotificationTab{
     [self setSelectedIndex:3];
+}
+-(void)selectHomeTab{
+    [self setSelectedIndex:0];
 }
 
 -(BOOL)shouldHandleLaunchFromRemoteNotification{

@@ -31,18 +31,13 @@
     [self.view addSubview:self.uploadView]; 
 }
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    
-    //TODO: test this!!!
-    if (self.uploadView.shouldBeVisible) {
-        [self showUploadView];
-    }else{
-        [self hideUploadView]; 
-    }
+    [super viewDidAppear:animated];    
+    self.uploadView.shouldBeVisible ? [self showUploadView] : [self hideUploadView]; 
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    [self.tableView.pullToRefreshView stopAnimating]; 
+    [self.tableView.pullToRefreshView stopAnimating];
+    [self.tableView resetVideoPlayers]; 
 }
 
 

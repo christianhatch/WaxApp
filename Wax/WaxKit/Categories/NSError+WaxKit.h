@@ -12,6 +12,6 @@
 
 +(NSError *)waxAPIErrorFromResponse:(NSDictionary *)response;
 
-+(BOOL)NSURLRequestErrorIsRequestWasCancelled:(NSError *)error;
++(BOOL)errorIsEqualToNSURLErrorRequestCanceled:(NSError *)error;
 
 @end

@@ -46,7 +46,7 @@
             recoverySuggestion = NSLocalizedString(@"com.wax.api.suggestion=1005", @"This is not a real email address. Wax requires a valid email address or Facebook account to sign up");
         }break;
         case 1006:{
-            errorReason = NSLocalizedString(@"com.wax.api.error=1006", @"Username must be between 2-15 characters");
+            errorReason = NSLocalizedString(@"com.wax.api.error=1006", @"Username must be between 1-15 characters");
             recoverySuggestion = NSLocalizedString(@"com.wax.api.suggestion=1006", @"Please either lengthen or shorten your username and try again");
         }break;
         case 1007:{
@@ -77,31 +77,31 @@
     //9000s
         case 9001:{
             errorReason = NSLocalizedString(@"com.wax.api.error=9001", @"Incorrect Credentials");
-            recoverySuggestion = NSLocalizedString(@"com.wax.api.suggestion=9001", @"Sorry, we encountered an error creating your account. Please try again, and if the problem persists please email support@wax.li");
+            recoverySuggestion = NSLocalizedString(@"com.wax.api.suggestion=9001", @"Please try again, and if the problem persists please email dev@wax.li");
         }break;
         case 9002:{
             errorReason = NSLocalizedString(@"com.wax.api.error=9002", @"Script failed");
-            recoverySuggestion = NSLocalizedString(@"com.wax.api.suggestion=9002", @"Sorry, we encountered an error creating your account. Please try again, and if the problem persists please email support@wax.li");
+            recoverySuggestion = NSLocalizedString(@"com.wax.api.suggestion=9002", @"Please try again, and if the problem persists please email dev@wax.li");
         }break;
         case 9003:{
             errorReason = NSLocalizedString(@"com.wax.api.error=9003", @"User already performed action");
-            recoverySuggestion = NSLocalizedString(@"com.wax.api.suggestion=9003", @"Sorry, we encountered an error creating your account. Please try again, and if the problem persists please email support@wax.li");
+            recoverySuggestion = NSLocalizedString(@"com.wax.api.suggestion=9003", @"Please try again, and if the problem persists please email dev@wax.li");
         }break;
         case 9004:{
             errorReason = NSLocalizedString(@"com.wax.api.error=9004", @"User does not have permission to perform action");
-            recoverySuggestion = NSLocalizedString(@"com.wax.api.suggestion=9004", @"Sorry, we encountered an error creating your account. Please try again, and if the problem persists please email support@wax.li");
+            recoverySuggestion = NSLocalizedString(@"com.wax.api.suggestion=9004", @"Please try again, and if the problem persists please email dev@wax.li");
         }break;
         case 9005:{
             errorReason = NSLocalizedString(@"com.wax.api.error=9005", @"Missing post parameters");
-            recoverySuggestion = NSLocalizedString(@"com.wax.api.suggestion=9005", @"Sorry, we encountered an error creating your account. Please try again, and if the problem persists please email support@wax.li");
+            recoverySuggestion = NSLocalizedString(@"com.wax.api.suggestion=9005", @"Please try again, and if the problem persists please email dev@wax.li");
         }break;
     }
     return [NSError errorWithDomain:kWaxAPIErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey : errorReason, NSLocalizedRecoverySuggestionErrorKey : recoverySuggestion}];
 
 }
 
-+(BOOL)NSURLRequestErrorIsRequestWasCancelled:(NSError *)error{
-    return (error.domain == NSURLErrorDomain && error.code == -999);
++(BOOL)errorIsEqualToNSURLErrorRequestCanceled:(NSError *)error{
+    return ([error.domain isEqualToString:NSURLErrorDomain] && error.code == -999);
 }
 
 
