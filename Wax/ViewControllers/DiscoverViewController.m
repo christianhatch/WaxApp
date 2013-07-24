@@ -85,6 +85,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (USER_SCOPE_SELECTED) {
         PersonCell *cell = [tableView dequeueReusableCellWithIdentifier:kPersonCellID];
+        cell.cellType = PersonCellTypeDefault; 
         cell.person = [self.personSearchResults objectAtIndexOrNil:indexPath.row];
         return cell;
     }else{
