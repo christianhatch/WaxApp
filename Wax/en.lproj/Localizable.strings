@@ -45,7 +45,7 @@
 
 "com.wax.api.suggestion=9001" = "Wax API Error 9001"; //"Authentication credentials are invalid or missing";
 "com.wax.api.suggestion=9002" = "Wax API Error 9002"; //"Script failed";
-"com.wax.api.suggestion=9003" = "Wax API Error 9003"; //"User has already performed this action";
+"com.wax.api.suggestion=9003" = "You alredy performed that action!"; //"User has already performed this action";
 "com.wax.api.suggestion=9004" = "Wax API Error 9004"; //"User does not have permission to perform this action";
 "com.wax.api.suggestion=9005" = "Wax API Error 9005"; //"Missing post parameters";
 

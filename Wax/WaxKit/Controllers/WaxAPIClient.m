@@ -288,7 +288,7 @@ static inline BOOL PathRequiresArray(NSString *path){
 }
 
 
-#pragma mark - Videos
+#pragma mark - Uploading Videos
 -(void)uploadVideoAtFileURL:(NSURL *)fileURL videoID:(NSString *)videoID progress:(WaxAPIClientBlockTypeProgressUpload)progress completion:(WaxAPIClientBlockTypeCompletionSimple)completion{
     
     NSParameterAssert(fileURL);
@@ -353,34 +353,27 @@ static inline BOOL PathRequiresArray(NSString *path){
     [params safeSetObject:challengeVideoID forKey:@"challenge_videoid"];
     [params safeSetObject:challengeVideoTag forKey:@"challenge_tag"];
     
-    if (shareToFacebook) {
-        if ([WaxUser currentUser].facebookAccountConnected) {
-            [params setObject:[WaxUser currentUser].facebookAccountID forKey:@"facebookid"];
-            [params setObject:[AIKFacebookManager sharedManager].accessToken forKey:@"facebook_token"];
-        }
+    if (shareToFacebook && [WaxUser currentUser].facebookAccountConnected) {
+        [params safeSetObject:[WaxUser currentUser].facebookAccountID forKey:@"facebookid"];
+        [params safeSetObject:[AIKFacebookManager sharedManager].accessToken forKey:@"facebook_token"];
     }
-    if (shareToTwitter) {
-        if ([WaxUser currentUser].twitterAccountConnected) {
-            [[AIKTwitterManager sharedManager] reverseAuthTokenForAccountID:[[WaxUser currentUser] twitterAccountID] withCompletion:^(NSString *reverseAuthFullToken, NSString *accessToken, NSString *accessTokenSecret, NSError *error) {
-                
-                [params setObject:accessToken forKey:@"twitter_token"];
-                [params setObject:accessTokenSecret forKey:@"twitter_token_secret"];
-                
-                [self postPath:@"videos/put_data" parameters:params modelClass:nil completionBlock:^(id model, NSError *error) {
-                    
-//                    DLog(@"upload meta response %@", model);
-                    
-                    if (completion) {
-                        completion(SimpleReturnFromAPIResponse(model), error);
-                    }
-                }];
-            }]; 
-        }
+    
+    if (shareToTwitter && [WaxUser currentUser].twitterAccountConnected) {
+        [[AIKTwitterManager sharedManager] reverseAuthTokenForAccountID:[[WaxUser currentUser] twitterAccountID] withCompletion:^(NSString *reverseAuthFullToken, NSString *accessToken, NSString *accessTokenSecret, NSError *error) {
+            
+            [params safeSetObject:accessToken forKey:@"twitter_token"];
+            [params safeSetObject:accessTokenSecret forKey:@"twitter_token_secret"];
+            
+            [self postPath:@"videos/put_data" parameters:params modelClass:nil completionBlock:^(id model, NSError *error) {
+                                
+                if (completion) {
+                    completion(SimpleReturnFromAPIResponse(model), error);
+                }
+            }];
+        }]; 
     }else{
         [self postPath:@"videos/put_data" parameters:params modelClass:nil completionBlock:^(id model, NSError *error) {
-            
-//            VLog(@"upload meta response %@", model);
-            
+                        
             if (completion) {
                 completion(SimpleReturnFromAPIResponse(model), error);
             }
@@ -399,6 +392,8 @@ static inline BOOL PathRequiresArray(NSString *path){
         }];
     }
 }
+
+#pragma mark - Watching Videos
 -(void)fetchMetadataForVideoID:(NSString *)videoID completion:(WaxAPIClientBlockTypeCompletionVideo)completion{
     
     NSParameterAssert(videoID);
@@ -539,7 +534,7 @@ static inline BOOL PathRequiresArray(NSString *path){
 
     NSParameterAssert(tagOrPersonID);
     
-    [self postPath:path parameters:@{@"feedid": tagOrPersonID, kLastItemKey:CollectionSafeObject(infiniteScrollingID)} modelClass:[VideoObject class] completionBlock:^(id model, NSError *error) {
+    [self postPath:path parameters:@{@"feedid": CollectionSafeObject(tagOrPersonID), kLastItemKey:CollectionSafeObject(infiniteScrollingID)} modelClass:[VideoObject class] completionBlock:^(id model, NSError *error) {
         
         if (completion) {
             completion(model, error);
@@ -552,7 +547,7 @@ static inline BOOL PathRequiresArray(NSString *path){
     
     NSParameterAssert(personId);
     
-    [self postPath:path parameters:@{@"personid": personId, kLastItemKey: CollectionSafeObject(infiniteScrollingID)} modelClass:[PersonObject class] completionBlock:^(id model, NSError *error) {
+    [self postPath:path parameters:@{@"personid": CollectionSafeObject(personId), kLastItemKey: CollectionSafeObject(infiniteScrollingID)} modelClass:[PersonObject class] completionBlock:^(id model, NSError *error) {
         if (completion) {
             completion(model, error);
         }
@@ -580,23 +575,11 @@ static inline BOOL PathRequiresArray(NSString *path){
                 completion(nil, error);
             }
         }else{
-            
-//#ifdef DEBUG
-            
             [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Network Request Failed", @"standard post error string") error:error buttonHandler:^{
                 if (completion) {
                     completion(nil, error);
                 }
             } logError:YES];
-//#else
-//            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error Loading Data", @"Error Loading Data") message:[NSString stringWithFormat:NSLocalizedString(@"Error Code: %i", @"Error Code"), error.code] buttonHandler:^{
-//                
-//                if (completion) {
-//                    completion(nil, error);
-//                }
-//
-//            } logError:YES];
-//#endif
         }
     }];
 }
@@ -636,11 +619,11 @@ static inline BOOL PathRequiresArray(NSString *path){
                 completion(nil, error);
             }
         }else{
-            [AIKErrorManager showAlertWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion buttonHandler:^{
+            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Network Request Failed", @"standard post error string") error:error buttonHandler:^{
                 if (completion) {
                     completion(nil, error);
                 }
-            } logError:NO];
+            } logError:YES];
         }
     }];
     
@@ -702,7 +685,7 @@ static inline BOOL PathRequiresArray(NSString *path){
                             [[WaxUser currentUser] logOut];
                         } logError:YES];
                     }else if (error.code > 9001){
-                        returnObject = error; //perhaps handle these differently! 
+                        returnObject = error; //TODO: perhaps handle 9000s differently!?
                     }else{
                         returnObject = error;
                     }

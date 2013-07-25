@@ -10,8 +10,8 @@
 NSString *const kWaxVersionCodeName = @"Cinnamon Bear"; 
 
 #pragma mark - URLS
-NSString *const kWaxPrivacyPolicyURL = @"https://wax.li/documents/terms_of_service.html"; 
-NSString *const kWaxTermsOfServiceURL = @"https://wax.li/documents/privacy-policy.html"; 
+NSString *const kWaxTermsOfServiceURL = @"https://wax.li/documents/terms_of_service.html"; 
+NSString *const kWaxPrivacyPolicyURL = @"https://wax.li/documents/privacy-policy.html"; 
 NSString *const kWaxAttributionsURL = @"https://wax.li/documents/acknowledgements.html"; 
 NSString *const kWaxItunesStoreURL = @"http://bit.ly/DownloadWax";
 
