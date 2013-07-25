@@ -59,13 +59,13 @@ typedef void(^WaxUserCompletionBlockTypeProfilePicture)(UIImage *profilePicture,
 -(void)logOut;
 
 #pragma mark - Profile Picture
--(void)chooseNewprofilePicture:(UIViewController *)sender completion:(WaxUserCompletionBlockTypeProfilePicture)completion;
+-(void)chooseNewprofilePictureFromViewController:(UIViewController *)sender completion:(WaxUserCompletionBlockTypeProfilePicture)completion;
 
 -(void)updateProfilePictureOnServer:(UIImage *)profilePicture
                  andShowUICallbacks:(BOOL)showUICallbacks
                          completion:(WaxUserCompletionBlockTypeSimple)completion;
 
--(void)syncFacebookProfilePictureWithCompletion:(WaxUserCompletionBlockTypeSimple)completion;
+-(void)syncFacebookProfilePictureShowingUICallbacks:(BOOL)showUICallbacks withCompletion:(WaxUserCompletionBlockTypeSimple)completion;
 
 #pragma mark - Social Accounts
 -(void)chooseTwitterAccountWithCompletion:(WaxUserCompletionBlockTypeSimple)completion;
@@ -80,8 +80,7 @@ typedef void(^WaxUserCompletionBlockTypeProfilePicture)(UIImage *profilePicture,
 +(void)resetForInitialLaunch;
 +(void)saveCurrentUserToVendorSolutions; 
 
-//#ifndef RELEASE
-//-(BOOL)isSuperUser;
-//#endif
+
+
 
 @end

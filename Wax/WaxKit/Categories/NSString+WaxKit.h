@@ -10,8 +10,7 @@
 
 @interface NSString (WaxKit)
 
-//+(NSString *)s3ProfilePictureKeyFromUserid:(NSString *)userid;
-//+(NSString *)s3VideoKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink;
-//+(NSString *)s3ThumbnailKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink;
++(NSString *)sharingTextFromCompetitionTag:(NSString *)tag andShareURL:(NSURL *)shareURL; 
+
 
 @end

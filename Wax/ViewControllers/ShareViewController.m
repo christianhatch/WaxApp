@@ -6,15 +6,21 @@
 //  Copyright (c) 2013 Christian Hatch. All rights reserved.
 //
 
-#define kChooseCategoryPlaceHolderText NSLocalizedString(@"tap to choose category", @"tap to choose category")
+#define kChooseCategoryPlaceholderText NSLocalizedString(@"required", @"category placeholder")
+#define kTagFieldPlaceholderText NSLocalizedString(@"YourTagHere", @"competition tag field placeholder")
+
 #define kTagFieldMaxCharacters 25
 
 #import "ShareViewController.h"
 #import "CategoryChooserViewController.h"
 
 @interface ShareViewController () <UITextFieldDelegate>
+@property (strong, nonatomic) IBOutlet UILabel *tagFieldTitleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *sharingTitleLabel;
+
 @property (strong, nonatomic) IBOutlet UITextField *tagField;
-@property (strong, nonatomic) IBOutlet WaxRoundButton *categoryButton;
+@property (strong, nonatomic) IBOutlet UIButton *categoryButton;
+@property (strong, nonatomic) IBOutlet UILabel *categoryLabel;
 
 @property (strong, nonatomic) IBOutlet UISwitch *twitterSwitch;
 @property (strong, nonatomic) IBOutlet UISwitch *facebookSwitch;
@@ -48,59 +54,69 @@
 -(void)setUpView{
     self.navigationItem.title = NSLocalizedString(@"Share", @"Share");
 
+    self.view.backgroundColor = [UIColor waxTableViewCellSelectionColor];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Share", @"Share") style:UIBarButtonItemStyleDone target:self action:@selector(finish:)];
+
+    //tagfield
     self.tagField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.tagField.spellCheckingType = UITextSpellCheckingTypeNo;
     self.tagField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     self.tagField.returnKeyType = UIReturnKeyDone; 
     self.tagField.delegate = self;
-   
+    self.tagField.font = [UIFont waxDefaultFont];
+    self.tagField.textColor = [UIColor waxDefaultFontColor]; 
+    
     UILabel *poundLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 5, self.tagField.bounds.size.height)];
     poundLabel.text = @"#";
-    poundLabel.font = self.tagField.font;
+    [poundLabel setWaxDetailFontOfSize:13]; 
     poundLabel.backgroundColor = [UIColor clearColor];
     [poundLabel sizeToFit]; 
     self.tagField.leftView = poundLabel;
     self.tagField.leftViewMode = UITextFieldViewModeAlways;
     
-    
-    for (UILabel *lbl in @[self.facebookLabel, self.twitterLabel, self.locationLabel]) {
-        [lbl setWaxDefaultFont];
+    //share-to labels
+    for (UILabel *lbl in @[self.facebookLabel, self.twitterLabel, self.locationLabel, self.categoryButton.titleLabel]) {
+        [lbl setWaxDefaultFontOfSize:16];
         lbl.textAlignment = NSTextAlignmentLeft; 
     }
     
-    self.facebookLabel.text = NSLocalizedString(@"Share to Facebook", @"Share to Facebook");
-    self.twitterLabel.text = NSLocalizedString(@"Share to Twitter", @"Share to Twitter");
+    [self.categoryButton setTitleColorForAllControlStates:[UIColor waxDefaultFontColor]];
+    [self.categoryLabel setWaxDefaultFontOfSize:15 color:[UIColor waxDetailFontColor]]; 
+    
+    self.facebookLabel.text = NSLocalizedString(@"Facebook", @"Share to Facebook");
+    self.twitterLabel.text = NSLocalizedString(@"Twitter", @"Share to Twitter");
     self.locationLabel.text = NSLocalizedString(@"Include Location", @"Include Location");
             
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Share", @"Share") style:UIBarButtonItemStyleDone target:self action:@selector(finish:)];
-    
     [self.facebookSwitch setOn:([WaxUser currentUser].facebookAccountConnected && [[AIKFacebookManager sharedManager] canPublish]) animated:NO];
     [self.twitterSwitch setOn:[WaxUser currentUser].twitterAccountConnected animated:NO];
     
-    [self setUpTagAndCategoryFields];
+    //title labels
+    [self.tagFieldTitleLabel setWaxDetailFontOfSize:13 color:[UIColor waxDefaultFontColor]];
+    [self.sharingTitleLabel setWaxDetailFontOfSize:13 color:[UIColor waxDefaultFontColor]];
+    
+    if ([VideoUploadManager sharedManager].isInChallengeMode) {
+        
+        NSString *tag = [VideoUploadManager sharedManager].challengeVideoTag;
+        
+        self.tagField.text = [tag stringByReplacingOccurrencesOfString:@"#" withString:@""];
+        self.categoryLabel.text = [VideoUploadManager sharedManager].challengeVideoCategory;
+        
+    }else{
+        self.tagField.placeholder = kTagFieldPlaceholderText;
+        self.categoryLabel.text = kChooseCategoryPlaceholderText;
+    }
 
     self.locationLabel.hidden = YES;
     self.locationSwitch.hidden = YES;     
 }
--(void)setUpTagAndCategoryFields{
-    if ([VideoUploadManager sharedManager].isInChallengeMode) {
-        
-        NSString *tag = [VideoUploadManager sharedManager].challengeVideoTag;
-        self.tagField.text = [tag stringByReplacingOccurrencesOfString:@"#" withString:@""];
-        
-        [self.categoryButton styleAsWaxRoundButtonBlueWithTitle:[VideoUploadManager sharedManager].challengeVideoCategory];
-        
-    }else{
-        self.tagField.placeholder = NSLocalizedString(@"ExampleCompetitionTag", @"competition tag field placeholder");
-        [self.categoryButton styleAsWaxRoundButtonBlueWithTitle:kChooseCategoryPlaceHolderText];
-    }
-}
+
 -(void)finish:(id)sender{
     if (![self verifyInputtedData]) {
         return;
     }
     
-    [[VideoUploadManager sharedManager] addMetadataWithTag:self.tagField.text category:self.categoryButton.titleLabel.text shareToFacebook:self.facebookSwitch.on sharetoTwitter:self.twitterSwitch.on shareLocation:self.locationSwitch.on];
+    [[VideoUploadManager sharedManager] addMetadataWithTag:self.tagField.text category:self.categoryLabel.text shareToFacebook:self.facebookSwitch.on sharetoTwitter:self.twitterSwitch.on shareLocation:self.locationSwitch.on];
     
     [[[self presentingViewController] presentingViewController] dismissViewControllerAnimated:YES completion:^{
         [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:@"kDidDismissSharePage" object:self];
@@ -109,7 +125,7 @@
 - (IBAction)chooseCategory:(id)sender {
     [self.view endEditing:YES];
     [CategoryChooserViewController chooseCategoryWithCompletionBlock:^(NSString *category) {
-        [self.categoryButton setTitle:category forState:UIControlStateNormal];
+        self.categoryLabel.text = category;
     } navigationController:self.navigationController];
 }
 - (IBAction)twitterSwitchToggled:(id)sender {
@@ -166,7 +182,7 @@
         [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"No Competition", @"No Competition") message:NSLocalizedString(@"Please enter a competition tag", @"Please enter a competition tag") buttonHandler:^{
             [self.tagField becomeFirstResponder]; 
         } logError:NO];
-    }else if ([self.categoryButton.titleLabel.text isEqualToString:kChooseCategoryPlaceHolderText]){
+    }else if ([self.categoryLabel.text isEqualToString:kChooseCategoryPlaceholderText]){
         verified = NO;
         [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"No Category", @"No Category") message:NSLocalizedString(@"Please choose a category", @"Please choose a category") buttonHandler:^{
             [self chooseCategory:nil];

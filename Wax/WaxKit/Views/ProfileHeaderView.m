@@ -58,7 +58,7 @@
     }else{
         __block ProfileHeaderView *blockSelf = self; 
         [self.profilePictureView setImageForProfilePictureWithUserID:person.userID buttonHandler:^(UIImageView *imageView) {
-            [[WaxUser currentUser] chooseNewprofilePicture:[blockSelf nearestViewController] completion:^(UIImage *profilePicture, NSError *error) {
+            [[WaxUser currentUser] chooseNewprofilePictureFromViewController:[blockSelf nearestViewController] completion:^(UIImage *profilePicture, NSError *error) {
                 if (!error) {
                     [blockSelf.profilePictureView setImage:profilePicture animated:YES]; 
                 }else{

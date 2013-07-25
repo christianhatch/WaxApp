@@ -231,8 +231,9 @@ static inline NSString *stringFromActivityType(NSString *activityType){
                 [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"User shared video using %@", stringFromActivityType(activityType)]];
                 
                 if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
-                    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Link Copied to Clipboard!", @"Copied to Clipboard!")];
+                    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Copied to Clipboard!", @"Copied to Clipboard!")];
                 }
+                
             }else{
                 [AIKErrorManager logMessageToAllServices:@"User canceled sharing from feed cell"];
             }

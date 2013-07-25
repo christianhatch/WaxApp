@@ -85,23 +85,17 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     
     NSURL *videoURL = [info objectForKeyOrNil:UIImagePickerControllerMediaURL];
-    
-    if (!videoURL) {
-        //TODO: cancel this entire thing if there's no video url, since we can't do anything else
-        
-    }
+
+    AVAsset *asset = [AVAsset assetWithURL:videoURL];
+    Float64 dur = CMTimeGetSeconds(asset.duration);
+    NSNumber *duration = [NSNumber numberWithFloat:dur];
     
     if (picker != self) {
         [picker dismissViewControllerAnimated:YES completion:^{
-            AVAsset *ass = [AVAsset assetWithURL:videoURL];
-
-            Float64 dur = CMTimeGetSeconds(ass.duration);
-            
-            [self finishUpWithURL:videoURL duration:[NSNumber numberWithFloat:dur]];
+            [self finishUpWithURL:videoURL duration:duration];
         }];
-        
     }else{
-        [self finishUpWithURL:videoURL duration:[NSNumber numberWithInteger:cameraControls.currentTimer]];
+        [self finishUpWithURL:videoURL duration:duration];
     }
     
 }

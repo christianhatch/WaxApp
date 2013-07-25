@@ -21,9 +21,6 @@
 +(TutorialParentViewController *)tutorialViewController{
     return [[TutorialParentViewController alloc] init]; 
 }
-//+(TutorialParentViewController *)tutorialViewControllerWithRegistrationViewControllers{
-//    
-//}
 
 - (void)viewDidLoad{
     [super viewDidLoad];
@@ -42,13 +39,6 @@
     [self.view addSubview:self.pageController.view];
     [self.pageController didMoveToParentViewController:self];
 }
-//-(void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers{
-//    for (UIViewController *vc in pendingViewControllers) {
-//        if ([vc isKindOfClass:[UINavigationController class]]) {
-//            [self.pageController setViewControllers:pendingViewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
-//        }
-//    }
-//}
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
     
     NSUInteger currentIndex = [self indexForViewController:viewController];

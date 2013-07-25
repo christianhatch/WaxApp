@@ -105,6 +105,8 @@
 		453E44861794B11A00771312 /* tutorial_screen4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 453E44761794B11A00771312 /* tutorial_screen4@2x.png */; };
 		454F826E179FC044002005D7 /* WaxEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 454F826D179FC044002005D7 /* WaxEmptyView.m */; };
 		454F826F179FC044002005D7 /* WaxEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 454F826D179FC044002005D7 /* WaxEmptyView.m */; };
+		454F827117A0CBEC002005D7 /* chevron.png in Resources */ = {isa = PBXBuildFile; fileRef = 454F827017A0CBEC002005D7 /* chevron.png */; };
+		454F827217A0CBEC002005D7 /* chevron.png in Resources */ = {isa = PBXBuildFile; fileRef = 454F827017A0CBEC002005D7 /* chevron.png */; };
 		455406CC177A42F8004E334A /* UILabel+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 455406CB177A42F8004E334A /* UILabel+WaxKit.m */; };
 		455406CD177A42F8004E334A /* UILabel+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 455406CB177A42F8004E334A /* UILabel+WaxKit.m */; };
 		455406D3177A4490004E334A /* UIColor+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 455406D2177A4490004E334A /* UIColor+WaxKit.m */; };
@@ -526,6 +528,7 @@
 		453E44761794B11A00771312 /* tutorial_screen4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial_screen4@2x.png"; sourceTree = "<group>"; };
 		454F826C179FC044002005D7 /* WaxEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxEmptyView.h; sourceTree = "<group>"; };
 		454F826D179FC044002005D7 /* WaxEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxEmptyView.m; sourceTree = "<group>"; };
+		454F827017A0CBEC002005D7 /* chevron.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chevron.png; sourceTree = "<group>"; };
 		455406CA177A42F8004E334A /* UILabel+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+WaxKit.h"; sourceTree = "<group>"; };
 		455406CB177A42F8004E334A /* UILabel+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+WaxKit.m"; sourceTree = "<group>"; };
 		455406D1177A4490004E334A /* UIColor+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+WaxKit.h"; sourceTree = "<group>"; };
@@ -1275,6 +1278,7 @@
 		45A7C9F21782671C00F62D4D /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				454F827017A0CBEC002005D7 /* chevron.png */,
 				45267D48179D951100101B30 /* cancel_onClick.png */,
 				45267D49179D951100101B30 /* cancel_onClick@2x.png */,
 				45267D4A179D951100101B30 /* error_image.png */,
@@ -1800,6 +1804,7 @@
 				45267D5E179D951100101B30 /* sms_icon.png in Resources */,
 				45267D5F179D951100101B30 /* sms_icon@2x.png in Resources */,
 				45267D61179D9E4D00101B30 /* WaxEmptyView.xib in Resources */,
+				454F827117A0CBEC002005D7 /* chevron.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1879,6 +1884,7 @@
 				45E298AF179B2DEB0051471D /* VideoUploadView.xib in Resources */,
 				45E298B5179B63380051471D /* cancel.png in Resources */,
 				45E298B7179B63380051471D /* cancel@2x.png in Resources */,
+				454F827217A0CBEC002005D7 /* chevron.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

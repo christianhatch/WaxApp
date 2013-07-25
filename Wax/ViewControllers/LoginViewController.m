@@ -15,7 +15,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *usernameField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
 @property (strong, nonatomic) IBOutlet UIButton *forgotPasswordButton;
-@property (strong, nonatomic) IBOutlet WaxRoundButton *loginFacebookButton;
+@property (strong, nonatomic) IBOutlet UIButton *loginFacebookButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *loginButton;
 
 - (IBAction)loginFacebookButtonAction:(id)sender;
@@ -42,29 +42,21 @@
 #ifndef DEBUG
     self.forgotPasswordButton.hidden = YES;
 #endif
+    self.view.backgroundColor = [UIColor waxTableViewCellSelectionColor];
     
     self.navigationItem.title = NSLocalizedString(@"Log In", @"Log In");
     self.loginButton.title = NSLocalizedString(@"Log In", @"Log In");
-    
-    self.usernameField.placeholder = NSLocalizedString(@"Username", @"Username");
-    self.passwordField.placeholder = NSLocalizedString(@"Password", @"Password");
-    self.passwordField.secureTextEntry = YES;
-    
+        
     [self.forgotPasswordButton styleFontAsWaxHeaderFontOfSize:13 color:[UIColor whiteColor] highlightedColor:[UIColor waxHeaderFontColor]]; 
     [self.forgotPasswordButton setTitleForAllControlStates:NSLocalizedString(@"forgot password?", @"forgot password?")];
 
-    [self.loginFacebookButton styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Login With Facebook", @"Login With Facebook")];
-    [self.loginFacebookButton.titleLabel setFont:[UIFont waxHeaderFontItalicsOfSize:16]];
-    [self.loginFacebookButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.loginFacebookButton setTitleColor:[UIColor waxDefaultFontColor] forState:UIControlStateHighlighted];
-    
-    UIImage *textFieldBG = [UIImage stretchyImage:[UIImage imageNamed:@"waxSearchBar_bg"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO];
-    for (UITextField *tf in @[self.usernameField, self.passwordField]) {
-        tf.background = textFieldBG;
-        tf.delegate = self;
-        tf.layer.cornerRadius = kCornerRadiusDefault;
-    }
+    [self.loginFacebookButton.titleLabel setWaxDefaultFontOfSize:16];    
+    [self.loginFacebookButton setTitleColorForAllControlStates:[UIColor waxDefaultFontColor]];
 
+    [self.loginWithEmailLabel setWaxDetailFontOfSize:13 color:[UIColor waxDefaultFontColor]];
+    
+    self.usernameField.delegate = self;
+    self.passwordField.delegate = self;
 }
 
 - (IBAction)loginFacebookButtonAction:(id)sender {

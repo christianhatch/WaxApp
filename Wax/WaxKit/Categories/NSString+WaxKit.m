@@ -10,14 +10,8 @@
 
 @implementation NSString (WaxKit)
 
-//+(NSString *)s3ProfilePictureKeyFromUserid:(NSString *)userid{
-//    return [[NSString stringWithFormat:@"%@/profile_picture.jpg", userid] lowercaseString];
-//}
-//+(NSString *)s3VideoKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink{
-//    return [[NSString stringWithFormat:@"%@/%@", userid, videoLink] lowercaseString];
-//}
-//+(NSString *)s3ThumbnailKeyFromUserid:(NSString *)userid andVideoLink:(NSString *)videoLink{
-//    return [[NSString stringWithFormat:@"%@/%@.jpg", userid, videoLink] lowercaseString];
-//}
++(NSString *)sharingTextFromCompetitionTag:(NSString *)tag andShareURL:(NSURL *)shareURL{
+    return [NSString stringWithFormat:NSLocalizedString(@"I challenge you to do %@ on Wax!\n%@\n\nDon't have Wax? Get it: %@", @"send challenge via text"), tag, shareURL, kWaxItunesStoreURL];
+}
 
 @end

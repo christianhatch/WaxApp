@@ -10,13 +10,16 @@
 #import "SplashViewController.h"
 
 @interface SignupViewController () <UITextFieldDelegate>
+@property (strong, nonatomic) IBOutlet UILabel *profilePictureLabel;
+@property (strong, nonatomic) IBOutlet UILabel *profileInfoLabel;
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *goButton;
 
 @property (strong, nonatomic) IBOutlet UIButton *profilePictureButton;
+@property (strong, nonatomic) IBOutlet UIImageView *profilePicturePreview;
+
 @property (strong, nonatomic) IBOutlet UITextField *fullNameField;
 @property (strong, nonatomic) IBOutlet UITextField *emailField;
-
 @property (strong, nonatomic) IBOutlet UITextField *usernameField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
 
@@ -43,101 +46,84 @@
 -(void)setUpView{
     self.navigationItem.title = NSLocalizedString(@"Sign Up", @"Sign Up");
 
-    [self.profilePictureButton setBackgroundImage:[UIImage imageNamed:@"profile_picture_placeholder"] forState:UIControlStateNormal];
-    [self.profilePictureButton setBackgroundImage:[UIImage imageNamed:@"profile_picture_placeholder_On"] forState:UIControlStateHighlighted]; 
+    self.view.backgroundColor = [UIColor waxTableViewCellSelectionColor];
     
     self.goButton.title = NSLocalizedString(@"Sign Up", @"Sign Up");
     self.fullNameField.placeholder = NSLocalizedString(@"Full Name", @"Full Name");
     self.emailField.placeholder = NSLocalizedString(@"Email", @"Email");
-    self.usernameField.placeholder = NSLocalizedString(@"choose a username", @"choose a username");
+    self.usernameField.placeholder = NSLocalizedString(@"Username", @"choose a username");
     self.passwordField.placeholder = NSLocalizedString(@"Password", @"Password");
     
-    UIImage *textFieldBG = [UIImage stretchyImage:[UIImage imageNamed:@"waxSearchBar_bg"] withCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) useImageHeight:NO];
+    [self.profilePictureButton.titleLabel setWaxDefaultFontOfSize:16];
+    [self.profilePictureButton setTitleColorForAllControlStates:[UIColor waxDefaultFontColor]];
+    
+    [self.profilePictureLabel setWaxDetailFontOfSize:13 color:[UIColor waxDefaultFontColor]];
+    [self.profileInfoLabel setWaxDetailFontOfSize:13 color:[UIColor waxDefaultFontColor]];
+    
     for (UITextField *tf in @[self.fullNameField, self.emailField, self.usernameField, self.passwordField]) {
-        tf.background = textFieldBG;
         tf.delegate = self;
-        tf.layer.cornerRadius = kCornerRadiusDefault; 
     }
 }
-
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
     self.profilePictureButton.enabled = !self.facebookSignup;
     self.passwordField.hidden = self.facebookSignup;
 
-    if (self.facebookSignup) {
-        self.usernameField.returnKeyType = UIReturnKeyGo;
-        
-        [SVProgressHUD showWithStatus:NSLocalizedString(@"Loading Facebook Information", @"Loading Facebook Information")];
-        
-        UIActivityIndicatorView *loadingPicView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        loadingPicView.hidesWhenStopped = YES;
-        [self.profilePictureButton addSubview:loadingPicView];
-        loadingPicView.center = self.profilePictureButton.center;
-        [loadingPicView startAnimating];
-        
-        [[AIKFacebookManager sharedManager] connectFacebookWithCompletion:^(id<FBGraphUser> user, NSError *error) {
-            
-            [SVProgressHUD dismiss];
-            
-            if (!error) {
-                [[AIKFacebookManager sharedManager] fetchProfilePictureForFacebookID:user.id completion:^(NSError *error, UIImage *profilePic) {
-                  
-                    [self.profilePictureButton setImage:profilePic forState:UIControlStateNormal animated:YES];
-                    
-                    [loadingPicView stopAnimating];
-                }];
-                
-                self.passwordField.text = user.id; 
-                self.fullNameField.text = user.name;
-                self.emailField.text = [user objectForKey:@"email"];
-                
-            }else{
-                
-            }
-        }];
-    }
+    if (self.facebookSignup) [self configureForFacebookSignup];
 }
+- (void)configureForFacebookSignup {
+    self.usernameField.returnKeyType = UIReturnKeyGo;
+    
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Loading Facebook Information", @"Loading Facebook Information")];
+    
+    [[AIKFacebookManager sharedManager] connectFacebookWithCompletion:^(id<FBGraphUser> user, NSError *error) {
+        
+        [SVProgressHUD dismiss];
+        
+        if (!error) {
+            [[AIKFacebookManager sharedManager] fetchProfilePictureForFacebookID:user.id completion:^(NSError *error, UIImage *profilePic) {
+                
+                [self setProfilePicture:profilePic];
+                
+            }];
+            
+            self.passwordField.text = user.id;
+            self.fullNameField.text = user.name;
+            self.emailField.text = [user objectForKey:@"email"];
+            
+        }else{
+            //TODO: error fetching your facebook profile info. please try again
+        }
+    }];
+}
+
 - (IBAction)signupButtonAction:(id)sender {
     [AIKErrorManager logMessageToAllServices:@"User tapped signup button on signup page"];
     
-    if ([self verifyInputtedData]) {
-        [SVProgressHUD showWithStatus:NSLocalizedString(@"Creating Account...", @"Creating Account...")];
-        
-        [[WaxUser currentUser] createAccountWithUsername:self.usernameField.text fullName:self.fullNameField.text email:self.emailField.text passwordOrFacebookID:self.passwordField.text completion:^(NSError *error) {
-            
-            if (!error) {
-                if (!self.facebookSignup) {
-                    
-                    UIImage *profPic = self.profilePictureButton.imageView.image;
-                    
-                    [[WaxUser currentUser] updateProfilePictureOnServer:profPic andShowUICallbacks:NO completion:^(NSError *error) {
-                        if (error) {
-                            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture")  message:error.localizedRecoverySuggestion buttonTitle:NSLocalizedString(@"Try again", @"Try again") showsCancelButton:NO buttonHandler:^{
-                                [[WaxUser currentUser] updateProfilePictureOnServer:profPic andShowUICallbacks:NO completion:^(NSError *error) {
-                                    if (error) {
-                                        [AIKErrorManager logMessage:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture") withError:error];
-                                    }
-                                }];
-                            } logError:YES];
-                        }
-                    }];
-                }
-                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Account Created!", @"Account Created!")];
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }else{
-                [SVProgressHUD dismiss];
-            }
-        }];
+    if (![self verifyInputtedData]) {
+        return;
     }
+    
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Creating Account...", @"Creating Account...")];
+    
+    [[WaxUser currentUser] createAccountWithUsername:self.usernameField.text fullName:self.fullNameField.text email:self.emailField.text passwordOrFacebookID:self.passwordField.text completion:^(NSError *error) {
+        
+        if (!error) {
+            if (!self.facebookSignup) [self uploadProfilePicture];
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Account Created!", @"Account Created!")];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }else{
+            [SVProgressHUD dismiss];
+        }
+    }];
 }
 - (IBAction)profilePictureButtonAction:(id)sender {
     [AIKErrorManager logMessageToAllServices:@"User tapped profile picture button on signup page"];
     
-    [[WaxUser currentUser] chooseNewprofilePicture:self completion:^(UIImage *profilePicture, NSError *error) {
+    [[WaxUser currentUser] chooseNewprofilePictureFromViewController:self completion:^(UIImage *profilePicture, NSError *error) {
         if (profilePicture) {
-            [self.profilePictureButton setImage:profilePicture forState:UIControlStateNormal animated:YES];
+            [self setProfilePicture:profilePicture];
         }
     }];
 }
@@ -174,7 +160,7 @@
     return YES;
 }
 
-#pragma mark - Internal Methods
+#pragma mark - Helper Methods
 -(BOOL)verifyInputtedData{
     BOOL verified = YES;
     
@@ -200,6 +186,26 @@
     }
     
     return verified;
+}
+-(void)setProfilePicture:(UIImage *)image{
+    [self.profilePicturePreview setCircular:YES borderColor:[UIColor waxTableViewCellSelectionColor]];
+    [self.profilePicturePreview setImage:image animated:YES];
+}
+
+- (void)uploadProfilePicture {
+    UIImage *profPic = self.profilePictureButton.imageView.image;
+    
+    [[WaxUser currentUser] updateProfilePictureOnServer:profPic andShowUICallbacks:NO completion:^(NSError *error) {
+        if (error) {
+            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture")  message:error.localizedRecoverySuggestion buttonTitle:NSLocalizedString(@"Try again", @"Try again") showsCancelButton:NO buttonHandler:^{
+                [[WaxUser currentUser] updateProfilePictureOnServer:profPic andShowUICallbacks:NO completion:^(NSError *error) {
+                    if (error) {
+                        [AIKErrorManager logMessage:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture") withError:error];
+                    }
+                }];
+            } logError:YES];
+        }
+    }];
 }
 
 

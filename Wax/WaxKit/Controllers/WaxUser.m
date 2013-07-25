@@ -16,7 +16,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 
 @interface WaxUser () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
-@property (nonatomic, strong) WaxUserCompletionBlockTypeProfilePicture profilePictureCompletion;
+@property (nonatomic, copy) WaxUserCompletionBlockTypeProfilePicture profilePictureCompletion;
 
 @end
 
@@ -213,11 +213,13 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         completion(nil);
     }
 }
--(void)chooseNewprofilePicture:(UIViewController *)sender completion:(WaxUserCompletionBlockTypeProfilePicture)completion{
+
+#pragma mark - Profile Picture
+-(void)chooseNewprofilePictureFromViewController:(UIViewController *)sender completion:(WaxUserCompletionBlockTypeProfilePicture)completion{
     
     self.profilePictureCompletion = completion;
     
-    UIActionSheet *profPicSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Choose Profile Picture", @"Choose Profile Picture") cancelButtonItem:nil destructiveButtonItem:nil otherButtonItems:nil, nil];
+    UIActionSheet *proPicSheet = [[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:nil destructiveButtonItem:nil otherButtonItems:nil, nil];
       
     RIButtonItem *choosePic = [RIButtonItem itemWithLabel:NSLocalizedString(@"Choose Picture", @"Choose Picture")];
     choosePic.action = ^{
@@ -247,25 +249,36 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     if (self.facebookAccountConnected) {
         RIButtonItem *fbook = [RIButtonItem itemWithLabel:NSLocalizedString(@"Use Facebook Profile Picture", @"Use Facebook Profile Picture")];
         fbook.action = ^{
-            [self syncFacebookProfilePictureWithCompletion:^(NSError *error) {
+            
+            [self syncFacebookProfilePictureShowingUICallbacks:YES withCompletion:^(NSError *error) {
+                [AIKErrorManager logMessage:@"failed to sync facebook profile picture" withError:error];
+            }];
+
+            [[AIKFacebookManager sharedManager] fetchProfilePictureForFacebookID:self.facebookAccountID completion:^(NSError *error, UIImage *profilePic) {
+                
                 if (completion) {
-                    completion(nil, error);
+                    completion(profilePic, error); 
                 }
+                
             }];
         };
         
-        [profPicSheet addButtonItem:fbook];
-        [profPicSheet addButtonItem:takePic];
-        [profPicSheet addButtonItem:choosePic];
+        [proPicSheet addButtonItem:fbook];
+        [proPicSheet addButtonItem:takePic];
+        [proPicSheet addButtonItem:choosePic];
     }else{
-        [profPicSheet addButtonItem:takePic];
-        [profPicSheet addButtonItem:choosePic];
+        [proPicSheet addButtonItem:takePic];
+        [proPicSheet addButtonItem:choosePic];
     }
 
-    [profPicSheet setCancelButtonIndex:[profPicSheet addButtonItem:[RIButtonItem cancelButton]]];
-    [profPicSheet showInView:mainWindowView];
+    [proPicSheet setCancelButtonIndex:[proPicSheet addButtonItem:[RIButtonItem cancelButton]]];
+    [proPicSheet showInView:mainWindowView];
 }
 -(void)updateProfilePictureOnServer:(UIImage *)profilePicture andShowUICallbacks:(BOOL)showUICallbacks completion:(WaxUserCompletionBlockTypeSimple)completion{
+    
+    if (!self.isLoggedIn) {
+        return;
+    }
     
     if (showUICallbacks) {
         [SVProgressHUD showWithStatus:NSLocalizedString(@"Updating Profile Picture...", @"Updating Profile Picture...")];
@@ -279,7 +292,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         }
 
     } completion:^(BOOL complete, NSError *error) {
-        if (!error) {
+        if (complete) {
             if (showUICallbacks) {
                 [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Updated Profile Picture!", @"Updated Profile Picture!")];
             }
@@ -291,14 +304,18 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         }
     }];
 }
--(void)syncFacebookProfilePictureWithCompletion:(WaxUserCompletionBlockTypeSimple)completion{
+-(void)syncFacebookProfilePictureShowingUICallbacks:(BOOL)showUICallbacks withCompletion:(WaxUserCompletionBlockTypeSimple)completion{
     
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"Syncing Facebook Profile Picture...", @"Syncing Facebook Profile Picture...")];
+    if (showUICallbacks) {
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"Syncing Facebook Profile Picture...", @"Syncing Facebook Profile Picture...")];
+    }
     
     [[WaxAPIClient sharedClient] syncFacebookProfilePictureWithCompletion:^(BOOL complete, NSError *error) {
         
-        if (!error) {
-            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Synced Facebook Profile Picture!", @"Synced Facebook Profile Picture!")];
+        if (complete) {
+            if (showUICallbacks) {
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Synced Facebook Profile Picture!", @"Synced Facebook Profile Picture!")];
+            }
         }else{
             [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Error Syncing Facebook Profile Picture", @"Error Syncing Facebook Profile Picture")];
         }
@@ -317,13 +334,24 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     
     UIImage *profPic = [info objectForKey:UIImagePickerControllerEditedImage];
     
-    if (self.profilePictureCompletion) {
-        self.profilePictureCompletion(profPic, nil);
+    if (self.isLoggedIn) {
+        [self updateProfilePictureOnServer:profPic andShowUICallbacks:YES completion:^(NSError *error) {
+            if (self.profilePictureCompletion) {
+                self.profilePictureCompletion(profPic, error);
+            }
+            self.profilePictureCompletion = nil;
+        }];
+    }else{
+        if (self.profilePictureCompletion) {
+            self.profilePictureCompletion(profPic, nil);
+        }
+        self.profilePictureCompletion = nil;
     }
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     [picker dismissViewControllerAnimated:YES completion:nil];
+    
     if (self.profilePictureCompletion) {
         self.profilePictureCompletion(nil, nil);
     }
