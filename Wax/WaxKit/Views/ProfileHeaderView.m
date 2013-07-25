@@ -56,15 +56,18 @@
     if (!person.isMe) {
         [self.profilePictureView setImageForProfilePictureWithUserID:person.userID buttonHandler:nil];
     }else{
+        
         __block ProfileHeaderView *blockSelf = self; 
         [self.profilePictureView setImageForProfilePictureWithUserID:person.userID buttonHandler:^(UIImageView *imageView) {
+                  
             [[WaxUser currentUser] chooseNewprofilePictureFromViewController:[blockSelf nearestViewController] completion:^(UIImage *profilePicture, NSError *error) {
-                if (!error) {
-                    [blockSelf.profilePictureView setImage:profilePicture animated:YES]; 
+                if (profilePicture) {
+                    [imageView setImage:profilePicture animated:YES];
                 }else{
                     VLog(@"error choosing new profile pic %@", error);
                 }
             }];
+            
         }];
     }
     
@@ -73,7 +76,7 @@
     [self.followingButton setTitleForAllControlStates:[NSString stringWithFormat:NSLocalizedString(@"%@ Following", @"%@ Following"), person.followingCount]];
     [self.followersButton setTitleForAllControlStates:[NSString stringWithFormat:NSLocalizedString(@"%@ Followers", @"%@ Followers"), person.followersCount]];
    
-    [self setUpFollowingLabel]; 
+    [self setUpButton];
 }
 -(void)setPerson:(PersonObject *)person{
     
@@ -90,6 +93,7 @@
     
     if (_userID != userID) {
         _userID = userID;
+        [self setUpButton]; 
         [self fetchProfileInfoAndUpdateUI];
     }
 }
@@ -97,26 +101,15 @@
 #pragma mark - IBActions
 
 -(IBAction)followButtonAction:(id)sender {
+    if ([WaxUser userIDIsCurrentUser:self.userID] || self.person.isMe) {
+        [self showSettings];
+        return; 
+    }
+    
     if (!self.person) {
         return; 
     }
-    if (self.person.isMe) {
-        SettingsViewController *settings = initViewControllerWithIdentifier(@"SettingsVC");
-        [self.nearestNavigationController pushViewController:settings animated:YES];
-    }else{
-        [[WaxAPIClient sharedClient] toggleFollowUserID:self.person.userID completion:^(BOOL complete, NSError *error) {
-            if (!error) {
-                self.person.following = !self.person.isFollowing;
-
-                self.person.followersCount = [NSNumber numberWithInteger:self.person.isFollowing ? self.person.followersCount.integerValue + 1 : self.person.followersCount.integerValue - 1];
-                [self updateFollowersCountLabel];
-                
-                [self setUpFollowingLabel];
-            }else{
-                DLog(@"followed/unfollowed error %@", error);
-            }
-        }];
-    }
+    [self toggleFollow];
 }
 
 - (IBAction)followersButtonAction:(id)sender {
@@ -135,23 +128,35 @@
     [self.nearestNavigationController pushViewController:plvc animated:YES];
 }
 
+
 #pragma mark - Public API
 -(void)refreshData{
     [self fetchProfileInfoAndUpdateUI]; 
 }
 
 #pragma mark - Convenience Methods
--(void)setUpFollowingLabel{
+-(void)setUpButton{
+    if ([WaxUser userIDIsCurrentUser:self.userID] || self.person.isMe) {
+        [self setUpButtonForSettings];
+        return;
+    }
+    
+    if (self.person && !self.person.isMe) {
+        [self setUpButtonAsFollowButton];
+    }
+}
+-(void)setUpButtonAsFollowButton{
     NSAssert(self.person, @"Must have a person object set on profile header to setup follow button!");
     
     NSString *title = self.person.isFollowing ? NSLocalizedString(@"Unfollow", @"Unfollow") : NSLocalizedString(@"Follow", @"Follow");;
-
-    if (self.person.isMe) {
-        title = NSLocalizedString(@"Settings", @"Settings");
-    }
     
     [self.followButton setTitleForAllControlStates:title];
 }
+-(void)setUpButtonForSettings{
+    
+    [self.followButton setTitleForAllControlStates:NSLocalizedString(@"Settings", @"Settings")];
+}
+
 -(void)updateFollowersCountLabel{
     
     if (self.person.followersCount.integerValue != 1) {
@@ -166,6 +171,24 @@
             self.person = person;
         }else{
             DLog(@"error fetching person for profile header %@", error);
+        }
+    }];
+}
+-(void)showSettings{
+    SettingsViewController *settings = initViewControllerWithIdentifier(@"SettingsVC");
+    [self.nearestNavigationController pushViewController:settings animated:YES];
+}
+-(void)toggleFollow{
+    [[WaxAPIClient sharedClient] toggleFollowUserID:self.person.userID completion:^(BOOL complete, NSError *error) {
+        if (!error) {
+            self.person.following = !self.person.isFollowing;
+            
+            self.person.followersCount = [NSNumber numberWithInteger:self.person.isFollowing ? self.person.followersCount.integerValue + 1 : self.person.followersCount.integerValue - 1];
+            [self updateFollowersCountLabel];
+            
+            [self setUpButton];
+        }else{
+            DLog(@"followed/unfollowed error %@", error);
         }
     }];
 }

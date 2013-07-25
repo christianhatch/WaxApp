@@ -16,11 +16,18 @@
     [self setCircular:YES borderColor:[UIColor waxTableViewCellSelectionColor]];
     
     if (userID) {
+        
         NSURL *url = [NSURL profilePictureURLFromUserID:userID];
+        NSURLRequestCachePolicy cachePolicy = NSURLRequestUseProtocolCachePolicy;
+        
+        if ([WaxUser userIDIsCurrentUser:userID]) {
+            cachePolicy = NSURLRequestReloadIgnoringLocalAndRemoteCacheData; 
+        }
+        
         if (handler) {
-            [self setImageWithURL:url placeholderImage:nil animated:YES andEnableAsButtonWithButtonHandler:handler completion:nil];
+            [self setImageWithURL:url cachePolicy:cachePolicy placeholderImage:nil animated:YES andEnableAsButtonWithButtonHandler:handler completion:nil];
         }else{
-            [self setImageWithURL:url placeholderImage:nil animated:YES completion:nil];
+            [self setImageWithURL:url cachePolicy:cachePolicy placeholderImage:nil animated:YES completion:nil];
         }
     }
 }

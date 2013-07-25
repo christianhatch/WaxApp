@@ -102,9 +102,6 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     [self.shareButton setImage:[UIImage imageNamed:@"downarrow"] forState:UIControlStateNormal];
     [self.shareButton setImage:[UIImage imageNamed:@"downarrow_on"] forState:UIControlStateHighlighted];
 }
--(void)prepareForReuse{
-    [self setUpMoviePlayer];
-}
 -(void)setVideoObject:(VideoObject *)videoObject{
     if ([videoObject isKindOfClass:[VideoObject class]]) {
         if (_videoObject != videoObject) {
@@ -124,6 +121,12 @@ static inline NSString *stringFromActivityType(NSString *activityType){
         [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Setting video object on feedcell is not a video object. Object attempted to set %@", videoObject]];
     }
 }
+-(void)prepareForReuse{
+    [self setUpMoviePlayer];
+    [self.profilePictureView setImage:nil animated:YES];
+    [super prepareForReuse];
+}
+
 -(void)setUpView{
     VideoObject *video = self.videoObject;
     

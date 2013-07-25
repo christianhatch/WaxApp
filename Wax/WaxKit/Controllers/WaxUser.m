@@ -34,22 +34,25 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 
 #pragma mark - User Information Getters
 -(NSString *)token{
+   
     NSString *securityToken = [Lockbox stringForKey:kUserTokenKey];
-    if ([NSString isEmptyOrNil:securityToken]) {
+    
+    if ([NSString isEmptyOrNil:securityToken] || [securityToken isEqualToString:kFalseString]) {
         return kFalseString; 
-    }else{
-        NSInteger time = [[NSDate date] timeIntervalSince1970]/300;
-        NSString *hashed = [[NSString stringWithFormat:@"%@%i%@", securityToken, time, kWaxAPISalt] MD5];
-        return hashed;
     }
+    
+    NSInteger time = [[NSDate date] timeIntervalSince1970]/300;
+    NSString *hashed = [[NSString stringWithFormat:@"%@%i%@", securityToken, time, kWaxAPISalt] MD5];
+    return hashed;
 }
 -(NSString *)userID{
     NSString *userIdentification = [Lockbox stringForKey:kUserIDKey];
+  
     if ([NSString isEmptyOrNil:userIdentification]){
-        return kFalseString;
-    }else{
-        return userIdentification;
+        userIdentification = kFalseString;
     }
+    
+    return userIdentification;
 }
 
 -(NSString *)username{
@@ -64,9 +67,11 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 
 -(NSString *)facebookAccountID{
     NSString *fbid = [Lockbox stringForKey:kUserFacebookAccountIDKey];
+    
     if ([NSString isEmptyOrNil:fbid]) {
         fbid = kFalseString;
     }
+    
     return fbid;
 }
 -(NSString *)twitterAccountID{
@@ -78,7 +83,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 }
 -(NSString *)twitterAccountName{
     NSString *name = @"none";
-    if ([self twitterAccountConnected]) {
+    if (self.twitterAccountConnected) {
         ACAccount *twitter = [[AIKTwitterManager sharedManager] accountForIdentifier:self.twitterAccountID];
         name = [NSString stringWithFormat:@"@%@",twitter.username];
     }
@@ -153,11 +158,22 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 }
 
 #pragma mark - Signup/Login/Logout/Update Pic
--(void)createAccountWithUsername:(NSString *)username fullName:(NSString *)fullName email:(NSString *)email passwordOrFacebookID:(NSString *)passwordOrFacebookID completion:(WaxUserCompletionBlockTypeSimple)completion{
+-(void)createAccountWithUsername:(NSString *)username fullName:(NSString *)fullName email:(NSString *)email passwordOrFacebookID:(NSString *)passwordOrFacebookID profilePicture:(UIImage *)profilePicture completion:(WaxUserCompletionBlockTypeSimple)completion{
 
     [[WaxAPIClient sharedClient] createAccountWithUsername:username fullName:fullName email:email passwordOrFacebookID:passwordOrFacebookID completion:^(LoginObject *loginResponse, NSError *error) {
+        
         if (!error) {
-            [self finishLoggingInAndSaveUserInformation:loginResponse completion:completion];
+            [self finishLoggingInAndSaveUserInformation:loginResponse completion:^(NSError *error) {
+             
+                [self updateProfilePictureOnServer:profilePicture andShowUICallbacks:NO completion:^(NSError *error) {
+                    if (!error) {
+                        if (completion) {
+                            completion(error); 
+                        }
+                    }
+                }];
+
+            }];
         }else{
             [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Problem Creating Account", @"Problem Creating Account") error:error buttonHandler:nil logError:YES]; 
             if (completion) {
@@ -220,7 +236,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     self.profilePictureCompletion = completion;
     
     UIActionSheet *proPicSheet = [[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:nil destructiveButtonItem:nil otherButtonItems:nil, nil];
-      
+    
     RIButtonItem *choosePic = [RIButtonItem itemWithLabel:NSLocalizedString(@"Choose Picture", @"Choose Picture")];
     choosePic.action = ^{
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
@@ -242,7 +258,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     RIButtonItem *cancel = [RIButtonItem cancelButton];
     cancel.action = ^{
         if (completion) {
-            completion(nil, nil); 
+            completion(nil, nil);
         }
     };
     
@@ -251,13 +267,15 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         fbook.action = ^{
             
             [self syncFacebookProfilePictureShowingUICallbacks:YES withCompletion:^(NSError *error) {
-                [AIKErrorManager logMessage:@"failed to sync facebook profile picture" withError:error];
+                if (error) {
+                    [AIKErrorManager logMessage:@"failed to sync facebook profile picture" withError:error];
+                }
             }];
-
+            
             [[AIKFacebookManager sharedManager] fetchProfilePictureForFacebookID:self.facebookAccountID completion:^(NSError *error, UIImage *profilePic) {
                 
                 if (completion) {
-                    completion(profilePic, error); 
+                    completion(profilePic, error);
                 }
                 
             }];
@@ -270,16 +288,45 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         [proPicSheet addButtonItem:takePic];
         [proPicSheet addButtonItem:choosePic];
     }
-
+    
     [proPicSheet setCancelButtonIndex:[proPicSheet addButtonItem:[RIButtonItem cancelButton]]];
     [proPicSheet showInView:mainWindowView];
 }
+
+#pragma mark - UIImagePickerControllerDelegate
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    UIImage *profPic = [info objectForKey:UIImagePickerControllerEditedImage];
+    
+    if (self.isLoggedIn) {
+        [self updateProfilePictureOnServer:profPic andShowUICallbacks:YES completion:^(NSError *error) {
+            if (self.profilePictureCompletion) {
+                self.profilePictureCompletion(profPic, error);
+            }
+        }];
+    }else{
+        if (self.profilePictureCompletion) {
+            self.profilePictureCompletion(profPic, nil);
+        }
+    }
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    if (self.profilePictureCompletion) {
+        self.profilePictureCompletion(nil, nil);
+    }
+}
+
 -(void)updateProfilePictureOnServer:(UIImage *)profilePicture andShowUICallbacks:(BOOL)showUICallbacks completion:(WaxUserCompletionBlockTypeSimple)completion{
     
     if (!self.isLoggedIn) {
         return;
     }
-    
+        
     if (showUICallbacks) {
         [SVProgressHUD showWithStatus:NSLocalizedString(@"Updating Profile Picture...", @"Updating Profile Picture...")];
     }
@@ -293,6 +340,9 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 
     } completion:^(BOOL complete, NSError *error) {
         if (complete) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationProfilePictureDidChange object:self];
+
             if (showUICallbacks) {
                 [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Updated Profile Picture!", @"Updated Profile Picture!")];
             }
@@ -313,6 +363,9 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     [[WaxAPIClient sharedClient] syncFacebookProfilePictureWithCompletion:^(BOOL complete, NSError *error) {
         
         if (complete) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationProfilePictureDidChange object:self];
+
             if (showUICallbacks) {
                 [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Synced Facebook Profile Picture!", @"Synced Facebook Profile Picture!")];
             }
@@ -325,36 +378,6 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
         }
         
     }];
-}
-
-#pragma mark - UIImagePickerControllerDelegate
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    
-    UIImage *profPic = [info objectForKey:UIImagePickerControllerEditedImage];
-    
-    if (self.isLoggedIn) {
-        [self updateProfilePictureOnServer:profPic andShowUICallbacks:YES completion:^(NSError *error) {
-            if (self.profilePictureCompletion) {
-                self.profilePictureCompletion(profPic, error);
-            }
-            self.profilePictureCompletion = nil;
-        }];
-    }else{
-        if (self.profilePictureCompletion) {
-            self.profilePictureCompletion(profPic, nil);
-        }
-        self.profilePictureCompletion = nil;
-    }
-}
-
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    
-    if (self.profilePictureCompletion) {
-        self.profilePictureCompletion(nil, nil);
-    }
 }
 
 -(void)logOut{

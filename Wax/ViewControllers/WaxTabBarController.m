@@ -148,7 +148,7 @@
 }
 
 -(BOOL)shouldHandleLaunchFromRemoteNotification{
-    return [WaxDataManager sharedManager].launchInfo != nil; 
+    return [WaxDataManager sharedManager].launchInfo != nil && ![[WaxDataManager sharedManager].launchInfo objectForKeyOrNil:@"initial"];
 }
 
 -(BOOL)isInitialLaunch{

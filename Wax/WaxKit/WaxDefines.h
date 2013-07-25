@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Acacia Interactive. All rights reserved.
 //
 
+extern NSString *const kWaxVersionCodeName;
+
 #pragma mark - URLS
 extern NSString *const kWaxPrivacyPolicyURL;
 extern NSString *const kWaxTermsOfServiceURL;

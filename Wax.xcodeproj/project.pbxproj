@@ -79,8 +79,6 @@
 		452FAE1617408C200091F8D4 /* NSError+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAE1517408C200091F8D4 /* NSError+WaxKit.m */; };
 		452FAE1C1740AC030091F8D4 /* persons.json in Resources */ = {isa = PBXBuildFile; fileRef = 452FAE1B1740AC030091F8D4 /* persons.json */; };
 		452FAE1E1740AE2F0091F8D4 /* videos.json in Resources */ = {isa = PBXBuildFile; fileRef = 452FAE1D1740AE2F0091F8D4 /* videos.json */; };
-		452FAEE317416C680091F8D4 /* UIView+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAEE217416C680091F8D4 /* UIView+WaxKit.m */; };
-		452FAEE417416C680091F8D4 /* UIView+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAEE217416C680091F8D4 /* UIView+WaxKit.m */; };
 		452FAFDD1741830E0091F8D4 /* libAcaciaKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 452FAFD8174182D10091F8D4 /* libAcaciaKit.a */; };
 		452FAFDE174183560091F8D4 /* libAcaciaKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 452FAFD8174182D10091F8D4 /* libAcaciaKit.a */; };
 		453E44671794AA6200771312 /* TutorialParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 453E44661794AA6200771312 /* TutorialParentViewController.m */; };
@@ -511,8 +509,6 @@
 		452FAE1517408C200091F8D4 /* NSError+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+WaxKit.m"; sourceTree = "<group>"; };
 		452FAE1B1740AC030091F8D4 /* persons.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = persons.json; sourceTree = "<group>"; };
 		452FAE1D1740AE2F0091F8D4 /* videos.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = videos.json; sourceTree = "<group>"; };
-		452FAEE117416C680091F8D4 /* UIView+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WaxKit.h"; sourceTree = "<group>"; };
-		452FAEE217416C680091F8D4 /* UIView+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WaxKit.m"; sourceTree = "<group>"; };
 		452FAFD2174182D00091F8D4 /* AcaciaKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AcaciaKit.xcodeproj; path = AcaciaKit/AcaciaKit.xcodeproj; sourceTree = "<group>"; };
 		453E44651794AA6200771312 /* TutorialParentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialParentViewController.h; path = Wax/ViewControllers/TutorialParentViewController.h; sourceTree = SOURCE_ROOT; };
 		453E44661794AA6200771312 /* TutorialParentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialParentViewController.m; path = Wax/ViewControllers/TutorialParentViewController.m; sourceTree = SOURCE_ROOT; };
@@ -1131,8 +1127,6 @@
 		459C281C1725EC82009C5487 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				452FAEE117416C680091F8D4 /* UIView+WaxKit.h */,
-				452FAEE217416C680091F8D4 /* UIView+WaxKit.m */,
 				4508A899176AC54B001E024A /* UIImageView+WaxKit.h */,
 				4508A89A176AC54B001E024A /* UIImageView+WaxKit.m */,
 				459C281D1725EC82009C5487 /* UIButton+WaxKit.h */,
@@ -1989,7 +1983,6 @@
 				45EA3210172602A700980320 /* NSString+WaxKit.m in Sources */,
 				451EBD2D1726CF29000D600E /* WaxDefines.m in Sources */,
 				452FAE1617408C200091F8D4 /* NSError+WaxKit.m in Sources */,
-				452FAEE317416C680091F8D4 /* UIView+WaxKit.m in Sources */,
 				4508A89B176AC54B001E024A /* UIImageView+WaxKit.m in Sources */,
 				455406CC177A42F8004E334A /* UILabel+WaxKit.m in Sources */,
 				455406D3177A4490004E334A /* UIColor+WaxKit.m in Sources */,
@@ -2054,7 +2047,6 @@
 				452FADD6174074910091F8D4 /* WaxDefines.m in Sources */,
 				452FADD7174074910091F8D4 /* AppDelegate.m in Sources */,
 				452FAE0A174088390091F8D4 /* WaxAPIClientTests.m in Sources */,
-				452FAEE417416C680091F8D4 /* UIView+WaxKit.m in Sources */,
 				45009A4A174EBCF600EE0B5C /* LoginObjectTests.m in Sources */,
 				45009A4D174EBD0200EE0B5C /* SettingsObjectTests.m in Sources */,
 				45009A50174EBD0A00EE0B5C /* PersonObjectTests.m in Sources */,

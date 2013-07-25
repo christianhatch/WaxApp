@@ -27,6 +27,22 @@
     self.imageView.image = [UIImage imageNamed:@"error_image"]; 
     [self.statusLabel setWaxHeaderFontOfSize:15 color:[UIColor waxHeaderFontColor]];
     self.backgroundColor = [UIColor whiteColor];
+    
+//#ifdef DEBUG
+//    self.backgroundColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:1];
+//    self.layer.borderWidth = (fminf(self.bounds.size.width, self.bounds.size.height))/10;
+//    self.layer.borderColor = [UIColor colorWithRed:0 green:1 blue:0.8 alpha:1].CGColor;
+//    
+//    self.statusLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:1 alpha:1];
+//    self.statusLabel.layer.borderWidth = (fminf(self.statusLabel.bounds.size.width, self.statusLabel.bounds.size.height))/10;
+//    self.statusLabel.layer.borderColor = [UIColor colorWithRed:0 green:0.4 blue:1 alpha:1].CGColor;
+//    
+//    self.imageView.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:1];
+//    self.imageView.layer.borderWidth = (fminf(self.imageView.bounds.size.width, self.imageView.bounds.size.height))/10;
+//    self.imageView.layer.borderColor = [UIColor colorWithRed:1 green:0.4 blue:0 alpha:1].CGColor;
+//    
+//    self.alpha = 0.5; 
+//#endif
 }
 
 -(void)willMoveToSuperview:(UIView *)newSuperview{

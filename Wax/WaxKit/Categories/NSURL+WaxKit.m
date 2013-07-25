@@ -45,15 +45,7 @@
 
 +(NSURL *)profilePictureURLFromUserID:(NSString *)userID{
     if ([WaxUser userIDIsCurrentUser:userID]) {
-        //        double lastChange = [[NSUserDefaults standardUserDefaults] doubleForKey:KWProfilePictureChangeDateKey];
-        //        double currentTime = [[NSDate date] timeIntervalSince1970];
-        //        double difference = (currentTime - lastChange) / 86400;
-        //
-        //        if (difference < 2) {
         return [NSURL s3ProfilePictureURLFromUserID:userID];
-        //        }else{
-        //            return [NSURL cloudFrontProfilePictureURLFromUserid:userid];
-        //        }
     }else{
         return [NSURL cloudFrontProfilePictureURLFromUserID:userID];
     }

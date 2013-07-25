@@ -8,7 +8,6 @@
 
 
 //Categories
-#import "UIView+WaxKit.h"
 #import "UIImageView+WaxKit.h"
 #import "UIButton+WaxKit.h"
 #import "UILabel+WaxKit.h"

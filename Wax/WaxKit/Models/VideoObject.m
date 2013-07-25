@@ -67,17 +67,7 @@
     return [WaxUser userIDIsCurrentUser:self.userID];
 }
 -(NSArray *)sharingActivityItems{
-    return @[[NSString sharingTextFromCompetitionTag:self.tag andShareURL:[NSURL shareURLFromShareID:self.shareID]], [NSURL shareURLFromShareID:self.shareID]];
-}
-
-#pragma mark - Internal Methods
--(NSString *)sharingString{
-
-    if (self.isMine) {
-        return [NSString stringWithFormat:NSLocalizedString(@"Check out my %@ video on Wax!", @"String for sharing link to user's own video"), self.tag];
-    }else{
-        return [NSString stringWithFormat:NSLocalizedString(@"Check out this %@ video on Wax!", @"String for sharing link to another user's video"), self.tag];
-    }
+    return @[[NSString sharingTextFromCompetitionTag:self.tag andShareURL:[NSURL shareURLFromShareID:self.shareID]]];
 }
 
 

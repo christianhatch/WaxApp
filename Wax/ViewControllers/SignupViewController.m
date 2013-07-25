@@ -107,10 +107,9 @@
     
     [SVProgressHUD showWithStatus:NSLocalizedString(@"Creating Account...", @"Creating Account...")];
     
-    [[WaxUser currentUser] createAccountWithUsername:self.usernameField.text fullName:self.fullNameField.text email:self.emailField.text passwordOrFacebookID:self.passwordField.text completion:^(NSError *error) {
+    [[WaxUser currentUser] createAccountWithUsername:self.usernameField.text fullName:self.fullNameField.text email:self.emailField.text passwordOrFacebookID:self.passwordField.text profilePicture:self.profilePicturePreview.image completion:^(NSError *error) {
         
         if (!error) {
-            if (!self.facebookSignup) [self uploadProfilePicture];
             [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Account Created!", @"Account Created!")];
             [self dismissViewControllerAnimated:YES completion:nil];
         }else{
@@ -122,9 +121,7 @@
     [AIKErrorManager logMessageToAllServices:@"User tapped profile picture button on signup page"];
     
     [[WaxUser currentUser] chooseNewprofilePictureFromViewController:self completion:^(UIImage *profilePicture, NSError *error) {
-        if (profilePicture) {
-            [self setProfilePicture:profilePicture];
-        }
+        [self setProfilePicture:profilePicture];
     }];
 }
 
@@ -179,7 +176,7 @@
         [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"No Password", @"No Password") message:NSLocalizedString(@"Please choose a password", @"Please choose a password") buttonHandler:^{
             [self.passwordField becomeFirstResponder];
         } logError:NO];
-    }else if (!self.facebookSignup && !self.profilePictureButton.imageView.image) {
+    }else if (!self.facebookSignup && !self.profilePicturePreview.image) {
         verified = NO;
         [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"No Profile Picture", @"No Profile Picture") message:NSLocalizedString(@"Please choose a profile picture", @"Please choose a profile picture") buttonHandler:nil logError:NO];
         [self profilePictureButtonAction:self];
@@ -191,24 +188,6 @@
     [self.profilePicturePreview setCircular:YES borderColor:[UIColor waxTableViewCellSelectionColor]];
     [self.profilePicturePreview setImage:image animated:YES];
 }
-
-- (void)uploadProfilePicture {
-    UIImage *profPic = self.profilePictureButton.imageView.image;
-    
-    [[WaxUser currentUser] updateProfilePictureOnServer:profPic andShowUICallbacks:NO completion:^(NSError *error) {
-        if (error) {
-            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture")  message:error.localizedRecoverySuggestion buttonTitle:NSLocalizedString(@"Try again", @"Try again") showsCancelButton:NO buttonHandler:^{
-                [[WaxUser currentUser] updateProfilePictureOnServer:profPic andShowUICallbacks:NO completion:^(NSError *error) {
-                    if (error) {
-                        [AIKErrorManager logMessage:NSLocalizedString(@"Problem Uploading Profile Picture", @"Problem Uploading Profile Picture") withError:error];
-                    }
-                }];
-            } logError:YES];
-        }
-    }];
-}
-
-
 
 
 

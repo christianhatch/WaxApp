@@ -45,6 +45,7 @@ typedef void(^WaxUserCompletionBlockTypeProfilePicture)(UIImage *profilePicture,
                         fullName:(NSString *)fullName
                            email:(NSString *)email
             passwordOrFacebookID:(NSString *)passwordOrFacebookID
+                  profilePicture:(UIImage *)profilePicture
                       completion:(WaxUserCompletionBlockTypeSimple)completion;
 
 -(void)loginWithFacebookID:(NSString *)facebookID
@@ -61,11 +62,6 @@ typedef void(^WaxUserCompletionBlockTypeProfilePicture)(UIImage *profilePicture,
 #pragma mark - Profile Picture
 -(void)chooseNewprofilePictureFromViewController:(UIViewController *)sender completion:(WaxUserCompletionBlockTypeProfilePicture)completion;
 
--(void)updateProfilePictureOnServer:(UIImage *)profilePicture
-                 andShowUICallbacks:(BOOL)showUICallbacks
-                         completion:(WaxUserCompletionBlockTypeSimple)completion;
-
--(void)syncFacebookProfilePictureShowingUICallbacks:(BOOL)showUICallbacks withCompletion:(WaxUserCompletionBlockTypeSimple)completion;
 
 #pragma mark - Social Accounts
 -(void)chooseTwitterAccountWithCompletion:(WaxUserCompletionBlockTypeSimple)completion;

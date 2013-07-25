@@ -114,7 +114,11 @@
     
     //first update the state of the empty view, regardless of whether or not the emptyview is shown currently or should be shown
     self.emptyView.state = self.hasRefreshedOnce ? EmptyViewStateStandard : EmptyViewStateInitial;
+    
+//#ifndef DEBUG
     self.scrollEnabled = self.hasRefreshedOnce;
+//#endif
+//#warning don't forget to remove this
     
     const bool shouldShowEmptyView = self.proxyDataSourceArray.count == 0;
     const bool emptyViewShown      = self.emptyView.superview != nil;
@@ -149,6 +153,7 @@
                     }];
 
 }
+
 #pragma mark - Convenience
 -(void)stopAnimatingFetchViews {
     if (self.pullToRefreshView.state != SVPullToRefreshStateStopped) [self.pullToRefreshView stopAnimating];
