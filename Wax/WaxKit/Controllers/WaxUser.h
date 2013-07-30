@@ -44,7 +44,13 @@ typedef void(^WaxUserCompletionBlockTypeProfilePicture)(UIImage *profilePicture,
 -(void)createAccountWithUsername:(NSString *)username
                         fullName:(NSString *)fullName
                            email:(NSString *)email
-            passwordOrFacebookID:(NSString *)passwordOrFacebookID
+                      facebookID:(NSString *)facebookID
+                      completion:(WaxUserCompletionBlockTypeSimple)completion;
+
+-(void)createAccountWithUsername:(NSString *)username
+                        fullName:(NSString *)fullName
+                           email:(NSString *)email
+                        password:(NSString *)password
                   profilePicture:(UIImage *)profilePicture
                       completion:(WaxUserCompletionBlockTypeSimple)completion;
 

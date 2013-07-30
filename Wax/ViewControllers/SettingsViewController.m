@@ -17,7 +17,7 @@
 
 
 @interface SettingsViewController () <MFMailComposeViewControllerDelegate>
-
+@property (strong, nonatomic) IBOutlet UISwitch *cameraRollSwitch;
 @end
 
 @implementation SettingsViewController
@@ -73,6 +73,7 @@
 
 }
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+  
     NSString *title = nil;
     
     if (section == SectionOtherSettings) {
@@ -106,9 +107,6 @@
     switch (result) {
         case MFMailComposeResultSent:{
             [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Thank you!", @"Thank you!")];
-//            RIButtonItem *item = [RIButtonItem itemWithLabel:NSLocalizedString(@"You're Welcome!", @"You're Welcome!")];
-//            UIAlertView *nomail = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Thanks So Much!", @"Thanks So Much!") message:NSLocalizedString(@"Thanks for the feedback, we'll read it right away!", @"Thanks for the feedback, we'll read it right away!") cancelButtonItem:item otherButtonItems:nil, nil];
-//            [nomail show];
         }break;
         case MFMailComposeResultSaved:{
             

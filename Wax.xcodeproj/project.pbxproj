@@ -400,7 +400,6 @@
 		45EA321F17260DA100980320 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA321E17260DA000980320 /* AVFoundation.framework */; };
 		45EA322117260E8200980320 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA322017260E8100980320 /* libz.dylib */; };
 		45EA322317260ED400980320 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA322217260ED400980320 /* FacebookSDK.framework */; };
-		45EA322817260F2B00980320 /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45EA322517260F2B00980320 /* FacebookSDKResources.bundle */; };
 		45EA322C17260F6B00980320 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA322B17260F6B00980320 /* AdSupport.framework */; };
 		45EA322E17260F7600980320 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA322D17260F7500980320 /* Accounts.framework */; };
 		45EA323017260F8200980320 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA322F17260F8100980320 /* libsqlite3.dylib */; };
@@ -801,6 +800,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45EA322317260ED400980320 /* FacebookSDK.framework in Frameworks */,
 				4518ADE0175AC3FA00D5D95C /* MediaPlayer.framework in Frameworks */,
 				4518AD591758FCE700D5D95C /* CoreMedia.framework in Frameworks */,
 				45EA321F17260DA100980320 /* AVFoundation.framework in Frameworks */,
@@ -814,7 +814,6 @@
 				45EA323017260F8200980320 /* libsqlite3.dylib in Frameworks */,
 				45EA322E17260F7600980320 /* Accounts.framework in Frameworks */,
 				45EA322C17260F6B00980320 /* AdSupport.framework in Frameworks */,
-				45EA322317260ED400980320 /* FacebookSDK.framework in Frameworks */,
 				45EA322117260E8200980320 /* libz.dylib in Frameworks */,
 				45EA321D17260D8100980320 /* AddressBook.framework in Frameworks */,
 				45EA31AE1725FADB00980320 /* MessageUI.framework in Frameworks */,
@@ -1590,6 +1589,7 @@
 			knownRegions = (
 				en,
 				fr,
+				he,
 			);
 			mainGroup = 45F71610171F163C009097F3;
 			productRefGroup = 45F7161A171F163C009097F3 /* Products */;
@@ -1641,7 +1641,6 @@
 				45AC7CC317637F6D0086D980 /* AcaciaKitResources.bundle in Resources */,
 				45F71627171F163C009097F3 /* InfoPlist.strings in Resources */,
 				45F71636171F163D009097F3 /* MainStoryboard.storyboard in Resources */,
-				45EA322817260F2B00980320 /* FacebookSDKResources.bundle in Resources */,
 				452FAE0D174089570091F8D4 /* Localizable.strings in Resources */,
 				4591002A1755979E000D8BCD /* AppledocSettings.plist in Resources */,
 				455A17C7177B523D00185F61 /* downarrow.png in Resources */,

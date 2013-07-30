@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-
 @interface SignupViewController : UIViewController
 
-@property (nonatomic, assign) BOOL facebookSignup; 
++(SignupViewController *)signupViewControllerForFacebookWithFBGraphUser:(id <FBGraphUser>)graphUser;
++(SignupViewController *)signupViewControllerForEmail; 
+
 
 @end

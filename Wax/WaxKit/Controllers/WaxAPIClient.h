@@ -105,6 +105,7 @@ typedef NS_ENUM(NSInteger, WaxAPIClientVideoActionType){
  @param email The email address of the user signing up.
  @param passwordOrFacebookID If signing up with an email address, this is the user's desired password. If signing up with Facebook, this is that user's FacebookID.
  @param completion The completion block to be executed upon completion of the request. Will be executed regardless of whether the request is successful or not. 
+ @param isFacebookLogin If the user is using Facebook to create their account, pass YES for this parameter. If the user is creating an account with their email address, pass NO for this parameter. 
  
  @discussion This method is used to create a user account on the server.
  */
@@ -112,6 +113,7 @@ typedef NS_ENUM(NSInteger, WaxAPIClientVideoActionType){
                         fullName:(NSString *)fullName
                            email:(NSString *)email
             passwordOrFacebookID:(NSString *)passwordOrFacebookID
+                 isFacebookLogin:(BOOL)isFacebookLogin
                       completion:(WaxAPIClientBlockTypeCompletionLogin)completion;
 /**
  @abstract

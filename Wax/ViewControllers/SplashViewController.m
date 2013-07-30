@@ -21,7 +21,11 @@
 @property (strong, nonatomic) IBOutlet WaxRoundButton *signupWithEmailButton;
 @property (strong, nonatomic) IBOutlet UIButton *loginButton;
 
-- (IBAction)signup:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *tutorialButton;
+
+- (IBAction)tutorialButtonAction:(id)sender;
+- (IBAction)signupWithFacebookAction:(id)sender;
+- (IBAction)signupWithEmailAction:(id)sender;
 - (IBAction)login:(id)sender;
 
 @end
@@ -46,6 +50,10 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:kHasShownTutorialKey]) {
+        [self tutorialButtonAction:nil]; 
+    }
 }
 
 -(void)setUpView{
@@ -56,12 +64,12 @@
     self.sloganLabel.text = NSLocalizedString(@"Compete in Anything!", @"Compete in Anything!");
     self.backgroundImageView.dimmingView.alpha = 0.65;
     
+    [self.tutorialButton styleFontAsWaxHeaderFontOfSize:15 color:[UIColor whiteColor] highlightedColor:[UIColor waxDefaultFontColor]]; 
     
     [self.signupWithFacebookButton styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Sign Up With Facebook", @"Sign Up With Facebook")];
     [self.signupWithFacebookButton.titleLabel setFont:[UIFont waxHeaderFontItalicsOfSize:16]];
     [self.signupWithFacebookButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.signupWithFacebookButton setTitleColor:[UIColor waxDefaultFontColor] forState:UIControlStateHighlighted]; 
-    self.signupWithFacebookButton.tag = 2;
 
     [self.signupWithEmailButton styleAsWaxRoundButtonGreyWithTitle:NSLocalizedString(@"Sign Up With Email", @"Sign Up With Email")];
     [self.signupWithEmailButton.titleLabel setFont:[UIFont waxHeaderFontItalicsOfSize:16]];
@@ -72,44 +80,34 @@
     [self.loginButton setTitleForAllControlStates:NSLocalizedString(@"Already have an account? Log In", @"Already have an account? Log In")]; 
 }
 
-- (IBAction)signup:(id)sender {
-        
-    UIButton *sendy = (UIButton *)sender;
+- (IBAction)tutorialButtonAction:(id)sender {
+    TutorialParentViewController *tut = [TutorialParentViewController tutorialViewController];
+    [self presentViewController:tut animated:YES completion:nil]; 
+}
+
+- (IBAction)signupWithFacebookAction:(id)sender {
+    [AIKErrorManager logMessageToAllServices:@"User tapped connect with facebook button on splash page"];
+
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Logging In With Facebook...", @"Logging In With Facebook...")];
     
-    SignupViewController *signupVC = initViewControllerWithIdentifier(@"SignupVC");
+    [[AIKFacebookManager sharedManager] connectFacebookWithCompletion:^(id<FBGraphUser> user, NSError *error) {
+        
+        if (!user || [NSString isEmptyOrNil:user.id] || [NSString isEmptyOrNil:user.name] || [NSString isEmptyOrNil:[user objectForKey:@"email"]]) {
+            
+            [SVProgressHUD dismiss];
+            
+        }else{
+            [self attemptFacebookLoginWithFBGraphUser:user]; 
+        }
+    }];
+}
+
+- (IBAction)signupWithEmailAction:(id)sender {
+    [AIKErrorManager logMessageToAllServices:@"User tapped signup with email button on splash page"];
     
-    if (sendy.tag == 2) {
-        [SVProgressHUD showWithStatus:NSLocalizedString(@"Logging In With Facebook...", @"Logging In With Facebook...")];
-        
-        [AIKErrorManager logMessageToAllServices:@"User tapped connect with facebook button on splash page"];
-        
-        [[AIKFacebookManager sharedManager] connectFacebookWithCompletion:^(id<FBGraphUser> user, NSError *error) {
-            if (!error) {
-                [SVProgressHUD showWithStatus:NSLocalizedString(@"Logging In With Facebook...", @"Logging In With Facebook...")];
-                [[WaxUser currentUser] loginWithFacebookID:user.id fullName:user.name email:[user objectForKey:@"email"] completion:^(NSError *error) {
-                    if (!error) {
-                        [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Logged In!", @"Logged In!")];
-                        [self dismissViewControllerAnimated:YES completion:nil];
-                    }else{
-                        [SVProgressHUD dismiss];
-                        if (error.code == 1010) {
-                            [[AIKFacebookManager sharedManager] logoutFacebookWithCompletion:^{
-                                signupVC.facebookSignup = YES;
-                                [self.navigationController setNavigationBarHidden:NO animated:YES]; 
-                                [self.navigationController pushViewController:signupVC animated:YES];
-                            }];
-                        }
-                    }
-                }];
-            }else{
-                [SVProgressHUD dismiss];
-            }
-        }];
-    }else{
-        [AIKErrorManager logMessageToAllServices:@"User tapped signup with email button on splash page"];
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-        [self.navigationController pushViewController:signupVC animated:YES];
-    }
+    SignupViewController *signupVC = [SignupViewController signupViewControllerForEmail];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController pushViewController:signupVC animated:YES];
 }
 
 - (IBAction)login:(id)sender {
@@ -122,10 +120,32 @@
 
 
 
+#pragma mark - Internal Methods
+-(void)loginDidSucceed{
+    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Logged In!", @"Logged In!")];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
-
-
-
+-(void)attemptFacebookLoginWithFBGraphUser:(id <FBGraphUser>)user{
+    
+    [[WaxUser currentUser] loginWithFacebookID:user.id fullName:user.name email:[user objectForKey:@"email"] completion:^(NSError *error) {
+        if (!error) {
+            [self loginDidSucceed];
+        }else{
+            [SVProgressHUD dismiss];
+            
+            if (error.code == WaxAPIErrorRegistrationMustCreateUsernameForFacebookSignup) {
+                [[AIKFacebookManager sharedManager] logoutFacebookWithCompletion:^{
+                    
+                    SignupViewController *signup = [SignupViewController signupViewControllerForFacebookWithFBGraphUser:user];
+                    [self.navigationController setNavigationBarHidden:NO animated:YES];
+                    [self.navigationController pushViewController:signup animated:YES];
+                }];
+            }
+        }
+        
+    }];
+}
 
 
 

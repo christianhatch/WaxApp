@@ -11,6 +11,5 @@
 @interface SettingsViewController : UITableViewController
 
 
-@property (strong, nonatomic) IBOutlet UISwitch *cameraRollSwitch;
 
 @end

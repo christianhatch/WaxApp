@@ -6,11 +6,13 @@
 //  Copyright (c) 2013 Christian Hatch. All rights reserved.
 //
 
+
+extern NSString *const kHasShownTutorialKey;
+
 #import <UIKit/UIKit.h>
 
 @interface TutorialParentViewController : UIViewController
 
 +(TutorialParentViewController *)tutorialViewController; 
-//+(TutorialParentViewController *)tutorialViewControllerWithRegistrationViewControllers; 
 
 @end

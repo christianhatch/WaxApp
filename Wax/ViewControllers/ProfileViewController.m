@@ -63,8 +63,10 @@
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     [self.tableView.pullToRefreshView stopAnimating];
+    [self.tableView resetVideoPlayers];
 }
--(void)setUpView{    
+
+-(void)setUpView{
     [self setNavBarTitle];
     [self setProfileTableView];
     [self addProfileTableViewAsSubviewIfNecessary];

@@ -17,11 +17,16 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *profilePictureButton;
 @property (strong, nonatomic) IBOutlet UIImageView *profilePicturePreview;
+@property (strong, nonatomic) IBOutlet UIImageView *profilePicChevron;
 
 @property (strong, nonatomic) IBOutlet UITextField *fullNameField;
 @property (strong, nonatomic) IBOutlet UITextField *emailField;
 @property (strong, nonatomic) IBOutlet UITextField *usernameField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
+
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+
+@property (nonatomic, strong) id <FBGraphUser> facebookUser;
 
 - (IBAction)profilePictureButtonAction:(id)sender;
 - (IBAction)signupButtonAction:(id)sender;
@@ -32,7 +37,19 @@
 @end
 
 @implementation SignupViewController
-@synthesize profilePictureButton, fullNameField, emailField, usernameField, passwordField, goButton, facebookSignup; 
+@synthesize profilePictureButton, fullNameField, emailField, usernameField, passwordField, goButton, facebookUser; 
+
++(SignupViewController *)signupViewControllerForFacebookWithFBGraphUser:(id <FBGraphUser>)graphUser{
+    SignupViewController *sign = initViewControllerWithIdentifier(@"SignupVC");
+    sign.facebookUser = graphUser;
+    return sign; 
+}
+
++(SignupViewController *)signupViewControllerForEmail{
+    SignupViewController *sign = initViewControllerWithIdentifier(@"SignupVC");
+    return sign;
+}
+
 
 
 -(void)viewDidLoad{
@@ -54,6 +71,8 @@
     self.usernameField.placeholder = NSLocalizedString(@"Username", @"choose a username");
     self.passwordField.placeholder = NSLocalizedString(@"Password", @"Password");
     
+    [self.profilePictureButton setTitleForAllControlStates:NSLocalizedString(@"Choose Picture", @"Choose Picture")];
+    
     [self.profilePictureButton.titleLabel setWaxDefaultFontOfSize:16];
     [self.profilePictureButton setTitleColorForAllControlStates:[UIColor waxDefaultFontColor]];
     
@@ -63,39 +82,28 @@
     for (UITextField *tf in @[self.fullNameField, self.emailField, self.usernameField, self.passwordField]) {
         tf.delegate = self;
     }
+    
+    [self.scrollView setContentSize:self.view.bounds.size]; 
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    self.profilePictureButton.enabled = !self.facebookSignup;
-    self.passwordField.hidden = self.facebookSignup;
+    self.profilePictureButton.enabled = self.facebookUser == nil;
+    self.passwordField.hidden = self.facebookUser != nil;
+    self.profilePicChevron.hidden = self.facebookUser != nil; 
 
-    if (self.facebookSignup) [self configureForFacebookSignup];
+    if (self.facebookUser != nil) [self configureForFacebookSignup];
 }
 - (void)configureForFacebookSignup {
     self.usernameField.returnKeyType = UIReturnKeyGo;
     
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"Loading Facebook Information", @"Loading Facebook Information")];
+    [self.profilePictureButton setTitleForAllControlStates:NSLocalizedString(@"Facebook Picture", @"Facebook Picture")]; 
     
-    [[AIKFacebookManager sharedManager] connectFacebookWithCompletion:^(id<FBGraphUser> user, NSError *error) {
-        
-        [SVProgressHUD dismiss];
-        
-        if (!error) {
-            [[AIKFacebookManager sharedManager] fetchProfilePictureForFacebookID:user.id completion:^(NSError *error, UIImage *profilePic) {
-                
-                [self setProfilePicture:profilePic];
-                
-            }];
-            
-            self.passwordField.text = user.id;
-            self.fullNameField.text = user.name;
-            self.emailField.text = [user objectForKey:@"email"];
-            
-        }else{
-            //TODO: error fetching your facebook profile info. please try again
-        }
-    }];
+    self.fullNameField.text = self.facebookUser.name;
+    self.emailField.text = [self.facebookUser objectForKey:@"email"];
+    self.passwordField.text = self.facebookUser.id;
+    
+    [self.profilePicturePreview setFacebookProfilePictureWithFacebookID:self.facebookUser.id placeholderImage:nil animated:YES completion:nil];
 }
 
 - (IBAction)signupButtonAction:(id)sender {
@@ -107,15 +115,15 @@
     
     [SVProgressHUD showWithStatus:NSLocalizedString(@"Creating Account...", @"Creating Account...")];
     
-    [[WaxUser currentUser] createAccountWithUsername:self.usernameField.text fullName:self.fullNameField.text email:self.emailField.text passwordOrFacebookID:self.passwordField.text profilePicture:self.profilePicturePreview.image completion:^(NSError *error) {
-        
-        if (!error) {
-            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Account Created!", @"Account Created!")];
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }else{
-            [SVProgressHUD dismiss];
-        }
-    }];
+    if (self.facebookUser != nil) {
+        [[WaxUser currentUser] createAccountWithUsername:self.usernameField.text fullName:self.fullNameField.text email:self.emailField.text facebookID:self.passwordField.text completion:^(NSError *error) {
+            [self handleCreatingAccountWithError:error]; 
+        }];
+    }else{
+        [[WaxUser currentUser] createAccountWithUsername:self.usernameField.text fullName:self.fullNameField.text email:self.emailField.text password:self.passwordField.text profilePicture:self.profilePicturePreview.image completion:^(NSError *error) {
+            [self handleCreatingAccountWithError:error];
+        }];
+    }    
 }
 - (IBAction)profilePictureButtonAction:(id)sender {
     [AIKErrorManager logMessageToAllServices:@"User tapped profile picture button on signup page"];
@@ -124,18 +132,18 @@
         [self setProfilePicture:profilePicture];
     }];
 }
-
-- (IBAction)tosButtonAction:(id)sender {
-    [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:kWaxTermsOfServiceURL] pageTitle:NSLocalizedString(@"Terms of Service", @"Terms of Service") presentFromViewController:self];
-}
-
-- (IBAction)privacyButtonAction:(id)sender {
-    [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:kWaxPrivacyPolicyURL] pageTitle:NSLocalizedString(@"Privacy Policy", @"Privacy Policy") presentFromViewController:self];
+-(void)handleCreatingAccountWithError:(NSError *)error{
+    if (!error) {
+        [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Account Created!", @"Account Created!")];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }else{
+        [SVProgressHUD dismiss];
+    }
 }
 
 #pragma mark - UITextField Delegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    if (!self.facebookSignup) {
+    if (self.facebookUser == nil) {
         if (textField == self.fullNameField) {
             [self.emailField becomeFirstResponder];
         }else if (textField == self.emailField){
@@ -161,7 +169,7 @@
 -(BOOL)verifyInputtedData{
     BOOL verified = YES;
     
-    if ([NSString isEmptyOrNil:self.emailField.text]) {
+    if ([NSString isEmptyOrNil:self.usernameField.text]) {
         verified = NO;
         [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"No Username", @"No Username") message:NSLocalizedString(@"Please choose a username", @"Please choose a username") buttonHandler:^{
             [self.usernameField becomeFirstResponder];
@@ -171,12 +179,14 @@
         [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"No Email", @"No Email") message:NSLocalizedString(@"Please enter your email address", @"Please enter your email address") buttonHandler:^{
             [self.emailField becomeFirstResponder];
         } logError:NO];
-    }else if (!self.facebookSignup && [NSString isEmptyOrNil:self.passwordField.text]) {
+    }
+    //only when not in fb mode!
+    else if (self.facebookUser == nil && [NSString isEmptyOrNil:self.passwordField.text]) {
         verified = NO;
         [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"No Password", @"No Password") message:NSLocalizedString(@"Please choose a password", @"Please choose a password") buttonHandler:^{
             [self.passwordField becomeFirstResponder];
         } logError:NO];
-    }else if (!self.facebookSignup && !self.profilePicturePreview.image) {
+    }else if (self.facebookUser == nil && !self.profilePicturePreview.image) {
         verified = NO;
         [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"No Profile Picture", @"No Profile Picture") message:NSLocalizedString(@"Please choose a profile picture", @"Please choose a profile picture") buttonHandler:nil logError:NO];
         [self profilePictureButtonAction:self];
@@ -193,6 +203,17 @@
 
 
 
+
+
+
+
+- (IBAction)tosButtonAction:(id)sender {
+    [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:kWaxTermsOfServiceURL] pageTitle:NSLocalizedString(@"Terms of Service", @"Terms of Service") presentFromViewController:self];
+}
+
+- (IBAction)privacyButtonAction:(id)sender {
+    [AIKWebViewController webViewControllerWithURL:[NSURL URLWithString:kWaxPrivacyPolicyURL] pageTitle:NSLocalizedString(@"Privacy Policy", @"Privacy Policy") presentFromViewController:self];
+}
 
 
 

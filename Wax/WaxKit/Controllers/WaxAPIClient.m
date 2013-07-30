@@ -84,14 +84,16 @@ static inline BOOL PathRequiresArray(NSString *path){
 #pragma mark - Public API -
 
 #pragma mark - Logins
--(void)createAccountWithUsername:(NSString *)username fullName:(NSString *)fullName email:(NSString *)email passwordOrFacebookID:(NSString *)passwordOrFacebookID completion:(WaxAPIClientBlockTypeCompletionLogin)completion{
+-(void)createAccountWithUsername:(NSString *)username fullName:(NSString *)fullName email:(NSString *)email passwordOrFacebookID:(NSString *)passwordOrFacebookID isFacebookLogin:(BOOL)isFacebookLogin completion:(WaxAPIClientBlockTypeCompletionLogin)completion{
         
     NSParameterAssert(username);
     NSParameterAssert(fullName);
     NSParameterAssert(email);
     NSParameterAssert(passwordOrFacebookID);
+    
+    NSString *fbOrPasswordKey = isFacebookLogin ? @"facebookid" : @"password";
         
-    [self postPath:@"logins/signup" parameters:@{@"username":username, @"name":fullName, @"email":email, ([[AIKFacebookManager sharedManager] sessionIsActive] ? @"facebookid" : @"password"):passwordOrFacebookID} modelClass:[LoginObject class] completionBlock:^(id model, NSError *error) {
+    [self postPath:@"logins/signup" parameters:@{@"username":username, @"name":fullName, @"email":email, fbOrPasswordKey:passwordOrFacebookID} modelClass:[LoginObject class] completionBlock:^(id model, NSError *error) {
         if (completion) {
             completion(model, error);
         }

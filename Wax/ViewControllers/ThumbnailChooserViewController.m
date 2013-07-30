@@ -73,6 +73,8 @@
 -(MPMoviePlayerController *)player{
     if (!_player) {
         _player = [[MPMoviePlayerController alloc] initWithContentURL:self.videoPath];
+        _player.shouldAutoplay = NO;
+//        [_player prepareToPlay]; 
         [_player stop];
     }
     return _player;

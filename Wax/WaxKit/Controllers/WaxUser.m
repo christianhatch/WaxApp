@@ -158,26 +158,47 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 }
 
 #pragma mark - Signup/Login/Logout/Update Pic
--(void)createAccountWithUsername:(NSString *)username fullName:(NSString *)fullName email:(NSString *)email passwordOrFacebookID:(NSString *)passwordOrFacebookID profilePicture:(UIImage *)profilePicture completion:(WaxUserCompletionBlockTypeSimple)completion{
-
-    [[WaxAPIClient sharedClient] createAccountWithUsername:username fullName:fullName email:email passwordOrFacebookID:passwordOrFacebookID completion:^(LoginObject *loginResponse, NSError *error) {
+-(void)createAccountWithUsername:(NSString *)username fullName:(NSString *)fullName email:(NSString *)email facebookID:(NSString *)facebookID completion:(WaxUserCompletionBlockTypeSimple)completion{
+    
+    [[WaxAPIClient sharedClient] createAccountWithUsername:username fullName:fullName email:email passwordOrFacebookID:facebookID isFacebookLogin:YES completion:^(LoginObject *loginResponse, NSError *error) {
         
         if (!error) {
             [self finishLoggingInAndSaveUserInformation:loginResponse completion:^(NSError *error) {
-             
+                if (!error) {
+                    if (completion) {
+                        completion(nil);
+                    }
+                }
+            }];
+        }else{
+            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Problem Creating Account", @"Problem Creating Account") error:error buttonHandler:nil logError:YES];
+            if (completion) {
+                completion(error);
+            }
+        }
+    }];
+
+}
+-(void)createAccountWithUsername:(NSString *)username fullName:(NSString *)fullName email:(NSString *)email password:(NSString *)password profilePicture:(UIImage *)profilePicture completion:(WaxUserCompletionBlockTypeSimple)completion{
+  
+    [[WaxAPIClient sharedClient] createAccountWithUsername:username fullName:fullName email:email passwordOrFacebookID:password isFacebookLogin:NO completion:^(LoginObject *loginResponse, NSError *error) {
+        
+        if (!error) {
+            [self finishLoggingInAndSaveUserInformation:loginResponse completion:^(NSError *error) {
+                
                 [self updateProfilePictureOnServer:profilePicture andShowUICallbacks:NO completion:^(NSError *error) {
                     if (!error) {
                         if (completion) {
-                            completion(error); 
+                            completion(error);
                         }
                     }
                 }];
-
+                
             }];
         }else{
-            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Problem Creating Account", @"Problem Creating Account") error:error buttonHandler:nil logError:YES]; 
+            [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Problem Creating Account", @"Problem Creating Account") error:error buttonHandler:nil logError:YES];
             if (completion) {
-                completion(error); 
+                completion(error);
             }
         }
     }];
@@ -415,6 +436,9 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
                     self.facebookAccountID = user.id;
                 }else{
                     [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error Connecting Facebook to Wax", @"Error Connecting Facebook to Wax") error:error buttonHandler:nil logError:NO];
+                }
+                if (completion) {
+                    completion(error); 
                 }
             }];
         }

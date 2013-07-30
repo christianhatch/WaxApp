@@ -106,7 +106,6 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application{
-    [[AIKFacebookManager sharedManager] handleAppDidEnterBackground];
     
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
@@ -250,9 +249,7 @@
 
 -(void)initialLaunch{
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kInitialLaunchKey];
-   
-    [WaxDataManager sharedManager].launchInfo = @{@"initial": @1};
-    
+       
     [WaxUser resetForInitialLaunch];
 }
 

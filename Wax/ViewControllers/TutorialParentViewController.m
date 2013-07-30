@@ -6,8 +6,10 @@
 //  Copyright (c) 2013 Christian Hatch. All rights reserved.
 //
 
+NSString *const kHasShownTutorialKey = @"com.wax.hasShownTutorial"; 
+
 #define kMinTutorialIndex 0
-#define kMaxTutorialIndex 5
+#define kMaxTutorialIndex 4
 
 #import "TutorialParentViewController.h"
 #import "TutorialChildViewController.h"
@@ -24,7 +26,7 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = [UIColor waxRedColor];
     
     self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     
@@ -39,6 +41,11 @@
     [self.view addSubview:self.pageController.view];
     [self.pageController didMoveToParentViewController:self];
 }
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHasShownTutorialKey];
+}
+
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
     
     NSUInteger currentIndex = [self indexForViewController:viewController];
@@ -57,6 +64,7 @@
     NSUInteger currentIndex = [self indexForViewController:viewController];
         
     if (currentIndex == kMaxTutorialIndex) {
+        [self dismissViewControllerAnimated:YES completion:nil];
         return nil;
     }
     
@@ -79,29 +87,19 @@
 
 #pragma mark - Helper Methods
 -(UIViewController *)viewControllerForIndex:(NSInteger)index{
-    switch (index) {
-        case kMaxTutorialIndex - 1:
-            return initViewControllerWithIdentifier(@"SplashNav");
-            break; 
-        default:
-            return [TutorialChildViewController tutorialChildViewControllerForIndex:index];
-            break;
-    }
+    return [TutorialChildViewController tutorialChildViewControllerForIndex:index];
 }
 
 -(NSUInteger)indexForViewController:(UIViewController *)vc{
     
-    if ([vc respondsToSelector:@selector(index)]) {
-        
-        TutorialChildViewController *child = (TutorialChildViewController *)vc;
-        NSUInteger index = child.index;
-        return index;
-        
-    }else{
-        
-        return kMaxTutorialIndex;
-        
+    if (![vc respondsToSelector:@selector(index)]) {
+        return 0; 
     }
+    
+    TutorialChildViewController *child = (TutorialChildViewController *)vc;
+    NSUInteger index = child.index;
+    return index;
+
 }
 
 

@@ -111,7 +111,11 @@
 
 #pragma mark - Splash Screen
 -(void)presentInitialViewController{
-    [self isInitialLaunch] ? [self presentTutorialAndRegistrationViewController] : [self presentRegistrationViewController];
+    UINavigationController *splashAndLoginFlow = initViewControllerWithIdentifier(@"SplashNav");
+    [self presentViewController:splashAndLoginFlow animated:YES completion:^{
+        [self popAllNavigationChildrenViewControllersToRootViewControllerAnimated:NO];
+        [self setSelectedIndex:0];
+    }];
 }
 
 #pragma mark - Remote Notifications
@@ -148,26 +152,7 @@
 }
 
 -(BOOL)shouldHandleLaunchFromRemoteNotification{
-    return [WaxDataManager sharedManager].launchInfo != nil && ![[WaxDataManager sharedManager].launchInfo objectForKeyOrNil:@"initial"];
-}
-
--(BOOL)isInitialLaunch{
-    return [[WaxDataManager sharedManager].launchInfo objectForKeyOrNil:@"initial"] != nil;
-}
-
--(void)presentRegistrationViewController{
-    UINavigationController *splashAndLoginFlow = initViewControllerWithIdentifier(@"SplashNav");
-    [self presentAnIntroVC:splashAndLoginFlow];
-}
--(void)presentTutorialAndRegistrationViewController{
-    TutorialParentViewController *tut = [TutorialParentViewController tutorialViewController];
-    [self presentAnIntroVC:tut];
-}
--(void)presentAnIntroVC:(UIViewController *)vc{
-    [self presentViewController:vc animated:YES completion:^{
-        [self popAllNavigationChildrenViewControllersToRootViewControllerAnimated:NO];
-        [self setSelectedIndex:0];
-    }];
+    return [WaxDataManager sharedManager].launchInfo != nil;
 }
 
 - (void)didReceiveMemoryWarning{

@@ -42,6 +42,7 @@
 #ifndef DEBUG
     self.forgotPasswordButton.hidden = YES;
 #endif
+    
     self.view.backgroundColor = [UIColor waxTableViewCellSelectionColor];
     
     self.navigationItem.title = NSLocalizedString(@"Log In", @"Log In");
@@ -63,32 +64,20 @@
     [AIKErrorManager logMessageToAllServices:@"User tapped connect with facebook button on login page"];
     
     [SVProgressHUD showWithStatus:NSLocalizedString(@"Logging In With Facebook...", @"Logging In With Facebook...")];
-    
+        
     [[AIKFacebookManager sharedManager] connectFacebookWithCompletion:^(id<FBGraphUser> user, NSError *error) {
-        if (!error) {
-            [[WaxUser currentUser] loginWithFacebookID:user.id fullName:user.name email:[user objectForKey:@"email"] completion:^(NSError *error) {
-                if (!error) {
-                    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Logged In!", @"Logged In!")];
-                    [self dismissViewControllerAnimated:YES completion:nil];
-                }else{
-                    [SVProgressHUD dismiss];
-                    if (error.code == 1010) {
-                        UINavigationController *navController = self.navigationController;
-                        
-                        SignupViewController *signup = initViewControllerWithIdentifier(@"SignupVC");
-                        signup.facebookSignup = YES;
-                        
-                        NSMutableArray *vcs = [NSMutableArray arrayWithArray:navController.viewControllers];
-                        [vcs removeObject:self];
-                        navController.viewControllers = vcs;
-                        [navController pushViewController:signup animated:YES];
-                    }
-                }
-            }];
-        }else{
+        
+        if (!user || [NSString isEmptyOrNil:user.id] || [NSString isEmptyOrNil:user.name] || [NSString isEmptyOrNil:[user objectForKey:@"email"]]) {
+            
             [SVProgressHUD dismiss];
+            
+        }else{
+            
+            [self attemptFacebookLoginWithFBGraphUser:user];
+            
         }
-    }]; 
+        
+    }];
 }
 
 - (IBAction)forgotPasswordButtonAction:(id)sender {
@@ -99,23 +88,17 @@
 
 - (IBAction)signupButtonAction:(id)sender {
     [AIKErrorManager logMessageToAllServices:@"User tapped login button on login page"];
+            
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Logging In...", @"Logging In...")];
     
-    
-    if (self.usernameField.text.length > 0 && self.passwordField.text.length > 1) {
-        
-        [SVProgressHUD showWithStatus:NSLocalizedString(@"Logging In...", @"Logging In...")];
-        
-        [[WaxUser currentUser] loginWithUsername:self.usernameField.text password:self.passwordField.text completion:^(NSError *error) {
-            if (!error) {
-                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Logged In!", @"Logged In!")];
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }else{
-                [SVProgressHUD dismiss];
-            }
-        }];
-    }else{
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Username or password too short", @"Username or password too short") message:NSLocalizedString(@"Please enter a valid username and password", @"Please enter a valid username and password") cancelButtonItem:[RIButtonItem randomDismissalButton] otherButtonItems:nil, nil] show]; 
-    }
+    [[WaxUser currentUser] loginWithUsername:self.usernameField.text password:self.passwordField.text completion:^(NSError *error) {
+        if (!error) {
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Logged In!", @"Logged In!")];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }else{
+            [SVProgressHUD dismiss];
+        }
+    }];
 }
 
 - (IBAction)tosButtonAction:(id)sender {
@@ -136,7 +119,37 @@
     return YES;
 }
 
+#pragma mark - Internal Methods
+-(void)loginDidSucceed{
+    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Logged In!", @"Logged In!")];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
+-(void)attemptFacebookLoginWithFBGraphUser:(id <FBGraphUser>)user{
+    
+    [[WaxUser currentUser] loginWithFacebookID:user.id fullName:user.name email:[user objectForKey:@"email"] completion:^(NSError *error) {
+        if (!error) {
+            [self loginDidSucceed];
+        }else{
+            [SVProgressHUD dismiss];
+            
+            if (error.code == WaxAPIErrorRegistrationMustCreateUsernameForFacebookSignup) {
+                [[AIKFacebookManager sharedManager] logoutFacebookWithCompletion:^{
+                    
+                    SignupViewController *signup = [SignupViewController signupViewControllerForFacebookWithFBGraphUser:user];
+                    
+                    UINavigationController *navController = self.navigationController;
+
+                    NSMutableArray *vcs = [NSMutableArray arrayWithArray:navController.viewControllers];
+                    [vcs removeObject:self];
+                    navController.viewControllers = vcs;
+                    [navController pushViewController:signup animated:YES];
+                }];
+            }
+        }
+        
+    }];
+}
 
 
 
