@@ -84,6 +84,7 @@
 
 
 //third party
+#import "Masonry.h"
 #import "SVProgressHUD.h"
 #import <AcaciaKit/AcaciaKit.h>
 

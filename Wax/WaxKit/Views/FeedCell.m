@@ -71,12 +71,13 @@ static inline NSString *stringFromActivityType(NSString *activityType){
     
     [self.usernameLabel setWaxHeaderFont];
     [self.timestampLabel setWaxDetailFont];
-    [self.competitionTitleButton styleFontAsWaxHeaderItalics];
+    
+    [self.competitionTitleButton setTitleColor:[UIColor waxRedColor] forState:UIControlStateNormal];
+    [self.competitionTitleButton setTitleColor:[UIColor waxDefaultFontColor] forState:UIControlStateHighlighted];
+    self.competitionTitleButton.titleLabel.font = [UIFont waxHeaderFontItalicsOfSize:15];
     self.competitionTitleButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.competitionTitleButton.titleLabel.adjustsLetterSpacingToFitWidth = YES;
-    self.competitionTitleButton.titleLabel.numberOfLines = 1;
     self.competitionTitleButton.titleLabel.minimumScaleFactor = 0.2;
-    self.competitionTitleButton.titleLabel.font = [UIFont waxHeaderFontItalicsOfSize:15]; 
     
     [self.rankWordLabel setWaxDetailFont];
     self.rankWordLabel.text = NSLocalizedString(@"Rank", @"Rank"); 
@@ -150,7 +151,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 
     [self.competitionTitleButton setTitleForAllControlStates:video.tag];
     
-    [self setupVoteButton]; 
+    [self setupVoteButton];
 }
 
 -(void)setUpMoviePlayer{
@@ -166,7 +167,6 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 
 #pragma mark - IBActions
 - (IBAction)shareButtonAction:(id)sender {
-
     if (self.videoObject.isMine) {
         [[[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:[RIButtonItem cancelButton] destructiveButtonItem:self.actionSheetButtonDelete otherButtonItems:self.actionSheetButtonShare, nil] showInView:self];
     }else{
@@ -175,7 +175,6 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 }
 
 - (IBAction)respondButtonAction:(id)sender {
-    
     [[VideoUploadManager sharedManager] askToRespondToChallengeWithBlock:^(BOOL allowedToProceed) {
         if (allowedToProceed) {
             [[VideoUploadManager sharedManager] beginUploadProcessWithVideoID:self.videoObject.videoID competitionTag:self.videoObject.tag category:self.videoObject.category];
@@ -185,9 +184,9 @@ static inline NSString *stringFromActivityType(NSString *activityType){
         }
     }];
 }
-
-- (IBAction)voteButtonAction:(id)sender {
     
+- (IBAction)voteButtonAction:(id)sender {
+
     self.videoObject.didVote = YES;
     [self setupVoteButton]; //immediate user feedback upon pressing button
     
@@ -249,7 +248,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 
 -(RIButtonItem *)actionSheetButtonFlag{
     
-    RIButtonItem *confirmFlag = [RIButtonItem itemWithLabel:NSLocalizedString(@"Report Innapropriate", @"Feed cell report innapropriate button label")];
+    RIButtonItem *confirmFlag = [RIButtonItem itemWithLabel:NSLocalizedString(@"Report Inapropriate", @"Feed cell report inapropriate button label")];
     confirmFlag.action = ^{
         RIButtonItem *flag = [RIButtonItem itemWithLabel:NSLocalizedString(@"Report", @"Report")];
         flag.action = ^{
@@ -261,7 +260,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
                 }
             }];
         };
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Are You Sure?", @"Are You Sure?") message:NSLocalizedString(@"Are you sure you want to flag this video as innapropriate?", @"Feed cell flag confirmation label") cancelButtonItem:[RIButtonItem cancelButton] otherButtonItems:flag, nil] show];
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Are You Sure?", @"Are You Sure?") message:NSLocalizedString(@"Are you sure you want to flag this video as inapropriate?", @"Feed cell flag confirmation label") cancelButtonItem:[RIButtonItem cancelButton] otherButtonItems:flag, nil] show];
     };
     return confirmFlag; 
 }

@@ -1,15 +1,21 @@
 PODS:
+  - CocoaLumberjack (1.6.2)
   - Lockbox (1.4.2)
+  - Masonry (0.1.0)
   - SVProgressHUD (0.9)
   - SVPullToRefresh (0.4.1)
 
 DEPENDENCIES:
+  - CocoaLumberjack
   - Lockbox
+  - Masonry
   - SVProgressHUD
   - SVPullToRefresh
 
 SPEC CHECKSUMS:
+  CocoaLumberjack: d73e1e317ced14ab930797dda6c17156ff17aaa1
   Lockbox: d1be948dcf7ef9e584ee9d56787728f99336e87f
+  Masonry: e574e8d2071bd55d1bd75c0d70f12d8e679dca2f
   SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
   SVPullToRefresh: 61a0e4bd12bd6f8e3465909810b0fbeb1a28d5f2
 

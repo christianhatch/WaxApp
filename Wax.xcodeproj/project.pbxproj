@@ -399,7 +399,6 @@
 		45EA321D17260D8100980320 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA321C17260D8000980320 /* AddressBook.framework */; };
 		45EA321F17260DA100980320 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA321E17260DA000980320 /* AVFoundation.framework */; };
 		45EA322117260E8200980320 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA322017260E8100980320 /* libz.dylib */; };
-		45EA322317260ED400980320 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA322217260ED400980320 /* FacebookSDK.framework */; };
 		45EA322C17260F6B00980320 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA322B17260F6B00980320 /* AdSupport.framework */; };
 		45EA322E17260F7600980320 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA322D17260F7500980320 /* Accounts.framework */; };
 		45EA323017260F8200980320 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA322F17260F8100980320 /* libsqlite3.dylib */; };
@@ -419,6 +418,7 @@
 		45F71642171F163D009097F3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F7161C171F163C009097F3 /* UIKit.framework */; };
 		45F71643171F163D009097F3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F7161E171F163C009097F3 /* Foundation.framework */; };
 		45F7164B171F163D009097F3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45F71649171F163D009097F3 /* InfoPlist.strings */; };
+		45F9E24E17A9D929000BDE76 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F9E24D17A9D929000BDE76 /* FacebookSDK.framework */; };
 		ED7FED56E137433B946BCAEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C9784DDF7E84C01BC8F8951 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -792,6 +792,7 @@
 		45F7164A171F163D009097F3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		45F7164C171F163D009097F3 /* WaxTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaxTests.h; sourceTree = "<group>"; };
 		45F7164D171F163D009097F3 /* WaxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaxTests.m; sourceTree = "<group>"; };
+		45F9E24D17A9D929000BDE76 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		51B50416C7D54C66A44B546E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -800,7 +801,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45EA322317260ED400980320 /* FacebookSDK.framework in Frameworks */,
+				45F9E24E17A9D929000BDE76 /* FacebookSDK.framework in Frameworks */,
 				4518ADE0175AC3FA00D5D95C /* MediaPlayer.framework in Frameworks */,
 				4518AD591758FCE700D5D95C /* CoreMedia.framework in Frameworks */,
 				45EA321F17260DA100980320 /* AVFoundation.framework in Frameworks */,
@@ -1443,6 +1444,7 @@
 		45F7161B171F163C009097F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45F9E24D17A9D929000BDE76 /* FacebookSDK.framework */,
 				4518ADDE175AAE3600D5D95C /* MediaPlayer.framework */,
 				4518AD581758FCE700D5D95C /* CoreMedia.framework */,
 				4518AD541758FC5300D5D95C /* AssetsLibrary.framework */,
@@ -2261,8 +2263,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					/Users/chatch/Documents/FacebookSDK,
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../../../FacebookSDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wax/Wax-Prefix.pch";
@@ -2304,8 +2306,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					/Users/chatch/Documents/FacebookSDK,
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../../../FacebookSDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wax/Wax-Prefix.pch";
@@ -2451,8 +2453,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					/Users/chatch/Documents/FacebookSDK,
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../../../FacebookSDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wax/Wax-Prefix.pch";
