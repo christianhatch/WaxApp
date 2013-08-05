@@ -427,7 +427,6 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 }
 -(void)connectFacebookWithCompletion:(WaxUserCompletionBlockTypeSimple)completion{
     [[AIKFacebookManager sharedManager] connectFacebookWithCompletion:^(id<FBGraphUser> user, NSError *error) {
-        //TODO: (7.19.13) - check this out, previously it was if(!error) but that doesn't seem to make sense in context, so i switched it.. 
         if (error) {
             [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Error logging into Facebook", @"Error logging into Facebook") error:error buttonHandler:nil logError:NO];
         }else{
@@ -496,14 +495,14 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
     
     [Flurry setUserID:[WaxUser currentUser].userID];
     
-    [Crashlytics setUserIdentifier:[WaxUser currentUser].userID];
-    [Crashlytics setUserName:[WaxUser currentUser].username];
-    [Crashlytics setUserEmail:[WaxUser currentUser].email];
-    
-    [Crashlytics setObjectValue:[NSString versionAndBuildString] forKey:@"Version"];
-    [Crashlytics setObjectValue:[WaxUser currentUser].userID forKey:@"userid"];
-    [Crashlytics setObjectValue:[WaxUser currentUser].username forKey:@"username"];
-    [Crashlytics setObjectValue:[WaxUser currentUser].email forKey:@"email"];
+//    [Crashlytics setUserIdentifier:[WaxUser currentUser].userID];
+//    [Crashlytics setUserName:[WaxUser currentUser].username];
+//    [Crashlytics setUserEmail:[WaxUser currentUser].email];
+//    
+//    [Crashlytics setObjectValue:[NSString versionAndBuildString] forKey:@"Version"];
+//    [Crashlytics setObjectValue:[WaxUser currentUser].userID forKey:@"userid"];
+//    [Crashlytics setObjectValue:[WaxUser currentUser].username forKey:@"username"];
+//    [Crashlytics setObjectValue:[WaxUser currentUser].email forKey:@"email"];
 }
 
 +(void)resetForInitialLaunch{

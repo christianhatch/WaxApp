@@ -3,8 +3,11 @@ Masonry
 
 Masonary is a light-weight layout framework which wraps AutoLayout with a nicer syntax. Masonary has its own layout DSL which provides a chainable way of describing your NSLayoutConstraints which results in layout code which is more concise and readable.
 
+For examples take a look at the **MasonryExamples** project in the Masonry workspace.
+
 ## Whats wrong with NSLayoutConstraints?
 
+Under the hood Auto Layout is a powerful and flexible way of organising and laying out your views. However creating constraints from code is verbose and not very descriptive.
 Imagine a simple example in which you want to have a view fill its superview but inset by 10 pixels on every side
 ```obj-c
 UIView *superview = self;
@@ -54,10 +57,12 @@ UIEdgeInsets padding = UIEdgeInsetsMake(10, 10, 10, 10);
  ]];
 ```
 Even with such a simple example the code needed is quite verbose and quickly becomes unreadable when you have more than 2 or 3 views.
+Another option is to use Visual Format Language (VFL), which is a bit less long winded. 
+However the ascii type syntax has its own pitfalls and its also a bit harder to animate as `NSLayoutConstraint constraintsWithVisualFormat:` returns an array.
 
 ## Prepare to meet your Maker!
 
-heres the same constraints created using MASConstraintMaker
+Heres the same constraints created using MASConstraintMaker
 
 ```obj-c
 UIEdgeInsets padding = UIEdgeInsetsMake(10, 10, 10, 10);
@@ -69,14 +74,17 @@ UIEdgeInsets padding = UIEdgeInsetsMake(10, 10, 10, 10);
     make.right.equalTo(superview.mas_right).with.offset(-padding.right);
 }];
 ```
-or ever shorter
+Or ever shorter
 ```obj-c
 [view1 mas_makeConstraints:^(MASConstraintMaker *make) {
     make.edges.equalTo(superview).with.insets(padding);
 }];
 ```
 
-For more usage examples take a look at the MasonryExamples project in the Masonry workspace.
+Also note in the first example we had add the constraints to the superview `[superview addConstraints:...`.
+Masonry however will automagically add constraints to the appropriate view.
+
+Masonry will also call `view1.translatesAutoresizingMaskIntoConstraints = NO;` for you.
 
 ## Not all things are created equal
 
@@ -119,11 +127,19 @@ make.left.greaterThanOrEqualTo(label.mas_left);
 
 #### 3. NSNumber
 
+Auto Layout allows width and height to be set to constant values.
 if you want to set view to have a minimum and maximum width you could pass a number to the equality blocks:
-
 ```obj-c
+//width >= 200 && width <= 400
 make.width.greaterThanOrEqualTo(@200);
 make.width.lessThanOrEqualTo(@400)
+```
+
+However Auto Layout does not allow alignment attributes such as left, right, centerY etc to be set to constant values.
+So if you pass a NSNumber for these attributes Masonry will turn these into constraints relative to the view&rsquo;s superview ie:
+```obj-c
+//creates view.left = view.superview.left + 10
+make.left.lessThanOrEqualTo(@10)
 ```
 
 #### 4. NSArray

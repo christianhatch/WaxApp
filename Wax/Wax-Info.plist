@@ -45,7 +45,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>957</string>
+	<string>960</string>
 	<key>FacebookAppID</key>
 	<string>181035102046368</string>
 	<key>FacebookDisplayName</key>
@@ -53,11 +53,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSContactsUsageDescription</key>
-	<string>Don't worry, we don't store your contacts - we only search for your friends who are already on Wax.</string>
+	<string>We don't store your contacts - we only search for your friends who are already on Wax.</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Don't worry, you can choose whether to add your location to each video you take.</string>
+	<string>You can choose whether to add your location to each video you take.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Wax needs access to your photos so we can save videos you take, and so you can upload videos you've already taken.  </string>
+	<string>So we can save videos you take, and so you can upload videos you've already taken.  </string>
 	<key>UIFileSharingEnabled</key>
 	<false/>
 	<key>UIMainStoryboardFile</key>

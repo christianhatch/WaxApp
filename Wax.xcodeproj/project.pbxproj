@@ -59,7 +59,6 @@
 		45267D61179D9E4D00101B30 /* WaxEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45267D60179D9E4D00101B30 /* WaxEmptyView.xib */; };
 		452FADD6174074910091F8D4 /* WaxDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 451EBD2C1726CF29000D600E /* WaxDefines.m */; };
 		452FADD7174074910091F8D4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F7162C171F163D009097F3 /* AppDelegate.m */; };
-		452FADF61740856B0091F8D4 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA322217260ED400980320 /* FacebookSDK.framework */; };
 		452FADF7174085A50091F8D4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA32351726111B00980320 /* CoreLocation.framework */; };
 		452FADF8174085AA0091F8D4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA321E17260DA000980320 /* AVFoundation.framework */; };
 		452FADF9174085B00091F8D4 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA323317260F8E00980320 /* Social.framework */; };
@@ -79,8 +78,6 @@
 		452FAE1617408C200091F8D4 /* NSError+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAE1517408C200091F8D4 /* NSError+WaxKit.m */; };
 		452FAE1C1740AC030091F8D4 /* persons.json in Resources */ = {isa = PBXBuildFile; fileRef = 452FAE1B1740AC030091F8D4 /* persons.json */; };
 		452FAE1E1740AE2F0091F8D4 /* videos.json in Resources */ = {isa = PBXBuildFile; fileRef = 452FAE1D1740AE2F0091F8D4 /* videos.json */; };
-		452FAFDD1741830E0091F8D4 /* libAcaciaKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 452FAFD8174182D10091F8D4 /* libAcaciaKit.a */; };
-		452FAFDE174183560091F8D4 /* libAcaciaKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 452FAFD8174182D10091F8D4 /* libAcaciaKit.a */; };
 		453E44671794AA6200771312 /* TutorialParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 453E44661794AA6200771312 /* TutorialParentViewController.m */; };
 		453E44681794AA6200771312 /* TutorialParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 453E44661794AA6200771312 /* TutorialParentViewController.m */; };
 		453E446B1794AC4600771312 /* TutorialChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 453E446A1794AC4600771312 /* TutorialChildViewController.m */; };
@@ -278,6 +275,7 @@
 		457BBAD7177E478000533B57 /* WaxFollowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 457BBAD6177E477F00533B57 /* WaxFollowButton.m */; };
 		457BBAD8177E478000533B57 /* WaxFollowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 457BBAD6177E477F00533B57 /* WaxFollowButton.m */; };
 		4591002A1755979E000D8BCD /* AppledocSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 459100291755979E000D8BCD /* AppledocSettings.plist */; };
+		4594832D17AEEF9900FDD77C /* libAcaciaKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4594832C17AEEF9900FDD77C /* libAcaciaKit.a */; };
 		459C28251725EC82009C5487 /* UIButton+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C281E1725EC82009C5487 /* UIButton+WaxKit.m */; };
 		459C28271725EC82009C5487 /* UIFont+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C28201725EC82009C5487 /* UIFont+WaxKit.m */; };
 		459C28291725EC82009C5487 /* UIImage+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C28221725EC82009C5487 /* UIImage+WaxKit.m */; };
@@ -383,8 +381,8 @@
 		45A7CA281783742700F62D4D /* profile_picture_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A7CA211783742600F62D4D /* profile_picture_placeholder.png */; };
 		45A7CA291783742700F62D4D /* profile_picture_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A7CA221783742700F62D4D /* profile_picture_placeholder@2x.png */; };
 		45A7CA2A1783742700F62D4D /* profile_picture_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A7CA221783742700F62D4D /* profile_picture_placeholder@2x.png */; };
-		45AC7CC317637F6D0086D980 /* AcaciaKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45AC7CC217637E050086D980 /* AcaciaKitResources.bundle */; };
 		45B1E5FF17545073008C0DF8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B1E5FE17545073008C0DF8 /* CFNetwork.framework */; };
+		45C93E6A17B02C120097DD69 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA32371726113300980320 /* Crashlytics.framework */; };
 		45E298A8179B2CAB0051471D /* VideoUploadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E298A7179B2CAB0051471D /* VideoUploadView.m */; };
 		45E298A9179B2CAB0051471D /* VideoUploadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E298A7179B2CAB0051471D /* VideoUploadView.m */; };
 		45E298AE179B2DEB0051471D /* VideoUploadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45E298AD179B2DEB0051471D /* VideoUploadView.xib */; };
@@ -405,7 +403,6 @@
 		45EA323217260F8A00980320 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA323117260F8900980320 /* Security.framework */; };
 		45EA323417260F8E00980320 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA323317260F8E00980320 /* Social.framework */; };
 		45EA32361726111C00980320 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA32351726111B00980320 /* CoreLocation.framework */; };
-		45EA32381726113300980320 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA32371726113300980320 /* Crashlytics.framework */; };
 		45EA32391726113400980320 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA32371726113300980320 /* Crashlytics.framework */; };
 		45F7161D171F163C009097F3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F7161C171F163C009097F3 /* UIKit.framework */; };
 		45F7161F171F163C009097F3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F7161E171F163C009097F3 /* Foundation.framework */; };
@@ -419,38 +416,10 @@
 		45F71643171F163D009097F3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F7161E171F163C009097F3 /* Foundation.framework */; };
 		45F7164B171F163D009097F3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45F71649171F163D009097F3 /* InfoPlist.strings */; };
 		45F9E24E17A9D929000BDE76 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F9E24D17A9D929000BDE76 /* FacebookSDK.framework */; };
-		ED7FED56E137433B946BCAEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C9784DDF7E84C01BC8F8951 /* libPods.a */; };
+		58380403E94746909DBF6DA0 /* libPods-Wax.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1971AB4FDED471195F55E81 /* libPods-Wax.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		452FAFD7174182D10091F8D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 452FAFD2174182D00091F8D4 /* AcaciaKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 452FAE2C1741637E0091F8D4;
-			remoteInfo = AcaciaKit;
-		};
-		452FAFD9174182D10091F8D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 452FAFD2174182D00091F8D4 /* AcaciaKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 452FAE3D1741637E0091F8D4;
-			remoteInfo = AcaciaKitTests;
-		};
-		452FAFDB174182DF0091F8D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 452FAFD2174182D00091F8D4 /* AcaciaKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 452FAE2B1741637E0091F8D4;
-			remoteInfo = AcaciaKit;
-		};
-		45AC7CC117637E050086D980 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 452FAFD2174182D00091F8D4 /* AcaciaKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 45AC7CA317637D8A0086D980;
-			remoteInfo = AcaciaKitResources;
-		};
 		45F71644171F163D009097F3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 45F71611171F163C009097F3 /* Project object */;
@@ -461,7 +430,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1C9784DDF7E84C01BC8F8951 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		45009A48174EBCF600EE0B5C /* LoginObjectTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginObjectTests.h; sourceTree = "<group>"; };
 		45009A49174EBCF600EE0B5C /* LoginObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginObjectTests.m; sourceTree = "<group>"; };
 		45009A4B174EBD0200EE0B5C /* SettingsObjectTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsObjectTests.h; sourceTree = "<group>"; };
@@ -508,7 +476,6 @@
 		452FAE1517408C200091F8D4 /* NSError+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+WaxKit.m"; sourceTree = "<group>"; };
 		452FAE1B1740AC030091F8D4 /* persons.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = persons.json; sourceTree = "<group>"; };
 		452FAE1D1740AE2F0091F8D4 /* videos.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = videos.json; sourceTree = "<group>"; };
-		452FAFD2174182D00091F8D4 /* AcaciaKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AcaciaKit.xcodeproj; path = AcaciaKit/AcaciaKit.xcodeproj; sourceTree = "<group>"; };
 		453E44651794AA6200771312 /* TutorialParentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialParentViewController.h; path = Wax/ViewControllers/TutorialParentViewController.h; sourceTree = SOURCE_ROOT; };
 		453E44661794AA6200771312 /* TutorialParentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialParentViewController.m; path = Wax/ViewControllers/TutorialParentViewController.m; sourceTree = SOURCE_ROOT; };
 		453E44691794AC4600771312 /* TutorialChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialChildViewController.h; path = Wax/ViewControllers/TutorialChildViewController.h; sourceTree = SOURCE_ROOT; };
@@ -655,6 +622,7 @@
 		457BBAD5177E477F00533B57 /* WaxFollowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxFollowButton.h; sourceTree = "<group>"; };
 		457BBAD6177E477F00533B57 /* WaxFollowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxFollowButton.m; sourceTree = "<group>"; };
 		459100291755979E000D8BCD /* AppledocSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppledocSettings.plist; sourceTree = "<group>"; };
+		4594832C17AEEF9900FDD77C /* libAcaciaKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAcaciaKit.a; path = "../../../../Library/Developer/Xcode/DerivedData/Wax-ahzehkbzlmzywefbrutrdgidvhlp/Build/Products/Debug-iphoneos/libAcaciaKit.a"; sourceTree = "<group>"; };
 		459C281D1725EC82009C5487 /* UIButton+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+WaxKit.h"; sourceTree = "<group>"; };
 		459C281E1725EC82009C5487 /* UIButton+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WaxKit.m"; sourceTree = "<group>"; };
 		459C281F1725EC82009C5487 /* UIFont+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+WaxKit.h"; sourceTree = "<group>"; };
@@ -766,8 +734,6 @@
 		45EA321C17260D8000980320 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		45EA321E17260DA000980320 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		45EA322017260E8100980320 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		45EA322217260ED400980320 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
-		45EA322517260F2B00980320 /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKResources.bundle; path = ../../../../../FacebookSDK/FacebookSDK.framework/Resources/FacebookSDKResources.bundle; sourceTree = "<group>"; };
 		45EA322B17260F6B00980320 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		45EA322D17260F7500980320 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		45EA322F17260F8100980320 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -793,7 +759,8 @@
 		45F7164C171F163D009097F3 /* WaxTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaxTests.h; sourceTree = "<group>"; };
 		45F7164D171F163D009097F3 /* WaxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaxTests.m; sourceTree = "<group>"; };
 		45F9E24D17A9D929000BDE76 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
-		51B50416C7D54C66A44B546E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		E1971AB4FDED471195F55E81 /* libPods-Wax.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wax.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wax.xcconfig"; path = "Pods/Pods-Wax.xcconfig"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -801,16 +768,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4594832D17AEEF9900FDD77C /* libAcaciaKit.a in Frameworks */,
 				45F9E24E17A9D929000BDE76 /* FacebookSDK.framework in Frameworks */,
 				4518ADE0175AC3FA00D5D95C /* MediaPlayer.framework in Frameworks */,
 				4518AD591758FCE700D5D95C /* CoreMedia.framework in Frameworks */,
 				45EA321F17260DA100980320 /* AVFoundation.framework in Frameworks */,
 				4518AD551758FC5300D5D95C /* AssetsLibrary.framework in Frameworks */,
-				452FAFDD1741830E0091F8D4 /* libAcaciaKit.a in Frameworks */,
 				45B1E5FF17545073008C0DF8 /* CFNetwork.framework in Frameworks */,
 				452FAE04174086060091F8D4 /* AddressBookUI.framework in Frameworks */,
 				45EA32361726111C00980320 /* CoreLocation.framework in Frameworks */,
 				45EA323417260F8E00980320 /* Social.framework in Frameworks */,
+				45C93E6A17B02C120097DD69 /* Crashlytics.framework in Frameworks */,
 				45EA323217260F8A00980320 /* Security.framework in Frameworks */,
 				45EA323017260F8200980320 /* libsqlite3.dylib in Frameworks */,
 				45EA322E17260F7600980320 /* Accounts.framework in Frameworks */,
@@ -821,8 +789,7 @@
 				45F7161D171F163C009097F3 /* UIKit.framework in Frameworks */,
 				45F7161F171F163C009097F3 /* Foundation.framework in Frameworks */,
 				45F71621171F163C009097F3 /* CoreGraphics.framework in Frameworks */,
-				ED7FED56E137433B946BCAEE /* libPods.a in Frameworks */,
-				45EA32381726113300980320 /* Crashlytics.framework in Frameworks */,
+				58380403E94746909DBF6DA0 /* libPods-Wax.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -834,7 +801,6 @@
 				4518AD6217594A3600D5D95C /* CoreMedia.framework in Frameworks */,
 				452FADF8174085AA0091F8D4 /* AVFoundation.framework in Frameworks */,
 				4518AD5E175948B600D5D95C /* AssetsLibrary.framework in Frameworks */,
-				452FAFDE174183560091F8D4 /* libAcaciaKit.a in Frameworks */,
 				452FAE03174085FC0091F8D4 /* AddressBookUI.framework in Frameworks */,
 				452FAE01174085EB0091F8D4 /* CoreGraphics.framework in Frameworks */,
 				452FAE00174085E30091F8D4 /* MessageUI.framework in Frameworks */,
@@ -846,7 +812,6 @@
 				452FADFA174085B40091F8D4 /* Security.framework in Frameworks */,
 				452FADF9174085B00091F8D4 /* Social.framework in Frameworks */,
 				452FADF7174085A50091F8D4 /* CoreLocation.framework in Frameworks */,
-				452FADF61740856B0091F8D4 /* FacebookSDK.framework in Frameworks */,
 				45F71641171F163D009097F3 /* SenTestingKit.framework in Frameworks */,
 				45F71642171F163D009097F3 /* UIKit.framework in Frameworks */,
 				45F71643171F163D009097F3 /* Foundation.framework in Frameworks */,
@@ -925,16 +890,6 @@
 				452FAE1B1740AC030091F8D4 /* persons.json */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		452FAFD3174182D00091F8D4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				452FAFD8174182D10091F8D4 /* libAcaciaKit.a */,
-				452FAFDA174182D10091F8D4 /* AcaciaKitTests.octest */,
-				45AC7CC217637E050086D980 /* AcaciaKitResources.bundle */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		453E446D1794AC9100771312 /* Tutorial */ = {
@@ -1422,13 +1377,12 @@
 		45F71610171F163C009097F3 = {
 			isa = PBXGroup;
 			children = (
-				452FAFD2174182D00091F8D4 /* AcaciaKit.xcodeproj */,
 				45F71622171F163C009097F3 /* Wax */,
 				459C281B1725EC82009C5487 /* WaxKit */,
 				45F71646171F163D009097F3 /* WaxTests */,
 				45F7161B171F163C009097F3 /* Frameworks */,
 				45F7161A171F163C009097F3 /* Products */,
-				51B50416C7D54C66A44B546E /* Pods.xcconfig */,
+				EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1444,6 +1398,7 @@
 		45F7161B171F163C009097F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4594832C17AEEF9900FDD77C /* libAcaciaKit.a */,
 				45F9E24D17A9D929000BDE76 /* FacebookSDK.framework */,
 				4518ADDE175AAE3600D5D95C /* MediaPlayer.framework */,
 				4518AD581758FCE700D5D95C /* CoreMedia.framework */,
@@ -1457,8 +1412,6 @@
 				45EA322F17260F8100980320 /* libsqlite3.dylib */,
 				45EA322D17260F7500980320 /* Accounts.framework */,
 				45EA322B17260F6B00980320 /* AdSupport.framework */,
-				45EA322217260ED400980320 /* FacebookSDK.framework */,
-				45EA322517260F2B00980320 /* FacebookSDKResources.bundle */,
 				45EA322017260E8100980320 /* libz.dylib */,
 				45EA321E17260DA000980320 /* AVFoundation.framework */,
 				45EA321C17260D8000980320 /* AddressBook.framework */,
@@ -1468,7 +1421,7 @@
 				45F7161E171F163C009097F3 /* Foundation.framework */,
 				45F71620171F163C009097F3 /* CoreGraphics.framework */,
 				45F71640171F163D009097F3 /* SenTestingKit.framework */,
-				1C9784DDF7E84C01BC8F8951 /* libPods.a */,
+				E1971AB4FDED471195F55E81 /* libPods-Wax.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1533,12 +1486,11 @@
 				45F71616171F163C009097F3 /* Frameworks */,
 				45F71617171F163C009097F3 /* Resources */,
 				05875659751440EC8790F2FE /* Copy Pods Resources */,
-				45EA320A1725FD8A00980320 /* Crashlytics */,
+				454DE91417AF09B100DE0061 /* Crashlytics */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				452FAFDC174182DF0091F8D4 /* PBXTargetDependency */,
 			);
 			name = Wax;
 			productName = Wax;
@@ -1596,12 +1548,6 @@
 			mainGroup = 45F71610171F163C009097F3;
 			productRefGroup = 45F7161A171F163C009097F3 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 452FAFD3174182D00091F8D4 /* Products */;
-					ProjectRef = 452FAFD2174182D00091F8D4 /* AcaciaKit.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				45F71618171F163C009097F3 /* Wax */,
@@ -1611,36 +1557,11 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXReferenceProxy section */
-		452FAFD8174182D10091F8D4 /* libAcaciaKit.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libAcaciaKit.a;
-			remoteRef = 452FAFD7174182D10091F8D4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		452FAFDA174182D10091F8D4 /* AcaciaKitTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = AcaciaKitTests.octest;
-			remoteRef = 452FAFD9174182D10091F8D4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		45AC7CC217637E050086D980 /* AcaciaKitResources.bundle */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = AcaciaKitResources.bundle;
-			remoteRef = 45AC7CC117637E050086D980 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
-
 /* Begin PBXResourcesBuildPhase section */
 		45F71617171F163C009097F3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45AC7CC317637F6D0086D980 /* AcaciaKitResources.bundle in Resources */,
 				45F71627171F163C009097F3 /* InfoPlist.strings in Resources */,
 				45F71636171F163D009097F3 /* MainStoryboard.storyboard in Resources */,
 				452FAE0D174089570091F8D4 /* Localizable.strings in Resources */,
@@ -1898,7 +1819,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Pods-Wax-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		452FADEE174079850091F8D4 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1914,20 +1836,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"";
 		};
-		4591002417559172000D8BCD /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Build an Xcode documentation\n/Applications/appledoc \"$SOURCE_ROOT/$PROJECT_NAME\"\n";
-		};
-		45EA320A1725FD8A00980320 /* Crashlytics */ = {
+		454DE91417AF09B100DE0061 /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1940,6 +1849,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./Crashlytics.framework/run 50bd7200ec2054f6ac2b747cc51ca6ae08298664";
+		};
+		4591002417559172000D8BCD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Build an Xcode documentation\n/Applications/appledoc \"$SOURCE_ROOT/$PROJECT_NAME\"\n";
 		};
 		45F7163D171F163D009097F3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2111,11 +2033,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		452FAFDC174182DF0091F8D4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AcaciaKit;
-			targetProxy = 452FAFDB174182DF0091F8D4 /* PBXContainerItemProxy */;
-		};
 		45F71645171F163D009097F3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 45F71618171F163C009097F3 /* Wax */;
@@ -2164,7 +2081,7 @@
 /* Begin XCBuildConfiguration section */
 		459100201755906E000D8BCD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
+			baseConfigurationReference = EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -2174,7 +2091,7 @@
 		};
 		459100221755906E000D8BCD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
+			baseConfigurationReference = EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -2184,7 +2101,7 @@
 		};
 		459100231755906E000D8BCD /* TestFlight */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
+			baseConfigurationReference = EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -2194,7 +2111,7 @@
 		};
 		45F7164F171F163D009097F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
+			baseConfigurationReference = EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -2226,7 +2143,7 @@
 		};
 		45F71650171F163D009097F3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
+			baseConfigurationReference = EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -2256,11 +2173,11 @@
 		};
 		45F71652171F163D009097F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
+			baseConfigurationReference = EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/chatch/Documents/FacebookSDK,
@@ -2269,10 +2186,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wax/Wax-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
-				HEADER_SEARCH_PATHS = (
-					"${PODS_HEADERS_SEARCH_PATHS}",
-					"\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include\"",
-				);
+				HEADER_SEARCH_PATHS = "${PODS_HEADERS_SEARCH_PATHS}";
 				INFOPLIST_FILE = "Wax/Wax-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -2289,8 +2203,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "C66F4783-2188-49BD-B943-55758BBEC1C0";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C66F4783-2188-49BD-B943-55758BBEC1C0";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) \"${PODS_ROOT}/BuildHeaders\" $(BUILT_PRODUCTS_DIR)/** \"$(SRCROOT)/Pods/Headers/\"/**";
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
@@ -2299,7 +2213,7 @@
 		};
 		45F71653171F163D009097F3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
+			baseConfigurationReference = EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
@@ -2312,10 +2226,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wax/Wax-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
-				HEADER_SEARCH_PATHS = (
-					"${PODS_HEADERS_SEARCH_PATHS}",
-					"\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include\"",
-				);
+				HEADER_SEARCH_PATHS = "${PODS_HEADERS_SEARCH_PATHS}";
 				INFOPLIST_FILE = "Wax/Wax-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -2342,7 +2253,7 @@
 		};
 		45F71655171F163D009097F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
+			baseConfigurationReference = EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Wax.app/Wax";
@@ -2379,7 +2290,7 @@
 		};
 		45F71656171F163D009097F3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
+			baseConfigurationReference = EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Wax.app/Wax";
@@ -2416,7 +2327,7 @@
 		};
 		45F71661171F18D7009097F3 /* TestFlight */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
+			baseConfigurationReference = EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -2446,7 +2357,7 @@
 		};
 		45F71662171F18D7009097F3 /* TestFlight */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
+			baseConfigurationReference = EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
@@ -2459,10 +2370,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wax/Wax-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "TESTFLIGHT=1";
-				HEADER_SEARCH_PATHS = (
-					"${PODS_HEADERS_SEARCH_PATHS}",
-					"\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include\"",
-				);
+				HEADER_SEARCH_PATHS = "${PODS_HEADERS_SEARCH_PATHS}";
 				INFOPLIST_FILE = "Wax/Wax-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -2489,7 +2397,7 @@
 		};
 		45F71663171F18D7009097F3 /* TestFlight */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51B50416C7D54C66A44B546E /* Pods.xcconfig */;
+			baseConfigurationReference = EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Wax.app/Wax";

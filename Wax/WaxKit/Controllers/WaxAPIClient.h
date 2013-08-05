@@ -7,7 +7,7 @@
 //
 
 
-#import <AcaciaKit/AFNetworking.h>
+#import "AFNetworking.h"
 
 @class LoginObject, PersonObject, VideoObject, SettingsObject, CLLocation;
 
