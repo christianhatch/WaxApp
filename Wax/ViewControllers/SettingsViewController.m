@@ -10,14 +10,20 @@
 #import <MessageUI/MessageUI.h>
 
 
-#define SectionNotifications        0
-#define SectionPersonalInformation  1
-#define SectionSocialAccounts       2
-#define SectionOtherSettings        0
+#define SectionSocialAccounts       0
+#define SectionGeneralSettings      1
+//#define SectionNotifications        0
+//#define SectionPersonalInformation  1
 
 
 @interface SettingsViewController () <MFMailComposeViewControllerDelegate>
+
+@property (weak, nonatomic) IBOutlet UILabel *facebookLabel;
+@property (weak, nonatomic) IBOutlet UILabel *twitterLabel;
+
 @property (strong, nonatomic) IBOutlet UISwitch *cameraRollSwitch;
+- (IBAction)cameraRollSwitchValueChanged:(id)sender;
+
 @end
 
 @implementation SettingsViewController
@@ -36,20 +42,29 @@
 
 -(void)setUpView{
     [self.cameraRollSwitch setOn:[WaxUser currentUser].shouldSaveVideosToCameraRoll animated:NO];
-    [self.cameraRollSwitch addTarget:self action:@selector(cameraRollSwitched:) forControlEvents:UIControlEventValueChanged];
-}
 
--(void)cameraRollSwitched:(UISwitch *)sender{
+    if ([WaxUser currentUser].facebookAccountConnected) {
+        self.facebookLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Facebook: %@", @"facebook connected"), [WaxUser currentUser].fullName];
+    }
+    
+    if ([WaxUser currentUser].twitterAccountConnected) {
+        self.twitterLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Twitter: %@", @"twitter connected"), [WaxUser currentUser].twitterAccountName];
+    }
+    
+}
+- (IBAction)cameraRollSwitchValueChanged:(id)sender {
     [WaxUser currentUser].shouldSaveVideosToCameraRoll = self.cameraRollSwitch.on;
 }
 
 
-
 #pragma mark - Table view delegate
 -(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     BOOL should = NO;
     
-    if ((indexPath.section == SectionOtherSettings) && (indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 3)) {
+    BOOL generalSettingsHighlight = (indexPath.section == SectionGeneralSettings) && (indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 3);
+    
+    if (generalSettingsHighlight) {
         should = YES;
     }
     
@@ -57,7 +72,15 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    if (indexPath.section == SectionOtherSettings) {
+    if (indexPath.section == SectionSocialAccounts) {
+        if (indexPath.row == 0) { //fb
+            
+        }else if (indexPath.row == 1){ //twitter
+            
+        }
+    }
+    
+    if (indexPath.section == SectionGeneralSettings) {
         if (indexPath.row == 1){ //submit feedback
             [self sendFeedback];
         }else if (indexPath.row == 2){ //logout
@@ -76,9 +99,12 @@
   
     NSString *title = nil;
     
-    if (section == SectionOtherSettings) {
-        NSLocalizedString(@"General Settings", @"General Settings"); 
+    if (section == SectionGeneralSettings) {
+        title = NSLocalizedString(@"General", @"General");
+    }else if (section == SectionSocialAccounts){
+        title = NSLocalizedString(@"Profile", @"Profile");
     }
+    
     return title;
 }
 
@@ -124,6 +150,5 @@
     [super didReceiveMemoryWarning];
     
 }
-
 
 @end

@@ -53,7 +53,7 @@
     return YES;
 }
 
-#pragma mark - Interapp Communication
+#pragma mark - InterApp Communication
 -(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
     return [[AIKFacebookManager sharedManager] handleOpenURL:url];
 }
@@ -146,6 +146,7 @@
     [AIKFacebookManager setFacebookAppID:kThirdPartyFacebookAppID];
     [AIKTwitterManager setTwitterConsumerKey:kThirdPartyTwitterConsumerKey];
     [AIKTwitterManager setTwitterConsumerSecret:kThirdPartyTwitterConsumerSecret];
+    
     
 #ifndef DEBUG
 #ifdef TESTFLIGHT

@@ -126,10 +126,10 @@ static void _ExternalChangeCallback( ABAddressBookRef bookRef, CFDictionaryRef i
             return ( nil );
         }
     }
-    else
-    {
-        ref = ABAddressBookCreate();
-    }
+//    else
+//    {
+//        ref = ABAddressBookCreate();
+//    }
     
     if ( ref == NULL )
     {
