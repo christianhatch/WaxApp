@@ -1,4 +1,4 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/CocoaLumberjack" "${PODS_ROOT}/Headers/Lockbox" "${PODS_ROOT}/Headers/Masonry" "${PODS_ROOT}/Headers/SVProgressHUD" "${PODS_ROOT}/Headers/SVPullToRefresh"
-OTHER_LDFLAGS = -ObjC -framework CoreGraphics -framework Foundation -framework MobileCoreServices -framework QuartzCore -framework Security -framework SystemConfiguration -framework UIKit
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/CocoaLumberjack" "${PODS_ROOT}/Headers/CrashlyticsLumberjack" "${PODS_ROOT}/Headers/Facebook-iOS-SDK" "${PODS_ROOT}/Headers/Facebook-iOS-SDK/FacebookSDK" "${PODS_ROOT}/Headers/Lockbox" "${PODS_ROOT}/Headers/Masonry" "${PODS_ROOT}/Headers/NSData+Base64" "${PODS_ROOT}/Headers/OAuthCore" "${PODS_ROOT}/Headers/SVProgressHUD" "${PODS_ROOT}/Headers/SVPullToRefresh" "${PODS_ROOT}/Headers/iPhoneContacts"
+OTHER_LDFLAGS = -ObjC -framework CoreGraphics -framework CoreLocation -framework Crashlytics -framework Foundation -framework MobileCoreServices -framework Security -framework SystemConfiguration -framework UIKit -weak_framework Accounts -weak_framework AdSupport -weak_framework Security -weak_framework Social
 PODS_ROOT = ${SRCROOT}/Pods

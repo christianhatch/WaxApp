@@ -107,7 +107,7 @@
 }
 
 - (IBAction)signupButtonAction:(id)sender {
-    [AIKErrorManager logMessageToAllServices:@"User tapped signup button on signup page"];
+    [AIKErrorManager logMessage:@"User tapped signup button on signup page"];
     
     if (![self verifyInputtedData]) {
         return;
@@ -126,7 +126,7 @@
     }    
 }
 - (IBAction)profilePictureButtonAction:(id)sender {
-    [AIKErrorManager logMessageToAllServices:@"User tapped profile picture button on signup page"];
+    [AIKErrorManager logMessage:@"User tapped profile picture button on signup page"];
     
     [[WaxUser currentUser] chooseNewprofilePictureFromViewController:self completion:^(UIImage *profilePicture, NSError *error) {
         [self setProfilePicture:profilePicture];

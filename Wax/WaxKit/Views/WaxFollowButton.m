@@ -76,15 +76,15 @@
         
         if (!error) {
             if (self.isFollowing) {
-                [AIKErrorManager logMessageToAllServices:@"User unfollowed another user"];
+                [AIKErrorManager logMessage:@"User unfollowed another user"];
             }else{
-                [AIKErrorManager logMessageToAllServices:@"User followed another user"];
+                [AIKErrorManager logMessage:@"User followed another user"];
             }
             
             self.following = !self.isFollowing;
             
         }else{
-            VLog(@"error following or unfollowing %@", error);
+            DDLogError(@"error following or unfollowing %@", error);
         }
     }];
 }

@@ -11,7 +11,7 @@
 @implementation UIImageView (WaxKit)
 
 
--(void)setImageForProfilePictureWithUserID:(NSString *)userID buttonHandler:(AcaciaKitImageViewButtonHandler)handler{
+-(void)setImageForProfilePictureWithUserID:(NSString *)userID buttonHandler:(WaxKitImageViewButtonHandler)handler{
 
     [self setCircular:YES borderColor:[UIColor waxTableViewCellSelectionColor]];
     

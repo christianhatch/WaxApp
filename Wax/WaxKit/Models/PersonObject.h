@@ -7,7 +7,6 @@
 //
 
 #import "ModelObject.h"
-#import <FacebookSDK/FacebookSDK.h>
 
 @interface PersonObject : ModelObject
 
@@ -21,7 +20,7 @@
 @property (nonatomic, copy) NSNumber *followingCount;
 @property (nonatomic, copy) NSNumber *titlesCount;
 
--(id)initWithFBGraphUser:(id <FBGraphUser>)graphuser;
+//-(id)initWithFBGraphUser:(id <FBGraphUser>)graphuser;
 
 -(BOOL)isMe; 
 

@@ -23,6 +23,7 @@
 @property (nonatomic, copy) NSString *videoID;
 @property (nonatomic, copy) NSString *shareID;
 @property (nonatomic, copy) NSString *timeStamp;
+@property (nonatomic, copy) NSNumber *feedInfiniteScrollingID;
 
 #pragma mark - User Facing Information about the video
 @property (nonatomic, copy) NSString *tag;

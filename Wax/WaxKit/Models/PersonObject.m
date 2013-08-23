@@ -51,19 +51,19 @@
     }
     return self;
 }
--(id)initWithFBGraphUser:(id<FBGraphUser>)graphuser{
-    self = [super init];
-    if (self) {
-        @try {
-            self.userID = graphuser.id;
-            self.fullName = [NSString stringWithFormat:@"%@ %@", graphuser.first_name, graphuser.last_name];
-        }
-        @catch (NSException *exception) {
-            [AIKErrorManager logExceptionWithMessage:@"Tried to init person object with a nil fbgraphuser!" exception:exception];
-        }
-    }
-    return self;
-}
+//-(id)initWithFBGraphUser:(id<FBGraphUser>)graphuser{
+//    self = [super init];
+//    if (self) {
+//        @try {
+//            self.userID = graphuser.id;
+//            self.fullName = [NSString stringWithFormat:@"%@ %@", graphuser.first_name, graphuser.last_name];
+//        }
+//        @catch (NSException *exception) {
+//            [AIKErrorManager logExceptionWithMessage:@"Tried to init person object with a nil fbgraphuser!" exception:exception];
+//        }
+//    }
+//    return self;
+//}
 -(NSString *)description{
     NSString *descrippy = [NSString stringWithFormat:@"PersonObject Description: UserID=%@ Username=%@ Fullname=%@ Following=%i FollowersCount=%@ FollowingCount=%@ TitlesCount=%@ InfiniteScrollingID=%@", self.userID, self.username, self.fullName, self.following, self.followersCount, self.followingCount, self.titlesCount, self.infiniteScrollingID];
     return descrippy;

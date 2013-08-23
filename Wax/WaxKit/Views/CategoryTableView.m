@@ -101,7 +101,7 @@
     if (!error) {
         
     }else{
-        DLog(@"error updating category %@", error);
+        DDLogError(@"error updating category %@", error);
         
         switch (self.tableViewType) {
             case CategoryTableViewTypeCategories:{

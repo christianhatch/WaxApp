@@ -10,10 +10,13 @@
 
 
 #import "AppDelegate.h"
-#import <AcaciaKit/TestFlight.h>
-#import <AcaciaKit/Flurry.h>
-#import <AcaciaKit/TSTapstream.h>
+#import "TestFlight.h"
+#import "Flurry.h"
+#import "TSApi.h"
+#import "AFUrbanAirshipClient.h"
+
 #import <AdSupport/AdSupport.h>
+#import "WaxAPIErrorManagerService.h"
 
 //#import "Appirater.h"
 //#import "AppiraterDelegate.h" 
@@ -45,10 +48,10 @@
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound |UIRemoteNotificationTypeAlert)];
     }
     
-    VLog(@"Current User %@", [WaxUser currentUser]); 
-    
     [self customizeAppearance];
     [self bootupThirdPartySDKs];
+    
+    DDLogInfo(@"Current User %@", [WaxUser currentUser]);
     
     return YES;
 }
@@ -69,11 +72,11 @@
     [ship registerDeviceToken:deviceToken withAlias:[WaxUser currentUser].userID success:^{
         //yay!
     } failure:^(NSError *error) {
-        [AIKErrorManager logMessage:@"error registering device token with urban airship" withError:error];
+        [AIKErrorManager logError:error withMessage:@"error registering device token with urban airship"];
     }];
 }
 -(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    [AIKErrorManager logMessage:@"Did Fail To Register For Remote Notifications" withError:error];
+    [AIKErrorManager logError:error withMessage:@"Did Fail To Register For Remote Notifications"];
 }
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
  
@@ -147,21 +150,37 @@
     [AIKTwitterManager setTwitterConsumerKey:kThirdPartyTwitterConsumerKey];
     [AIKTwitterManager setTwitterConsumerSecret:kThirdPartyTwitterConsumerSecret];
     
+    [AIKErrorManager enableFileLogger:YES];
+    [AIKErrorManager addPassThroughErrorDomain:kWaxAPIErrorDomain];
+    [AIKErrorManager addErrorManagerService:[WaxAPIErrorManagerService sharedInstance]]; 
     
-#ifndef DEBUG
-#ifdef TESTFLIGHT
-    [TestFlight setDeviceIdentifier:[(id<UIDeviceHack>)[UIDevice currentDevice] uniqueIdentifier]];
+#ifdef DEBUG
+    [AIKErrorManager enableXcodeLogger:YES];
+    
+    [AIKErrorManager enableAppleSystemLogger:YES];
+    [AIKErrorManager addPassThroughErrorDomain:AFNetworkingErrorDomain];
+#else
 
-    TSConfig *config = [TSConfig configWithDefaults];
-    config.collectWifiMac = NO;
-    config.idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    [TSTapstream createWithAccountName:kThirdPartyTapStreamAccountName developerSecret:kThirdPartyTapStreamAccountSecret config:config];
+    #ifdef TESTFLIGHT
+        [AIKErrorManager enableAppleSystemLogger:YES];
+        [AIKErrorManager addPassThroughErrorDomain:AFNetworkingErrorDomain];
+
+        [TestFlight setDeviceIdentifier:[(id<UIDeviceHack>)[UIDevice currentDevice] uniqueIdentifier]];
+
+//        TSConfig *config = [TSConfig configWithDefaults];
+//        config.collectWifiMac = NO;
+//        config.idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+//        [TSTapstream createWithAccountName:kThirdPartyTapStreamAccountName developerSecret:kThirdPartyTapStreamAccountSecret config:config];
+    #endif
+        [TestFlight takeOff:kThirdPartyTestFlightAPIKey];
+        [Flurry startSession:kThirdPartyFlurryAPIKey];
+        [Crashlytics startWithAPIKey:kThirdPartyCrashlyticsAPIKey delegate:self];
+        [WaxUser saveCurrentUserToVendorSolutions];
+    
+        [AIKErrorManager enableCrashlyticsLogger:YES];
+
 #endif
-    [TestFlight takeOff:kThirdPartyTestFlightAPIKey];
-    [Flurry startSession:kThirdPartyFlurryAPIKey];
-    [Crashlytics startWithAPIKey:kThirdPartyCrashlyticsAPIKey delegate:self];
-    [WaxUser saveCurrentUserToVendorSolutions];
-#endif
+    
 }
 
 -(void)customizeAppearance{

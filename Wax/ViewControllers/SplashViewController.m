@@ -86,7 +86,7 @@
 }
 
 - (IBAction)signupWithFacebookAction:(id)sender {
-    [AIKErrorManager logMessageToAllServices:@"User tapped connect with facebook button on splash page"];
+    [AIKErrorManager logMessage:@"User tapped connect with facebook button on splash page"];
 
     [SVProgressHUD showWithStatus:NSLocalizedString(@"Logging In With Facebook...", @"Logging In With Facebook...")];
     
@@ -103,7 +103,7 @@
 }
 
 - (IBAction)signupWithEmailAction:(id)sender {
-    [AIKErrorManager logMessageToAllServices:@"User tapped signup with email button on splash page"];
+    [AIKErrorManager logMessage:@"User tapped signup with email button on splash page"];
     
     SignupViewController *signupVC = [SignupViewController signupViewControllerForEmail];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
@@ -111,7 +111,7 @@
 }
 
 - (IBAction)login:(id)sender {
-    [AIKErrorManager logMessageToAllServices:@"User tapped login button on splash page"];
+    [AIKErrorManager logMessage:@"User tapped login button on splash page"];
     
     LoginViewController *loginVC = initViewControllerWithIdentifier(@"LoginVC");
     [self.navigationController setNavigationBarHidden:NO animated:YES];

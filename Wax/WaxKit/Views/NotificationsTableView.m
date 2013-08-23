@@ -61,7 +61,7 @@
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     NotificationObject *note = [self.proxyDataSourceArray objectAtIndexOrNil:indexPath.row];
     
-//    VLog(@"selected note object %@", note);
+//    DDLogVerbose(@"selected note object %@", note);
 
     note.unread = NO;
     NotificationCell *cell = (NotificationCell *)[self cellForRowAtIndexPath:indexPath];
@@ -102,7 +102,7 @@
     }else{
         self.emptyView.labelText = NSLocalizedString(@"Error Loading Notifications", @"No Notifications");
 
-        VLog(@"error updating notes %@", error);
+        DDLogError(@"error updating notes %@", error);
     }
     
     [super finishDataReFetchWithReFetchError:error];

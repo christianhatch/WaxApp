@@ -97,7 +97,7 @@
 
 
 -(void)captureFromTabBar{
-    [AIKErrorManager logMessageToAllServices:@"Tapped Record On TabBar"];
+    [AIKErrorManager logMessage:@"Tapped Record On TabBar"];
     [self capture];
 }
 -(void)capture{

@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AcaciaKit/UIImageView+AcaciaKit.h>
+
+typedef void(^WaxKitImageViewButtonHandler)(UIImageView *imageView);
 
 @interface UIImageView (WaxKit)
 
--(void)setImageForProfilePictureWithUserID:(NSString *)userID buttonHandler:(AcaciaKitImageViewButtonHandler)handler;
+-(void)setImageForProfilePictureWithUserID:(NSString *)userID buttonHandler:(WaxKitImageViewButtonHandler)handler;
 
 
 @end

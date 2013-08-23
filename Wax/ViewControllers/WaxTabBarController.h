@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Christian Hatch. All rights reserved.
 //
 
-#import <AcaciaKit/AcaciaKit.h>
+#import <AcaciaKit/AIKTabBarController.h>
 
 @interface WaxTabBarController : AIKTabBarController
 

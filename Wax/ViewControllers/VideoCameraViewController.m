@@ -75,7 +75,7 @@
 -(void)dismissCamera{
     [[VideoUploadManager sharedManager] askToExitVideoCameraWithBlock:^(BOOL allowedToProceed) {
         if (allowedToProceed) {
-            [AIKErrorManager logMessageToAllServices:@"User Canceled from video camera"];
+            [AIKErrorManager logMessage:@"User Canceled from video camera"];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];

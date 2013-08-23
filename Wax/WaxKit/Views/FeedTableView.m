@@ -210,7 +210,7 @@
             }break;
         }
     }else{
-        VLog(@"error updating feed %@", error);
+        DDLogError(@"error updating feed %@", error);
 
         switch (self.tableViewType) {
             case FeedTableViewTypeMyFeed:{

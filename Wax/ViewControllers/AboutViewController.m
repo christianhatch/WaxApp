@@ -39,7 +39,7 @@
 -(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
     
     if (section == 0) {
-        return [NSString stringWithFormat:NSLocalizedString(@"%@\n\"%@\"\nCopyright \u00A9 2013 Acacia Interactive", @"%@\nCopyright \u00A9 2013 Acacia Interactive"), [NSString appNameVersionAndBuildString], kWaxVersionCodeName];
+        return [NSString stringWithFormat:NSLocalizedString(@"%@\n\"%@\"\nCopyright \u00A9 2013 Acacia Interactive", @"%@\nCopyright \u00A9 2013 Acacia Interactive"), [UIApplication appNameVersionAndBuildString], kWaxVersionCodeName];
     }
 
     return nil;

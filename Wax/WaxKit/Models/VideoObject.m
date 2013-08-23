@@ -30,7 +30,7 @@
 
 @synthesize didVote = _didVote;
 @synthesize infiniteScrollingID = _infiniteScrollingID;
-
+@synthesize feedInfiniteScrollingID = _feedInfiniteScrollingID; 
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary{
     self = [super init];
@@ -53,12 +53,13 @@
 
         self.didVote = [[dictionary objectForKey:@"didvote" orDefaultValue:NO] boolValue];
        
-        self.infiniteScrollingID = [dictionary objectForKey:@"timestamp" orDefaultValue:nil]; 
+        self.infiniteScrollingID = [dictionary objectForKey:@"timestamp" orDefaultValue:nil];
+        self.feedInfiniteScrollingID = [dictionary objectForKey:@"feed_item_count" orDefaultValue:nil];
     }
     return self;
 }
 -(NSString *)description{
-    NSString *descrippy = [NSString stringWithFormat:@"VideoObject Description: UserID=%@ Username=%@ Rank=%@ TagCount=%@ VideoID=%@ ShareID=%@ TimeStamp=%@ Tag=%@ Category=%@ VotesCount=%@ ViewsCount=%@ DidVote=%@ InfiniteScrollingID=%@", self.userID, self.username, self.rank, self.tagCount, self.videoID, self.shareID, self.timeStamp, self.tag, self.category, self.votesCount, self.viewCount, HumanReadableStringFromBool(self.didVote), self.infiniteScrollingID];
+    NSString *descrippy = [NSString stringWithFormat:@"VideoObject Description: UserID=%@ Username=%@ Rank=%@ TagCount=%@ VideoID=%@ ShareID=%@ TimeStamp=%@ Tag=%@ Category=%@ VotesCount=%@ ViewsCount=%@ DidVote=%@ FeedInfiniteScrollingID=%@, InfiniteScrollingID=%@", self.userID, self.username, self.rank, self.tagCount, self.videoID, self.shareID, self.timeStamp, self.tag, self.category, self.votesCount, self.viewCount, HumanReadableStringFromBool(self.didVote), self.feedInfiniteScrollingID, self.infiniteScrollingID];
     return descrippy;
 }
 

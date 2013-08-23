@@ -27,6 +27,7 @@
 #import "WaxUser.h"
 #import "WaxDataManager.h" 
 #import "VideoUploadManager.h"
+//#import "WaxAPIErrorManagerService.h"
 
 //controls
 #import "WaxRoundButton.h"
@@ -59,7 +60,7 @@
 //viewcontrollers
 #import "VideoCameraViewController.h"
 
-#import "WaxTabBarController.h"
+//#import "WaxTabBarController.h"
 #import "HomeViewController.h"
 #import "DiscoverViewController.h"
 #import "NotificationsViewController.h"
@@ -80,6 +81,7 @@
 #import "TagObject.h"
 #import "VideoObject.h"
 #import "UploadObject.h"
+#import "WaxAPIBugObject.h"
 
 
 
@@ -87,9 +89,7 @@
 #import "Masonry.h"
 #import "SVProgressHUD.h"
 #import <AcaciaKit/AcaciaKit.h>
-#import <FacebookSDK/FacebookSDK.h>
-
-
+#import "FacebookSDK/FacebookSDK.h"
 
 
 

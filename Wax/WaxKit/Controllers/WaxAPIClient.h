@@ -147,21 +147,26 @@ typedef NS_ENUM(NSInteger, WaxAPIClientVideoActionType){
 
 #pragma mark - Feeds
 -(void)fetchFeedForUserID:(NSString *)personID
-    infiniteScrollingID:(NSNumber *)infiniteScrollingID
-             completion:(WaxAPIClientBlockTypeCompletionList)completion;
+  feedInfiniteScrollingID:(NSNumber *)feedInfiniteScrollingID
+      infiniteScrollingID:(NSNumber *)infiniteScrollingID
+               completion:(WaxAPIClientBlockTypeCompletionList)completion;
 
 -(void)fetchHomeFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID
+                    feedInfiniteScrollingID:(NSNumber *)feedInfiniteScrollingID
                                  completion:(WaxAPIClientBlockTypeCompletionList)completion;
 
 -(void)fetchMyFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID
+                  feedInfiniteScrollingID:(NSNumber *)feedInfiniteScrollingID
                                completion:(WaxAPIClientBlockTypeCompletionList)completion;
 
 -(void)fetchFeedForTag:(NSString *)tag
               sortedBy:(WaxAPIClientTagSortType)sortedBy
+feedInfiniteScrollingID:(NSNumber *)feedInfiniteScrollingID
    infiniteScrollingID:(NSNumber *)infiniteScrollingID
             completion:(WaxAPIClientBlockTypeCompletionList)completion;
 
 -(void)fetchFeedForCategory:(NSString *)category
+    feedInfiniteScrollingID:(NSNumber *)feedInfiniteScrollingID
         infiniteScrollingID:(NSNumber *)infiniteScrollingID
                  completion:(WaxAPIClientBlockTypeCompletionList)completion;
 

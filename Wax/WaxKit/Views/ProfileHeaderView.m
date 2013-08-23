@@ -64,7 +64,7 @@
                 if (profilePicture) {
                     [imageView setImage:profilePicture animated:YES];
                 }else{
-                    VLog(@"error choosing new profile pic %@", error);
+                    DDLogError(@"error choosing new profile pic %@", error);
                 }
             }];
             
@@ -170,7 +170,7 @@
         if (!error) {
             self.person = person;
         }else{
-            DLog(@"error fetching person for profile header %@", error);
+            DDLogError(@"error fetching person for profile header %@", error);
         }
     }];
 }
@@ -188,7 +188,7 @@
             
             [self setUpButton];
         }else{
-            DLog(@"followed/unfollowed error %@", error);
+            DDLogError(@"followed/unfollowed error %@", error);
         }
     }];
 }

@@ -121,7 +121,7 @@
 
 #pragma mark - Internal Methods
 -(void)resetForLogOut:(NSNotification *)note{
-    VLog(@"logged out");
+    DDLogVerbose(@"logged out");
     [self clearPersonUserIDAndUsername];
     self.tableView = nil;
 }

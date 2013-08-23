@@ -106,6 +106,8 @@
 		455406CD177A42F8004E334A /* UILabel+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 455406CB177A42F8004E334A /* UILabel+WaxKit.m */; };
 		455406D3177A4490004E334A /* UIColor+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 455406D2177A4490004E334A /* UIColor+WaxKit.m */; };
 		455406D4177A4490004E334A /* UIColor+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 455406D2177A4490004E334A /* UIColor+WaxKit.m */; };
+		45597E6217BD5B2D00B71500 /* WaxAPIBugObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 45597E6117BD5B2D00B71500 /* WaxAPIBugObject.m */; };
+		45597E6317BD5B2D00B71500 /* WaxAPIBugObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 45597E6117BD5B2D00B71500 /* WaxAPIBugObject.m */; };
 		455A1696177B509100185F61 /* VideoUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 455A168F177B509100185F61 /* VideoUploadManager.m */; };
 		455A1697177B509100185F61 /* VideoUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 455A168F177B509100185F61 /* VideoUploadManager.m */; };
 		455A1698177B509100185F61 /* WaxAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 455A1691177B509100185F61 /* WaxAPIClient.m */; };
@@ -274,8 +276,9 @@
 		457BBAC8177D445300533B57 /* waxSearchScope_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 457BBAB8177D445300533B57 /* waxSearchScope_on@2x.png */; };
 		457BBAD7177E478000533B57 /* WaxFollowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 457BBAD6177E477F00533B57 /* WaxFollowButton.m */; };
 		457BBAD8177E478000533B57 /* WaxFollowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 457BBAD6177E477F00533B57 /* WaxFollowButton.m */; };
+		457C161117BCAEAB002022D7 /* WaxAPIErrorManagerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 457C161017BCAEAB002022D7 /* WaxAPIErrorManagerService.m */; };
+		457C161217BCAEAB002022D7 /* WaxAPIErrorManagerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 457C161017BCAEAB002022D7 /* WaxAPIErrorManagerService.m */; };
 		4591002A1755979E000D8BCD /* AppledocSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 459100291755979E000D8BCD /* AppledocSettings.plist */; };
-		4594832D17AEEF9900FDD77C /* libAcaciaKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4594832C17AEEF9900FDD77C /* libAcaciaKit.a */; };
 		459C28251725EC82009C5487 /* UIButton+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C281E1725EC82009C5487 /* UIButton+WaxKit.m */; };
 		459C28271725EC82009C5487 /* UIFont+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C28201725EC82009C5487 /* UIFont+WaxKit.m */; };
 		459C28291725EC82009C5487 /* UIImage+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 459C28221725EC82009C5487 /* UIImage+WaxKit.m */; };
@@ -382,6 +385,7 @@
 		45A7CA291783742700F62D4D /* profile_picture_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A7CA221783742700F62D4D /* profile_picture_placeholder@2x.png */; };
 		45A7CA2A1783742700F62D4D /* profile_picture_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A7CA221783742700F62D4D /* profile_picture_placeholder@2x.png */; };
 		45B1E5FF17545073008C0DF8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B1E5FE17545073008C0DF8 /* CFNetwork.framework */; };
+		45B6692817C3646900F1A2B5 /* libAcaciaKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4594832C17AEEF9900FDD77C /* libAcaciaKit.a */; };
 		45C93E6A17B02C120097DD69 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EA32371726113300980320 /* Crashlytics.framework */; };
 		45E298A8179B2CAB0051471D /* VideoUploadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E298A7179B2CAB0051471D /* VideoUploadView.m */; };
 		45E298A9179B2CAB0051471D /* VideoUploadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E298A7179B2CAB0051471D /* VideoUploadView.m */; };
@@ -415,7 +419,6 @@
 		45F71642171F163D009097F3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F7161C171F163C009097F3 /* UIKit.framework */; };
 		45F71643171F163D009097F3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F7161E171F163C009097F3 /* Foundation.framework */; };
 		45F7164B171F163D009097F3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45F71649171F163D009097F3 /* InfoPlist.strings */; };
-		45F9E24E17A9D929000BDE76 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F9E24D17A9D929000BDE76 /* FacebookSDK.framework */; };
 		58380403E94746909DBF6DA0 /* libPods-Wax.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1971AB4FDED471195F55E81 /* libPods-Wax.a */; };
 /* End PBXBuildFile section */
 
@@ -495,6 +498,8 @@
 		455406CB177A42F8004E334A /* UILabel+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+WaxKit.m"; sourceTree = "<group>"; };
 		455406D1177A4490004E334A /* UIColor+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+WaxKit.h"; sourceTree = "<group>"; };
 		455406D2177A4490004E334A /* UIColor+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+WaxKit.m"; sourceTree = "<group>"; };
+		45597E6017BD5B2D00B71500 /* WaxAPIBugObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxAPIBugObject.h; sourceTree = "<group>"; };
+		45597E6117BD5B2D00B71500 /* WaxAPIBugObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxAPIBugObject.m; sourceTree = "<group>"; };
 		455A168E177B509100185F61 /* VideoUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoUploadManager.h; sourceTree = "<group>"; };
 		455A168F177B509100185F61 /* VideoUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoUploadManager.m; sourceTree = "<group>"; };
 		455A1690177B509100185F61 /* WaxAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxAPIClient.h; sourceTree = "<group>"; };
@@ -621,6 +626,8 @@
 		457BBAB8177D445300533B57 /* waxSearchScope_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "waxSearchScope_on@2x.png"; sourceTree = "<group>"; };
 		457BBAD5177E477F00533B57 /* WaxFollowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxFollowButton.h; sourceTree = "<group>"; };
 		457BBAD6177E477F00533B57 /* WaxFollowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxFollowButton.m; sourceTree = "<group>"; };
+		457C160F17BCAEAB002022D7 /* WaxAPIErrorManagerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxAPIErrorManagerService.h; sourceTree = "<group>"; };
+		457C161017BCAEAB002022D7 /* WaxAPIErrorManagerService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaxAPIErrorManagerService.m; sourceTree = "<group>"; };
 		459100291755979E000D8BCD /* AppledocSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppledocSettings.plist; sourceTree = "<group>"; };
 		4594832C17AEEF9900FDD77C /* libAcaciaKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAcaciaKit.a; path = "../../../../Library/Developer/Xcode/DerivedData/Wax-ahzehkbzlmzywefbrutrdgidvhlp/Build/Products/Debug-iphoneos/libAcaciaKit.a"; sourceTree = "<group>"; };
 		459C281D1725EC82009C5487 /* UIButton+WaxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+WaxKit.h"; sourceTree = "<group>"; };
@@ -759,6 +766,8 @@
 		45F7164C171F163D009097F3 /* WaxTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaxTests.h; sourceTree = "<group>"; };
 		45F7164D171F163D009097F3 /* WaxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaxTests.m; sourceTree = "<group>"; };
 		45F9E24D17A9D929000BDE76 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		46B3D68BED15417AA9037A42 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D49209E543504CD4804C13EB /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		E1971AB4FDED471195F55E81 /* libPods-Wax.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wax.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wax.xcconfig"; path = "Pods/Pods-Wax.xcconfig"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -768,8 +777,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4594832D17AEEF9900FDD77C /* libAcaciaKit.a in Frameworks */,
-				45F9E24E17A9D929000BDE76 /* FacebookSDK.framework in Frameworks */,
+				45B6692817C3646900F1A2B5 /* libAcaciaKit.a in Frameworks */,
 				4518ADE0175AC3FA00D5D95C /* MediaPlayer.framework in Frameworks */,
 				4518AD591758FCE700D5D95C /* CoreMedia.framework in Frameworks */,
 				45EA321F17260DA100980320 /* AVFoundation.framework in Frameworks */,
@@ -923,6 +931,8 @@
 			children = (
 				455A1690177B509100185F61 /* WaxAPIClient.h */,
 				455A1691177B509100185F61 /* WaxAPIClient.m */,
+				457C160F17BCAEAB002022D7 /* WaxAPIErrorManagerService.h */,
+				457C161017BCAEAB002022D7 /* WaxAPIErrorManagerService.m */,
 				455A1694177B509100185F61 /* WaxUser.h */,
 				455A1695177B509100185F61 /* WaxUser.m */,
 				455A1692177B509100185F61 /* WaxDataManager.h */,
@@ -963,6 +973,8 @@
 				455A16DF177B520C00185F61 /* VideoObject.m */,
 				455A16DC177B520C00185F61 /* UploadObject.h */,
 				455A16DD177B520C00185F61 /* UploadObject.m */,
+				45597E6017BD5B2D00B71500 /* WaxAPIBugObject.h */,
+				45597E6117BD5B2D00B71500 /* WaxAPIBugObject.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1383,6 +1395,7 @@
 				45F7161B171F163C009097F3 /* Frameworks */,
 				45F7161A171F163C009097F3 /* Products */,
 				EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */,
+				D49209E543504CD4804C13EB /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1422,6 +1435,7 @@
 				45F71620171F163C009097F3 /* CoreGraphics.framework */,
 				45F71640171F163D009097F3 /* SenTestingKit.framework */,
 				E1971AB4FDED471195F55E81 /* libPods-Wax.a */,
+				46B3D68BED15417AA9037A42 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1819,7 +1833,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-Wax-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		452FADEE174079850091F8D4 /* Copy Pods Resources */ = {
@@ -1959,6 +1973,8 @@
 				4517F56A179759C500DC81A1 /* SendChallengeCell.m in Sources */,
 				45E298A8179B2CAB0051471D /* VideoUploadView.m in Sources */,
 				454F826E179FC044002005D7 /* WaxEmptyView.m in Sources */,
+				457C161117BCAEAB002022D7 /* WaxAPIErrorManagerService.m in Sources */,
+				45597E6217BD5B2D00B71500 /* WaxAPIBugObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2027,6 +2043,8 @@
 				4517F56B179759C500DC81A1 /* SendChallengeCell.m in Sources */,
 				45E298A9179B2CAB0051471D /* VideoUploadView.m in Sources */,
 				454F826F179FC044002005D7 /* WaxEmptyView.m in Sources */,
+				457C161217BCAEAB002022D7 /* WaxAPIErrorManagerService.m in Sources */,
+				45597E6317BD5B2D00B71500 /* WaxAPIBugObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2175,12 +2193,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/chatch/Documents/FacebookSDK,
 					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2189,7 +2206,10 @@
 				HEADER_SEARCH_PATHS = "${PODS_HEADERS_SEARCH_PATHS}";
 				INFOPLIST_FILE = "Wax/Wax-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/Wax-ahzehkbzlmzywefbrutrdgidvhlp/Build/Products/Debug-iphoneos\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-framework",
@@ -2203,9 +2223,9 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) \"${PODS_ROOT}/BuildHeaders\" $(BUILT_PRODUCTS_DIR)/** \"$(SRCROOT)/Pods/Headers/\"/**";
+				PROVISIONING_PROFILE = "C66F4783-2188-49BD-B943-55758BBEC1C0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C66F4783-2188-49BD-B943-55758BBEC1C0";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) \"${PODS_ROOT}/BuildHeaders\" $(BUILT_PRODUCTS_DIR)/** \"$(SRCROOT)/Pods/Headers/\"/** \"/Users/chatch/Dropbox/Acacia/TheWaxProject/WaxApp/AcaciaKit\"";
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2215,12 +2235,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/chatch/Documents/FacebookSDK,
 					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2229,7 +2248,10 @@
 				HEADER_SEARCH_PATHS = "${PODS_HEADERS_SEARCH_PATHS}";
 				INFOPLIST_FILE = "Wax/Wax-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/Wax-ahzehkbzlmzywefbrutrdgidvhlp/Build/Products/Debug-iphoneos\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-framework",
@@ -2245,7 +2267,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "5542C230-6C55-4260-A13F-06D5965BBC1F";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5542C230-6C55-4260-A13F-06D5965BBC1F";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) \"${PODS_ROOT}/BuildHeaders\" $(BUILT_PRODUCTS_DIR)/** \"$(SRCROOT)/Pods/Headers/\"/**";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) \"${PODS_ROOT}/BuildHeaders\" $(BUILT_PRODUCTS_DIR)/** \"$(SRCROOT)/Pods/Headers/\"/** \"/Users/chatch/Dropbox/Acacia/TheWaxProject/WaxApp/AcaciaKit\"";
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2359,12 +2381,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/chatch/Documents/FacebookSDK,
 					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2373,7 +2394,10 @@
 				HEADER_SEARCH_PATHS = "${PODS_HEADERS_SEARCH_PATHS}";
 				INFOPLIST_FILE = "Wax/Wax-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/Wax-ahzehkbzlmzywefbrutrdgidvhlp/Build/Products/Debug-iphoneos\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-framework",
@@ -2389,7 +2413,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6E1AC7AD-4B79-49DC-92D0-83C96B3BACFB";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6E1AC7AD-4B79-49DC-92D0-83C96B3BACFB";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) \"${PODS_ROOT}/BuildHeaders\" $(BUILT_PRODUCTS_DIR)/** \"$(SRCROOT)/Pods/Headers/\"/**";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) \"${PODS_ROOT}/BuildHeaders\" $(BUILT_PRODUCTS_DIR)/** \"$(SRCROOT)/Pods/Headers/\"/** \"/Users/chatch/Dropbox/Acacia/TheWaxProject/WaxApp/AcaciaKit\"";
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};

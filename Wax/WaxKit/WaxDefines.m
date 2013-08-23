@@ -16,8 +16,8 @@ NSString *const kWaxAttributionsURL = @"https://wax.li/documents/acknowledgement
 NSString *const kWaxItunesStoreURL = @"http://bit.ly/DownloadWax";
 
 #pragma mark - API
-NSString *const kWaxAPIBaseURL = @"https://api.wax.li/v1/";
-NSString *const kWaxAPISalt = @"pXOnay@E3p*#5lJC)D^t$8WBb4X_yDds0Z75t$@I";
+NSString *const kWaxAPIBaseURL = @"https://devapi.wax.li/v1.1/";
+NSString *const kWaxAPISalt = @"RIW4DbEQ6aAsE6gcZ$fpeC1X5_f1DmnSC%yo%yPo";
 NSString *const kWaxAPIErrorDomain = @"com.wax.api"; 
 NSString *const kWaxAPIJSONKey = @"response";
 

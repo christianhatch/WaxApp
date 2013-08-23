@@ -14,6 +14,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "452FAE2B1741637E0091F8D4"
+               BuildableName = "libAcaciaKit.a"
+               BlueprintName = "AcaciaKit"
+               ReferencedContainer = "container:AcaciaKit/AcaciaKit.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "45F71618171F163C009097F3"
                BuildableName = "Wax.app"
                BlueprintName = "Wax"

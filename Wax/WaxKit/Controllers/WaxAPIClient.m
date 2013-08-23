@@ -25,7 +25,7 @@ static inline BOOL PathRequiresArray(NSString *path){
 #import "WaxAPIClient.h"
 
 @interface WaxAPIClient ()
-@property (nonatomic) dispatch_queue_t jsonProcessingQueue;
+@property (nonatomic, strong) dispatch_queue_t jsonProcessingQueue;
 @end
 
 @implementation WaxAPIClient
@@ -124,19 +124,21 @@ static inline BOOL PathRequiresArray(NSString *path){
 }
 
 #pragma mark - Feeds
--(void)fetchFeedForUserID:(NSString *)personID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
+-(void)fetchFeedForUserID:(NSString *)personID feedInfiniteScrollingID:(NSNumber *)feedInfiniteScrollingID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     
     NSParameterAssert(personID);
     
-    [self fetchFeedFromPath:@"feeds/user" tagOrPersonID:personID infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
+    [self fetchFeedFromPath:@"feeds/user" tagOrPersonID:personID feedInfiniteScrollingID:feedInfiniteScrollingID infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
         if (completion) {
             completion(list, error); 
         }
     }];
 }
--(void)fetchHomeFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
+-(void)fetchHomeFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID feedInfiniteScrollingID:(NSNumber *)feedInfiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
+    
+    //TODO: the api client probably shouldn't be making the distinction as to whether a user is logged in..just throwing it out there...
     if ([WaxUser currentUser].isLoggedIn) {
-        [self fetchFeedFromPath:@"feeds/home" tagOrPersonID:[WaxUser currentUser].userID infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
+        [self fetchFeedFromPath:@"feeds/home" tagOrPersonID:[WaxUser currentUser].userID feedInfiniteScrollingID:feedInfiniteScrollingID infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
                         
             if (completion) {
                 completion(list, error);
@@ -144,9 +146,9 @@ static inline BOOL PathRequiresArray(NSString *path){
         }];
     }
 }
--(void)fetchMyFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
+-(void)fetchMyFeedWithInfiniteScrollingID:(NSNumber *)infiniteScrollingID feedInfiniteScrollingID:(NSNumber *)feedInfiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     if ([WaxUser currentUser].isLoggedIn) {
-        [self fetchFeedForUserID:[WaxUser currentUser].userID infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
+        [self fetchFeedForUserID:[WaxUser currentUser].userID feedInfiniteScrollingID:feedInfiniteScrollingID infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
 
             if (completion) {
                 completion(list, error); 
@@ -154,21 +156,21 @@ static inline BOOL PathRequiresArray(NSString *path){
         }];
     }
 }
--(void)fetchFeedForTag:(NSString *)tag sortedBy:(WaxAPIClientTagSortType)sortedBy infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
+-(void)fetchFeedForTag:(NSString *)tag sortedBy:(WaxAPIClientTagSortType)sortedBy feedInfiniteScrollingID:(NSNumber *)feedInfiniteScrollingID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     
     NSParameterAssert(tag);
     NSParameterAssert(sortedBy);
     
     switch (sortedBy) {
         case WaxAPIClientTagSortTypeRank:{
-            [self fetchFeedFromPath:@"feeds/tag" tagOrPersonID:tag infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
+            [self fetchFeedFromPath:@"feeds/tag" tagOrPersonID:tag feedInfiniteScrollingID:feedInfiniteScrollingID infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
                 if (completion) {
                     completion(list, error);
                 }
             }];
         }break;
         case WaxAPIClientTagSortTypeRecent:{
-            [self fetchFeedFromPath:@"feeds/tag_recent" tagOrPersonID:tag infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
+            [self fetchFeedFromPath:@"feeds/tag_recent" tagOrPersonID:tag feedInfiniteScrollingID:feedInfiniteScrollingID infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
                 if (completion) {
                     completion(list, error);
                 }
@@ -176,9 +178,9 @@ static inline BOOL PathRequiresArray(NSString *path){
         }break;
     }
 }
--(void)fetchFeedForCategory:(NSString *)category infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
+-(void)fetchFeedForCategory:(NSString *)category feedInfiniteScrollingID:(NSNumber *)feedInfiniteScrollingID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
     
-    [self fetchFeedFromPath:@"feeds/discover" tagOrPersonID:category infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
+    [self fetchFeedFromPath:@"feeds/discover" tagOrPersonID:category feedInfiniteScrollingID:feedInfiniteScrollingID infiniteScrollingID:infiniteScrollingID completion:^(NSMutableArray *list, NSError *error) {
         if (completion) {
             completion(list, error); 
         }
@@ -302,8 +304,6 @@ static inline BOOL PathRequiresArray(NSString *path){
         
     }progress:progress completion:^(id model, NSError *error) {
        
-//        VLog(@"upload video response %@", model);
-
         if (completion) {
             completion(SimpleReturnFromAPIResponse(model), error);
         }
@@ -321,8 +321,6 @@ static inline BOOL PathRequiresArray(NSString *path){
         
     }progress:progress completion:^(id model, NSError *error) {
       
-//        VLog(@"upload thumbnail response %@", model);
-
         if (completion) {
             completion(SimpleReturnFromAPIResponse(model), error);
         }
@@ -390,7 +388,7 @@ static inline BOOL PathRequiresArray(NSString *path){
     
     if (videoID) {
         [self postPath:@"videos/cancel_upload" parameters:@{@"videoid": videoID} modelClass:nil completionBlock:^(id model, NSError *error) {
-            [AIKErrorManager logMessageToAllServices:@"User canceled the upload of video"];
+            [AIKErrorManager logMessage:@"User canceled the upload of video"];
         }];
     }
 }
@@ -520,7 +518,6 @@ static inline BOOL PathRequiresArray(NSString *path){
 }
 -(void)fetchNoteCountWithCompletion:(void (^)(NSNumber *, NSError *))completion{
     
-    
     [self postPath:@"notes/unread" parameters:nil modelClass:nil completionBlock:^(id model, NSError *error) {
         
         NSNumber *count = [[model objectAtIndexOrNil:0] objectForKeyOrNil:@"unread"];
@@ -532,11 +529,11 @@ static inline BOOL PathRequiresArray(NSString *path){
 }
 
 #pragma mark - Internal Methods
--(void)fetchFeedFromPath:(NSString *)path tagOrPersonID:(NSString *)tagOrPersonID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
+-(void)fetchFeedFromPath:(NSString *)path tagOrPersonID:(NSString *)tagOrPersonID feedInfiniteScrollingID:(NSNumber *)feedInfiniteScrollingID infiniteScrollingID:(NSNumber *)infiniteScrollingID completion:(WaxAPIClientBlockTypeCompletionList)completion{
 
     NSParameterAssert(tagOrPersonID);
     
-    [self postPath:path parameters:@{@"feedid": CollectionSafeObject(tagOrPersonID), kLastItemKey:CollectionSafeObject(infiniteScrollingID)} modelClass:[VideoObject class] completionBlock:^(id model, NSError *error) {
+    [self postPath:path parameters:@{@"feedid": CollectionSafeObject(tagOrPersonID), kLastItemKey:CollectionSafeObject(infiniteScrollingID), @"feed_item_count":CollectionSafeObject(feedInfiniteScrollingID)} modelClass:[VideoObject class] completionBlock:^(id model, NSError *error) {
         
         if (completion) {
             completion(model, error);
@@ -570,7 +567,7 @@ static inline BOOL PathRequiresArray(NSString *path){
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        VLog(@"standard post request failure %@", error);
+        DDLogError(@"standard post request failure %@", error);
         
         if ([NSError errorIsEqualToNSURLErrorRequestCanceled:error]) {
             if (completion) {
@@ -578,10 +575,11 @@ static inline BOOL PathRequiresArray(NSString *path){
             }
         }else{
             [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Network Request Failed", @"standard post error string") error:error buttonHandler:^{
-                if (completion) {
-                    completion(nil, error);
-                }
-            } logError:YES];
+            } logError:NO];
+            if (completion) {
+                completion(nil, error);
+            }
+            [AIKErrorManager logNetworkErrorWithRequestOperation:operation error:error description:@"Standard Post Request Failure"]; 
         }
     }];
 }
@@ -614,7 +612,7 @@ static inline BOOL PathRequiresArray(NSString *path){
         }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        VLog(@"multipart form request failure %@", error);
+        DDLogError(@"multipart form request failure %@", error);
         
         if ([NSError errorIsEqualToNSURLErrorRequestCanceled:error]) {
             if (completion) {
@@ -622,10 +620,11 @@ static inline BOOL PathRequiresArray(NSString *path){
             }
         }else{
             [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Network Request Failed", @"standard post error string") error:error buttonHandler:^{
-                if (completion) {
-                    completion(nil, error);
-                }
-            } logError:YES];
+            } logError:NO];
+            if (completion) {
+                completion(nil, error);
+            }
+            [AIKErrorManager logNetworkErrorWithRequestOperation:operation error:error description:@"Standard Post Request Failure"];
         }
     }];
     
@@ -669,7 +668,7 @@ static inline BOOL PathRequiresArray(NSString *path){
 }
 -(void)validateResponseObject:(id)responseObject completion:(void (^)(id validated))completion{
     
-//    VLog(@"response %@", responseObject);
+//    DDLogVerbose(@"response %@", responseObject);
     
     dispatch_async(self.jsonProcessingQueue, ^{
 
@@ -680,7 +679,7 @@ static inline BOOL PathRequiresArray(NSString *path){
                 if ([[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectForKeyOrNil:@"complete"] boolValue]) {
                     returnObject = [[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectForKeyOrNil:@"data"];
                 }else{
-                    DLog(@"error on api %@", responseObject);
+                    DDLogError(@"error on api %@", responseObject);
                     NSError *error = [NSError waxAPIErrorFromResponse:[[responseObject objectForKeyOrNil:kWaxAPIJSONKey] objectForKeyOrNil:@"error"]];
                     if (error.code == 9001) {
                         [AIKErrorManager showAlertWithTitle:NSLocalizedString(@"Logged out for security", @"Logged out for security") error:error buttonHandler:^{

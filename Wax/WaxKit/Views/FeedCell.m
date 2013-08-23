@@ -119,7 +119,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
         }
         
     }else{
-        [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"Setting video object on feedcell is not a video object. Object attempted to set %@", videoObject]];
+        [AIKErrorManager logMessage:[NSString stringWithFormat:@"Setting video object on feedcell is not a video object. Object attempted to set %@", videoObject]];
     }
 }
 -(void)prepareForReuse{
@@ -197,7 +197,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
         
         if (error) {
             [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Error voting up video :(", @"error voting up video string")]; 
-            VLog(@"error voting :(");
+            DDLogError(@"error voting :(");
         }
     }];
 }
@@ -208,7 +208,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
 }
 
 - (IBAction)sendChallengeButtonAction:(id)sender {
-    [AIKErrorManager logMessageToAllServices:@"User tapped send challenge to friend button"];
+    [AIKErrorManager logMessage:@"User tapped send challenge to friend button"];
     
     SendChallengeViewController *send = [SendChallengeViewController sendChallengeViewControllerWithChallengeTag:self.videoObject.tag challengeVideoID:self.videoObject.videoID shareURL:[NSURL shareURLFromShareID:self.videoObject.shareID]];
     [self.nearestNavigationController pushViewController:send animated:YES];
@@ -230,14 +230,14 @@ static inline NSString *stringFromActivityType(NSString *activityType){
         share.completionHandler = ^(NSString *activityType, BOOL completed){
             
             if (completed) {
-                [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"User shared video using %@", stringFromActivityType(activityType)]];
+                [AIKErrorManager logMessage:[NSString stringWithFormat:@"User shared video using %@", stringFromActivityType(activityType)]];
                 
                 if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
                     [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Copied to Clipboard!", @"Copied to Clipboard!")];
                 }
                 
             }else{
-                [AIKErrorManager logMessageToAllServices:@"User canceled sharing from feed cell"];
+                [AIKErrorManager logMessage:@"User canceled sharing from feed cell"];
             }
         };
         
@@ -292,7 +292,7 @@ static inline NSString *stringFromActivityType(NSString *activityType){
         [[WaxAPIClient sharedClient] performAction:WaxAPIClientVideoActionTypeView onVideoID:self.videoObject.videoID completion:nil];
         
         FeedTableView *supe = (FeedTableView *)self.superview;
-        [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"User played video from %@ feed", StringFromFeedTableViewType(supe.tableViewType)]];
+        [AIKErrorManager logMessage:[NSString stringWithFormat:@"User played video from %@ feed", StringFromFeedTableViewType(supe.tableViewType)]];
 
     }; 
 }

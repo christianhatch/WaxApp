@@ -113,9 +113,9 @@
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mailie = [[MFMailComposeViewController alloc] init];
         
-        [mailie setSubject:[NSString stringWithFormat:@"Feedback for %@", [NSString appNameVersionAndBuildString]]];
+        [mailie setSubject:[NSString stringWithFormat:@"Feedback for %@", [UIApplication appNameVersionAndBuildString]]];
         [mailie setToRecipients:@[@"dev@wax.li"]];
-        [mailie setMessageBody:[NSString stringWithFormat:@"\n\n\n\n\n\n%@\n%@", [NSString appNameVersionAndBuildString], [NSString deviceModelAndVersionString]] isHTML:NO];
+        [mailie setMessageBody:[NSString stringWithFormat:@"\n\n\n\n\n\n%@\n%@", [UIApplication appNameVersionAndBuildString], [UIDevice deviceModelAndVersionString]] isHTML:NO];
         [mailie setMailComposeDelegate:self];
         [self presentViewController:mailie animated:YES completion:nil];
         

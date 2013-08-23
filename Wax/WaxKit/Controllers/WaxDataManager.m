@@ -54,7 +54,7 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
     
     NSNumber *infiniteID = infiniteScroll ? [WaxDataManager infiniteScrollingIDFromArray:self.homeFeed] : nil; 
     
-    [[WaxAPIClient sharedClient] fetchHomeFeedWithInfiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
+    [[WaxAPIClient sharedClient] fetchHomeFeedWithInfiniteScrollingID:infiniteID feedInfiniteScrollingID:nil completion:^(NSMutableArray *list, NSError *error) {
         [self handleUpdatingValueForKey:kHomeFeedKey withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
     }];
 }
@@ -62,7 +62,7 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
     
     NSNumber *infiniteID = infiniteScroll ? [WaxDataManager infiniteScrollingIDFromArray:self.myFeed] : nil;
    
-    [[WaxAPIClient sharedClient] fetchMyFeedWithInfiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
+    [[WaxAPIClient sharedClient] fetchMyFeedWithInfiniteScrollingID:infiniteID feedInfiniteScrollingID:nil completion:^(NSMutableArray *list, NSError *error) {
         [self handleUpdatingValueForKey:kMyFeedKey withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
     }];
 }
@@ -101,7 +101,7 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
         if (!error) {
             self.discoverArray = list;
         }else{
-            VLog(@"error updating discover %@", error);
+            DDLogError(@"error updating discover %@", error);
         }
         if (completion) {
             completion(error); 
@@ -116,7 +116,7 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
     
     NSNumber *infiniteID = [self infiniteIDForFeedFromUserID:personID refresh:!infiniteScroll];
     
-    [[WaxAPIClient sharedClient] fetchFeedForUserID:personID infiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
+    [[WaxAPIClient sharedClient] fetchFeedForUserID:personID feedInfiniteScrollingID:nil infiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
         [self handleUpdatingValueForKey:kProfileFeedKey withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
     }];
 }
@@ -127,7 +127,7 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
     
     NSNumber *infiniteID = [self infiniteIDFromTag:category refresh:!infiniteScroll];
 
-    [[WaxAPIClient sharedClient] fetchFeedForCategory:category infiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
+    [[WaxAPIClient sharedClient] fetchFeedForCategory:category feedInfiniteScrollingID:nil infiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
         [self handleUpdatingValueForKey:kTagFeedKey withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
     }];
 }
@@ -138,7 +138,7 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
     
     NSNumber *infiniteID = [self infiniteIDFromTag:tag refresh:!infiniteScroll];
 
-    [[WaxAPIClient sharedClient] fetchFeedForTag:tag sortedBy:WaxAPIClientTagSortTypeRank infiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
+    [[WaxAPIClient sharedClient] fetchFeedForTag:tag sortedBy:WaxAPIClientTagSortTypeRank feedInfiniteScrollingID:nil infiniteScrollingID:infiniteID completion:^(NSMutableArray *list, NSError *error) {
         [self handleUpdatingValueForKey:kTagFeedKey withCompletionBlock:completion infiniteScrollingID:infiniteID APIResponseData:list APIResponseError:error];
     }]; 
 }
@@ -234,11 +234,11 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
 }
 -(void)handleUpdatingValueForKey:(NSString *)key withCompletionBlock:(WaxDataManagerCompletionBlockTypeSimple)completion infiniteScrollingID:(NSNumber *)infiniteID APIResponseData:(NSMutableArray *)responseData APIResponseError:(NSError *)error{
     
-//    VLog(@"\n\n response = %@ \n\n", responseData);
+//    DDLogVerbose(@"\n\n response = %@ \n\n", responseData);
     
     NSMutableArray *array = [self valueForKeyPath:key];
     
-//    VLog(@"\n\n original array = %@ \n\n", array); 
+//    DDLogVerbose(@"\n\n original array = %@ \n\n", array); 
     
     if (!error) {
         if (infiniteID) {
@@ -247,12 +247,12 @@ NSString *const kCategoriesKey = @"waxDataManager.categories";
             array = responseData;
         }
         
-//        VLog(@"\n\n new array = %@ \n\n", array);
+//        DDLogVerbose(@"\n\n new array = %@ \n\n", array);
         
         [self setValue:array forKeyPath:key];
         
     }else{
-        VLog(@"error %@", error);
+        DDLogError(@"error %@", error);
     }
         
     if (completion) {

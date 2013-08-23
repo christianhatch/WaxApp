@@ -36,7 +36,7 @@
     
     UploadObject *obj = [[UploadObject alloc] initWithDictionary:dict];
  
-//    VLog(@"upload object %@", obj);
+//    DDLogVerbose(@"upload object %@", obj);
     
     if ([UploadObject isValidUploadObject:obj]) {
         return obj;
@@ -51,13 +51,13 @@
     BOOL success = [dict writeToURL:[NSURL currentMetaDataFileURL] atomically:YES];
     
     if (!success) {
-        VLog(@"Failed to save uploadObject to disk %@", [self dictionaryRepresentation]);
+        DDLogError(@"Failed to save uploadObject to disk %@", [self dictionaryRepresentation]);
     }else{
-        VLog(@"Saved uploadObject to disk %@", [self dictionaryRepresentation]);
+        DDLogInfo(@"Saved uploadObject to disk %@", [self dictionaryRepresentation]);
     }
 }
 -(void)removeFromDisk{
-    VLog(); 
+    DDLogVerbose(@"");
     [[NSFileManager defaultManager] removeItemAtURL:[NSURL currentMetaDataFileURL] error:nil];
 }
 
@@ -149,10 +149,10 @@
 
 +(BOOL)isValidUploadObject:(UploadObject *)object{
 
-//    VLog(@"%@", object);
+//    DDLogVerbose(@"%@", object);
     
     if (!object) {
-        [AIKErrorManager logMessageToAllServices:[NSString stringWithFormat:@"upload object failed validation: %@", object]];
+        [AIKErrorManager logMessage:[NSString stringWithFormat:@"upload object failed validation: %@", object]];
         return NO;
     }
 
@@ -162,7 +162,7 @@
         BOOL fileExists = [object.videoFileURL checkResourceIsReachableAndReturnError:&error];
         
         if (!fileExists || error) {
-            [AIKErrorManager logMessage:@"upload object video file failed validation!" withError:error];
+            [AIKErrorManager logError:error withMessage:@"upload object video file failed validation!"];
             return NO;
         }
     }
@@ -173,7 +173,7 @@
         BOOL fileExists = [object.thumbnailFileURL checkResourceIsReachableAndReturnError:&error];
         
         if (!fileExists || error) {
-            [AIKErrorManager logMessage:@"upload object thumbnail failed validation!" withError:error];
+            [AIKErrorManager logError:error withMessage:@"upload object video file failed validation!"];
             return NO;
         }
     }

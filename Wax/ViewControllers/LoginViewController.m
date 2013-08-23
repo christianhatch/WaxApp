@@ -61,7 +61,7 @@
 }
 
 - (IBAction)loginFacebookButtonAction:(id)sender {
-    [AIKErrorManager logMessageToAllServices:@"User tapped connect with facebook button on login page"];
+    [AIKErrorManager logMessage:@"User tapped connect with facebook button on login page"];
     
     [SVProgressHUD showWithStatus:NSLocalizedString(@"Logging In With Facebook...", @"Logging In With Facebook...")];
         
@@ -81,13 +81,13 @@
 }
 
 - (IBAction)forgotPasswordButtonAction:(id)sender {
-    [AIKErrorManager logMessageToAllServices:@"User tapped forgot password button on login page"];
+    [AIKErrorManager logMessage:@"User tapped forgot password button on login page"];
     
     [AIKErrorManager showAlertWithTitle:@"Soon!" message:@"We'll have this up and running in a jiffy, so don't forget your password just yet!" buttonHandler:nil logError:NO];
 }
 
 - (IBAction)signupButtonAction:(id)sender {
-    [AIKErrorManager logMessageToAllServices:@"User tapped login button on login page"];
+    [AIKErrorManager logMessage:@"User tapped login button on login page"];
             
     [SVProgressHUD showWithStatus:NSLocalizedString(@"Logging In...", @"Logging In...")];
     

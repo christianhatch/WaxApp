@@ -12,6 +12,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking 3
 #define COCOAPODS_VERSION_PATCH_AFNetworking 2
 
+// AFUrbanAirshipClient
+#define COCOAPODS_POD_AVAILABLE_AFUrbanAirshipClient
+#define COCOAPODS_VERSION_MAJOR_AFUrbanAirshipClient 0
+#define COCOAPODS_VERSION_MINOR_AFUrbanAirshipClient 0
+#define COCOAPODS_VERSION_PATCH_AFUrbanAirshipClient 1
+
 // CocoaLumberjack
 #define COCOAPODS_POD_AVAILABLE_CocoaLumberjack
 #define COCOAPODS_VERSION_MAJOR_CocoaLumberjack 1
@@ -23,6 +29,30 @@
 #define COCOAPODS_VERSION_MAJOR_CrashlyticsLumberjack 1
 #define COCOAPODS_VERSION_MINOR_CrashlyticsLumberjack 0
 #define COCOAPODS_VERSION_PATCH_CrashlyticsLumberjack 0
+
+// Facebook-iOS-SDK
+#define COCOAPODS_POD_AVAILABLE_Facebook_iOS_SDK
+#define COCOAPODS_VERSION_MAJOR_Facebook_iOS_SDK 3
+#define COCOAPODS_VERSION_MINOR_Facebook_iOS_SDK 6
+#define COCOAPODS_VERSION_PATCH_Facebook_iOS_SDK 0
+
+// FlurrySDK
+#define COCOAPODS_POD_AVAILABLE_FlurrySDK
+#define COCOAPODS_VERSION_MAJOR_FlurrySDK 4
+#define COCOAPODS_VERSION_MINOR_FlurrySDK 2
+#define COCOAPODS_VERSION_PATCH_FlurrySDK 3
+
+// Mantle
+#define COCOAPODS_POD_AVAILABLE_Mantle
+#define COCOAPODS_VERSION_MAJOR_Mantle 1
+#define COCOAPODS_VERSION_MINOR_Mantle 2
+#define COCOAPODS_VERSION_PATCH_Mantle 0
+
+// Mantle/extobjc
+#define COCOAPODS_POD_AVAILABLE_Mantle_extobjc
+#define COCOAPODS_VERSION_MAJOR_Mantle_extobjc 1
+#define COCOAPODS_VERSION_MINOR_Mantle_extobjc 2
+#define COCOAPODS_VERSION_PATCH_Mantle_extobjc 0
 
 // Masonry
 #define COCOAPODS_POD_AVAILABLE_Masonry
@@ -41,6 +71,18 @@
 #define COCOAPODS_VERSION_MAJOR_OAuthCore 0
 #define COCOAPODS_VERSION_MINOR_OAuthCore 0
 #define COCOAPODS_VERSION_PATCH_OAuthCore 1
+
+// Tapstream
+#define COCOAPODS_POD_AVAILABLE_Tapstream
+#define COCOAPODS_VERSION_MAJOR_Tapstream 2
+#define COCOAPODS_VERSION_MINOR_Tapstream 3
+#define COCOAPODS_VERSION_PATCH_Tapstream 0
+
+// TestFlightSDK
+#define COCOAPODS_POD_AVAILABLE_TestFlightSDK
+#define COCOAPODS_VERSION_MAJOR_TestFlightSDK 2
+#define COCOAPODS_VERSION_MINOR_TestFlightSDK 0
+#define COCOAPODS_VERSION_PATCH_TestFlightSDK 0
 
 // iPhoneContacts
 #define COCOAPODS_POD_AVAILABLE_iPhoneContacts

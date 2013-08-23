@@ -9,7 +9,8 @@
 #import "WaxUser.h"
 #import "Lockbox.h"
 #import <Crashlytics/Crashlytics.h>
-#import <AcaciaKit/Flurry.h>
+#import "FlurrySDK/Flurry.h"
+
 
 NSString *const WaxUserDidLogInNotification = @"WaxUserLoggedIn";
 NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut"; 
@@ -146,7 +147,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
 }
 -(void)setTwitterAccountID:(NSString *)twitterAccountID{
     if ([NSString isEmptyOrNil:twitterAccountID]){
-        [AIKErrorManager logMessageToAllServices:@"tried to save null twitter ID"];
+        [AIKErrorManager logMessage:@"tried to save null twitter ID"];
     }else{
         [Lockbox setString:twitterAccountID forKey:kUserTwitterAccountIDKey];
         [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:kWaxNotificationTwitterAccountDidChange object:self];
@@ -289,7 +290,7 @@ NSString *const WaxUserDidLogOutNotification = @"WaxUserLoggedOut";
             
             [self syncFacebookProfilePictureShowingUICallbacks:YES withCompletion:^(NSError *error) {
                 if (error) {
-                    [AIKErrorManager logMessage:@"failed to sync facebook profile picture" withError:error];
+                    [AIKErrorManager logError:error withMessage:@"failed to sync facebook profile picture"];
                 }
             }];
             

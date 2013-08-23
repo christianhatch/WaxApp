@@ -62,7 +62,7 @@
 -(void)cancel:(id)sender{
     [[VideoUploadManager sharedManager] askToExitThumbnailChooserWithBlock:^(BOOL allowedToProceed) {
         if (allowedToProceed) {
-            [AIKErrorManager logMessageToAllServices:@"User canceled from thumbnail chooser"];
+            [AIKErrorManager logMessage:@"User canceled from thumbnail chooser"];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
