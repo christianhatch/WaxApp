@@ -1,0 +1,1 @@
+PODS_ACACIAKIT_TAPSTREAM_OTHER_LDFLAGS = -framework Foundation -framework UIKit
