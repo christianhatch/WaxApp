@@ -30,6 +30,12 @@
 #define COCOAPODS_VERSION_MINOR_CrashlyticsLumberjack 0
 #define COCOAPODS_VERSION_PATCH_CrashlyticsLumberjack 0
 
+// DCIntrospect-ARC
+#define COCOAPODS_POD_AVAILABLE_DCIntrospect_ARC
+#define COCOAPODS_VERSION_MAJOR_DCIntrospect_ARC 0
+#define COCOAPODS_VERSION_MINOR_DCIntrospect_ARC 0
+#define COCOAPODS_VERSION_PATCH_DCIntrospect_ARC 2
+
 // Facebook-iOS-SDK
 #define COCOAPODS_POD_AVAILABLE_Facebook_iOS_SDK
 #define COCOAPODS_VERSION_MAJOR_Facebook_iOS_SDK 3
@@ -41,18 +47,6 @@
 #define COCOAPODS_VERSION_MAJOR_FlurrySDK 4
 #define COCOAPODS_VERSION_MINOR_FlurrySDK 2
 #define COCOAPODS_VERSION_PATCH_FlurrySDK 3
-
-// Mantle
-#define COCOAPODS_POD_AVAILABLE_Mantle
-#define COCOAPODS_VERSION_MAJOR_Mantle 1
-#define COCOAPODS_VERSION_MINOR_Mantle 2
-#define COCOAPODS_VERSION_PATCH_Mantle 0
-
-// Mantle/extobjc
-#define COCOAPODS_POD_AVAILABLE_Mantle_extobjc
-#define COCOAPODS_VERSION_MAJOR_Mantle_extobjc 1
-#define COCOAPODS_VERSION_MINOR_Mantle_extobjc 2
-#define COCOAPODS_VERSION_PATCH_Mantle_extobjc 0
 
 // Masonry
 #define COCOAPODS_POD_AVAILABLE_Masonry

@@ -10,12 +10,13 @@ target 'AcaciaKit' do
     pod 'TestFlightSDK'
     pod 'Facebook-iOS-SDK', :inhibit_warnings => true
    
-    pod 'Mantle'
+    #pod 'Mantle'
     pod 'AFNetworking'
     pod 'AFUrbanAirshipClient', :inhibit_warnings => true
     pod 'Masonry'
     pod 'CocoaLumberjack'
     pod 'CrashlyticsLumberjack'
+    pod 'DCIntrospect-ARC', :inhibit_warnings => true
 
     pod 'OAuthCore'
     pod 'iPhoneContacts'

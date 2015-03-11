@@ -1,1 +1,9 @@
-../../Tapstream/objc/Core/TSLogLevel.h
+#pragma once
+
+typedef enum _TSLoggingLevel
+{
+	kTSLoggingInfo = 0,
+	kTSLoggingWarn,
+	kTSLoggingError
+
+} TSLoggingLevel;

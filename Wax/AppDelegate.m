@@ -14,9 +14,12 @@
 #import "Flurry.h"
 #import "TSApi.h"
 #import "AFUrbanAirshipClient.h"
+#import "DCIntrospect.h"
 
 #import <AdSupport/AdSupport.h>
 #import "WaxAPIErrorManagerService.h"
+
+#import <TargetConditionals.h>
 
 //#import "Appirater.h"
 //#import "AppiraterDelegate.h" 
@@ -154,11 +157,17 @@
     [AIKErrorManager addPassThroughErrorDomain:kWaxAPIErrorDomain];
     [AIKErrorManager addErrorManagerService:[WaxAPIErrorManagerService sharedInstance]]; 
     
+    
 #ifdef DEBUG
     [AIKErrorManager enableXcodeLogger:YES];
     
     [AIKErrorManager enableAppleSystemLogger:YES];
     [AIKErrorManager addPassThroughErrorDomain:AFNetworkingErrorDomain];
+    
+#if TARGET_IPHONE_SIMULATOR
+    [[DCIntrospect sharedIntrospector] start];
+#endif
+    
 #else
 
     #ifdef TESTFLIGHT
@@ -167,10 +176,10 @@
 
         [TestFlight setDeviceIdentifier:[(id<UIDeviceHack>)[UIDevice currentDevice] uniqueIdentifier]];
 
-//        TSConfig *config = [TSConfig configWithDefaults];
-//        config.collectWifiMac = NO;
-//        config.idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-//        [TSTapstream createWithAccountName:kThirdPartyTapStreamAccountName developerSecret:kThirdPartyTapStreamAccountSecret config:config];
+        TSConfig *config = [TSConfig configWithDefaults];
+        config.collectWifiMac = NO;
+        config.idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+        [TSTapstream createWithAccountName:kThirdPartyTapStreamAccountName developerSecret:kThirdPartyTapStreamAccountSecret config:config];
     #endif
         [TestFlight takeOff:kThirdPartyTestFlightAPIKey];
         [Flurry startSession:kThirdPartyFlurryAPIKey];

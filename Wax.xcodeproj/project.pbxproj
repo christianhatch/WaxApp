@@ -78,6 +78,7 @@
 		452FAE1617408C200091F8D4 /* NSError+WaxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 452FAE1517408C200091F8D4 /* NSError+WaxKit.m */; };
 		452FAE1C1740AC030091F8D4 /* persons.json in Resources */ = {isa = PBXBuildFile; fileRef = 452FAE1B1740AC030091F8D4 /* persons.json */; };
 		452FAE1E1740AE2F0091F8D4 /* videos.json in Resources */ = {isa = PBXBuildFile; fileRef = 452FAE1D1740AE2F0091F8D4 /* videos.json */; };
+		45334C5F18391D1F003AFA6D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45334C5E18391D1F003AFA6D /* Images.xcassets */; };
 		453E44671794AA6200771312 /* TutorialParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 453E44661794AA6200771312 /* TutorialParentViewController.m */; };
 		453E44681794AA6200771312 /* TutorialParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 453E44661794AA6200771312 /* TutorialParentViewController.m */; };
 		453E446B1794AC4600771312 /* TutorialChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 453E446A1794AC4600771312 /* TutorialChildViewController.m */; };
@@ -479,6 +480,7 @@
 		452FAE1517408C200091F8D4 /* NSError+WaxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+WaxKit.m"; sourceTree = "<group>"; };
 		452FAE1B1740AC030091F8D4 /* persons.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = persons.json; sourceTree = "<group>"; };
 		452FAE1D1740AE2F0091F8D4 /* videos.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = videos.json; sourceTree = "<group>"; };
+		45334C5E18391D1F003AFA6D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		453E44651794AA6200771312 /* TutorialParentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialParentViewController.h; path = Wax/ViewControllers/TutorialParentViewController.h; sourceTree = SOURCE_ROOT; };
 		453E44661794AA6200771312 /* TutorialParentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialParentViewController.m; path = Wax/ViewControllers/TutorialParentViewController.m; sourceTree = SOURCE_ROOT; };
 		453E44691794AC4600771312 /* TutorialChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialChildViewController.h; path = Wax/ViewControllers/TutorialChildViewController.h; sourceTree = SOURCE_ROOT; };
@@ -1447,6 +1449,7 @@
 				45F7162C171F163D009097F3 /* AppDelegate.m */,
 				45F71634171F163D009097F3 /* MainStoryboard.storyboard */,
 				45B8AB0117518055009450EA /* ViewControllers */,
+				45334C5E18391D1F003AFA6D /* Images.xcassets */,
 				45F71623171F163C009097F3 /* Supporting Files */,
 			);
 			path = Wax;
@@ -1577,6 +1580,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45F71627171F163C009097F3 /* InfoPlist.strings in Resources */,
+				45334C5F18391D1F003AFA6D /* Images.xcassets in Resources */,
 				45F71636171F163D009097F3 /* MainStoryboard.storyboard in Resources */,
 				452FAE0D174089570091F8D4 /* Localizable.strings in Resources */,
 				4591002A1755979E000D8BCD /* AppledocSettings.plist in Resources */,
@@ -2194,6 +2198,8 @@
 			baseConfigurationReference = EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jayme Hoffman (QYRL79C7F7)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2236,6 +2242,8 @@
 			baseConfigurationReference = EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2382,6 +2390,8 @@
 			baseConfigurationReference = EC17540D83C04F078ACF226F /* Pods-Wax.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Acacia Interactive, Inc. (Z4M8HTC8XC)";
 				FRAMEWORK_SEARCH_PATHS = (

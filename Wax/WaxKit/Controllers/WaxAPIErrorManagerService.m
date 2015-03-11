@@ -14,6 +14,30 @@
 
 @implementation WaxAPIErrorManagerService
 
++ (WaxAPIErrorManagerService *)sharedClient{
+    static WaxAPIErrorManagerService *_sharedClient = nil;
+    static dispatch_once_t oncePredicate;
+    dispatch_once(&oncePredicate, ^{
+        _sharedClient = [[WaxAPIErrorManagerService alloc] initWithBaseURL:[NSURL URLWithString:kWaxAPIBaseURL]];
+    });
+    return _sharedClient;
+}
+- (id)initWithBaseURL:(NSURL *)url {
+    self = [super initWithBaseURL:url];
+    if (!self) {
+        return nil;
+    }
+    
+    self.callbackQueue = dispatch_queue_create("com.wax.api.jsonprocessingqueue", NULL);
+    self.allowsInvalidSSLCertificate = NO;
+    
+    [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
+    [self setDefaultHeader:@"Accept" value:@"application/json"];
+    [self setParameterEncoding:AFJSONParameterEncoding];
+    
+    return self;
+}
+
 -(void)logMessage:(NSString *)message{
     WaxAPIBugObject *bug = [WaxAPIBugObject bugForIOSWithError:nil description:message];
     [[WaxAPIErrorManagerService sharedInstance] postBugToAPI:bug];

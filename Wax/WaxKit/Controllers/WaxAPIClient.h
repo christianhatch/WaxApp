@@ -20,7 +20,7 @@
  */
 typedef void(^WaxAPIClientBlockTypeCompletionLogin)(LoginObject *loginResponse, NSError *error);
 
-/**
+/** 
  @typedef
  
  @abstract Completion block type used when returning the results of a request that returns an array of model objects
@@ -51,14 +51,6 @@ typedef void(^WaxAPIClientBlockTypeCompletionVideo)(VideoObject *video, NSError 
  @discussion This completion block type returns a valid settings object and a nil error object if successful, or a nil settings object and a valid error object if unsuccessful.
  */
 typedef void(^WaxAPIClientBlockTypeCompletionSettings)(SettingsObject *settings, NSError *error);
-
-///**
-// @typedef
-// 
-// @abstract Completion block type used when returning the results of a video metadata upload request.
-// @discussion This completion block type returns a valid login object and a nil error object if successful, or a nil login object and a valid error object if unsuccessful.
-// */
-//typedef void(^WaxAPIClientBlockTypeCompletionVideoUpload)(NSString *shareID, NSError *error);
 
 /**
  @typedef
